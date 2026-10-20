@@ -1,0 +1,3250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>한글 정통 서예 & 만능 폰트 절차적 벡터 모필 엔진 v13</title>
+<style>
+    body { font-family: 'Malgun Gothic', sans-serif; background: #f5f2eb; margin: 0; padding: 20px; color: #2b2623; display: flex; flex-direction: column; align-items: center; }
+    .header { text-align: center; margin-bottom: 16px; }
+    .header h1 { margin: 0; color: #1f1a17; font-size: 24px; letter-spacing: -0.5px; }
+    .header p { margin: 6px 0 0; color: #665e57; font-size: 13.5px; }
+    
+    .workspace { display: flex; flex-direction: column; gap: 16px; background: #fff; padding: 22px; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); max-width: 1080px; width: 100%; box-sizing: border-box; align-items: center; border: 1px solid #e6dfd3; }
+    
+    /* 서예 화선지 캔버스 영역 */
+    .canvas-wrap { width: 100%; display: flex; justify-content: center; overflow-x: auto; padding: 4px; }
+    .canvas-box { position: relative; width: 420px; height: 420px; background: #fffdf9; background-image: radial-gradient(rgba(215, 204, 184, 0.2) 1px, transparent 0); background-size: 16px 16px; border: 2.5px solid #2c2c2c; box-shadow: inset 0 0 30px rgba(0,0,0,0.03); border-radius: 4px; overflow: hidden; touch-action: none; cursor: crosshair; transition: width 0.25s ease, height 0.25s ease; flex-shrink: 0; }
+    #calligraphy-svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
+    
+    .grid-line { stroke: #e5dec9; stroke-width: 0.4; stroke-dasharray: 2,2; pointer-events: none; }
+    .cell-border { stroke: #d5ccb4; stroke-width: 0.6; fill: none; pointer-events: none; }
+    
+    /* 컨트롤 패널 */
+    .panel { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+    .top-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+    .input-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .input-group input { width: 195px; font-size: 24px; text-align: center; border: 2px solid #ccc; border-radius: 6px; padding: 6px 10px; font-weight: bold; color: #1f1f1f; background: #fff; letter-spacing: 2px; }
+    .btn { background: #2c2c2c; color: #fff; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 14.5px; font-weight: bold; transition: 0.2s; }
+    .btn:hover { background: #8b2635; }
+    .btn-accent { background: #8b2635; }
+    .btn-accent:hover { background: #661924; }
+    .btn-outline { background: #fff; color: #2c2c2c; border: 1.5px solid #2c2c2c; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.2s; }
+    .btn-outline:hover { background: #8b2635; color: #fff; border-color: #8b2635; }
+
+    /* 섹션 공통 */
+    .style-section { background: #faf8f3; border: 1px solid #e6dfd2; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .style-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .style-header strong { font-size: 15px; color: #2b2623; }
+    .style-desc { font-size: 13px; color: #8b2635; font-weight: bold; }
+    
+    /* 서체 프리셋 카드 (12종: 전통 서예 + 시스템/인쇄 폰트 통합) */
+    .style-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+    .style-card { background: #fff; border: 2px solid #dfd8c8; border-radius: 8px; padding: 8px 10px; cursor: pointer; text-align: left; transition: 0.18s; display: flex; flex-direction: column; gap: 2px; }
+    .style-card:hover { border-color: #8b2635; background: #fffdf9; }
+    .style-card.active { border-color: #8b2635; background: #fdf5f6; box-shadow: 0 2px 8px rgba(139,38,53,0.12); }
+    .style-card .sc-title { font-size: 13.5px; font-weight: bold; color: #1f1f1f; }
+    .style-card.active .sc-title { color: #8b2635; }
+    .style-card .sc-sub { font-size: 11.5px; color: #666; }
+
+    /* 폰트 프로파일 자동 추출 바 */
+    .font-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding-top: 8px; border-top: 1px dashed #e0d8c8; font-size: 13px; }
+    .font-bar-title { font-weight: bold; color: #4a3f35; }
+    .font-bar select { padding: 6px 10px; border: 1.5px solid #ccc; border-radius: 6px; font-size: 13px; background: #fff; font-weight: bold; color: #222; }
+    .file-label { display: inline-flex; align-items: center; gap: 6px; background: #2c2c2c; color: #fff; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 12.5px; font-weight: bold; transition: 0.2s; }
+    .file-label:hover { background: #8b2635; }
+    .file-label input { display: none; }
+
+    /* 세부 조형 슬라이더 */
+    .custom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 10px 16px; padding-top: 8px; border-top: 1px dashed #e0d8c8; }
+    .slider-item { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #333; }
+    .slider-label { display: flex; justify-content: space-between; font-weight: bold; }
+    .slider-label span:last-child { color: #8b2635; font-family: monospace; font-size: 12.5px; }
+    .slider-item input[type="range"] { width: 100%; accent-color: #8b2635; cursor: pointer; margin: 0; }
+    .slider-item select { padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; background: #fff; color: #222; font-weight: bold; }
+
+    .preset-row { display: flex; flex-direction: column; gap: 8px; }
+    .preset-btns { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 14px; }
+    .preset-btns span { font-weight: bold; color: #555; min-width: 70px; }
+    .preset-btns button { background: #eee; border: 1px solid #ddd; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; color: #333; font-weight: bold; transition: 0.15s; }
+    .preset-btns button:hover { background: #e0d8c8; border-color: #8b2635; color: #8b2635; }
+
+    .bottom-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: stretch; }
+    .status-card { flex: 1; min-width: 280px; background: #f4f1ea; padding: 14px; border-radius: 8px; border-left: 4px solid #8b2635; font-size: 14px; line-height: 1.6; color: #222; }
+    .options { display: flex; flex-direction: column; justify-content: center; gap: 8px; font-size: 14px; color: #333; background: #faf8f3; padding: 12px 16px; border-radius: 8px; border: 1px solid #e8e2d5; }
+    .options label { cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    
+    /* SVG 요소 스타일 (배경 외곽선과 먹물 레이어 100% 동일 다각형 클리핑 매칭, 두께 손실·타 획 침범 0%) */
+    .bg-brush { fill: #ebe4d6; stroke: #b5a892; stroke-width: 0.28; stroke-linejoin: round; }
+    .active-brush { fill: #151311; stroke: none; }
+    .guide-spine { fill: none; stroke: #d9534f; stroke-width: 0.65; stroke-dasharray: 2, 1.5; opacity: 0.85; pointer-events: none; }
+    .start-dot { fill: #2e8b57; stroke: #fff; stroke-width: 0.6; cursor: pointer; }
+    .start-dot.current { fill: #d9534f; r: 3.6; }
+    .stroke-num { font-size: 3.9px; fill: #fff; font-weight: bold; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🖌️ 한글 정통 서예 & 만능 폰트 절차적 벡터 모필 엔진 v13</h1>
+    <p>전절 모서리 자기교차 제거 · T자/모서리 장봉 접필(타 외곽선 침범 0%) · 획별 외곽선 클리핑 100% 정밀 채움 엔진</p>
+</div>
+
+<div class="workspace">
+    <!-- 화선지 캔버스 (순수 절차적 벡터 SVG) -->
+    <div class="canvas-wrap">
+        <div class="canvas-box" id="canvas-box">
+            <canvas id="glyph-canvas" style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;"></canvas>
+            <svg id="calligraphy-svg" viewBox="0 0 200 100" width="100%" height="100%">
+                <defs>
+                    <filter id="dry-brush-filter" x="-5%" y="-5%" width="110%" height="110%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" result="noise"/>
+                        <feDisplacementMap id="fe-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+                    </filter>
+                    <g id="stroke-clip-defs"></g>
+                </defs>
+                <g id="layer-grid"></g>    <!-- 화선지 칸별 격자선 레이어 -->
+                <g id="layer-bg"></g>      <!-- 절차적 벡터 교본(本) 레이어 -->
+                <g id="layer-active"></g>  <!-- 절차적 벡터 먹물 레이어 (획별 완전 독립) -->
+                <g id="layer-guide"></g>   <!-- 중심 유도선 및 시작점 레이어 -->
+            </svg>
+        </div>
+    </div>
+
+    <!-- 하단 제어판 -->
+    <div class="panel">
+        <!-- 1. 단어 입력 및 실행 버튼 -->
+        <div class="top-controls">
+            <div class="input-group">
+                <input type="text" id="char-input" value="한글" maxlength="6" placeholder="글자/단어 입력" onkeydown="if(event.key==='Enter') Engine.loadText(this.value)" />
+                <button class="btn" onclick="Engine.loadText(document.getElementById('char-input').value)">글자/단어 생성</button>
+                <button class="btn btn-accent" onclick="Engine.playDemo()">▶ 획순 시범 쓰기</button>
+                <button class="btn" onclick="Engine.resetPractice()">🧹 지우기</button>
+            </div>
+        </div>
+
+        <!-- 2. 통합 절차적 벡터 서체 & 만능 폰트 프로파일 패널 -->
+        <div class="style-section">
+            <div class="style-header">
+                <strong>🎨 한글 서체 및 폰트 스타일 선택 (서체별 고유 골격·운필법·기필/전절/수필 조형이 절차적으로 즉시 재합성됩니다)</strong>
+                <span class="style-desc" id="style-desc-text">정통 궁서체: 45° 역입 기필(逆入起筆)과 중봉 탄력, 전절 돈필(頓筆), 예리한 침필(鍼筆)·발필(拔筆)의 정격 궁체</span>
+            </div>
+
+            <!-- 12종 서체 프리셋 카드 -->
+            <div class="style-cards" id="style-cards">
+                <button class="style-card active" data-style="gungseo" onclick="Engine.applyStylePreset('gungseo')">
+                    <span class="sc-title" style="font-family:'궁서','Gungsuh',serif;">정통 궁서체 (宮書體)</span>
+                    <span class="sc-sub">45° 역입 기필 · 전절 돈필 · 침필</span>
+                </button>
+                <button class="style-card" data-style="batang" onclick="Engine.applyStylePreset('batang')">
+                    <span class="sc-title" style="font-family:'바탕','Batang',serif;">바탕·명조체 (Batang)</span>
+                    <span class="sc-sub">가로 극세·세로 태획 · 삼각 세리프</span>
+                </button>
+                <button class="style-card" data-style="malgun" onclick="Engine.applyStylePreset('malgun')">
+                    <span class="sc-title" style="font-family:'맑은 고딕','Malgun Gothic',sans-serif;">맑은 고딕 (Malgun)</span>
+                    <span class="sc-sub">완전 수평·수직 직교 · 균일 방필</span>
+                </button>
+                <button class="style-card" data-style="gulim" onclick="Engine.applyStylePreset('gulim')">
+                    <span class="sc-title" style="font-family:'굴림','Gulim',sans-serif;">굴림체 (Gulim)</span>
+                    <span class="sc-sub">둥근 모서리 · 균일 굵기 원필</span>
+                </button>
+                <button class="style-card" data-style="dotum" onclick="Engine.applyStylePreset('dotum')">
+                    <span class="sc-title" style="font-family:'돋움','Dotum',sans-serif;">돋움체 (Dotum)</span>
+                    <span class="sc-sub">직각 칼마감 · 강직한 고딕 골격</span>
+                </button>
+                <button class="style-card" data-style="panbon" onclick="Engine.applyStylePreset('panbon')">
+                    <span class="sc-title">판본체 (훈민정음체)</span>
+                    <span class="sc-sub">기하학적 좌우 대칭 · 중봉 원필</span>
+                </button>
+                <button class="style-card" data-style="haengseo" onclick="Engine.applyStylePreset('haengseo')">
+                    <span class="sc-title">행서·흘림체 (行書體)</span>
+                    <span class="sc-sub">강한 우상향 필세 · 곡선 연면체</span>
+                </button>
+                <button class="style-card" data-style="bongseo" onclick="Engine.applyStylePreset('bongseo')">
+                    <span class="sc-title">봉서체 (중후한 큰붓)</span>
+                    <span class="sc-sub">중후한 태필 · 묵직한 돈필 매듭</span>
+                </button>
+                <button class="style-card" data-style="calli" onclick="Engine.applyStylePreset('calli')">
+                    <span class="sc-title">현대 캘리그라피</span>
+                    <span class="sc-sub">극단적 필압 대비 · 거친 비백 갈필</span>
+                </button>
+                <button class="style-card" data-style="yetche" onclick="Engine.applyStylePreset('yetche')">
+                    <span class="sc-title" style="font-family:'휴먼옛체','궁서',serif;">전통 옛체 · 필사체</span>
+                    <span class="sc-sub">강한 사선 편필 · 고전 판각 장식</span>
+                </button>
+                <button class="style-card" data-style="sepil" onclick="Engine.applyStylePreset('sepil')">
+                    <span class="sc-title">세필 정자체 (細筆)</span>
+                    <span class="sc-sub">세밀한 궁체 붓끝 · 단아한 서간체</span>
+                </button>
+                <button class="style-card" data-style="pen" onclick="Engine.applyStylePreset('pen')">
+                    <span class="sc-title">만년필 · 손글씨 펜체</span>
+                    <span class="sc-sub">납작한 펜촉 각도 · 날렵한 침필</span>
+                </button>
+            </div>
+
+            <!-- 내 PC 폰트 / TTF 파일에서 절차적 벡터 파라미터 자동 추출 바 -->
+            <div class="font-bar">
+                <span class="font-bar-title">🔤 내 PC 폰트 → 절차적 벡터 스타일 자동 추출:</span>
+                <label class="file-label">
+                    📂 폰트 파일(.ttf/.otf/.woff) 불러오기
+                    <input type="file" id="font-file-input" accept=".ttf,.otf,.woff,.woff2" onchange="Engine.onUploadFontFile(this)" />
+                </label>
+
+                <button class="btn-outline" onclick="Engine.detectLocalSystemFonts()">🔍 PC 설치 폰트 검색</button>
+
+                <select id="system-font-select" onchange="Engine.onSelectSystemFont(this.value)" style="min-width:210px;">
+                    <option value="">-- 설치된 폰트에서 벡터 조형 추출 --</option>
+                    <option value='"궁서", "Gungsuh"'>궁서 (Gungsuh)</option>
+                    <option value='"궁서체", "GungsuhChe"'>궁서체 (GungsuhChe)</option>
+                    <option value='"바탕", "Batang"'>바탕 (Batang)</option>
+                    <option value='"맑은 고딕", "Malgun Gothic"'>맑은 고딕 (Malgun Gothic)</option>
+                    <option value='"굴림", "Gulim"'>굴림 (Gulim)</option>
+                    <option value='"돋움", "Dotum"'>돋움 (Dotum)</option>
+                    <option value='"휴먼옛체"'>휴먼옛체</option>
+                    <option value='"휴먼명조"'>휴먼명조</option>
+                    <option value='"휴먼고딕"'>휴먼고딕</option>
+                    <option value='"휴먼편지체"'>휴먼편지체</option>
+                    <option value='"휴먼매직체"'>휴먼매직체</option>
+                    <option value='"HY궁서B"'>HY궁서B</option>
+                    <option value='"HY견명조"'>HY견명조</option>
+                    <option value='"HY견고딕"'>HY견고딕</option>
+                    <option value='"나눔고딕", "NanumGothic"'>나눔고딕 (NanumGothic)</option>
+                    <option value='"나눔명조", "NanumMyeongjo"'>나눔명조 (NanumMyeongjo)</option>
+                    <option value='"나눔손글씨 붓", "Nanum Brush Script"'>나눔손글씨 붓</option>
+                    <option value='"나눔손글씨 펜", "Nanum Pen Script"'>나눔손글씨 펜</option>
+                </select>
+            </div>
+
+            <!-- 10종 절차적 벡터 모필 조형 슬라이더 -->
+            <div class="custom-grid">
+                <div class="slider-item">
+                    <div class="slider-label"><span>획 굵기 (모필 반경)</span><span id="val-radius">3.30</span></div>
+                    <input type="range" id="sl-radius" min="1.3" max="5.2" step="0.05" value="3.30" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>붓날 각도 (편필 각도)</span><span id="val-angle">-44°</span></div>
+                    <input type="range" id="sl-angle" min="-75" max="45" step="1" value="-44" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>필압 대비 (기필·중봉 대비)</span><span id="val-contrast">1.35</span></div>
+                    <input type="range" id="sl-contrast" min="0.0" max="1.9" step="0.05" value="1.35" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>가로·세로 굵기 비 (명조·고딕)</span><span id="val-hv">0.84</span></div>
+                    <input type="range" id="sl-hv" min="0.45" max="1.45" step="0.02" value="0.84" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>골격 탄력·유려함 (직선↔궁체곡선)</span><span id="val-arch">1.00</span></div>
+                    <input type="range" id="sl-arch" min="0.0" max="1.6" step="0.05" value="1.00" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>우상향 필세 (가로획 결구 각도)</span><span id="val-tilt">1.00</span></div>
+                    <input type="range" id="sl-tilt" min="0.0" max="2.0" step="0.05" value="1.00" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>글자 기울기 (Slant)</span><span id="val-slant">0.00</span></div>
+                    <input type="range" id="sl-slant" min="-0.22" max="0.22" step="0.01" value="0.00" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>갈필(거친 붓결) 질감</span><span id="val-rough">0.0</span></div>
+                    <input type="range" id="sl-rough" min="0.0" max="2.5" step="0.1" value="0.0" oninput="Engine.onCustomParamChange()" />
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>운필 마감 법칙 (기필·전절·수필)</span></div>
+                    <select id="sel-cap" onchange="Engine.onCustomParamChange()">
+                        <option value="gungseo" selected>정통 궁서체 (역입기필 · 전절돈필 · 침필)</option>
+                        <option value="bongseo">봉서체 태필 (역입기필 · 중후한 회봉 돈필)</option>
+                        <option value="serif">바탕·명조체 (삼각 세리프 돌기 · 직선 기둥)</option>
+                        <option value="square">맑은고딕·돋움체 (직각 방필 · 균일 무필압)</option>
+                        <option value="round">굴림·판본체 (원필 둥근 끝 · 중봉 대칭)</option>
+                        <option value="sharp">행서·캘리·펜체 (예리한 노출봉 · 날렵한 발필)</option>
+                    </select>
+                </div>
+                <div class="slider-item">
+                    <div class="slider-label"><span>묵색 (먹물 농담)</span></div>
+                    <select id="sel-ink" onchange="Engine.onCustomParamChange()">
+                        <option value="#151311" selected>농묵 (깊고 진한 전통 먹색)</option>
+                        <option value="#36322e">중묵 (은은한 다갈색 먹빛)</option>
+                        <option value="#1b2838">청묵 (푸른빛이 감도는 먹색)</option>
+                        <option value="#7a1c24">주묵 (전통 인주/단청 주홍빛)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 추천 단어 및 단일 글자 프리셋 -->
+        <div class="preset-row">
+            <div class="preset-btns">
+                <span>추천 단어:</span>
+                <button onclick="Engine.loadText('한글')">한글</button>
+                <button onclick="Engine.loadText('궁서체')">궁서체</button>
+                <button onclick="Engine.loadText('서예')">서예</button>
+                <button onclick="Engine.loadText('대한민국')">대한민국</button>
+                <button onclick="Engine.loadText('꽃길')">꽃길</button>
+                <button onclick="Engine.loadText('아름다운')">아름다운</button>
+                <button onclick="Engine.loadText('훈민정음')">훈민정음</button>
+            </div>
+            <div class="preset-btns">
+                <span>단일 글자:</span>
+                <button onclick="Engine.loadText('한')">한</button>
+                <button onclick="Engine.loadText('글')">글</button>
+                <button onclick="Engine.loadText('궁')">궁</button>
+                <button onclick="Engine.loadText('서')">서</button>
+                <button onclick="Engine.loadText('영')">영</button>
+                <button onclick="Engine.loadText('꽃')">꽃</button>
+                <button onclick="Engine.loadText('삶')">삶</button>
+            </div>
+        </div>
+
+        <!-- 4. 상태 표시 및 레이어 옵션 -->
+        <div class="bottom-row">
+            <div class="status-card" id="status-box">
+                <div><strong>분석 텍스트:</strong> <span id="info-char">한글</span> (<span id="info-unicode">U+D55C, U+AE00</span>)</div>
+                <div><strong>자모 분해:</strong> <span id="info-jamo">[한: ㅎ+ㅏ+ㄴ] [글: ㄱ+ㅡ+ㄹ]</span></div>
+                <div><strong>총 획수:</strong> <span id="info-strokes">0</span>획</div>
+                <div style="margin-top:6px; color:#8b2635; font-weight:bold;" id="info-msg">
+                    ▶ [획순 시범 쓰기]를 누르거나 녹색 시작점에서 마우스로 따라 그어보세요.
+                </div>
+            </div>
+
+            <div class="options">
+                <label><input type="checkbox" id="chk-bg" checked onchange="Engine.toggleLayers()"> 연한 서예 교본 본(本) 표시</label>
+                <label><input type="checkbox" id="chk-guide" checked onchange="Engine.toggleLayers()"> 획순 중심 유도선 및 번호 표시</label>
+                <label><input type="checkbox" id="chk-glyph" checked onchange="Engine.onGlyphToggle()"> 선택 폰트의 실제 글자 외곽선 사용 (폰트 100% 일치)</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * ============================================================================
+ * [원인 분석 및 절차적 해결 아키텍처 v12]
+ * ----------------------------------------------------------------------------
+ * 왜 기존에는 서체 스타일(특히 정통 궁서체 vs 바탕체 vs 고딕체)이 제대로 표현되지 않았는가?
+ *
+ * [원인 1] 모든 서체가 동일한 '궁서풍 휜 골격(JAMO_DB)'을 그대로 공유했음:
+ *   - 고딕체/돋움체/바탕체/판본체를 선택해도 가로획이 6°씩 기울어져 있고 세로획이 휘어 있어,
+ *     고딕·명조는 반듯하지 않고 궁서체와 구분이 가지 않았음.
+ * [원인 2] 굴절획(ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅋ, ㅌ)을 하나의 부드러운 Catmull-Rom 곡선으로 통째로 뭉갰음:
+ *   - 꺾이는 모서리(전절: 轉折)에서 붓을 다시 세워 누르는 '돈필(頓筆) 어깨 각'이 사라지고
+ *     둥근 철사처럼 뭉툭하게 이어졌음.
+ * [원인 3] 대칭 오프셋(x ± ox)으로만 두께를 줬음:
+ *   - 실제 궁서체의 핵심 조형은 45° 사선 역입 기필(逆入起筆) 머리, 가로획 허리가 잘록하게 들어가는 중봉 탄력,
+ *     세로 기둥 끝을 바늘처럼 빼는 침필(鍼筆), 삐침(ㅅ,ㅈ,ㅊ,ㄱ) 끝의 예리한 발필(拔筆) 등
+ *     "좌·우 외곽선의 비대칭 궤적"에서 나오는데, 기존엔 단순 대칭 두께만 바꿨음.
+ *
+ * [절차적 3단계 해결 파이프라인]
+ *   Stage 1 (골격 변환기 `transformStrokeSkeleton`):
+ *     - `archCurve`(골격 곡률)와 `upwardTilt`(가로획 우상향 필세) 파라미터에 따라,
+ *       고딕·돋움·판본·바탕에서는 완전 수평·수직 직교 골격으로 펴고,
+ *       궁서·행서·캘리그라피에서는 탄력 있는 궁체 곡률과 우상향 필세를 절차적으로 부여.
+ *   Stage 2 (굴절획 분절 보간기 `buildProceduralStrokeSegments`):
+ *     - 획 내 꺾임 각도가 45° 이상인 전절(Corner) 지점을 자동 감지하여 구간을 분리 보간하고,
+ *       각 구간별 진행률 u ∈ [0, 1]과 획 종류(가로/세로/삐침/점/원/꺾임)를 정밀 태깅.
+ *   Stage 3 (비대칭 모필 외곽선 합성기 `buildBrushPolygonPath`):
+ *     - 서체 법칙(`capStyle`: gungseo / bongseo / serif / square / round / sharp)에 맞춰
+ *       기필(역입 삼각 머리 vs 명조 세리프 vs 직각 방필), 행필(중봉 허리 탄력),
+ *       전절(돈필 어깨 돌출), 수필(침필·발필·원필 회봉)을 정확한 다각형으로 생성.
+ * ============================================================================
+ */
+
+const GLYPH_FONT_MAP = {
+    gungseo: '"궁서","Gungsuh","GungsuhChe",serif',
+    batang: '"바탕","Batang",serif',
+    malgun: '"맑은 고딕","Malgun Gothic",sans-serif',
+    gulim: '"굴림","Gulim",sans-serif',
+    dotum: '"돋움","Dotum",sans-serif',
+    yetche: '"휴먼옛체","궁서","Gungsuh",serif',
+    sepil: '"궁서","Gungsuh",serif'
+};
+
+const STYLE_PRESETS = {
+    gungseo: {
+        name: '정통 궁서체 (宮書體)',
+        desc: '정통 궁서체: 45° 사선 역입 기필과 잘록한 중봉 탄력, 전절 돈필 어깨, 예리한 침필·발필의 궁중 모필 서체',
+        baseRadius: 3.30, nibAngleDeg: -44, pressureContrast: 1.35, hvRatio: 0.84, archCurve: 1.00, upwardTilt: 1.00, aspectX: 1.00, slant: 0.00, roughness: 0.0, capStyle: 'gungseo', inkColor: '#151311'
+    },
+    batang: {
+        name: '바탕·명조체 (Batang)',
+        desc: '바탕·명조체: 수평·수직의 반듯한 골격 위에 가로획은 극세(極細), 세로획은 굵게 대비시키고 삼각 세리프 돌기를 세운 인쇄 명조체',
+        baseRadius: 2.95, nibAngleDeg: -38, pressureContrast: 0.55, hvRatio: 0.50, archCurve: 0.15, upwardTilt: 0.00, aspectX: 0.98, slant: 0.00, roughness: 0.0, capStyle: 'serif', inkColor: '#151311'
+    },
+    malgun: {
+        name: '맑은 고딕 (Malgun Gothic)',
+        desc: '맑은 고딕: 기울기나 필압 변화 없이 완전 수평·수직 직교 골격과 직각 방필 마감으로 떨어지는 현대 본문 고딕체',
+        baseRadius: 3.05, nibAngleDeg: 0, pressureContrast: 0.00, hvRatio: 0.94, archCurve: 0.00, upwardTilt: 0.00, aspectX: 0.98, slant: 0.00, roughness: 0.0, capStyle: 'square', inkColor: '#151311'
+    },
+    gulim: {
+        name: '굴림체 (Gulim)',
+        desc: '굴림체: 반듯한 수평·수직 골격과 균일한 두께, 부드러운 반원형 끝마감(원필)을 지닌 산세리프 서체',
+        baseRadius: 2.90, nibAngleDeg: 0, pressureContrast: 0.00, hvRatio: 0.98, archCurve: 0.10, upwardTilt: 0.00, aspectX: 1.04, slant: 0.00, roughness: 0.0, capStyle: 'round', inkColor: '#151311'
+    },
+    dotum: {
+        name: '돋움체 (Dotum)',
+        desc: '돋움체: 직선적이고 강직한 골격과 칼로 자른 듯한 직각 마감, 시원한 자폭을 지닌 정통 고딕 서체',
+        baseRadius: 3.25, nibAngleDeg: 0, pressureContrast: 0.00, hvRatio: 0.90, archCurve: 0.00, upwardTilt: 0.00, aspectX: 1.02, slant: 0.00, roughness: 0.0, capStyle: 'square', inkColor: '#151311'
+    },
+    panbon: {
+        name: '판본체 (훈민정음 해례본체)',
+        desc: '판본체(고체): 훈민정음 해례본의 기하학적 수평·수직 대칭과 필압 변화 없는 둥근 중봉 원필(圓筆) 서체',
+        baseRadius: 3.55, nibAngleDeg: 0, pressureContrast: 0.00, hvRatio: 1.00, archCurve: 0.00, upwardTilt: 0.00, aspectX: 1.06, slant: 0.00, roughness: 0.0, capStyle: 'round', inkColor: '#151311'
+    },
+    haengseo: {
+        name: '행서·흘림체 (行書體)',
+        desc: '행서·흘림체: 강한 우상향 필세와 유려한 곡선 탄력, 날렵한 노출봉 침필이 살아있는 흘림 모필 서체',
+        baseRadius: 2.95, nibAngleDeg: -34, pressureContrast: 1.55, hvRatio: 0.88, archCurve: 1.45, upwardTilt: 1.65, aspectX: 0.95, slant: -0.13, roughness: 0.2, capStyle: 'sharp', inkColor: '#1b2838'
+    },
+    bongseo: {
+        name: '봉서체 (중후한 큰붓)',
+        desc: '봉서체: 먹을 듬뿍 머금은 큰 붓으로 묵직하게 눌러 써서 획 끝을 가늘게 빼지 않고 도톰한 회봉 돈필(回鋒頓筆)로 맺는 서체',
+        baseRadius: 4.25, nibAngleDeg: -45, pressureContrast: 0.72, hvRatio: 0.95, archCurve: 0.85, upwardTilt: 0.80, aspectX: 1.02, slant: 0.00, roughness: 0.0, capStyle: 'bongseo', inkColor: '#151311'
+    },
+    calli: {
+        name: '현대 캘리그라피',
+        desc: '현대 캘리그라피: 극단적인 굵기 대비와 역동적인 곡률, 거친 갈필(비백) 붓결 질감을 강조한 예술 서체',
+        baseRadius: 3.50, nibAngleDeg: -52, pressureContrast: 1.80, hvRatio: 0.78, archCurve: 1.50, upwardTilt: 1.50, aspectX: 0.94, slant: -0.09, roughness: 1.4, capStyle: 'sharp', inkColor: '#36322e'
+    },
+    yetche: {
+        name: '전통 옛체 · 필사체',
+        desc: '전통 옛체: 가로획이 오히려 두텁고 기필의 사선 장식미가 강렬한 고전 목판·필사풍 서체',
+        baseRadius: 3.40, nibAngleDeg: -56, pressureContrast: 1.30, hvRatio: 1.28, archCurve: 0.85, upwardTilt: 1.20, aspectX: 1.06, slant: -0.03, roughness: 0.3, capStyle: 'gungseo', inkColor: '#151311'
+    },
+    sepil: {
+        name: '세필 정자체 (細筆)',
+        desc: '세필 정자체: 가는 붓끝으로 궁체 법도를 단정하고 정갈하게 지켜 쓰는 전통 서간(편지) 서체',
+        baseRadius: 2.00, nibAngleDeg: -42, pressureContrast: 1.20, hvRatio: 0.86, archCurve: 0.85, upwardTilt: 0.85, aspectX: 0.96, slant: -0.03, roughness: 0.0, capStyle: 'gungseo', inkColor: '#151311'
+    },
+    pen: {
+        name: '만년필 · 손글씨 펜체',
+        desc: '만년필 펜체: 경쾌한 우상향 리듬과 날렵한 펜촉 마감을 지닌 현대 손글씨 펜 서체',
+        baseRadius: 1.75, nibAngleDeg: -28, pressureContrast: 0.75, hvRatio: 0.90, archCurve: 1.15, upwardTilt: 1.25, aspectX: 0.92, slant: -0.10, roughness: 0.0, capStyle: 'sharp', inkColor: '#1b2838'
+    }
+};
+
+/**
+ * 1. 자소별 정규화(0.0 ~ 1.0) 모필 스켈레톤 데이터베이스 (ㅇ/ㅎ 반시계방향 운필 준수)
+ * - 굴절획(ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅋ, ㅌ)의 모서리 전절점(Corner Vertex)이 명확히 정의되어 있습니다.
+ */
+const JAMO_DB = {
+    'ㄱ': [ [[0.12,0.22,1.15], [0.48,0.17,0.85], [0.82,0.14,1.30], [0.70,0.54,0.92], [0.54,0.90,0.18]] ],
+    'ㄴ': [ [[0.18,0.12,1.22], [0.20,0.50,0.92], [0.24,0.82,1.15], [0.56,0.84,0.88], [0.88,0.79,1.22]] ],
+    'ㄷ': [
+        [[0.16,0.18,1.18], [0.50,0.15,0.85], [0.86,0.13,1.26]],
+        [[0.18,0.18,1.20], [0.18,0.52,0.90], [0.20,0.84,1.18], [0.54,0.85,0.88], [0.89,0.80,1.24]]
+    ],
+    'ㄹ': [
+        [[0.16,0.16,1.12], [0.49,0.13,0.85], [0.82,0.11,1.26], [0.75,0.44,0.96]],
+        [[0.19,0.46,1.10], [0.48,0.44,0.85], [0.75,0.43,1.15]],
+        [[0.19,0.46,1.15], [0.22,0.83,1.15], [0.54,0.85,0.88], [0.86,0.80,1.24]]
+    ],
+    'ㅁ': [
+        [[0.18,0.18,1.22], [0.19,0.52,0.92], [0.21,0.84,1.02]],
+        [[0.18,0.18,1.08], [0.52,0.15,0.85], [0.83,0.13,1.30], [0.79,0.52,0.94], [0.76,0.83,1.12]],
+        [[0.21,0.83,1.05], [0.50,0.82,0.88], [0.78,0.80,1.20]]
+    ],
+    'ㅂ': [
+        [[0.18,0.14,1.24], [0.19,0.52,0.92], [0.21,0.85,1.02]],
+        [[0.80,0.13,1.26], [0.79,0.52,0.94], [0.76,0.85,1.10]],
+        [[0.19,0.48,1.02], [0.50,0.46,0.85], [0.78,0.45,1.10]],
+        [[0.21,0.84,1.05], [0.50,0.82,0.88], [0.77,0.81,1.20]]
+    ],
+    'ㅅ': [
+        [[0.49,0.11,1.30], [0.54,0.28,1.12], [0.41,0.52,0.92], [0.25,0.74,0.60], [0.08,0.91,0.14]],
+        [[0.45,0.52,0.55], [0.67,0.72,1.02], [0.87,0.86,1.28]]
+    ],
+    'ㅇ': [
+        [[0.50,0.16,0.84], [0.24,0.26,1.04], [0.16,0.52,1.18], [0.25,0.79,1.00], [0.50,0.86,0.84], [0.75,0.79,1.04], [0.84,0.52,1.18], [0.76,0.26,1.04], [0.50,0.16,0.84]]
+    ],
+    'ㅈ': [
+        [[0.15,0.19,1.16], [0.50,0.15,0.85], [0.85,0.13,1.25]],
+        [[0.48,0.18,1.15], [0.54,0.34,1.10], [0.41,0.55,0.90], [0.25,0.77,0.58], [0.08,0.91,0.14]],
+        [[0.45,0.56,0.55], [0.68,0.75,1.02], [0.88,0.88,1.28]]
+    ],
+    'ㅊ': [
+        [[0.40,0.03,0.55], [0.50,0.07,1.02], [0.59,0.11,1.22]],
+        [[0.14,0.28,1.16], [0.50,0.24,0.85], [0.86,0.21,1.25]],
+        [[0.48,0.27,1.12], [0.54,0.42,1.08], [0.41,0.61,0.88], [0.25,0.80,0.56], [0.08,0.93,0.14]],
+        [[0.45,0.61,0.55], [0.68,0.78,1.02], [0.88,0.90,1.28]]
+    ],
+    'ㅋ': [
+        [[0.13,0.19,1.15], [0.48,0.15,0.85], [0.84,0.12,1.30], [0.73,0.54,0.94], [0.58,0.90,0.18]],
+        [[0.16,0.49,1.12], [0.46,0.46,0.85], [0.74,0.43,1.16]]
+    ],
+    'ㅌ': [
+        [[0.17,0.17,1.16], [0.50,0.14,0.85], [0.85,0.12,1.25]],
+        [[0.18,0.48,1.10], [0.48,0.46,0.85], [0.78,0.44,1.16]],
+        [[0.18,0.17,1.20], [0.18,0.52,0.90], [0.20,0.84,1.18], [0.54,0.85,0.88], [0.89,0.80,1.25]]
+    ],
+    'ㅍ': [
+        [[0.13,0.19,1.16], [0.50,0.16,0.86], [0.86,0.13,1.25]],
+        [[0.32,0.18,1.18], [0.31,0.52,0.90], [0.30,0.83,0.98]],
+        [[0.67,0.16,1.18], [0.65,0.52,0.90], [0.64,0.81,0.98]],
+        [[0.10,0.84,1.16], [0.50,0.82,0.86], [0.89,0.79,1.26]]
+    ],
+    'ㅎ': [
+        [[0.40,0.03,0.55], [0.50,0.07,1.02], [0.59,0.11,1.22]],
+        [[0.08,0.29,1.16], [0.50,0.25,0.84], [0.91,0.22,1.26]],
+        [[0.50,0.48,0.82], [0.28,0.53,1.02], [0.21,0.68,1.14], [0.28,0.83,0.98], [0.50,0.89,0.82], [0.72,0.83,1.02], [0.79,0.68,1.14], [0.72,0.53,1.02], [0.50,0.48,0.82]]
+    ],
+    'ㅏ': [
+        [[0.35,0.06,1.28], [0.36,0.48,0.92], [0.35,0.78,0.98], [0.34,0.95,0.18]],
+        [[0.36,0.43,0.88], [0.62,0.41,0.90], [0.86,0.39,1.24]]
+    ],
+    'ㅑ': [
+        [[0.35,0.06,1.28], [0.36,0.48,0.92], [0.35,0.78,0.98], [0.34,0.95,0.18]],
+        [[0.36,0.33,0.88], [0.61,0.31,0.90], [0.84,0.29,1.22]],
+        [[0.36,0.55,0.88], [0.62,0.53,0.90], [0.86,0.51,1.24]]
+    ],
+    'ㅓ': [
+        [[0.10,0.45,1.18], [0.36,0.43,0.90], [0.62,0.42,0.92]],
+        [[0.62,0.06,1.28], [0.63,0.48,0.92], [0.62,0.78,0.98], [0.61,0.95,0.18]]
+    ],
+    'ㅕ': [
+        [[0.10,0.34,1.16], [0.36,0.32,0.88], [0.62,0.31,0.92]],
+        [[0.10,0.56,1.16], [0.36,0.54,0.88], [0.62,0.53,0.92]],
+        [[0.62,0.06,1.28], [0.63,0.48,0.92], [0.62,0.78,0.98], [0.61,0.95,0.18]]
+    ],
+    'ㅗ': [
+        [[0.49,0.09,1.26], [0.50,0.44,0.98], [0.50,0.74,0.92]],
+        [[0.07,0.77,1.18], [0.50,0.73,0.84], [0.92,0.70,1.28]]
+    ],
+    'ㅛ': [
+        [[0.35,0.14,1.24], [0.36,0.44,0.96], [0.36,0.69,0.90]],
+        [[0.65,0.13,1.24], [0.65,0.44,0.96], [0.64,0.68,0.90]],
+        [[0.07,0.72,1.18], [0.50,0.68,0.84], [0.92,0.65,1.28]]
+    ],
+    'ㅜ': [
+        [[0.07,0.24,1.18], [0.50,0.20,0.84], [0.92,0.17,1.28]],
+        [[0.49,0.21,1.20], [0.50,0.60,0.92], [0.49,0.94,0.18]]
+    ],
+    'ㅠ': [
+        [[0.07,0.24,1.18], [0.50,0.20,0.84], [0.92,0.17,1.28]],
+        [[0.35,0.22,1.18], [0.36,0.58,0.92], [0.35,0.90,0.20]],
+        [[0.65,0.20,1.18], [0.66,0.58,0.92], [0.65,0.93,0.18]]
+    ],
+    'ㅡ': [
+        [[0.07,0.50,1.20], [0.50,0.46,0.84], [0.92,0.43,1.28]]
+    ],
+    'ㅣ': [
+        [[0.49,0.06,1.28], [0.50,0.48,0.92], [0.49,0.78,0.98], [0.48,0.95,0.18]]
+    ],
+    'ㅐ': [
+        [[0.25,0.08,1.24], [0.26,0.52,0.90], [0.25,0.91,0.20]],
+        [[0.26,0.45,0.90], [0.46,0.44,0.86], [0.67,0.43,0.98]],
+        [[0.67,0.06,1.28], [0.68,0.50,0.92], [0.67,0.79,0.98], [0.66,0.95,0.18]]
+    ],
+    'ㅒ': [
+        [[0.25,0.08,1.24], [0.26,0.52,0.90], [0.25,0.91,0.20]],
+        [[0.26,0.34,0.90], [0.46,0.33,0.86], [0.67,0.32,0.98]],
+        [[0.26,0.56,0.90], [0.46,0.55,0.86], [0.67,0.54,0.98]],
+        [[0.67,0.06,1.28], [0.68,0.50,0.92], [0.67,0.79,0.98], [0.66,0.95,0.18]]
+    ],
+    'ㅔ': [
+        [[0.08,0.45,1.16], [0.26,0.44,0.88], [0.43,0.43,0.92]],
+        [[0.43,0.08,1.24], [0.43,0.52,0.90], [0.42,0.90,0.20]],
+        [[0.74,0.06,1.28], [0.75,0.50,0.92], [0.74,0.79,0.98], [0.73,0.95,0.18]]
+    ],
+    'ㅖ': [
+        [[0.08,0.34,1.14], [0.26,0.33,0.88], [0.43,0.32,0.92]],
+        [[0.08,0.56,1.14], [0.26,0.55,0.88], [0.43,0.54,0.92]],
+        [[0.43,0.08,1.24], [0.43,0.52,0.90], [0.42,0.90,0.20]],
+        [[0.74,0.06,1.28], [0.75,0.50,0.92], [0.74,0.79,0.98], [0.73,0.95,0.18]]
+    ]
+};
+
+function mapSubBox(strokes, x0, y0, w, h, pScale = 0.88) {
+    return strokes.map(pts => pts.map(([x, y, p]) => [x0 + x * w, y0 + y * h, p * pScale]));
+}
+
+const DOUBLE_JAMO = {
+    'ㄲ': ['ㄱ','ㄱ'], 'ㄸ': ['ㄷ','ㄷ'], 'ㅃ': ['ㅂ','ㅂ'], 'ㅆ': ['ㅅ','ㅅ'], 'ㅉ': ['ㅈ','ㅈ'],
+    'ㄳ': ['ㄱ','ㅅ'], 'ㄵ': ['ㄴ','ㅈ'], 'ㄶ': ['ㄴ','ㅎ'], 'ㄺ': ['ㄹ','ㄱ'],
+    'ㄻ': ['ㄹ','ㅁ'], 'ㄼ': ['ㄹ','ㅂ'], 'ㄽ': ['ㄹ','ㅅ'], 'ㄾ': ['ㄹ','ㅌ'],
+    'ㄿ': ['ㄹ','ㅍ'], 'ㅀ': ['ㄹ','ㅎ'], 'ㅄ': ['ㅂ','ㅅ']
+};
+
+const COMPOUND_VOWEL = {
+    'ㅘ': ['ㅗ','ㅏ'], 'ㅙ': ['ㅗ','ㅐ'], 'ㅚ': ['ㅗ','ㅣ'],
+    'ㅝ': ['ㅜ','ㅓ'], 'ㅞ': ['ㅜ','ㅔ'], 'ㅟ': ['ㅜ','ㅣ'], 'ㅢ': ['ㅡ','ㅣ']
+};
+
+function getJamoStrokes(jamo) {
+    if (JAMO_DB[jamo]) return JAMO_DB[jamo];
+    if (DOUBLE_JAMO[jamo]) {
+        const [a, b] = DOUBLE_JAMO[jamo];
+        return [
+            ...mapSubBox(JAMO_DB[a], 0.0, 0.0, 0.48, 1.0, 0.85),
+            ...mapSubBox(JAMO_DB[b], 0.52, 0.0, 0.48, 1.0, 0.85)
+        ];
+    }
+    if (COMPOUND_VOWEL[jamo]) {
+        const [h, v] = COMPOUND_VOWEL[jamo];
+        return [
+            ...mapSubBox(JAMO_DB[h], 0.0, 0.35, 0.58, 0.55, 0.9),
+            ...mapSubBox(JAMO_DB[v], 0.52, 0.0, 0.48, 1.0, 0.95)
+        ];
+    }
+    return JAMO_DB['ㅇ'];
+}
+
+const CHO_LIST = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const JUNG_LIST = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+const JONG_LIST = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+
+const VOWEL_TYPE = {
+    'ㅏ':'V', 'ㅐ':'V', 'ㅑ':'V', 'ㅒ':'V', 'ㅓ':'V', 'ㅔ':'V', 'ㅕ':'V', 'ㅖ':'V', 'ㅣ':'V',
+    'ㅗ':'H', 'ㅛ':'H', 'ㅜ':'H', 'ㅠ':'H', 'ㅡ':'H',
+    'ㅘ':'C', 'ㅙ':'C', 'ㅚ':'C', 'ㅝ':'C', 'ㅞ':'C', 'ㅟ':'C', 'ㅢ':'C'
+};
+
+function decomposeHangul(ch) {
+    if (!ch) return null;
+    const code = ch.charCodeAt(0);
+    if (code >= 0xAC00 && code <= 0xD7A3) {
+        const offset = code - 0xAC00;
+        const cho = CHO_LIST[Math.floor(offset / 588)];
+        const jung = JUNG_LIST[Math.floor((offset % 588) / 28)];
+        const jong = JONG_LIST[offset % 28];
+        return { char: ch, code, cho, jung, jong };
+    }
+    if (JAMO_DB[ch] || DOUBLE_JAMO[ch] || COMPOUND_VOWEL[ch]) {
+        return { char: ch, code, single: ch };
+    }
+    return null;
+}
+
+function getLayoutBoxes(vType, hasJong, jongChar = '') {
+    if (!hasJong) {
+        if (vType === 'V') return { cho: [14, 18, 38, 58], jung: [52, 10, 36, 78] };
+        if (vType === 'H') return { cho: [24, 12, 52, 42], jung: [14, 54, 72, 32] };
+        return { cho: [16, 12, 40, 42], jung: [14, 12, 74, 78] };
+    } else {
+        // 초성·중성·종성 영역 분리: 종성이 있을 때 중성 세로획이 종성 영역을 침범하지 않도록 하단 경계를 정밀 제한
+        const jungH = (jongChar === 'ㄴ') ? 59 : 50;
+        if (vType === 'V') return { cho: [14, 11, 38, 42], jung: [52, 9, 34, jungH], jong: [22, 57, 52, 31] };
+        if (vType === 'H') return { cho: [25, 9, 50, 31], jung: [14, 38, 72, 19], jong: [24, 56, 52, 33] };
+        return { cho: [16, 9, 38, 32], jung: [14, 9, 72, jungH], jong: [22, 58, 52, 30] };
+    }
+}
+
+function interpolateCatmullRom(pts, segmentsPerSpan = 12) {
+    if (pts.length < 2) return pts;
+    const res = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[Math.max(0, i - 1)];
+        const p1 = pts[i];
+        const p2 = pts[i + 1];
+        const p3 = pts[Math.min(pts.length - 1, i + 2)];
+        for (let step = 0; step < segmentsPerSpan; step++) {
+            const t = step / segmentsPerSpan;
+            const t2 = t * t, t3 = t2 * t;
+            const interpolate = (idx) => 0.5 * (
+                (2 * p1[idx]) +
+                (-p0[idx] + p2[idx]) * t +
+                (2 * p0[idx] - 5 * p1[idx] + 4 * p2[idx] - p3[idx]) * t2 +
+                (-p0[idx] + 3 * p1[idx] - 3 * p2[idx] + p3[idx]) * t3
+            );
+            res.push([interpolate(0), interpolate(1), Math.max(0.08, interpolate(2))]);
+        }
+    }
+    res.push(pts[pts.length - 1]);
+    return res;
+}
+
+/**
+ * ============================================================================
+ * Stage 1 & Stage 2: 서체별 골격 변형 및 굴절획(Corner) 보간기 (v14)
+ * ============================================================================
+ */
+function buildProceduralStrokePoints(rawCtrlPts, styleParams) {
+    const n = rawCtrlPts.length;
+    if (n < 2) return rawCtrlPts;
+
+    const upwardTilt = styleParams.upwardTilt !== undefined ? styleParams.upwardTilt : 1.0;
+    const archCurve = styleParams.archCurve !== undefined ? styleParams.archCurve : 1.0;
+    const aspectX = styleParams.aspectX !== undefined ? styleParams.aspectX : 1.0;
+    const slant = styleParams.slant || 0.0;
+    const capStyle = styleParams.capStyle || 'gungseo';
+
+    // 폐곡선(ㅇ, ㅎ 원형 획) 판별
+    const isClosedLoop = Math.hypot(rawCtrlPts[0][0] - rawCtrlPts[n - 1][0], rawCtrlPts[0][1] - rawCtrlPts[n - 1][1]) < 3.8;
+
+    // 1. 굴절획 내 전절점(Corner Vertex: 방향이 약 45° 이상 꺾이는 제어점) 탐지
+    const cornerIndices = [0];
+    if (!isClosedLoop && n >= 3) {
+        for (let i = 1; i < n - 1; i++) {
+            const dx1 = rawCtrlPts[i][0] - rawCtrlPts[i - 1][0];
+            const dy1 = rawCtrlPts[i][1] - rawCtrlPts[i - 1][1];
+            const dx2 = rawCtrlPts[i + 1][0] - rawCtrlPts[i][0];
+            const dy2 = rawCtrlPts[i + 1][1] - rawCtrlPts[i][1];
+            const l1 = Math.hypot(dx1, dy1) || 1;
+            const l2 = Math.hypot(dx2, dy2) || 1;
+            const cosA = (dx1 * dx2 + dy1 * dy2) / (l1 * l2);
+            if (cosA < 0.72) {
+                cornerIndices.push(i);
+            }
+        }
+    }
+    cornerIndices.push(n - 1);
+
+    // 2. 분절된 각 서브구간(Sub-segment)에 대해 서체별 골격 정규화(수평·수직 직교화 vs 궁체 우상향/곡률)
+    const adjustedCtrl = rawCtrlPts.map(pt => [...pt]);
+
+    if (!isClosedLoop) {
+        for (let c = 0; c < cornerIndices.length - 1; c++) {
+            const i0 = cornerIndices[c];
+            const i1 = cornerIndices[c + 1];
+            const pStart = adjustedCtrl[i0];
+            const pEnd = adjustedCtrl[i1];
+            const dx = pEnd[0] - pStart[0];
+            const dy = pEnd[1] - pStart[1];
+            const spanLen = Math.hypot(dx, dy) || 1;
+
+            const isHorizSeg = Math.abs(dx) > Math.abs(dy) * 1.45;
+            const isVertSeg = Math.abs(dy) > Math.abs(dx) * 1.45 && Math.abs(dx) < spanLen * 0.35;
+
+            if (isHorizSeg) {
+                const midY = (pStart[1] + pEnd[1]) * 0.5;
+                const origTiltY = pEnd[1] - pStart[1];
+                const newTiltY = origTiltY * upwardTilt;
+                pStart[1] = midY - newTiltY * 0.5;
+                pEnd[1] = midY + newTiltY * 0.5;
+
+                for (let k = i0 + 1; k < i1; k++) {
+                    const t = (k - i0) / (i1 - i0);
+                    const linY = pStart[1] * (1 - t) + pEnd[1] * t;
+                    // ㄴ, ㄷ, ㄹ 하단 가로획은 궁서체에서 살짝 오목하게 받쳐주는 원전 곡률을 지님
+                    const isBottomCraddle = (c > 0 && pStart[1] > 65);
+                    const archSign = isBottomCraddle ? 0.65 : -1.0;
+                    const archOffset = archSign * Math.sin(t * Math.PI) * (spanLen * 0.025) * archCurve;
+                    adjustedCtrl[k][1] = linY + archOffset;
+                }
+            } else if (isVertSeg) {
+                const avgX = (pStart[0] + pEnd[0]) * 0.5;
+                pStart[0] = avgX + (pStart[0] - avgX) * archCurve;
+                pEnd[0] = avgX + (pEnd[0] - avgX) * archCurve;
+                for (let k = i0 + 1; k < i1; k++) {
+                    const t = (k - i0) / (i1 - i0);
+                    const linX = pStart[0] * (1 - t) + pEnd[0] * t;
+                    const bowOffset = Math.sin(t * Math.PI) * (spanLen * 0.018) * archCurve;
+                    adjustedCtrl[k][0] = linX - bowOffset;
+                }
+            }
+        }
+    }
+
+    // 3. 전절점(Corner) 구간별로 나누어 보간하고 각 샘플 점에 메타데이터 태깅
+    const denseResult = [];
+
+    if (isClosedLoop) {
+        const loopPts = interpolateCatmullRom(adjustedCtrl, 14);
+        loopPts.forEach((pt, idx) => {
+            const u = idx / Math.max(1, loopPts.length - 1);
+            denseResult.push([pt[0], pt[1], pt[2], u, 'O', false, false, 0]);
+        });
+    } else {
+        const numSegs = cornerIndices.length - 1;
+        for (let c = 0; c < numSegs; c++) {
+            const i0 = cornerIndices[c];
+            const i1 = cornerIndices[c + 1];
+            const subCtrl = adjustedCtrl.slice(i0, i1 + 1);
+            const dx = subCtrl[subCtrl.length - 1][0] - subCtrl[0][0];
+            const dy = subCtrl[subCtrl.length - 1][1] - subCtrl[0][1];
+            const segLen = Math.hypot(dx, dy);
+            let segType = 'D';
+            if (numSegs === 1 && subCtrl[0][2] < 0.70 && dx > 0 && dy > 0) {
+                segType = 'DOT'; // ㅎ, ㅊ 등의 첫 획(방점/측점)
+            } else if (Math.abs(dx) > Math.abs(dy) * 1.35) {
+                segType = 'H';
+            } else if (Math.abs(dy) > Math.abs(dx) * 1.35 && Math.abs(dx) < segLen * 0.30) {
+                segType = 'V';
+            }
+
+            const isCornerStart = (c > 0);
+            const isCornerEnd = (c < numSegs - 1);
+
+            const segSpan = Math.max(10, Math.round(18 / Math.max(1, subCtrl.length - 1)));
+            const interp = interpolateCatmullRom(subCtrl, segSpan);
+
+            interp.forEach((pt, idx) => {
+                const u = idx / Math.max(1, interp.length - 1);
+                denseResult.push([pt[0], pt[1], pt[2], u, segType, isCornerStart, isCornerEnd, c]);
+            });
+        }
+
+        // 궁서체/봉서체/행서체에서 ㄴ, ㄷ, ㄹ, ㅌ의 좌하단 꺾임(세로→가로 원전)은 90° 각진 모서리가 아니라 부드러운 곡선으로 돌아나감
+        if (numSegs >= 2 && (capStyle === 'gungseo' || capStyle === 'bongseo' || capStyle === 'sharp' || capStyle === 'round') && archCurve > 0.25) {
+            for (let pass = 0; pass < 4; pass++) {
+                const copy = denseResult.map(p => [...p]);
+                for (let i = 1; i < denseResult.length - 1; i++) {
+                    const nearCorner = (denseResult[i][7] !== denseResult[Math.max(0, i - 4)][7]) ||
+                                       (denseResult[i][7] !== denseResult[Math.min(denseResult.length - 1, i + 4)][7]);
+                    if (nearCorner) {
+                        denseResult[i][0] = copy[i - 1][0] * 0.28 + copy[i][0] * 0.44 + copy[i + 1][0] * 0.28;
+                        denseResult[i][1] = copy[i - 1][1] * 0.28 + copy[i][1] * 0.44 + copy[i + 1][1] * 0.28;
+                    }
+                }
+            }
+        }
+    }
+
+    // 4. 자폭 비율(aspectX) 및 전체 기울기(slant) 변환 적용
+    return denseResult.map(([x, y, p, u, segType, cStart, cEnd, segIdx]) => {
+        const cellIdx = Math.floor(x / 100);
+        const cellCenter = cellIdx * 100 + 50;
+        const localX = (x - cellCenter) * aspectX + cellCenter;
+        const sx = localX + (50 - y) * slant;
+        const sy = y + ((localX % 100) - 50) * (slant * 0.22);
+        return [sx, sy, p, u, segType, cStart, cEnd, segIdx];
+    });
+}
+
+/**
+ * ============================================================================
+ * Stage 2.5: 획 간 T자/모서리 접합부(장봉 접필) 자동 감지기 (`computeStrokeJunctions`)
+ * ============================================================================
+ */
+function computeStrokeJunctions(strokes, baseRadius, strokeMeta) {
+    const tol = Math.max(3.6, baseRadius * 1.45);
+    return strokes.map((ptsA, idxA) => {
+        if (!ptsA || ptsA.length < 2) return { hasStartJunction: false, hasEndJunction: false };
+        const nA = ptsA.length;
+        const startPt = ptsA[0];
+        const endPt = ptsA[nA - 1];
+        const isClosedLoop = Math.hypot(startPt[0] - endPt[0], startPt[1] - endPt[1]) < 3.8;
+        if (isClosedLoop || ptsA[0][4] === 'DOT') return { hasStartJunction: false, hasEndJunction: false };
+
+        const metaA = strokeMeta && strokeMeta[idxA];
+        const cellA = Math.floor(startPt[0] / 100);
+        const sdx = ptsA[Math.min(nA - 1, 3)][0] - startPt[0];
+        const sdy = ptsA[Math.min(nA - 1, 3)][1] - startPt[1];
+        const slen = Math.hypot(sdx, sdy) || 1;
+        const stx = sdx / slen, sty = sdy / slen;
+
+        const edx = endPt[0] - ptsA[Math.max(0, nA - 4)][0];
+        const edy = endPt[1] - ptsA[Math.max(0, nA - 4)][1];
+        const elen = Math.hypot(edx, edy) || 1;
+        const etx = edx / elen, ety = edy / elen;
+
+        let hasStartJunction = false;
+        let hasEndJunction = false;
+
+        for (let idxB = 0; idxB < strokes.length; idxB++) {
+            if (idxB === idxA) continue;
+            const ptsB = strokes[idxB];
+            if (!ptsB || ptsB.length < 2) continue;
+            if (Math.floor(ptsB[0][0] / 100) !== cellA) continue;
+            const metaB = strokeMeta && strokeMeta[idxB];
+            if (metaA && metaB && (metaA.part !== metaB.part || metaA.subPart !== metaB.subPart)) continue;
+            const isLoopB = Math.hypot(ptsB[0][0] - ptsB[ptsB.length - 1][0], ptsB[0][1] - ptsB[ptsB.length - 1][1]) < 3.8;
+            if (isLoopB || ptsB[0][4] === 'DOT') continue;
+
+            for (let j = 0; j < ptsB.length; j += 2) {
+                const bx = ptsB[j][0], by = ptsB[j][1];
+                const jNext = Math.min(ptsB.length - 1, j + 2);
+                const jPrev = Math.max(0, j - 2);
+                const bdx = ptsB[jNext][0] - ptsB[jPrev][0];
+                const bdy = ptsB[jNext][1] - ptsB[jPrev][1];
+                const blen = Math.hypot(bdx, bdy) || 1;
+                const btx = bdx / blen, bty = bdy / blen;
+
+                if (!hasStartJunction && Math.hypot(startPt[0] - bx, startPt[1] - by) < tol) {
+                    const dot = Math.abs(stx * btx + sty * bty);
+                    if (idxB < idxA || dot < 0.78) {
+                        hasStartJunction = true;
+                    }
+                }
+                if (!hasEndJunction && Math.hypot(endPt[0] - bx, endPt[1] - by) < tol &&
+                    Math.hypot(endPt[0] - ptsB[ptsB.length - 1][0], endPt[1] - ptsB[ptsB.length - 1][1]) > tol) {
+                    const dot = Math.abs(etx * btx + ety * bty);
+                    if (dot < 0.78) {
+                        hasEndJunction = true;
+                    }
+                }
+            }
+        }
+        return { hasStartJunction, hasEndJunction };
+    });
+}
+
+function intersectOffsetRays(A1, T1, A2, T2, maxDist) {
+    const det = T1[0] * T2[1] - T1[1] * T2[0];
+    if (Math.abs(det) < 0.14) {
+        return [(A1[0] + A2[0]) * 0.5, (A1[1] + A2[1]) * 0.5];
+    }
+    const dx = A2[0] - A1[0];
+    const dy = A2[1] - A1[1];
+    let s = (dx * T2[1] - dy * T2[0]) / det;
+    s = Math.max(-maxDist, Math.min(maxDist, s));
+    return [A1[0] + s * T1[0], A1[1] + s * T1[1]];
+}
+
+/**
+ * 점 배열을 부드러운 2차 베지어 중점 스플라인(Q) 또는 직선(L) SVG 명령열로 변환
+ */
+function pointsToContourCmds(pts, useSmoothSpline) {
+    if (!pts || pts.length === 0) return '';
+    if (!useSmoothSpline || pts.length < 3) {
+        let s = '';
+        for (let i = 1; i < pts.length; i++) {
+            s += `L ${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)} `;
+        }
+        return s;
+    }
+    let s = '';
+    const mid0X = (pts[0][0] + pts[1][0]) * 0.5;
+    const mid0Y = (pts[0][1] + pts[1][1]) * 0.5;
+    s += `L ${mid0X.toFixed(2)} ${mid0Y.toFixed(2)} `;
+    for (let i = 1; i < pts.length - 1; i++) {
+        const mx = (pts[i][0] + pts[i + 1][0]) * 0.5;
+        const my = (pts[i][1] + pts[i + 1][1]) * 0.5;
+        s += `Q ${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)} ${mx.toFixed(2)} ${my.toFixed(2)} `;
+    }
+    const last = pts[pts.length - 1];
+    s += `L ${last[0].toFixed(2)} ${last[1].toFixed(2)} `;
+    return s;
+}
+
+/**
+ * ============================================================================
+ * Stage 3: 정통 궁서체 2D 물방울 모필 스윕 & 스플라인 엔벨로프 생성기 (`buildStrokeEnvelope` v14)
+ * ============================================================================
+ * - 5대 조형 왜곡 원천 해결:
+ *   1) 가로획 우측 끝(수필 돈필)에서 윗선은 완만히 숙이고 아랫배만 둥글게 맺히게 하여 나팔관/뼈다귀 왜곡 제거
+ *   2) 세로획 상단 기필에서 좌상단→우하단(+38°) 볼록 역입 머리와 우측 돈필 어깨를 형성하여 갈퀴 홈 왜곡 제거
+ *   3) 세로획·삐침획 하단 발필을 직선 삼각형(연필심)이 아닌 볼록 포물선(Convex Taper) + 둥근 붓끝으로 마감
+ *   4) 굴절획(ㄱ, ㄴ, ㄷ, ㄹ) 모서리에 가우시안 돈필 어깨와 내측 라플라시안 페어링(Fairing)을 적용해 외측 뿔과 내측 계단 턱 100% 제거
+ *   5) ㅎ·ㅊ 첫 획(방점/측점)을 정통 궁서체 물방울 점 조형으로 구현
+ */
+function buildStrokeEnvelope(densePts, styleParams, junctionInfo = { hasStartJunction: false, hasEndJunction: false }) {
+    if (!densePts || densePts.length < 2) {
+        return { fullPathD: '', leftPts: [], rightPts: [], boundPts: [], tangents: [], radii: [], startCapSuffix: 'Z', isClosedLoop: false, useSmoothSpline: true };
+    }
+    const n = densePts.length;
+    const baseRadius = styleParams.baseRadius * (junctionInfo.rScale || 1.0);
+    const contrast = styleParams.pressureContrast;
+    const hvRatio = styleParams.hvRatio !== undefined ? styleParams.hvRatio : 1.0;
+    const capStyle = styleParams.capStyle || 'gungseo';
+    const useSmoothSpline = (capStyle !== 'square' && capStyle !== 'serif');
+
+    // SVG 화면 좌표계(+x 오른쪽, +y 아래쪽)에서 정통 서예 붓날(역입기필) 방향은 좌상단(-x,-y) ↔ 우하단(+x,+y)
+    const calliAngleRad = (Math.abs(styleParams.nibAngleDeg || 42) * Math.PI) / 180;
+    const brushDx = Math.cos(calliAngleRad); // +0.74 (우측)
+    const brushDy = Math.sin(calliAngleRad); // +0.67 (하단)
+
+    const isClosedLoop = Math.hypot(densePts[0][0] - densePts[n - 1][0], densePts[0][1] - densePts[n - 1][1]) < 3.8;
+    const endRawP = densePts[n - 1][2] || 0.8;
+    const isNeedleEnd = !isClosedLoop && !junctionInfo.hasEndJunction && (endRawP < 0.38) &&
+        (capStyle === 'gungseo' || capStyle === 'sharp' || capStyle === 'serif');
+
+    // 모서리 전환 지점 인덱스 수집 (전절 돈필 가우시안 벨 커브용)
+    const cornerSampleIndices = [];
+    if (!isClosedLoop) {
+        for (let i = 0; i < n - 1; i++) {
+            if ((densePts[i][7] ?? 0) !== (densePts[i + 1][7] ?? 0)) {
+                cornerSampleIndices.push(i);
+            }
+        }
+    }
+
+    const leftPts = new Array(n);
+    const rightPts = new Array(n);
+    const tangents = new Array(n);
+    const radii = new Array(n);
+
+    for (let i = 0; i < n; i++) {
+        const pt = densePts[i];
+        const x = pt[0], y = pt[1], rawP = pt[2];
+        const u = pt[3] !== undefined ? pt[3] : (i / Math.max(1, n - 1));
+        const segType = pt[4] || 'H';
+        const isCornerStart = !!pt[5];
+        const isCornerEnd = !!pt[6];
+        const segIdx = pt[7] !== undefined ? pt[7] : 0;
+
+        // 접선 벡터 계산
+        let prevIdx = Math.max(0, i - 1);
+        let nextIdx = Math.min(n - 1, i + 1);
+        if (!useSmoothSpline) {
+            while (prevIdx > 0 && (densePts[prevIdx][7] ?? 0) !== segIdx) prevIdx++;
+            while (nextIdx < n - 1 && (densePts[nextIdx][7] ?? 0) !== segIdx) nextIdx--;
+        }
+        let dx = densePts[nextIdx][0] - densePts[prevIdx][0];
+        let dy = densePts[nextIdx][1] - densePts[prevIdx][1];
+        if (Math.hypot(dx, dy) < 1e-4) {
+            dx = i < n - 1 ? densePts[i + 1][0] - x : x - densePts[i - 1][0];
+            dy = i < n - 1 ? densePts[i + 1][1] - y : y - densePts[i - 1][1];
+        }
+        const len = Math.hypot(dx, dy) || 1;
+        const tx = dx / len;
+        const ty = dy / len;
+        tangents[i] = [tx, ty];
+
+        // SVG 좌표계에서 진행 방향의 좌측(가로획의 위쪽 Top, 세로획의 오른쪽 Right) 단위법선
+        const nx = ty;
+        const ny = -tx;
+
+        const horizWeight = Math.abs(tx);
+        const dirScale = horizWeight * hvRatio + (1.0 - horizWeight) * (2.0 - hvRatio);
+        const rBase = baseRadius * dirScale;
+
+        if (segType === 'DOT' && (capStyle === 'gungseo' || capStyle === 'bongseo' || capStyle === 'sharp')) {
+            // ㅎ, ㅊ의 첫 획: 좌상단에서 뾰족-둥글게 들어가 우하단으로 통통한 물방울 방점(點)을 맺음
+            const dotEnv = 0.38 + 0.72 * Math.sin(Math.pow(u, 0.78) * Math.PI * 0.84);
+            const r = rBase * dotEnv * (capStyle === 'bongseo' ? 0.76 : 0.90);
+            radii[i] = r;
+            const topScale = 0.82 + 0.14 * Math.sin(u * Math.PI);
+            const botScale = 0.84 + 0.18 * Math.pow(u, 1.25);
+            leftPts[i] = [x + nx * r * topScale, y + ny * r * topScale];
+            rightPts[i] = [x - nx * r * botScale, y - ny * r * botScale];
+            continue;
+        }
+
+        if (isClosedLoop && (capStyle === 'gungseo' || capStyle === 'bongseo' || capStyle === 'sharp')) {
+            // ㅇ, ㅎ 원형 획: 좌우 기둥(|ty|≈1)은 도톰하고 상하 연결부(|tx|≈1)는 날렵한 정통 궁체 원형 필압
+            const sideFullness = 0.74 + 0.36 * Math.abs(ty);
+            const r = baseRadius * sideFullness;
+            radii[i] = r;
+            leftPts[i] = [x + nx * r * 0.96, y + ny * r * 0.96];
+            rightPts[i] = [x - nx * r * 0.96, y - ny * r * 0.96];
+            continue;
+        }
+
+        if (capStyle === 'gungseo' || capStyle === 'bongseo' || capStyle === 'sharp') {
+            const isBong = (capStyle === 'bongseo');
+            const cFactor = Math.min(1.35, contrast * 0.72);
+
+            if (segType === 'H') {
+                // 정통 궁체 가로획:
+                // - 윗선(leftPts): 기필에서 살짝 솟은 뒤 완만하게 이어지다가 우측 끝(u>0.75)에서 아래로 부드럽게 숙여짐(절대 위로 나팔처럼 벌어지지 않음)
+                // - 아랫선(rightPts): 중봉 허리가 탄력 있게 들어가고 우측 수필 돈필(u≈0.86)에서 아래쪽으로 둥글게 배가 맺힘
+                const waist = 1.0 - 0.16 * cFactor * Math.sin(u * Math.PI);
+                radii[i] = rBase * waist;
+
+                let topScale = 0.88 * waist;
+                let botScale = 0.90 * waist;
+
+                if (!isCornerStart && !junctionInfo.hasStartJunction && u < 0.22) {
+                    const tStart = (0.22 - u) / 0.22;
+                    topScale += 0.22 * tStart;
+                    botScale -= 0.18 * Math.pow(tStart, 1.5);
+                }
+                if (!isCornerEnd && !junctionInfo.hasEndJunction && u > 0.70) {
+                    const tEnd = (u - 0.70) / 0.30;
+                    // 우측 수필 돈필: 윗선은 완만히 내려오고 아랫배만 풍만하게 둥글림
+                    topScale *= (1.0 - 0.32 * Math.pow(tEnd, 1.6));
+                    botScale += (isBong ? 0.28 : 0.38) * Math.sin(tEnd * Math.PI * 0.85);
+                } else if (isCornerEnd && u > 0.72) {
+                    // ㄱ, ㄹ, ㅁ, ㅋ 등 우상단 전절 진입부: 돈필 어깨 형성
+                    const tCorner = (u - 0.72) / 0.28;
+                    topScale += 0.24 * Math.sin(tCorner * Math.PI * 0.75);
+                }
+
+                // 기필 시작점(u < 0.15)에서 좌상단 역입 기울기 부여
+                const shiftAlong = (!isCornerStart && !junctionInfo.hasStartJunction && u < 0.16)
+                    ? ((0.16 - u) / 0.16) * rBase * 0.42 : 0;
+
+                leftPts[i] = [
+                    x + nx * rBase * topScale - tx * shiftAlong,
+                    y + ny * rBase * topScale - ty * shiftAlong
+                ];
+                rightPts[i] = [
+                    x - nx * rBase * botScale + tx * (shiftAlong * 0.55),
+                    y - ny * rBase * botScale + ty * (shiftAlong * 0.55)
+                ];
+            } else if (segType === 'V') {
+                // 정통 궁체 세로획 (tx≈0, ty≈1 → nx=+1 우측 외곽선, -nx=-1 좌측 외곽선):
+                // - 상단 기필: 좌측 외곽선(rightPts)이 좌상단에서 높게 시작하고, 우측 외곽선(leftPts)이 우하단 돈필 어깨를 형성하여 갈퀴 홈 원천 제거
+                // - 하단 수필: 직선 삼각형이 아닌 볼록 방추형(Convex Parabolic Taper)으로 우아하게 모아짐
+                let waist = 1.0 - 0.14 * cFactor * Math.sin(u * Math.PI);
+                if (!isCornerEnd && isNeedleEnd && u > 0.62) {
+                    const tTap = (u - 0.62) / 0.38;
+                    waist *= Math.max(0.28, 1.0 - 0.70 * Math.pow(tTap, 1.75));
+                } else if (!isCornerEnd && isBong && u > 0.78) {
+                    const tTap = (u - 0.78) / 0.22;
+                    waist *= (1.0 - 0.12 * tTap);
+                }
+                radii[i] = rBase * waist;
+
+                let rightSideScale = 0.92 * waist; // leftPts (+nx, 기둥 오른쪽)
+                let leftSideScale = 0.88 * waist;  // rightPts (-nx, 기둥 왼쪽)
+
+                if (!isCornerStart && !junctionInfo.hasStartJunction && u < 0.24) {
+                    const tStart = (0.24 - u) / 0.24;
+                    // 우측 어깨(leftPts)는 u≈0.07 부근에서 도톰하게 돈필을 만들고, 좌측 머리(rightPts)는 깔끔하게 진입
+                    rightSideScale += 0.26 * Math.sin((1.0 - tStart * 0.65) * Math.PI);
+                    leftSideScale += 0.12 * tStart;
+                }
+
+                const headSkew = (!isCornerStart && !junctionInfo.hasStartJunction && u < 0.18)
+                    ? ((0.18 - u) / 0.18) * rBase * 0.44 : 0;
+
+                leftPts[i] = [
+                    x + nx * rBase * rightSideScale + tx * (headSkew * 0.65),
+                    y + ny * rBase * rightSideScale + ty * (headSkew * 0.65)
+                ];
+                rightPts[i] = [
+                    x - nx * rBase * leftSideScale - tx * headSkew,
+                    y - ny * rBase * leftSideScale - ty * headSkew
+                ];
+            } else {
+                // 사선 삐침획(ㅅ, ㅈ, ㅊ, ㄱ 우측 다리) 및 파임획
+                let envScale = 1.0 - 0.14 * cFactor * Math.sin(u * Math.PI);
+                if (!isCornerEnd && isNeedleEnd && u > 0.55) {
+                    // 삐침 끝(발필): 직선 송곳이 아니라 볼록한 곡선으로 부드럽게 빠짐
+                    const tTap = (u - 0.55) / 0.45;
+                    envScale *= Math.max(0.22, 1.0 - 0.76 * Math.pow(tTap, 1.65));
+                } else if (!isCornerEnd && !isNeedleEnd && u > 0.65) {
+                    // 파임 끝(ㅅ, ㅈ, ㅊ 우측 다리): 우하단으로 통통하게 맺힘
+                    const tSwell = (u - 0.65) / 0.35;
+                    envScale *= (1.0 + 0.22 * Math.sin(tSwell * Math.PI * 0.8));
+                }
+                if (isCornerStart && u < 0.20) {
+                    envScale *= (1.0 + ((0.20 - u) / 0.20) * 0.14);
+                }
+                const r = rBase * envScale;
+                radii[i] = r;
+                leftPts[i] = [x + nx * r * 0.96, y + ny * r * 0.96];
+                rightPts[i] = [x - nx * r * 0.94, y - ny * r * 0.94];
+            }
+        } else if (capStyle === 'serif') {
+            let p = 0.94;
+            if (!isCornerEnd && isNeedleEnd && u > 0.65) {
+                const tEnd = (u - 0.65) / 0.35;
+                p = 0.94 * Math.max(0.18, 1.0 - tEnd * 0.78);
+            }
+            const r = p * rBase;
+            radii[i] = r;
+            let leftScale = 1.0;
+            let rightScale = 1.0;
+            if (segType === 'H' && !isCornerEnd && u > 0.82 && !junctionInfo.hasEndJunction) {
+                const serifT = (u - 0.82) / 0.18;
+                leftScale = 1.0 + serifT * 1.25;
+                rightScale = 1.0 + serifT * 0.15;
+            } else if (segType === 'V' && !isCornerStart && u < 0.16 && !junctionInfo.hasStartJunction) {
+                const serifT = (0.16 - u) / 0.16;
+                leftScale = 1.0 + serifT * 0.45;
+                rightScale = 1.0 + serifT * 0.22;
+            }
+            leftPts[i] = [x + nx * r * leftScale, y + ny * r * leftScale];
+            rightPts[i] = [x - nx * r * rightScale, y - ny * r * rightScale];
+        } else {
+            // 고딕(square) 및 굴림·판본(round)
+            const r = 0.94 * rBase;
+            radii[i] = r;
+            leftPts[i] = [x + nx * r, y + ny * r];
+            rightPts[i] = [x - nx * r, y - ny * r];
+        }
+    }
+
+    // 4. 굴절획(ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅋ, ㅌ) 모서리 정합 및 페어링(Fairing)
+    if (!isClosedLoop && cornerSampleIndices.length > 0) {
+        for (const i of cornerSampleIndices) {
+            const segA = densePts[i][7] ?? 0;
+            const segB = densePts[i + 1][7] ?? 0;
+            let idx1 = i, idx2 = i + 1;
+            for (let k = 1; k <= 5; k++) {
+                if (i - k >= 0 && (densePts[i - k][7] ?? 0) === segA) idx1 = i - k;
+                if (i + 1 + k < n && (densePts[i + 1 + k][7] ?? 0) === segB) idx2 = i + 1 + k;
+            }
+            const T1 = tangents[idx1];
+            const T2 = tangents[idx2];
+            const turn = T1[0] * T2[1] - T1[1] * T2[0];
+            if (Math.abs(turn) < 0.12) continue;
+
+            const rCorner = Math.max(radii[i], radii[i + 1], baseRadius);
+            const outerRail = turn > 0 ? leftPts : rightPts;
+            const innerRail = turn > 0 ? rightPts : leftPts;
+
+            // (A) 내측 모서리 교점 클램핑
+            const innerMeet = intersectOffsetRays(innerRail[idx1], T1, innerRail[idx2], T2, rCorner * 1.25);
+            innerRail[i] = [innerMeet[0], innerMeet[1]];
+            innerRail[i + 1] = [innerMeet[0], innerMeet[1]];
+
+            for (let j = i - 1; j >= 1 && (densePts[j][7] ?? 0) === segA; j--) {
+                const over = (innerRail[j][0] - innerMeet[0]) * T1[0] + (innerRail[j][1] - innerMeet[1]) * T1[1];
+                if (over > -0.05) innerRail[j] = [innerMeet[0], innerMeet[1]];
+                else break;
+            }
+            for (let j = i + 2; j < n - 2 && (densePts[j][7] ?? 0) === segB; j++) {
+                const behind = (innerRail[j][0] - innerMeet[0]) * T2[0] + (innerRail[j][1] - innerMeet[1]) * T2[1];
+                if (behind < 0.05) innerRail[j] = [innerMeet[0], innerMeet[1]];
+                else break;
+            }
+
+            // (B) 외측 모서리 처리
+            const outerMiter = intersectOffsetRays(outerRail[i], T1, outerRail[i + 1], T2, rCorner * 2.0);
+            if (capStyle === 'square' || capStyle === 'serif') {
+                outerRail[i] = [outerMiter[0], outerMiter[1]];
+                outerRail[i + 1] = [outerMiter[0], outerMiter[1]];
+            } else {
+                // 궁서체·봉서체·행서체·굴림체: 뾰족한 뿔(Horn)이나 내측 계단(Step)이 절대 생기지 않도록
+                // 모서리 전후 구간을 가우시안/라플라시안 페어링으로 매끄럽게 둥글림
+                if (turn > 0 && (capStyle === 'gungseo' || capStyle === 'bongseo')) {
+                    // 우상단 전절(ㄱ, ㄹ 1절, ㅁ 2획): +40° 방향의 둥근 돈필 어깨를 넓고 부드럽게 부여
+                    const win = 6;
+                    for (let k = Math.max(1, i - win); k <= Math.min(n - 2, i + 1 + win); k++) {
+                        const dist = Math.abs(k - (i + 0.5)) / (win + 1);
+                        const bell = Math.cos(dist * Math.PI * 0.5);
+                        outerRail[k][0] += brushDx * rCorner * 0.24 * bell * bell;
+                        outerRail[k][1] -= brushDy * rCorner * 0.10 * bell * bell;
+                    }
+                } else {
+                    outerRail[i] = [
+                        outerRail[i][0] * 0.45 + outerMiter[0] * 0.55,
+                        outerRail[i][1] * 0.45 + outerMiter[1] * 0.55
+                    ];
+                    outerRail[i + 1] = [
+                        outerRail[i + 1][0] * 0.45 + outerMiter[0] * 0.55,
+                        outerRail[i + 1][1] * 0.45 + outerMiter[1] * 0.55
+                    ];
+                }
+
+                // 외측 및 내측 레일에 국소 라플라시안 스무딩(4회)을 적용해 내측 계단 턱과 외측 각진 돌출을 완전히 제거
+                const smoothWin = 7;
+                const kStart = Math.max(1, i - smoothWin);
+                const kEnd = Math.min(n - 2, i + 1 + smoothWin);
+                for (let pass = 0; pass < 4; pass++) {
+                    const outCopy = outerRail.map(p => [...p]);
+                    const inCopy = innerRail.map(p => [...p]);
+                    for (let k = kStart; k <= kEnd; k++) {
+                        outerRail[k][0] = outCopy[k - 1][0] * 0.28 + outCopy[k][0] * 0.44 + outCopy[k + 1][0] * 0.28;
+                        outerRail[k][1] = outCopy[k - 1][1] * 0.28 + outCopy[k][1] * 0.44 + outCopy[k + 1][1] * 0.28;
+                        innerRail[k][0] = inCopy[k - 1][0] * 0.28 + inCopy[k][0] * 0.44 + inCopy[k + 1][0] * 0.28;
+                        innerRail[k][1] = inCopy[k - 1][1] * 0.28 + inCopy[k][1] * 0.44 + inCopy[k + 1][1] * 0.28;
+                    }
+                }
+            }
+        }
+    }
+
+    // 5. 기필(Start Cap) 및 수필(End Cap) 마감 캡 합성
+    const endPt = densePts[n - 1];
+    const [etx, ety] = tangents[n - 1];
+    const endSegType = densePts[n - 1][4] || 'H';
+    let endCapCmd = '';
+    let endCtrlPt = null;
+
+    if (isClosedLoop || junctionInfo.hasEndJunction) {
+        endCapCmd = `L ${rightPts[n - 1][0].toFixed(2)} ${rightPts[n - 1][1].toFixed(2)} `;
+    } else if (isNeedleEnd) {
+        // 연필심 같은 직선 삼각형 대신 붓털이 모이는 부드러운 2차 곡선(Q) 마감
+        const needleLen = baseRadius * (capStyle === 'gungseo' ? 0.68 : 0.55);
+        const midEndX = (leftPts[n - 1][0] + rightPts[n - 1][0]) * 0.5 + etx * needleLen;
+        const midEndY = (leftPts[n - 1][1] + rightPts[n - 1][1]) * 0.5 + ety * needleLen;
+        endCtrlPt = [midEndX, midEndY];
+        endCapCmd = `Q ${midEndX.toFixed(2)} ${midEndY.toFixed(2)} ${rightPts[n - 1][0].toFixed(2)} ${rightPts[n - 1][1].toFixed(2)} `;
+    } else if (capStyle === 'gungseo' || capStyle === 'bongseo' || capStyle === 'sharp') {
+        const donR = radii[n - 1] * (capStyle === 'bongseo' ? 0.85 : 0.78);
+        const dropY = (endSegType === 'H') ? donR * 0.35 : 0;
+        const midEndX = (leftPts[n - 1][0] + rightPts[n - 1][0]) * 0.5 + etx * donR;
+        const midEndY = (leftPts[n - 1][1] + rightPts[n - 1][1]) * 0.5 + ety * donR + dropY;
+        endCtrlPt = [midEndX, midEndY];
+        endCapCmd = `Q ${midEndX.toFixed(2)} ${midEndY.toFixed(2)} ${rightPts[n - 1][0].toFixed(2)} ${rightPts[n - 1][1].toFixed(2)} `;
+    } else if (capStyle === 'round') {
+        const endR = radii[n - 1] * 0.88;
+        const tipX = endPt[0] + etx * endR;
+        const tipY = endPt[1] + ety * endR;
+        endCtrlPt = [tipX, tipY];
+        endCapCmd = `Q ${tipX.toFixed(2)} ${tipY.toFixed(2)} ${rightPts[n - 1][0].toFixed(2)} ${rightPts[n - 1][1].toFixed(2)} `;
+    } else {
+        endCapCmd = `L ${rightPts[n - 1][0].toFixed(2)} ${rightPts[n - 1][1].toFixed(2)} `;
+    }
+
+    const startPt = densePts[0];
+    const [stx, sty] = tangents[0];
+    let startCapSuffix = 'Z';
+    let startCtrlPt = null;
+
+    if (isClosedLoop || junctionInfo.hasStartJunction) {
+        startCapSuffix = `L ${leftPts[0][0].toFixed(2)} ${leftPts[0][1].toFixed(2)} Z`;
+    } else if (capStyle === 'gungseo' || capStyle === 'bongseo' || capStyle === 'sharp') {
+        // rightPts[0]과 leftPts[0]의 중점에서 진행 반대 방향으로 볼록한 2차 곡선을 그려 오목한 갈퀴 홈이 절대 생기지 않게 함
+        const yeokR = radii[0] * 0.52;
+        const midStartX = (leftPts[0][0] + rightPts[0][0]) * 0.5 - stx * yeokR;
+        const midStartY = (leftPts[0][1] + rightPts[0][1]) * 0.5 - sty * yeokR;
+        startCtrlPt = [midStartX, midStartY];
+        startCapSuffix = `Q ${midStartX.toFixed(2)} ${midStartY.toFixed(2)} ${leftPts[0][0].toFixed(2)} ${leftPts[0][1].toFixed(2)} Z`;
+    } else if (capStyle === 'serif') {
+        const serifR = radii[0] * 0.65;
+        const tipX = (leftPts[0][0] + rightPts[0][0]) * 0.5 - stx * (serifR * 0.45);
+        const tipY = (leftPts[0][1] + rightPts[0][1]) * 0.5 - sty * (serifR * 0.45);
+        startCtrlPt = [tipX, tipY];
+        startCapSuffix = `L ${tipX.toFixed(2)} ${tipY.toFixed(2)} L ${leftPts[0][0].toFixed(2)} ${leftPts[0][1].toFixed(2)} Z`;
+    } else if (capStyle === 'round') {
+        const startR = radii[0] * 0.85;
+        const stipX = startPt[0] - stx * startR;
+        const stipY = startPt[1] - sty * startR;
+        startCtrlPt = [stipX, stipY];
+        startCapSuffix = `Q ${stipX.toFixed(2)} ${stipY.toFixed(2)} ${leftPts[0][0].toFixed(2)} ${leftPts[0][1].toFixed(2)} Z`;
+    } else {
+        startCapSuffix = `L ${leftPts[0][0].toFixed(2)} ${leftPts[0][1].toFixed(2)} Z`;
+    }
+
+    const boundPts = [...leftPts, ...rightPts];
+    if (endCtrlPt) {
+        const p0 = leftPts[n - 1], p2 = rightPts[n - 1];
+        for (const t of [0.2, 0.35, 0.5, 0.65, 0.8]) {
+            const mt = 1 - t;
+            boundPts.push([
+                mt * mt * p0[0] + 2 * mt * t * endCtrlPt[0] + t * t * p2[0],
+                mt * mt * p0[1] + 2 * mt * t * endCtrlPt[1] + t * t * p2[1]
+            ]);
+        }
+    }
+    if (startCtrlPt) {
+        const p0 = rightPts[0], p2 = leftPts[0];
+        for (const t of [0.2, 0.35, 0.5, 0.65, 0.8]) {
+            const mt = 1 - t;
+            boundPts.push([
+                mt * mt * p0[0] + 2 * mt * t * startCtrlPt[0] + t * t * p2[0],
+                mt * mt * p0[1] + 2 * mt * t * startCtrlPt[1] + t * t * p2[1]
+            ]);
+        }
+    }
+
+    const rightReversed = [];
+    for (let i = n - 1; i >= 0; i--) rightReversed.push(rightPts[i]);
+
+    let fullPathD = `M ${leftPts[0][0].toFixed(2)} ${leftPts[0][1].toFixed(2)} `;
+    fullPathD += pointsToContourCmds(leftPts, useSmoothSpline);
+    fullPathD += endCapCmd;
+    fullPathD += pointsToContourCmds(rightReversed, useSmoothSpline);
+    fullPathD += startCapSuffix;
+
+    return { fullPathD, leftPts, rightPts, boundPts, tangents, radii, startCapSuffix, isClosedLoop, useSmoothSpline };
+}
+
+function buildProgressiveStrokePath(env, stepIdx) {
+    if (!env || !env.leftPts || env.leftPts.length < 2) return '';
+    const n = env.leftPts.length;
+    if (stepIdx >= n) return env.fullPathD;
+
+    const m = Math.max(2, stepIdx);
+    const { leftPts, rightPts, tangents, radii, startCapSuffix, useSmoothSpline } = env;
+
+    const subLeft = leftPts.slice(0, m);
+    const subRightRev = [];
+    for (let i = m - 1; i >= 0; i--) subRightRev.push(rightPts[i]);
+
+    let d = `M ${subLeft[0][0].toFixed(2)} ${subLeft[0][1].toFixed(2)} `;
+    d += pointsToContourCmds(subLeft, useSmoothSpline);
+
+    const k = m - 1;
+    const [tx, ty] = tangents[k];
+    const rHead = (radii[k] || 2.5) * 0.55;
+    const midX = (leftPts[k][0] + rightPts[k][0]) * 0.5 + tx * rHead;
+    const midY = (leftPts[k][1] + rightPts[k][1]) * 0.5 + ty * rHead;
+    d += `Q ${midX.toFixed(2)} ${midY.toFixed(2)} ${rightPts[k][0].toFixed(2)} ${rightPts[k][1].toFixed(2)} `;
+
+    d += pointsToContourCmds(subRightRev, useSmoothSpline);
+    d += startCapSuffix;
+    return d;
+}
+
+function buildBrushPolygonPath(densePts, styleParams) {
+    return buildStrokeEnvelope(densePts, styleParams).fullPathD;
+}
+
+/**
+ * 3. 임의의 시스템/업로드 폰트에서 절차적 벡터 파라미터를 자동 추출하는 분석기
+ */
+function extractFontVectorProfile(fontFamily, fontLabel) {
+    const off = document.createElement('canvas');
+    const S = 200;
+    off.width = S;
+    off.height = S;
+    const ctx = off.getContext('2d');
+
+    const measureStrokeThickness = (ch, isHorizontal) => {
+        ctx.clearRect(0, 0, S, S);
+        ctx.fillStyle = '#000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = `normal 150px ${fontFamily}`;
+        ctx.fillText(ch, S / 2, S / 2);
+        const data = ctx.getImageData(0, 0, S, S).data;
+
+        let totalThick = 0, count = 0;
+        let minC = S, maxC = 0;
+
+        for (let i = 30; i < S - 30; i++) {
+            let span = 0;
+            for (let j = 10; j < S - 10; j++) {
+                const px = isHorizontal ? i : j;
+                const py = isHorizontal ? j : i;
+                const a = data[(py * S + px) * 4 + 3];
+                if (a > 90) {
+                    span++;
+                    if (px < minC) minC = px;
+                    if (px > maxC) maxC = px;
+                }
+            }
+            if (span > 2 && span < 65) {
+                totalThick += span;
+                count++;
+            }
+        }
+        return {
+            avgThick: count > 0 ? totalThick / count : 14,
+            spanW: maxC > minC ? maxC - minC : 110
+        };
+    };
+
+    const hInfo = measureStrokeThickness('ㅡ', true);
+    const vInfo = measureStrokeThickness('ㅣ', false);
+
+    const avgPx = (hInfo.avgThick + vInfo.avgThick) * 0.5;
+    const baseRadius = Math.min(4.8, Math.max(1.6, avgPx * 0.21));
+    const rawRatio = hInfo.avgThick / Math.max(1, vInfo.avgThick);
+    const hvRatio = Math.min(1.35, Math.max(0.48, rawRatio));
+
+    const lowerName = (fontLabel + ' ' + fontFamily).toLowerCase();
+    let capStyle = 'gungseo';
+    let nibAngleDeg = -44;
+    let pressureContrast = 1.35;
+    let archCurve = 1.00;
+    let upwardTilt = 1.00;
+    let slant = 0.0;
+    let roughness = 0.0;
+    let aspectX = Math.min(1.12, Math.max(0.86, hInfo.spanW / 115));
+
+    if (/궁서|gungsuh/.test(lowerName)) {
+        return { ...STYLE_PRESETS.gungseo, name: `${fontLabel} (정통 궁서 벡터)` };
+    } else if (/바탕|batang|명조|myeongjo/.test(lowerName)) {
+        return { ...STYLE_PRESETS.batang, name: `${fontLabel} (명조·바탕 벡터)`, hvRatio: Number(Math.min(0.62, hvRatio).toFixed(2)) };
+    } else if (/맑은|malgun/.test(lowerName)) {
+        return { ...STYLE_PRESETS.malgun, name: `${fontLabel} (고딕 직교 벡터)` };
+    } else if (/굴림|gulim|둥근|round/.test(lowerName)) {
+        return { ...STYLE_PRESETS.gulim, name: `${fontLabel} (원필 굴림 벡터)` };
+    } else if (/돋움|dotum|고딕|gothic/.test(lowerName)) {
+        return { ...STYLE_PRESETS.dotum, name: `${fontLabel} (방필 고딕 벡터)` };
+    } else if (/옛체/.test(lowerName)) {
+        return { ...STYLE_PRESETS.yetche, name: `${fontLabel} (전통 옛체 벡터)` };
+    } else if (/펜|pen|편지/.test(lowerName)) {
+        return { ...STYLE_PRESETS.pen, name: `${fontLabel} (손글씨 펜 벡터)` };
+    } else if (/붓|brush|캘리|매직/.test(lowerName)) {
+        return { ...STYLE_PRESETS.calli, name: `${fontLabel} (캘리 모필 벡터)` };
+    } else if (Math.abs(1 - rawRatio) < 0.12) {
+        capStyle = 'square';
+        nibAngleDeg = 0;
+        pressureContrast = 0.05;
+        archCurve = 0.0;
+        upwardTilt = 0.0;
+    } else if (rawRatio < 0.78) {
+        capStyle = 'serif';
+        nibAngleDeg = -38;
+        pressureContrast = 0.55;
+        archCurve = 0.15;
+        upwardTilt = 0.0;
+    }
+
+    return {
+        name: `${fontLabel} (벡터 변환)`,
+        desc: `[${fontLabel}] 폰트의 획 두께·가로세로 비·골격 직교성을 계측하여 절차적 벡터 모필로 재현`,
+        baseRadius: Number(baseRadius.toFixed(2)),
+        nibAngleDeg,
+        pressureContrast: Number(pressureContrast.toFixed(2)),
+        hvRatio: Number(hvRatio.toFixed(2)),
+        archCurve: Number(archCurve.toFixed(2)),
+        upwardTilt: Number(upwardTilt.toFixed(2)),
+        aspectX: Number(aspectX.toFixed(2)),
+        slant: Number(slant.toFixed(2)),
+        roughness: Number(roughness.toFixed(1)),
+        capStyle,
+        inkColor: Engine.styleParams ? Engine.styleParams.inkColor : '#151311'
+    };
+}
+
+/**
+ * 4. 메인 엔진 컨트롤러
+ */
+const Engine = {
+    charCount: 1,
+    charsInfo: [],
+    rawCharStrokes: [],
+    strokes: [],
+    currentStroke: 0,
+    currentStep: 0,
+    isDrawing: false,
+    demoTimer: null,
+
+    currentStyleKey: 'gungseo',
+    styleParams: { ...STYLE_PRESETS.gungseo, fontFamily: GLYPH_FONT_MAP.gungseo },
+
+    init() {
+        const svg = document.getElementById('calligraphy-svg');
+        const getSvgCoords = (e) => {
+            const rect = svg.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return [
+                ((clientX - rect.left) / rect.width) * (100 * this.charCount),
+                ((clientY - rect.top) / rect.height) * 100
+            ];
+        };
+
+        const onStart = (e) => {
+            if (this.demoTimer || this.currentStroke >= this.strokes.length) return;
+            const [mx, my] = getSvgCoords(e);
+            const targetPts = this.strokes[this.currentStroke];
+            const [sx, sy] = targetPts[0];
+            const badgePos = this.badgePositions && this.badgePositions[this.currentStroke];
+            const distToStart = Math.hypot(mx - sx, my - sy);
+            const distToBadge = badgePos ? Math.hypot(mx - badgePos.bx, my - badgePos.by) : Infinity;
+
+            if (Math.min(distToStart, distToBadge) < 13) {
+                e.preventDefault();
+                this.isDrawing = true;
+                this.currentStep = Math.min(3, targetPts.length);
+                this.updateActiveRender();
+                this.setMessage(`🖌️ ${this.currentStroke + 1}획 쓰는 중... 붉은 유도선을 따라 끝까지 그으세요.`);
+            } else {
+                this.setMessage(`💡 ${this.currentStroke + 1}번 시작점(붉은 원) 근처에서 붓을 대어 시작하세요.`);
+            }
+        };
+
+        const onMove = (e) => {
+            if (!this.isDrawing || this.currentStroke >= this.strokes.length) return;
+            e.preventDefault();
+            const [mx, my] = getSvgCoords(e);
+            const targetPts = this.strokes[this.currentStroke];
+
+            let advanced = false;
+            while (this.currentStep < targetPts.length) {
+                const [tx, ty] = targetPts[this.currentStep];
+                if (Math.hypot(mx - tx, my - ty) < 12) {
+                    this.currentStep++;
+                    advanced = true;
+                } else {
+                    break;
+                }
+            }
+            if (advanced) {
+                this.updateActiveRender();
+                if (this.currentStep >= targetPts.length) {
+                    this.finishCurrentStroke();
+                }
+            }
+        };
+
+        const onEnd = () => {
+            if (!this.isDrawing) return;
+            this.isDrawing = false;
+            const targetPts = this.strokes[this.currentStroke];
+            if (targetPts && this.currentStep >= targetPts.length * 0.78) {
+                this.currentStep = targetPts.length;
+                this.updateActiveRender();
+                this.finishCurrentStroke();
+            }
+        };
+
+        svg.addEventListener('mousedown', onStart);
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onEnd);
+        svg.addEventListener('touchstart', onStart, { passive: false });
+        window.addEventListener('touchmove', onMove, { passive: false });
+        window.addEventListener('touchend', onEnd);
+
+        this.syncSlidersFromParams();
+        this.loadText('한글');
+    },
+
+    syncSlidersFromParams() {
+        const p = this.styleParams;
+        document.getElementById('sl-radius').value = p.baseRadius;
+        document.getElementById('sl-angle').value = p.nibAngleDeg;
+        document.getElementById('sl-contrast').value = p.pressureContrast;
+        document.getElementById('sl-hv').value = p.hvRatio;
+        document.getElementById('sl-arch').value = p.archCurve !== undefined ? p.archCurve : 1.0;
+        document.getElementById('sl-tilt').value = p.upwardTilt !== undefined ? p.upwardTilt : 1.0;
+        document.getElementById('sl-slant').value = p.slant;
+        document.getElementById('sl-rough').value = p.roughness;
+        document.getElementById('sel-cap').value = p.capStyle;
+        document.getElementById('sel-ink').value = p.inkColor;
+        this.updateSliderLabels();
+    },
+
+    applyStylePreset(styleKey) {
+        const preset = STYLE_PRESETS[styleKey];
+        if (!preset) return;
+        this.currentStyleKey = styleKey;
+        this.styleParams = { ...preset, fontFamily: GLYPH_FONT_MAP[styleKey] || '' };
+
+        document.querySelectorAll('#style-cards .style-card').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-style') === styleKey);
+        });
+        document.getElementById('style-desc-text').textContent = preset.desc;
+
+        this.syncSlidersFromParams();
+        this.rebuildStrokes();
+        this.renderScene();
+        this.resetPractice();
+        this.playDemo();
+    },
+
+    onSelectSystemFont(fontVal) {
+        if (!fontVal) return;
+        document.querySelectorAll('#style-cards .style-card').forEach(b => b.classList.remove('active'));
+        const label = fontVal.replace(/"/g, '').split(',')[0].trim();
+        this.styleParams = extractFontVectorProfile(`${fontVal}, serif`, label);
+        this.styleParams.fontFamily = `${fontVal}, serif`;
+        document.getElementById('style-desc-text').textContent = this.styleParams.desc;
+
+        this.syncSlidersFromParams();
+        this.rebuildStrokes();
+        this.renderScene();
+        this.resetPractice();
+        this.playDemo();
+    },
+
+    async detectLocalSystemFonts() {
+        if (!('queryLocalFonts' in window)) {
+            this.setMessage('💡 브라우저 권한 정책상 기본 폰트 드롭다운 또는 좌측 [폰트 파일(.ttf/.otf) 불러오기]를 사용해주세요.');
+            return;
+        }
+        try {
+            const fonts = await window.queryLocalFonts();
+            const select = document.getElementById('system-font-select');
+            const seen = new Set();
+            select.innerHTML = '<option value="">-- 내 PC 설치 폰트 전체 목록 --</option>';
+            fonts.forEach(f => {
+                if (!seen.has(f.family)) {
+                    seen.add(f.family);
+                    const opt = document.createElement('option');
+                    opt.value = `"${f.family}"`;
+                    opt.textContent = `${f.fullName || f.family}`;
+                    select.appendChild(opt);
+                }
+            });
+            this.setMessage(`✅ 내 PC에 설치된 ${seen.size}개의 폰트를 불러왔습니다! 선택하면 번짐 없는 절차적 벡터 획으로 변환됩니다.`);
+        } catch (err) {
+            this.setMessage('⚠️ 로컬 폰트 접근 권한이 거부되었거나 지원되지 않습니다. 드롭다운이나 파일 업로드를 이용해주세요.');
+        }
+    },
+
+    async onUploadFontFile(input) {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        try {
+            const buf = await file.arrayBuffer();
+            const customName = 'CustomUploadedFont_' + Date.now();
+            const fontFace = new FontFace(customName, buf);
+            await fontFace.load();
+            document.fonts.add(fontFace);
+
+            document.querySelectorAll('#style-cards .style-card').forEach(b => b.classList.remove('active'));
+            this.styleParams = extractFontVectorProfile(`"${customName}", serif`, file.name);
+            this.styleParams.fontFamily = `"${customName}", serif`;
+            document.getElementById('style-desc-text').textContent = this.styleParams.desc;
+
+            this.syncSlidersFromParams();
+            this.rebuildStrokes();
+            this.renderScene();
+            this.resetPractice();
+            this.playDemo();
+            this.setMessage(`🎉 [${file.name}] 폰트의 조형 프로파일을 추출하여 번짐 없는 절차적 벡터 모필로 적용했습니다!`);
+        } catch (err) {
+            this.setMessage('⚠️ 폰트 파일을 읽는 중 오류가 발생했습니다. 올바른 .ttf/.otf/.woff 파일인지 확인해주세요.');
+        }
+    },
+
+    onCustomParamChange() {
+        this.styleParams.baseRadius = parseFloat(document.getElementById('sl-radius').value);
+        this.styleParams.nibAngleDeg = parseFloat(document.getElementById('sl-angle').value);
+        this.styleParams.pressureContrast = parseFloat(document.getElementById('sl-contrast').value);
+        this.styleParams.hvRatio = parseFloat(document.getElementById('sl-hv').value);
+        this.styleParams.archCurve = parseFloat(document.getElementById('sl-arch').value);
+        this.styleParams.upwardTilt = parseFloat(document.getElementById('sl-tilt').value);
+        this.styleParams.slant = parseFloat(document.getElementById('sl-slant').value);
+        this.styleParams.roughness = parseFloat(document.getElementById('sl-rough').value);
+        this.styleParams.capStyle = document.getElementById('sel-cap').value;
+        this.styleParams.inkColor = document.getElementById('sel-ink').value;
+
+        this.updateSliderLabels();
+        this.rebuildStrokes();
+        this.renderScene();
+
+        if (!this.demoTimer) {
+            this.currentStroke = this.strokes.length;
+            const activeLayer = document.getElementById('layer-active');
+            activeLayer.innerHTML = '';
+            this.strokeEnvelopes.forEach((env, idx) => {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('id', `active-stroke-${idx}`);
+                path.setAttribute('class', 'active-brush');
+                path.setAttribute('clip-path', `url(#clip-stroke-${idx})`);
+                path.style.fill = this.styleParams.inkColor;
+                path.setAttribute('d', env.fullPathD);
+                activeLayer.appendChild(path);
+            });
+            this.highlightCurrentStartDot();
+        }
+        this.toggleLayers();
+    },
+
+    updateSliderLabels() {
+        document.getElementById('val-radius').textContent = this.styleParams.baseRadius.toFixed(2);
+        document.getElementById('val-angle').textContent = this.styleParams.nibAngleDeg + '°';
+        document.getElementById('val-contrast').textContent = this.styleParams.pressureContrast.toFixed(2);
+        document.getElementById('val-hv').textContent = this.styleParams.hvRatio.toFixed(2);
+        document.getElementById('val-arch').textContent = (this.styleParams.archCurve ?? 1.0).toFixed(2);
+        document.getElementById('val-tilt').textContent = (this.styleParams.upwardTilt ?? 1.0).toFixed(2);
+        document.getElementById('val-slant').textContent = this.styleParams.slant.toFixed(2);
+        document.getElementById('val-rough').textContent = this.styleParams.roughness.toFixed(1);
+
+        const disp = document.getElementById('fe-disp');
+        if (disp) disp.setAttribute('scale', this.styleParams.roughness);
+    },
+
+    stopDemo() {
+        if (this.demoTimer) {
+            cancelAnimationFrame(this.demoTimer);
+            this.demoTimer = null;
+        }
+    },
+
+    loadChar(raw) {
+        this.loadText(raw);
+    },
+
+    loadText(raw) {
+        this.stopDemo();
+        const cleaned = (raw || '').replace(/\s+/g, '').slice(0, 6);
+        if (!cleaned) return;
+
+        const validChars = [];
+        for (const ch of cleaned) {
+            const info = decomposeHangul(ch);
+            if (info) validChars.push(info);
+        }
+
+        if (validChars.length === 0) {
+            this.setMessage('⚠️ 한글 음절(가~힣) 또는 한글 자모로 이루어진 단어를 입력해주세요.');
+            return;
+        }
+
+        this.charsInfo = validChars;
+        const finalStr = validChars.map(v => v.char).join('');
+        document.getElementById('char-input').value = finalStr;
+
+        this.charCount = validChars.length;
+        this.updateCanvasSize(this.charCount);
+
+        document.getElementById('info-char').textContent = finalStr;
+        document.getElementById('info-unicode').textContent = validChars
+            .map(v => 'U+' + v.code.toString(16).toUpperCase().padStart(4, '0'))
+            .join(', ');
+
+        const jamoSummaries = [];
+        this.jamoEntries = [];
+        this.fitKey = null;
+
+        validChars.forEach((info, charIdx) => {
+            if (info.single) {
+                jamoSummaries.push(`[${info.char}: ${info.single}]`);
+                this.jamoEntries.push({
+                    ci: charIdx, norm: getJamoStrokes(info.single), box: [15, 15, 70, 70], pScale: 1.1,
+                    part: 'single', subPart: 'single', vType: 'V', hasJong: false, jongChar: ''
+                });
+            } else {
+                const jamoLabel = info.jong ? `${info.cho}+${info.jung}+${info.jong}` : `${info.cho}+${info.jung}`;
+                jamoSummaries.push(`[${info.char}: ${jamoLabel}]`);
+
+                const vType = VOWEL_TYPE[info.jung] || 'V';
+                const hasJong = !!info.jong;
+                const jongChar = info.jong || '';
+                const boxes = getLayoutBoxes(vType, hasJong, jongChar);
+
+                if (COMPOUND_VOWEL[info.jung]) {
+                    const [h, v] = COMPOUND_VOWEL[info.jung];
+                    if (!hasJong) {
+                        const cBox = [14, 15, 36, 32];
+                        const hBox = h === 'ㅗ' ? [10, 40, 52, 25] : h === 'ㅜ' ? [10, 48, 48, 30] : [10, 48, 52, 18];
+                        const vBox = (v === 'ㅓ' || v === 'ㅔ') ? [44, 10, 44, 78] : [52, 10, 36, 78];
+                        this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(info.cho), box: cBox, pScale: 0.95, part: 'cho', subPart: 'cho', vType, hasJong, jongChar });
+                        this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(h), box: hBox, pScale: 0.92, part: 'jung', subPart: 'jung_h', vType, hasJong, jongChar });
+                        this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(v), box: vBox, pScale: 0.96, part: 'jung', subPart: 'jung_v', vType, hasJong, jongChar });
+                    } else {
+                        const vH = (jongChar === 'ㄴ') ? 56 : 49;
+                        const cBox = [14, 10, 36, 26];
+                        const hBox = h === 'ㅗ' ? [10, 34, 50, 19] : h === 'ㅜ' ? [10, 38, 48, 20] : [10, 38, 50, 15];
+                        const vBox = (v === 'ㅓ' || v === 'ㅔ') ? [44, 9, 42, vH] : [52, 9, 34, vH];
+                        this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(info.cho), box: cBox, pScale: 0.92, part: 'cho', subPart: 'cho', vType, hasJong, jongChar });
+                        this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(h), box: hBox, pScale: 0.90, part: 'jung', subPart: 'jung_h', vType, hasJong, jongChar });
+                        this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(v), box: vBox, pScale: 0.94, part: 'jung', subPart: 'jung_v', vType, hasJong, jongChar });
+                    }
+                } else {
+                    this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(info.cho), box: [...boxes.cho], pScale: 1.0, part: 'cho', subPart: 'cho', vType, hasJong, jongChar });
+                    this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(info.jung), box: [...boxes.jung], pScale: 1.0, part: 'jung', subPart: 'jung', vType, hasJong, jongChar });
+                }
+                if (hasJong) {
+                    this.jamoEntries.push({ ci: charIdx, norm: getJamoStrokes(info.jong), box: [...boxes.jong], pScale: 0.92, part: 'jong', subPart: 'jong', vType, hasJong, jongChar });
+                }
+            }
+        });
+        this.entriesToRaw();
+
+        document.getElementById('info-jamo').textContent = jamoSummaries.join(' ');
+        this.rebuildStrokes();
+        document.getElementById('info-strokes').textContent = this.strokes.length;
+
+        this.renderScene();
+        this.resetPractice();
+        this.playDemo();
+    },
+
+    entriesToRaw() {
+        const per = [];
+        const metaPer = [];
+        for (let i = 0; i < this.charCount; i++) { per.push([]); metaPer.push([]); }
+        (this.jamoEntries || []).forEach((e, ei) => {
+            const b = e.fbox || e.pbox || e.box;
+            const mapped = mapSubBox(e.norm, e.ci * 100 + b[0], b[1], b[2], b[3], e.pScale);
+            if (e.fbox && e.so) mapped.forEach((st, i) => st.forEach(p => { p[0] += e.so[i][0]; p[1] += e.so[i][1]; }));
+            else if (!e.fbox && e.pso) mapped.forEach((st, i) => st.forEach(p => { p[0] += e.pso[i][0]; p[1] += e.pso[i][1]; }));
+            per[e.ci].push(...mapped);
+            mapped.forEach(() => metaPer[e.ci].push({
+                ci: e.ci,
+                ei,
+                part: e.part || 'single',
+                subPart: e.subPart || 'single',
+                vType: e.vType || 'V',
+                hasJong: !!e.hasJong,
+                jongChar: e.jongChar || '',
+                rScale: e.fbox ? 1.0 : (e.rScale || 1.0)
+            }));
+        });
+        this.rawCharStrokes = per;
+        this.strokeMeta = metaPer.flat();
+    },
+
+    /**
+     * 실제 폰트 글리프에 골격(자소 박스)을 자동 정합 (좌표하강법 + 양방향 샤므퍼 거리)
+     * - 글리프 잉크 거리변환(DT)으로 골격 점이 잉크 중심선 위에 오도록, 잉크 점이 골격에 덮이도록 박스를 맞춘다.
+     * - 초성·중성·종성 영역 경계를 엄격히 분리하여 중성 세로획이 종성 영역으로 끌려 내려가지 않게 한다.
+     */
+    fitEntriesToGlyph() {
+        const ff = this.styleParams.fontFamily;
+        const chk = document.getElementById('chk-glyph');
+        if (!ff || !chk || !chk.checked) { (this.jamoEntries || []).forEach(e => { e.fbox = null; }); this.fitKey = null; return; }
+        const key = ff + '|' + this.charsInfo.map(c => c.char).join('');
+        if (this.fitKey === key && this.jamoEntries.every(e => e.fbox)) return;
+        (this.jamoEntries || []).forEach(e => { e.fbox = null; });
+
+        const R = 150, s = R / 100;
+        const off = document.createElement('canvas');
+        off.width = R; off.height = R;
+        const ctx = off.getContext('2d', { willReadFrequently: true });
+        const cells = this.charsInfo.map(info => {
+            ctx.clearRect(0, 0, R, R);
+            ctx.fillStyle = '#000';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = `normal ${Math.round(R * 0.81)}px ${ff}`;
+            ctx.fillText(info.char, R / 2, R / 2);
+            const d = ctx.getImageData(0, 0, R, R).data;
+            const INF = 1e6;
+            const dt = new Float32Array(R * R);
+            const ink = [];
+            for (let i = 0; i < R * R; i++) dt[i] = d[i * 4 + 3] > 100 ? 0 : INF;
+            for (let y = 0; y < R; y++) for (let x = 0; x < R; x++) {
+                if (dt[y * R + x] === 0 && x % 3 === 0 && y % 3 === 0) ink.push([x / s, y / s]);
+            }
+            const a = 1, b = 1.414;
+            for (let y = 0; y < R; y++) for (let x = 0; x < R; x++) {
+                let v = dt[y * R + x];
+                if (x > 0) v = Math.min(v, dt[y * R + x - 1] + a);
+                if (y > 0) v = Math.min(v, dt[(y - 1) * R + x] + a);
+                if (x > 0 && y > 0) v = Math.min(v, dt[(y - 1) * R + x - 1] + b);
+                if (x < R - 1 && y > 0) v = Math.min(v, dt[(y - 1) * R + x + 1] + b);
+                dt[y * R + x] = v;
+            }
+            for (let y = R - 1; y >= 0; y--) for (let x = R - 1; x >= 0; x--) {
+                let v = dt[y * R + x];
+                if (x < R - 1) v = Math.min(v, dt[y * R + x + 1] + a);
+                if (y < R - 1) v = Math.min(v, dt[(y + 1) * R + x] + a);
+                if (x < R - 1 && y < R - 1) v = Math.min(v, dt[(y + 1) * R + x + 1] + b);
+                if (x > 0 && y < R - 1) v = Math.min(v, dt[(y + 1) * R + x - 1] + b);
+                dt[y * R + x] = v;
+            }
+            return { dt, ink };
+        });
+
+        const dtAt = (cell, ux, uy) => {
+            const x = Math.max(0, Math.min(R - 1, Math.round(ux * s)));
+            const y = Math.max(0, Math.min(R - 1, Math.round(uy * s)));
+            return cell.dt[y * R + x] / s;
+        };
+
+        this.jamoEntries.forEach(e => {
+            e.fbox = [...e.box];
+            e.def = [...e.box];
+            // 자소 박스 안에서 실제 잉크가 있어야 할 영역(초성·중성·종성 경계 준수) 내 잉크 점 수집
+            const cell = cells[e.ci];
+            const jungYMax = (e.jongChar === 'ㄴ') ? 69 : 59;
+            const choYMax = (e.vType === 'H') ? 38 : 54;
+            e.region = cell.ink.filter(([x, y]) => {
+                if (x < e.def[0] - 5 || x > e.def[0] + e.def[2] + 5 || y < e.def[1] - 5 || y > e.def[1] + e.def[3] + 5) return false;
+                if (e.hasJong) {
+                    if (e.part === 'cho') {
+                        if (y > choYMax) return false;
+                        if (e.vType !== 'H' && x > 58) return false;
+                    } else if (e.part === 'jung') {
+                        if (y > jungYMax) return false;
+                        if (e.vType === 'H' && y < 35) return false;
+                    } else if (e.part === 'jong') {
+                        if (y < 54) return false;
+                    }
+                }
+                return true;
+            });
+        });
+
+        const cost = (e, bx) => {
+            const cell = cells[e.ci];
+            const smp = [];
+            e.norm.forEach(st => {
+                for (let i = 0; i < st.length - 1; i++) {
+                    for (let t = 0; t < 5; t++) {
+                        const f = t / 5;
+                        smp.push([bx[0] + (st[i][0] * (1 - f) + st[i + 1][0] * f) * bx[2], bx[1] + (st[i][1] * (1 - f) + st[i + 1][1] * f) * bx[3]]);
+                    }
+                }
+            });
+            let A = 0;
+            smp.forEach(p => { A += Math.min(dtAt(cell, p[0], p[1]), 14); });
+            A /= smp.length;
+            let B = 0;
+            if (e.region.length) {
+                e.region.forEach(q => {
+                    let m = 1e9;
+                    for (let k = 0; k < smp.length; k++) {
+                        const dx = q[0] - smp[k][0], dy = q[1] - smp[k][1];
+                        const d2 = dx * dx + dy * dy;
+                        if (d2 < m) m = d2;
+                    }
+                    B += Math.min(Math.sqrt(m), 16);
+                });
+                B /= e.region.length;
+            }
+            const P = 0.14 * (Math.abs(bx[0] - e.def[0]) + Math.abs(bx[1] - e.def[1])) + 0.16 * (Math.abs(bx[2] - e.def[2]) + Math.abs(bx[3] - e.def[3]));
+            return A + 0.8 * B + P;
+        };
+
+        for (let round = 0; round < 2; round++) {
+            this.jamoEntries.forEach(e => {
+                let best = cost(e, e.fbox);
+                const jungYMax = (e.jongChar === 'ㄴ') ? 69 : 60;
+                const choYMax = (e.vType === 'H') ? 39 : 54;
+                const minScale = (e.part === 'jong') ? 0.55 : 0.72;
+                [6, 3, 1.5, 0.75].forEach(step => {
+                    for (let sweep = 0; sweep < 3; sweep++) {
+                        let improved = false;
+                        for (let p = 0; p < 4; p++) {
+                            for (const sg of [-1, 1]) {
+                                const nb = [...e.fbox];
+                                nb[p] += sg * step * (p >= 2 ? 1.5 : 1);
+                                if (p < 2 && Math.abs(nb[p] - e.def[p]) > 12) continue;
+                                if (p >= 2 && (nb[p] < e.def[p] * minScale || nb[p] > e.def[p] * 1.18)) continue;
+                                if (e.hasJong) {
+                                    if (e.part === 'jung' && nb[1] + nb[3] > jungYMax) continue;
+                                    if (e.part === 'cho' && nb[1] + nb[3] > choYMax) continue;
+                                    if (e.part === 'jong' && nb[1] < 53) continue;
+                                }
+                                const c = cost(e, nb);
+                                if (c < best - 1e-4) { best = c; e.fbox = nb; improved = true; }
+                            }
+                        }
+                        if (!improved) break;
+                    }
+                });
+            });
+        }
+        // 획 단위 미세 정합: 자소 내부 골격 구조를 유지하도록 ±5 범위 내에서만 각 획을 미세 평행이동(dx,dy)하여 중심축에 맞춘다.
+        const runDims = (cell, x, y, nx, ny) => {
+            let lp = 0, ln = 0;
+            for (let t = 0; t <= 24; t += 0.6) {
+                if (dtAt(cell, x + nx * t, y + ny * t) < 0.01) lp += 0.6; else break;
+            }
+            for (let t = 0; t <= 24; t += 0.6) {
+                if (dtAt(cell, x - nx * t, y - ny * t) < 0.01) ln += 0.6; else break;
+            }
+            return [lp + ln, Math.abs(lp - ln)];
+        };
+        const occArr = {};
+        this.jamoEntries.forEach(e => {
+            const cell = cells[e.ci];
+            const b = e.fbox;
+            e.so = e.norm.map(() => [0, 0]);
+            const jungYMax = (e.jongChar === 'ㄴ') ? 70 : (e.vType === 'H' && e.jongChar !== 'ㄱ' ? 56.5 : 61);
+            const choYMax = (e.vType === 'H') ? 39.5 : 55;
+            e.norm.forEach((st, si) => {
+                const samples = [];
+                let minSmpY = 100, maxSmpY = 0;
+                for (let i = 0; i < st.length - 1; i++) {
+                    const ax = st[i][0] * b[2], ay = st[i][1] * b[3], bx2 = st[i + 1][0] * b[2], by2 = st[i + 1][1] * b[3];
+                    const len = Math.hypot(bx2 - ax, by2 - ay) || 1;
+                    const nx = -(by2 - ay) / len, ny = (bx2 - ax) / len;
+                    for (let t = 0; t < 5; t++) {
+                        const f = t / 5;
+                        const sx = b[0] + ax * (1 - f) + bx2 * f, sy = b[1] + ay * (1 - f) + by2 * f;
+                        if (sy < minSmpY) minSmpY = sy;
+                        if (sy > maxSmpY) maxSmpY = sy;
+                        samples.push([sx, sy, nx, ny]);
+                    }
+                }
+                if (!samples.length) return;
+                const occ = occArr[e.ci] || (occArr[e.ci] = []);
+                const isVertSt = Math.abs(st[st.length - 1][1] - st[0][1]) > Math.abs(st[st.length - 1][0] - st[0][0]);
+                const maxShiftX = (e.part === 'cho' && e.vType === 'H') ? 6 : (e.part === 'jung' && isVertSt ? 18 : 10);
+                const maxShiftY = (e.part === 'cho' && e.vType === 'H') ? 4 : (e.part === 'jung' && !isVertSt ? 16 : 10);
+                const sc = (dx, dy) => {
+                    if (e.hasJong) {
+                        if (e.part === 'jung' && maxSmpY + dy > jungYMax) return 1e6;
+                        if (e.part === 'cho' && maxSmpY + dy > choYMax) return 1e6;
+                        if (e.part === 'jong' && minSmpY + dy < 53) return 1e6;
+                    }
+                    let A = 0, Cp = 0, ov = 0;
+                    samples.forEach(p => {
+                        const x = p[0] + dx, y = p[1] + dy;
+                        A += Math.min(dtAt(cell, x, y), 14);
+                        const [L, asym] = runDims(cell, x, y, p[2], p[3]);
+                        Cp += Math.min(Math.max(0, L - 17), 12) + (L < 0.5 ? 6 : 0) + (L <= 17 ? asym * 0.55 : 0);
+                        for (let q = 0; q < occ.length; q++) {
+                            const ddx = occ[q][0] - x, ddy = occ[q][1] - y;
+                            if (ddx * ddx + ddy * ddy < 12 && Math.abs(p[2] * occ[q][2] + p[3] * occ[q][3]) > 0.78) { ov++; break; }
+                        }
+                    });
+                    return (A + 0.9 * Cp + 6 * ov) / samples.length + 0.08 * (Math.abs(dx) + Math.abs(dy));
+                };
+                let best = sc(0, 0), cur = [0, 0];
+                for (let gy = -maxShiftY; gy <= maxShiftY; gy += 2) {
+                    for (let gx = -maxShiftX; gx <= maxShiftX; gx += 2) {
+                        const c = sc(gx, gy);
+                        if (c < best - 1e-4) { best = c; cur = [gx, gy]; }
+                    }
+                }
+                [3, 1.5, 0.75].forEach(step => {
+                    for (let sweep = 0; sweep < 3; sweep++) {
+                        let imp = false;
+                        for (const [mx, my] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+                            const nx2 = cur[0] + mx * step, ny2 = cur[1] + my * step;
+                            if (Math.abs(nx2) > maxShiftX || Math.abs(ny2) > maxShiftY) continue;
+                            const c = sc(nx2, ny2);
+                            if (c < best - 1e-4) { best = c; cur = [nx2, ny2]; imp = true; }
+                        }
+                        if (!imp) break;
+                    }
+                });
+                e.so[si] = cur;
+                for (let i = 0; i < st.length - 1; i++) {
+                    const ax = b[0] + st[i][0] * b[2] + cur[0], ay = b[1] + st[i][1] * b[3] + cur[1];
+                    const bx2 = b[0] + st[i + 1][0] * b[2] + cur[0], by2 = b[1] + st[i + 1][1] * b[3] + cur[1];
+                    const len = Math.hypot(bx2 - ax, by2 - ay) || 1;
+                    const nx = -(by2 - ay) / len, ny = (bx2 - ax) / len;
+                    const n = Math.max(2, Math.ceil(len / 1.5));
+                    for (let t = 0; t <= n; t++) occ.push([ax + (bx2 - ax) * t / n, ay + (by2 - ay) * t / n, nx, ny]);
+                }
+            });
+        });
+        this.fitKey = key;
+    },
+
+    initProceduralBoxes() {
+        const br = this.styleParams.baseRadius || 3.3;
+        const thick = br > 3.45;
+        (this.jamoEntries || []).forEach(e => {
+            if (e.fbox) { e.pbox = null; e.pso = null; e.rScale = 1.0; return; }
+            const nSt = e.norm ? e.norm.length : 1;
+            e.pso = (e.norm || []).map(() => [0, 0]);
+            if (e.part === 'single') {
+                e.pbox = [...e.box];
+                e.rScale = 1.0;
+                return;
+            }
+            if (!e.hasJong) {
+                if (e.vType === 'V') {
+                    e.pbox = (e.part === 'cho') ? [10, 16, 33, 54] : [55, 10, 34, 78];
+                    e.rScale = thick ? (nSt >= 3 ? 0.86 : 0.92) : 1.0;
+                } else if (e.vType === 'H') {
+                    e.pbox = (e.part === 'cho') ? [24, 9, 52, 34] : [14, 57, 72, 29];
+                    e.rScale = thick ? (nSt >= 3 ? 0.85 : 0.92) : 1.0;
+                } else {
+                    if (e.subPart === 'cho') e.pbox = [12, 10, 34, 28];
+                    else if (e.subPart === 'jung_h') e.pbox = [10, e.box[1] + 9, 43, Math.max(16, e.box[3] - 2)];
+                    else e.pbox = [e.box[0] + 7, 10, Math.max(29, e.box[2] - 7), 78];
+                    e.rScale = thick ? (nSt >= 3 ? 0.78 : 0.85) : 0.94;
+                }
+            } else {
+                if (e.vType === 'V') {
+                    if (e.part === 'cho') e.pbox = [10, 8, 33, 36];
+                    else if (e.part === 'jung') e.pbox = [55, 8, 34, 41];
+                    else e.pbox = [22, 62, 54, 28];
+                    e.rScale = thick ? (nSt >= 3 ? 0.78 : 0.85) : 0.95;
+                } else if (e.vType === 'H') {
+                    if (e.part === 'cho') e.pbox = [24, 6, 50, 24];
+                    else if (e.part === 'jung') e.pbox = [14, 39, 72, 16];
+                    else e.pbox = [24, 64, 52, 27];
+                    e.rScale = thick ? (nSt >= 3 ? 0.75 : 0.82) : 0.92;
+                } else {
+                    if (e.subPart === 'cho') e.pbox = [12, 6, 34, 24];
+                    else if (e.subPart === 'jung_h') e.pbox = [10, 37, 43, Math.max(16, e.box[3] - 2)];
+                    else if (e.subPart === 'jung_v') e.pbox = [e.box[0] + 8, 8, Math.max(28, e.box[2] - 6), 44];
+                    else e.pbox = [22, 64, 54, 27];
+                    e.rScale = thick ? (nSt >= 3 ? 0.70 : 0.78) : 0.90;
+                }
+            }
+        });
+    },
+
+    rebuildStrokes() {
+        this.fitEntriesToGlyph();
+        this.initProceduralBoxes();
+        const buildAll = () => {
+            this.entriesToRaw();
+            const flatRaw = this.rawCharStrokes.flat();
+            this.strokes = flatRaw.map(rawCtrl => buildProceduralStrokePoints(rawCtrl, this.styleParams));
+            this.strokeJunctions = computeStrokeJunctions(this.strokes, this.styleParams.baseRadius, this.strokeMeta);
+            this.strokeJunctions.forEach((j, idx) => {
+                j.rScale = (this.strokeMeta && this.strokeMeta[idx]) ? this.strokeMeta[idx].rScale : 1.0;
+            });
+            this.strokeEnvelopes = this.strokes.map((pts, idx) =>
+                buildStrokeEnvelope(pts, this.styleParams, this.strokeJunctions[idx])
+            );
+        };
+        buildAll();
+        this.buildGlyphData();
+
+        // 글리프 모드가 아닐 때(봉서체 등 절차적 벡터 모드): 초성·중성·종성 실제 외곽선 간 최소 간격(MIN_GAP) 강제 보장
+        if (!this.isGlyphMode() && this.jamoEntries && this.jamoEntries.length > 0) {
+            const MIN_GAP = Math.max(3.5, (this.styleParams.baseRadius || 3.3) * 0.90);
+            const minDist2D = (ptsA, ptsB) => {
+                let md2 = 1e9;
+                for (let i = 0; i < ptsA.length; i += 2) {
+                    const ax = ptsA[i][0], ay = ptsA[i][1];
+                    for (let j = 0; j < ptsB.length; j += 2) {
+                        const dx = ax - ptsB[j][0], dy = ay - ptsB[j][1];
+                        const d2 = dx * dx + dy * dy;
+                        if (d2 < md2) md2 = d2;
+                    }
+                }
+                return Math.sqrt(md2);
+            };
+
+            for (let iter = 0; iter < 6; iter++) {
+                let changed = false;
+                for (let ci = 0; ci < this.charCount; ci++) {
+                    const parts = {};
+                    const entryStrokes = new Map();
+                    this.strokeEnvelopes.forEach((env, s) => {
+                        const m = this.strokeMeta[s];
+                        if (!m || m.ci !== ci || m.part === 'single') return;
+                        const localPts = (env.boundPts || []).map(p => [p[0] - ci * 100, p[1]]);
+                        if (!localPts.length) return;
+                        let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+                        localPts.forEach(([x, y]) => {
+                            if (x < minX) minX = x; if (x > maxX) maxX = x;
+                            if (y < minY) minY = y; if (y > maxY) maxY = y;
+                        });
+                        if (!parts[m.subPart]) {
+                            parts[m.subPart] = { minX, maxX, minY, maxY, pts: [...localPts], e: this.jamoEntries[m.ei] };
+                        } else {
+                            const P = parts[m.subPart];
+                            if (minX < P.minX) P.minX = minX; if (maxX > P.maxX) P.maxX = maxX;
+                            if (minY < P.minY) P.minY = minY; if (maxY > P.maxY) P.maxY = maxY;
+                            P.pts.push(...localPts);
+                        }
+                        if (!entryStrokes.has(m.ei)) entryStrokes.set(m.ei, []);
+                        entryStrokes.get(m.ei).push({ s, minY, maxY, pts: localPts, seg0: this.strokes[s][0][4] });
+                    });
+
+                    // (A) ㅎ·ㅊ 등 동일 자소 내부의 비접촉 획(점·가로획·원) 간 겹침 방지
+                    entryStrokes.forEach((stList, ei) => {
+                        if (stList.length >= 3 && stList[0].seg0 === 'DOT') {
+                            const e = this.jamoEntries[ei];
+                            const gap01 = stList[1].minY - stList[0].maxY;
+                            const gap12 = stList[2].minY - stList[1].maxY;
+                            if (gap01 < 1.8) {
+                                e.pso[0][1] -= (1.8 - gap01) * 0.75;
+                                if (e.rScale > 0.62) e.rScale *= 0.95;
+                                changed = true;
+                            }
+                            if (stList[2].seg0 === 'O' && gap12 < 1.8) {
+                                e.pso[2][1] += (1.8 - gap12) * 0.75;
+                                if (e.rScale > 0.62) e.rScale *= 0.95;
+                                changed = true;
+                            }
+                        }
+                    });
+
+                    // (B) 초성 vs 중성(가로모음 H 또는 복합모음 수평부 jung_h) 상하 간격 보장
+                    const topCho = parts.cho;
+                    const botJungH = parts.jung_h || (topCho && topCho.e.vType === 'H' ? parts.jung : null);
+                    if (topCho && botJungH) {
+                        const gapY = botJungH.minY - topCho.maxY;
+                        const d2 = minDist2D(topCho.pts, botJungH.pts);
+                        const eff = Math.min(gapY, d2);
+                        if (eff < MIN_GAP) {
+                            const need = MIN_GAP - eff + 0.4;
+                            topCho.e.pbox[3] = Math.max(13, topCho.e.pbox[3] - need * 0.65);
+                            topCho.e.pbox[1] = Math.max(4, topCho.e.pbox[1] - need * 0.20);
+                            botJungH.e.pbox[1] += need * 0.35;
+                            changed = true;
+                        }
+                    }
+
+                    // (C) 상단 자소(초성·중성) vs 종성(받침) 상하 간격 보장
+                    if (parts.jong) {
+                        const jong = parts.jong;
+                        ['cho', 'jung', 'jung_h', 'jung_v'].forEach(k => {
+                            const uP = parts[k];
+                            if (!uP) return;
+                            const gapY = jong.minY - uP.maxY;
+                            const d2 = minDist2D(uP.pts, jong.pts);
+                            const eff = Math.min(gapY, d2);
+                            if (eff < MIN_GAP) {
+                                const need = MIN_GAP - eff + 0.4;
+                                uP.e.pbox[3] = Math.max(12, uP.e.pbox[3] - need * 0.65);
+                                jong.e.pbox[1] = Math.min(72, jong.e.pbox[1] + need * 0.35);
+                                if (jong.maxY + need * 0.35 > 93) {
+                                    jong.e.pbox[3] = Math.max(17, jong.e.pbox[3] - need * 0.35);
+                                }
+                                changed = true;
+                            }
+                        });
+                    }
+
+                    // (D) 초성 vs 중성(세로모음 V 또는 복합모음 수직부 jung_v) 좌우 간격 보장
+                    const rightJungV = parts.jung_v || (topCho && topCho.e.vType === 'V' ? parts.jung : null);
+                    if (topCho && rightJungV) {
+                        const gapX = rightJungV.minX - topCho.maxX;
+                        const d2 = minDist2D(topCho.pts, rightJungV.pts);
+                        const eff = Math.min(gapX, d2);
+                        if (eff < MIN_GAP) {
+                            const need = MIN_GAP - eff + 0.4;
+                            topCho.e.pbox[2] = Math.max(19, topCho.e.pbox[2] - need * 0.55);
+                            topCho.e.pbox[0] = Math.max(6, topCho.e.pbox[0] - need * 0.15);
+                            rightJungV.e.pbox[0] = Math.min(68, rightJungV.e.pbox[0] + need * 0.45);
+                            if (rightJungV.maxX + need * 0.45 > 93) {
+                                rightJungV.e.pbox[2] = Math.max(19, rightJungV.e.pbox[2] - need * 0.35);
+                            }
+                            changed = true;
+                        }
+                    }
+
+                    // (E) 복합모음 내부 수평부(jung_h) vs 수직부(jung_v) 좌우 간격 보장
+                    if (parts.jung_h && parts.jung_v) {
+                        const gapX = parts.jung_v.minX - parts.jung_h.maxX;
+                        const d2 = minDist2D(parts.jung_h.pts, parts.jung_v.pts);
+                        const eff = Math.min(gapX, d2);
+                        const targetG = MIN_GAP * 0.85;
+                        if (eff < targetG) {
+                            const need = targetG - eff + 0.35;
+                            parts.jung_h.e.pbox[2] = Math.max(22, parts.jung_h.e.pbox[2] - need * 0.65);
+                            parts.jung_v.e.pbox[0] = Math.min(68, parts.jung_v.e.pbox[0] + need * 0.35);
+                            changed = true;
+                        }
+                    }
+                }
+                if (!changed) break;
+                buildAll();
+            }
+        }
+    },
+
+    /**
+     * 실제 폰트 글리프 기반 획순 공개(Glyph Reveal) 데이터 생성
+     * - 선택된 폰트로 각 글자를 래스터화하고, 모든 잉크 픽셀을 가장 가까운 골격 점(획번호, 점번호)에 배정한다.
+     * - 초성·중성·종성 경계 및 중성 세로획 하단 침필(Pinch/Gap) 지점을 정밀 검출하여 종성으로의 번짐을 원천 차단한다.
+     */
+    buildGlyphData() {
+        this.glyphData = null;
+        const ff = this.styleParams.fontFamily;
+        if (!ff || !this.charsInfo || !this.charsInfo.length || !this.strokes.length) return;
+        const R = 360;
+        const count = this.charCount;
+        const off = document.createElement('canvas');
+        off.width = R * count; off.height = R;
+        const ctx = off.getContext('2d', { willReadFrequently: true });
+        ctx.fillStyle = '#000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = `normal ${Math.round(R * 0.81)}px ${ff}`;
+        this.charsInfo.forEach((info, ci) => ctx.fillText(info.char, ci * R + R / 2, R / 2));
+        const img = ctx.getImageData(0, 0, R * count, R).data;
+        const W = R * count;
+        const chk = document.getElementById('chk-glyph');
+        const glyphActive = !!(chk && chk.checked);
+
+        const alphaAt = (ci, lx, ly) => {
+            const X = Math.round(ci * R + lx), Y = Math.round(ly);
+            if (X < ci * R || X >= (ci + 1) * R || Y < 0 || Y >= R) return 0;
+            return img[(Y * W + X) * 4 + 3];
+        };
+        const perpRunAt = (ci, lx, ly, nx, ny) => {
+            let L = 0;
+            for (const sg of [1, -1]) {
+                for (let t = 0; t <= 65; t += 1) {
+                    if (alphaAt(ci, lx + sg * nx * t, ly + sg * ny * t) > 110) L += 1; else break;
+                }
+            }
+            return L;
+        };
+
+        const strokeEndLy = new Float32Array(this.strokes.length).fill(1e6);
+
+        // 0) 글리프 모드일 때 초성·중성 세로획의 하단 침필/종성 경계(Pinch/Gap)를 검출하고,
+        //    기필/수필을 실제 자소 잉크 끝까지 정확히 맞추되 타 자소(종성 등) 침범을 차단한다.
+        if (glyphActive) {
+            this.strokes.forEach((pts, s) => {
+                if (!pts || pts.length < 4) return;
+                const ci = Math.floor(pts[Math.floor(pts.length / 2)][0] / 100);
+                if (ci < 0 || ci >= count) return;
+                const isLoop = Math.hypot(pts[0][0] - pts[pts.length - 1][0], pts[0][1] - pts[pts.length - 1][1]) < 4.5;
+                if (isLoop) return;
+
+                const meta = (this.strokeMeta && this.strokeMeta[s]) || { part: 'single', subPart: 'single', vType: 'V', hasJong: false, jongChar: '' };
+                const work = pts.map(p => [...p]);
+
+                // (a) 받침(종성)이 있는 글자에서 초성/중성의 하향 세로획이 종성과 만나는 병목(Pinch) 또는 여백(Gap) 하단 한계점 검출
+                let yEndLimit100 = 100;
+                const pTail0 = work[Math.max(0, work.length - 6)], pTail1 = work[work.length - 1];
+                const isEndingDownV = (pTail1[1] - pTail0[1]) > Math.abs(pTail1[0] - pTail0[0]) * 1.4;
+                if (meta.hasJong && meta.part !== 'jong' && isEndingDownV && pTail1[1] > 40) {
+                    const yTopPx = Math.round(work[0][1] * R / 100);
+                    const yRefPx = Math.max(yTopPx + 9, Math.round(Math.min(40, (work[0][1] + pTail1[1]) * 0.45) * R / 100));
+                    let curX = Math.round((work[Math.floor(work.length * 0.45)][0] - ci * 100) * R / 100);
+                    let bestX = curX, bestSym = 1e9, stemW = 18;
+                    for (let dx = -10; dx <= 10; dx++) {
+                        const tx = curX + dx;
+                        if (alphaAt(ci, tx, yRefPx) > 110) {
+                            let l = 0, r = 0;
+                            while (l < 36 && alphaAt(ci, tx - l, yRefPx) > 90) l++;
+                            while (r < 36 && alphaAt(ci, tx + r, yRefPx) > 90) r++;
+                            if (l + r >= 6 && l + r <= 34 && Math.abs(l - r) < bestSym) {
+                                bestSym = Math.abs(l - r);
+                                bestX = tx;
+                                stemW = Math.max(12, Math.min(30, l + r));
+                            }
+                        }
+                    }
+                    curX = bestX;
+                    const startScanLy = Math.max(yRefPx + 4, Math.round(42 * R / 100));
+                    const maxScanLy = Math.round((meta.jongChar === 'ㄴ' ? 74 : 67) * R / 100);
+                    let minRw = stemW, minLy = startScanLy;
+                    let endLy = maxScanLy;
+                    const pinchCheckLy = Math.round((meta.vType === 'H' ? 48 : 50) * R / 100);
+                    for (let ly = startScanLy; ly <= maxScanLy; ly++) {
+                        let l = 0, r = 0;
+                        while (l < 48 && alphaAt(ci, curX - l, ly) > 80) l++;
+                        while (r < 48 && alphaAt(ci, curX + r, ly) > 80) r++;
+                        const rw = l + r;
+                        if (alphaAt(ci, curX, ly) < 64 && alphaAt(ci, curX - 2, ly) < 64 && alphaAt(ci, curX + 2, ly) < 64) {
+                            endLy = ly - 1;
+                            break;
+                        }
+                        if (ly >= pinchCheckLy) {
+                            if (rw > 0 && rw <= minRw) { minRw = rw; minLy = ly; }
+                            if (minRw <= stemW * 0.72 && (rw > minRw * 1.55 + 4 || l > stemW * 0.92)) {
+                                endLy = (ly - minLy <= 10) ? minLy : (ly - 2);
+                                break;
+                            }
+                            if (l > stemW * 1.18) {
+                                endLy = (minRw < stemW * 0.85 && ly - minLy <= 10) ? minLy : (ly - 2);
+                                break;
+                            }
+                        }
+                        if (rw >= 4 && rw <= stemW * 1.15) {
+                            curX = Math.round(curX + (r - l) * 0.32);
+                        }
+                    }
+                    strokeEndLy[s] = endLy;
+                    yEndLimit100 = (endLy * 100) / R;
+                }
+
+                // (b) 기필 앞쪽(j < 0.22*N)의 빈 여백 점 제거 및 수필 뒤쪽에서 흰 여백이나 종성 경계 너머로 나간 꼬리 제거
+                const minEndCheck = Math.floor(work.length * 0.54);
+                const onInk = work.map((p, j) => {
+                    if (p[1] > yEndLimit100 + 0.25) return false;
+                    const lx = (p[0] - ci * 100) * R / 100, ly = p[1] * R / 100;
+                    if (alphaAt(ci, lx, ly) >= 56) return true;
+                    const j0 = Math.max(0, j - 1), j1 = Math.min(work.length - 1, j + 1);
+                    const dx = work[j1][0] - work[j0][0], dy = work[j1][1] - work[j0][1];
+                    const l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l;
+                    const offsets = (j >= minEndCheck) ? [-2, 2] : [-3, 3, -6, 6];
+                    for (const d of offsets) {
+                        if (alphaAt(ci, lx + nx * d, ly + ny * d) >= 85) return true;
+                    }
+                    return false;
+                });
+                let iStart = 0;
+                const maxStartTrim = Math.floor(work.length * 0.22);
+                while (iStart < maxStartTrim && !onInk[iStart]) iStart++;
+
+                let iEnd = work.length - 1;
+                const checkStart = Math.max(iStart + 4, minEndCheck);
+                const isSingleSegWork = (work[0][7] === work[work.length - 1][7]);
+                for (let j = checkStart; j < work.length; j++) {
+                    if (work[j][1] > yEndLimit100 + 0.25) {
+                        iEnd = Math.max(iStart + 3, j - 1);
+                        break;
+                    }
+                    if (!onInk[j] && (j + 1 >= work.length || !onInk[j + 1] || isSingleSegWork || (meta.hasJong && meta.part !== 'jong' && work[j][1] > 48))) {
+                        iEnd = Math.max(iStart + 3, j - 1);
+                        break;
+                    }
+                }
+                while (iEnd > checkStart && !onInk[iEnd]) iEnd--;
+
+                const sliced = work.slice(iStart, iEnd + 1);
+                if (sliced.length >= 4) {
+                    const isSingleSeg = (sliced[0][7] === sliced[sliced.length - 1][7]);
+                    // (c) 기필(시작점)이 잉크 머리 끝보다 안쪽에서 시작하면 기필 역방향으로 연장
+                    {
+                        const first = sliced[0];
+                        const next = sliced[Math.min(sliced.length - 1, 4)];
+                        const dx = first[0] - next[0], dy = first[1] - next[1];
+                        const dl = Math.hypot(dx, dy) || 1;
+                        const tx = dx / dl, ty = dy / dl, nx = -ty, ny = tx;
+                        const refW = Math.max(16, perpRunAt(ci, (first[0] - ci * 100) * R / 100, first[1] * R / 100, nx, ny));
+                        const pre = [];
+                        for (let step = 1.1; step <= 7.5; step += 1.1) {
+                            const sx = first[0] + tx * step, sy = first[1] + ty * step;
+                            if (meta.part === 'jong' && sy < 53) break;
+                            const lx = (sx - ci * 100) * R / 100, ly = sy * R / 100;
+                            if (alphaAt(ci, lx, ly) < 96) break;
+                            const rw = perpRunAt(ci, lx, ly, nx, ny);
+                            if (rw > refW * 1.75) break;
+                            pre.unshift([sx, sy, first[2], 0.0, first[4], first[5], first[6], first[7]]);
+                        }
+                        if (pre.length) sliced.unshift(...pre);
+                    }
+                    // (d) 직선 가로/세로획(또는 ㄴ/ㄷ/ㄹ의 마지막 가로획) 수필 끝점이 잉크 끝보다 짧게 끝난 경우 자소 경계 내에서 연장
+                    const last = sliced[sliced.length - 1];
+                    const prev = sliced[Math.max(0, sliced.length - 5)];
+                    const dx = last[0] - prev[0], dy = last[1] - prev[1];
+                    const dl = Math.hypot(dx, dy) || 1;
+                    const isLastH = dx > Math.abs(dy) * 2.0;
+                    const isLastV = isSingleSeg && (sliced[0][4] === 'V' || dy > Math.abs(dx) * 2.0);
+                    if (isLastH || isLastV) {
+                        const tx = dx / dl, ty = dy / dl, nx = -ty, ny = tx;
+                        const midPt = sliced[Math.floor(sliced.length * 0.65)];
+                        const refW = Math.max(14, perpRunAt(ci, (midPt[0] - ci * 100) * R / 100, midPt[1] * R / 100, nx, ny));
+                        for (let step = 1.0; step <= 13.0; step += 1.0) {
+                            const ex = last[0] + tx * step, ey = last[1] + ty * step;
+                            if (ey > yEndLimit100) break;
+                            if (isLastH && meta.part === 'cho' && meta.vType !== 'H' && (ex - ci * 100) > 62.2) break;
+                            const lx = (ex - ci * 100) * R / 100, ly = ey * R / 100;
+                            if (alphaAt(ci, lx, ly) < 64) break;
+                            const rw = perpRunAt(ci, lx, ly, nx, ny);
+                            if (rw > refW * (isLastH ? 1.65 : 1.80)) break;
+                            sliced.push([ex, ey, last[2], 1.0, last[4], last[5], last[6], last[7]]);
+                        }
+                    }
+                    const nS = sliced.length;
+                    for (let j = 0; j < nS; j++) sliced[j][3] = j / Math.max(1, nS - 1);
+                    this.strokes[s] = sliced;
+                }
+            });
+        }
+
+        const idxList = [], sidList = [], pidList = [], aList = [];
+        for (let ci = 0; ci < count; ci++) {
+            const px = [], py = [], ps = [], pp = [], ptx = [], pty = [], pu = [];
+            const sIds = [], starts = [];
+            let totalLen = 0, area = 0;
+            this.strokes.forEach((pts, s) => {
+                const mx = pts[Math.floor(pts.length / 2)][0];
+                if (Math.floor(mx / 100) !== ci) return;
+                sIds.push(s); starts.push(px.length);
+                const nPts = pts.length;
+                pts.forEach((p, k) => {
+                    const qx = (p[0] - ci * 100) * R / 100, qy = p[1] * R / 100;
+                    if (k > 0) totalLen += Math.hypot(qx - px[px.length - 1], qy - py[py.length - 1]);
+                    const k0 = Math.max(0, k - 3), k1 = Math.min(nPts - 1, k + 3);
+                    const dx = pts[k1][0] - pts[k0][0], dy = pts[k1][1] - pts[k0][1];
+                    const dl = Math.hypot(dx, dy) || 1;
+                    px.push(qx); py.push(qy); ps.push(s); pp.push(k);
+                    ptx.push(dx / dl); pty.push(dy / dl);
+                    pu.push(k / Math.max(1, nPts - 1));
+                });
+            });
+            const m = px.length;
+            if (!m) continue;
+            starts.push(m);
+            for (let y = 0; y < R; y++) for (let x = ci * R; x < (ci + 1) * R; x++) if (img[(y * W + x) * 4 + 3] > 128) area++;
+            const h = Math.max(6, Math.min(30, area / (2 * Math.max(1, totalLen))));
+            const K = sIds.length;
+            const metaK = sIds.map(s => (this.strokeMeta && this.strokeMeta[s]) || { part: 'single', subPart: 'single', vType: 'V', hasJong: false, jongChar: '' });
+
+            // 1) 잉크 픽셀 수집 및 8-연결성 컴포넌트(독립된 먹 섬) 라벨링
+            const pxX = [], pxY = [], pxA = [];
+            const cellPixMap = new Int32Array(R * R).fill(-1);
+            for (let y = 0; y < R; y++) for (let x = ci * R; x < (ci + 1) * R; x++) {
+                const a = img[(y * W + x) * 4 + 3];
+                if (a >= 12) {
+                    const pIdx = pxX.length;
+                    cellPixMap[y * R + (x - ci * R)] = pIdx;
+                    pxX.push(x); pxY.push(y); pxA.push(a);
+                }
+            }
+            const P = pxX.length;
+            const compId = new Int32Array(P).fill(-1);
+            let numComps = 0;
+            const bfsQ = new Int32Array(P);
+            for (let p0 = 0; p0 < P; p0++) {
+                if (compId[p0] >= 0) continue;
+                const cid = numComps++;
+                compId[p0] = cid;
+                let head = 0, tail = 0;
+                bfsQ[tail++] = p0;
+                while (head < tail) {
+                    const cur = bfsQ[head++];
+                    const lx = pxX[cur] - ci * R, ly = pxY[cur];
+                    for (let dy = -1; dy <= 1; dy++) {
+                        const ny = ly + dy;
+                        if (ny < 0 || ny >= R) continue;
+                        for (let dx = -1; dx <= 1; dx++) {
+                            if (dx === 0 && dy === 0) continue;
+                            const nx = lx + dx;
+                            if (nx < 0 || nx >= R) continue;
+                            const nb = cellPixMap[ny * R + nx];
+                            if (nb >= 0 && compId[nb] < 0) {
+                                compId[nb] = cid;
+                                bfsQ[tail++] = nb;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 각 획 k가 실제로 속한 잉크 연결 컴포넌트(strokeCompSet) 판별
+            const strokeComps = Array.from({ length: K }, () => new Set());
+            for (let k = 0; k < K; k++) {
+                const compCounts = new Map();
+                for (let j = starts[k]; j < starts[k + 1]; j++) {
+                    const gx = Math.round(px[j]), gy = Math.round(py[j]);
+                    for (let dy = -4; dy <= 4; dy += 2) {
+                        const ny = gy + dy;
+                        if (ny < 0 || ny >= R) continue;
+                        for (let dx = -4; dx <= 4; dx += 2) {
+                            const nx = gx + dx;
+                            if (nx < 0 || nx >= R) continue;
+                            const pIdx = cellPixMap[ny * R + nx];
+                            if (pIdx >= 0) {
+                                const c = compId[pIdx];
+                                compCounts.set(c, (compCounts.get(c) || 0) + 1);
+                            }
+                        }
+                    }
+                }
+                let maxC = -1, maxCnt = 0, totalCnt = 0;
+                compCounts.forEach((cnt, c) => { totalCnt += cnt; if (cnt > maxCnt) { maxCnt = cnt; maxC = c; } });
+                if (maxC >= 0) {
+                    strokeComps[k].add(maxC);
+                    compCounts.forEach((cnt, c) => { if (cnt >= totalCnt * 0.22) strokeComps[k].add(c); });
+                }
+            }
+
+            // 2) 획별 반폭(w) 및 영역 범위 추정
+            const w = new Float64Array(K).fill(h);
+            const minPy = new Float64Array(K).fill(1e9);
+            const maxPy = new Float64Array(K).fill(-1e9);
+            const meanPx = new Float64Array(K).fill(0);
+            for (let k = 0; k < K; k++) {
+                const runs = [];
+                let sumX = 0, cnt = Math.max(1, starts[k + 1] - starts[k]);
+                for (let j = starts[k]; j < starts[k + 1]; j++) {
+                    if (py[j] < minPy[k]) minPy[k] = py[j];
+                    if (py[j] > maxPy[k]) maxPy[k] = py[j];
+                    sumX += px[j];
+                }
+                meanPx[k] = sumX / cnt;
+                for (let j = starts[k] + 1; j < starts[k + 1] - 1; j += 2) {
+                    const nx = -pty[j], ny = ptx[j];
+                    const L = perpRunAt(ci, px[j], py[j], nx, ny);
+                    if (L > 2 && L <= 38) runs.push(L);
+                }
+                if (runs.length >= 2) {
+                    runs.sort((a, b) => a - b);
+                    w[k] = Math.max(6, Math.min(20, runs[Math.floor(runs.length / 2)] / 2));
+                }
+            }
+
+            // 2.5) 동일 자소(초성 내부, 중성 내부, 종성 내부) 내 T자/Y자 접합부 골격 정합:
+            //      서로 다른 자소(예: 초성 ㄹ과 중성 ㅏ, 중성 ㅏ와 종성 ㅇ) 간에는 후퇴/침범을 적용하지 않고 자소 고유 형태를 보존한다.
+            const retractedEnd = new Uint8Array(K);
+            const retractedStart = new Uint8Array(K);
+            for (let k1 = 0; k1 < K; k1++) {
+                const a0 = starts[k1], a1 = starts[k1 + 1] - 1;
+                if (a1 - a0 < 5) continue;
+                for (let k2 = k1 + 1; k2 < K; k2++) {
+                    if (metaK[k1].part !== metaK[k2].part) continue;
+                    const b0 = starts[k2], b1 = starts[k2 + 1] - 1;
+                    if (b1 - b0 < 4) continue;
+                    // (A) k1 끝점이 k2 내부에 박히는 경우 (ㅂ/ㅁ 하단 가로획 끝점 u<=1.0 포함)
+                    let minDEnd = 1e9, bestB = b0;
+                    for (let jb = b0; jb <= b1; jb++) {
+                        const d = Math.hypot(px[a1] - px[jb], py[a1] - py[jb]);
+                        if (d < minDEnd) { minDEnd = d; bestB = jb; }
+                    }
+                    if (minDEnd < w[k2] * 1.55 && pu[bestB] >= 0.08 && pu[bestB] <= 1.00) {
+                        const dot = Math.abs(ptx[a1] * ptx[bestB] + pty[a1] * pty[bestB]);
+                        if (dot < 0.65) {
+                            let cutJ = a1;
+                            while (cutJ > a0 + 3) {
+                                let dToK2 = 1e9;
+                                for (let jb = b0; jb <= b1; jb++) {
+                                    const d = Math.hypot(px[cutJ] - px[jb], py[cutJ] - py[jb]);
+                                    if (d < dToK2) dToK2 = d;
+                                }
+                                if (dToK2 < w[k2] * 0.92) cutJ--; else break;
+                            }
+                            for (let j = cutJ + 1; j <= a1; j++) {
+                                px[j] = px[cutJ]; py[j] = py[cutJ];
+                            }
+                            const effSpan = Math.max(1, cutJ - a0);
+                            for (let j = a0; j <= a1; j++) {
+                                pu[j] = Math.min(1.0, (j - a0) / effSpan);
+                            }
+                            retractedEnd[k1] = 1;
+                            if (glyphActive) {
+                                const stPts = this.strokes[sIds[k1]];
+                                const keepLen = Math.max(3, cutJ - a0 + 1);
+                                if (stPts && stPts.length > keepLen) {
+                                    this.strokes[sIds[k1]] = stPts.slice(0, keepLen);
+                                }
+                            }
+                        }
+                    }
+                    // (B) 단일 구간 가지 획(k2)의 시작점이 앞선 획(k1)의 몸통(0.20<=u<=1.00)에서 갈라져 나오는 경우 (ㅂ/ㅁ 하단 가로획 시작점 포함)
+                    const k2Pts = this.strokes[sIds[k2]];
+                    const k2SingleSeg = k2Pts && k2Pts.length >= 2 && (k2Pts[0][7] === k2Pts[k2Pts.length - 1][7]);
+                    if (k2SingleSeg) {
+                        let minDStart = 1e9, bestA = a0;
+                        for (let ja = a0; ja <= a1; ja++) {
+                            const d = Math.hypot(px[b0] - px[ja], py[b0] - py[ja]);
+                            if (d < minDStart) { minDStart = d; bestA = ja; }
+                        }
+                        if (minDStart < w[k1] * 1.55 && pu[bestA] >= 0.20 && pu[bestA] <= 1.00) {
+                            const dot = Math.abs(ptx[b0] * ptx[bestA] + pty[b0] * pty[bestA]);
+                            if (dot < 0.75) {
+                                const maxCutB = b0 + Math.max(2, Math.floor((b1 - b0) * 0.35));
+                                let cutB = b0;
+                                while (cutB < maxCutB) {
+                                    let dToK1 = 1e9;
+                                    for (let ja = a0; ja <= a1; ja++) {
+                                        const d = Math.hypot(px[cutB] - px[ja], py[cutB] - py[ja]);
+                                        if (d < dToK1) dToK1 = d;
+                                    }
+                                    if (dToK1 < w[k1] * 0.88) cutB++; else break;
+                                }
+                                if (cutB > b0) {
+                                    for (let j = b0; j < cutB; j++) {
+                                        px[j] = px[cutB]; py[j] = py[cutB];
+                                    }
+                                    const effSpan = Math.max(1, b1 - cutB);
+                                    for (let j = b0; j <= b1; j++) {
+                                        pu[j] = Math.max(0.0, (j - cutB) / effSpan);
+                                    }
+                                    retractedStart[k2] = 1;
+                                    if (glyphActive) {
+                                        const stPts = this.strokes[sIds[k2]];
+                                        const dropCnt = Math.min(stPts.length - 3, cutB - b0);
+                                        if (stPts && dropCnt > 0) {
+                                            this.strokes[sIds[k2]] = stPts.slice(dropCnt);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 초성·중성·종성 영역 분리 경계 계산
+            const hasJongCell = metaK.some(m => m.part === 'jong');
+            let minJongTopLy = R, maxChoPy = 0, minJungVLx = R;
+            for (let k = 0; k < K; k++) {
+                if (metaK[k].part === 'jong') {
+                    minJongTopLy = Math.min(minJongTopLy, minPy[k] - w[k] * 1.05);
+                } else if (metaK[k].part === 'cho') {
+                    maxChoPy = Math.max(maxChoPy, maxPy[k]);
+                }
+                if ((metaK[k].part === 'jung' || metaK[k].subPart === 'jung_v') && Math.abs(pty[starts[k]]) > 0.72) {
+                    minJungVLx = Math.min(minJungVLx, meanPx[k] - w[k] * 1.12);
+                }
+            }
+
+            // 3) 잉크 픽셀별 각 획까지의 최소거리/최근접 점 계산 (자소 경계·연결 컴포넌트·흰 여백 페널티 반영)
+            const D = new Float32Array(P * K), Ix = new Int32Array(P * K);
+            for (let p = 0; p < P; p++) {
+                const lx = pxX[p] - ci * R, ly = pxY[p];
+                const pComp = compId[p];
+                for (let k = 0; k < K; k++) {
+                    let best = 1e12, bi = starts[k];
+                    for (let j = starts[k]; j < starts[k + 1]; j++) {
+                        const dx = lx - px[j], dy = ly - py[j];
+                        const d = dx * dx + dy * dy;
+                        if (d < best) { best = d; bi = j; }
+                    }
+                    let dist = Math.sqrt(best);
+                    const sId = sIds[k];
+                    const mk = metaK[k];
+
+                    // (가) 초성·중성 획은 종성 영역(하단 침필 한계선 아래) 픽셀을 절대 소유할 수 없음
+                    if (hasJongCell && mk.part !== 'jong') {
+                        const endCap = strokeEndLy[sId] < 1e5 ? (strokeEndLy[sId] + 1.5) : Math.min(maxPy[k] + w[k] * 1.65, minJongTopLy + 3);
+                        if (ly > endCap) {
+                            dist += 1e6;
+                        } else if (strokeEndLy[sId] < 1e5 && ly > strokeEndLy[sId] - 10 && lx < px[starts[k + 1] - 1] - w[k] * 1.12) {
+                            // 세로모음 침필 끝 좌측의 종성 상단부 픽셀이 세로모음에 빨려들어가는 현상 차단
+                            dist += 1e6;
+                        }
+                    }
+                    // (나) 종성 획은 초성·중성 상단 영역 픽셀을 소유할 수 없음
+                    if (hasJongCell && mk.part === 'jong') {
+                        const topFloor = Math.max(minPy[k] - w[k] * 1.28, minJongTopLy - 4);
+                        if (ly < topFloor) dist += 1e6;
+                    }
+                    // (다) 초성과 우측 세로모음(중성) 간 좌우 침범 차단 (상단 역입 기필봉 ly<=82px은 보존)
+                    if (mk.vType !== 'H' && minJungVLx < R) {
+                        if (mk.part === 'cho' && lx > minJungVLx + 4) {
+                            dist += 1e5;
+                        } else if (mk.part === 'jung' && Math.abs(pty[starts[k]]) > 0.72 && ly > 82 && lx < meanPx[k] - w[k] * 1.55) {
+                            dist += 1e5;
+                        }
+                    }
+
+                    if (strokeComps[k].size > 0 && !strokeComps[k].has(pComp)) {
+                        dist += 1e6;
+                    } else if (dist > w[k] * 0.65 && dist < 1e5) {
+                        const sx = px[bi], sy = py[bi];
+                        const steps = Math.min(20, Math.max(3, Math.ceil(dist / 2.5)));
+                        let exitedInk = false, crossedGap = false;
+                        for (let s = 1; s < steps; s++) {
+                            const f = s / steps;
+                            const cx = lx + (sx - lx) * f, cy = ly + (sy - ly) * f;
+                            const a = alphaAt(ci, cx, cy);
+                            if (a < 12) {
+                                exitedInk = true;
+                            } else if (exitedInk) {
+                                crossedGap = true;
+                                break;
+                            }
+                        }
+                        if (crossedGap) dist += 600;
+                    }
+                    D[p * K + k] = dist; Ix[p * K + k] = bi;
+                }
+            }
+
+            // T자/Y자 접합부에서 후퇴/전진된 획은 접합 경계선 너머(상대 관통획 내부) 픽셀을 소유하지 못하게 차단
+            for (let k = 0; k < K; k++) {
+                const a0 = starts[k], a1 = starts[k + 1] - 1;
+                if (a1 - a0 < 3) continue;
+                if (retractedEnd[k]) {
+                    const ex0 = px[a1] - px[Math.max(a0, a1 - 3)], ey0 = py[a1] - py[Math.max(a0, a1 - 3)];
+                    const el = Math.hypot(ex0, ey0) || 1;
+                    for (let p = 0; p < P; p++) {
+                        const j = Ix[p * K + k];
+                        if (pu[j] >= 0.95) {
+                            const lx = pxX[p] - ci * R, ly = pxY[p];
+                            if (((lx - px[a1]) * ex0 + (ly - py[a1]) * ey0) / el > 0.08 * w[k]) D[p * K + k] += 1e6;
+                        }
+                    }
+                }
+                if (retractedStart[k]) {
+                    const sx0 = px[a0] - px[Math.min(a1, a0 + 3)], sy0 = py[a0] - py[Math.min(a1, a0 + 3)];
+                    const sl = Math.hypot(sx0, sy0) || 1;
+                    for (let p = 0; p < P; p++) {
+                        const j = Ix[p * K + k];
+                        if (pu[j] <= 0.05) {
+                            const lx = pxX[p] - ci * R, ly = pxY[p];
+                            if (((lx - px[a0]) * sx0 + (ly - py[a0]) * sy0) / sl > 0.08 * w[k]) D[p * K + k] += 1e6;
+                        }
+                    }
+                }
+            }
+
+            // 4) 소유권 배정 (동일 자소 내 T자 교차부에서 관통 주 획의 몸통 내부 보호)
+            const owners = new Int16Array(P);
+            const effN = new Float64Array(K);
+            for (let p = 0; p < P; p++) {
+                for (let k = 0; k < K; k++) effN[k] = D[p * K + k] / w[k];
+
+                for (let kA = 0; kA < K; kA++) {
+                    if (effN[kA] > 0.96) continue;
+                    const jA = Ix[p * K + kA], uA = pu[jA];
+                    if (uA < 0.10 || uA > 0.90) continue;
+                    for (let kB = 0; kB < K; kB++) {
+                        if (kB === kA || metaK[kA].part !== metaK[kB].part || effN[kB] > 1.45) continue;
+                        const jB = Ix[p * K + kB], uB = pu[jB];
+                        const dot = Math.abs(ptx[jA] * ptx[jB] + pty[jA] * pty[jB]);
+                        if (dot >= 0.68) continue;
+                        if ((kB < kA && uB > 0.65) || (kB > kA && (uB < 0.35 || uB > 0.65))) {
+                            effN[kB] = Math.max(effN[kB], 1.38);
+                        }
+                    }
+                }
+
+                let nmin = 1e12, fb = 0;
+                for (let k = 0; k < K; k++) {
+                    if (effN[k] < nmin) { nmin = effN[k]; fb = k; }
+                }
+                let owner = fb;
+                for (let k = 0; k < K; k++) {
+                    if (effN[k] <= nmin + 0.16 && effN[k] <= 1.32) { owner = k; break; }
+                }
+                owners[p] = owner;
+            }
+            for (let p = 0; p < P; p++) {
+                const o = owners[p];
+                idxList.push(pxY[p] * W + pxX[p]); sidList.push(sIds[o]);
+                pidList.push(pp[Ix[p * K + o]]); aList.push(pxA[p]);
+            }
+        }
+        // 고립된 작은 조각(다른 획 사이에 박힌 점/얼룩)은 동일 자소(초·중·종성) 내 이웃 획으로 우선 재배정
+        {
+            const N = idxList.length;
+            const posToI = new Int32Array(W * R).fill(-1);
+            for (let i = 0; i < N; i++) posToI[idxList[i]] = i;
+            const seen = new Uint8Array(N);
+            const MIN_AREA = 160;
+            const partOf = (s) => (this.strokeMeta && this.strokeMeta[s]) ? this.strokeMeta[s].part : 'single';
+            for (let i0 = 0; i0 < N; i0++) {
+                if (seen[i0]) continue;
+                const own = sidList[i0];
+                const ownPart = partOf(own);
+                const comp = [i0];
+                seen[i0] = 1;
+                for (let h = 0; h < comp.length; h++) {
+                    const p = idxList[comp[h]];
+                    const cx = p % W, cy = (p / W) | 0;
+                    for (const [ax, ay] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+                        const nx2 = cx + ax, ny2 = cy + ay;
+                        if (nx2 < 0 || ny2 < 0 || nx2 >= W || ny2 >= R) continue;
+                        const j = posToI[ny2 * W + nx2];
+                        if (j >= 0 && !seen[j] && sidList[j] === own) { seen[j] = 1; comp.push(j); }
+                    }
+                }
+                if (comp.length >= MIN_AREA) continue;
+                const sameVotes = new Map(), anyVotes = new Map();
+                const ref = new Map();
+                comp.forEach(ci2 => {
+                    const p = idxList[ci2];
+                    const cx = p % W, cy = (p / W) | 0;
+                    for (const [ax, ay] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+                        const nx2 = cx + ax, ny2 = cy + ay;
+                        if (nx2 < 0 || ny2 < 0 || nx2 >= W || ny2 >= R) continue;
+                        const j = posToI[ny2 * W + nx2];
+                        if (j >= 0 && sidList[j] !== own) {
+                            const nbS = sidList[j];
+                            anyVotes.set(nbS, (anyVotes.get(nbS) || 0) + 1);
+                            if (partOf(nbS) === ownPart) sameVotes.set(nbS, (sameVotes.get(nbS) || 0) + 1);
+                            if (!ref.has(nbS)) ref.set(nbS, j);
+                        }
+                    }
+                });
+                const targetVotes = sameVotes.size > 0 ? sameVotes : (comp.length < 40 ? anyVotes : null);
+                if (!targetVotes || !targetVotes.size) continue;
+                let bestO = -1, bestV = -1;
+                targetVotes.forEach((v, o) => { if (v > bestV) { bestV = v; bestO = o; } });
+                const pidRef = pidList[ref.get(bestO)];
+                comp.forEach(ci2 => { sidList[ci2] = bestO; pidList[ci2] = pidRef; });
+            }
+        }
+        const order = Array.from({ length: idxList.length }, (_, i) => i)
+            .sort((a, b) => (sidList[a] * 4096 + pidList[a]) - (sidList[b] * 4096 + pidList[b]));
+        this.glyphImg = null;
+        this.glyphShown = 0;
+        this.glyphData = {
+            R, W, H: R,
+            idx: Int32Array.from(order, i => idxList[i]), sid: Int16Array.from(order, i => sidList[i]),
+            pid: Int16Array.from(order, i => pidList[i]), a: Uint8Array.from(order, i => aList[i]),
+            key: Int32Array.from(order, i => sidList[i] * 4096 + pidList[i])
+        };
+    },
+
+    /** 글리프 모드: 잉크 중심축으로 정합된 골격의 시작부(기필 머리 중심)를 번호표 위치로 사용 */
+    glyphStartAnchor(s) {
+        if (!this.isGlyphMode()) return null;
+        const pts = this.strokes[s];
+        if (!pts || !pts.length) return null;
+        const p = pts[Math.min(2, pts.length - 1)];
+        return [p[0], p[1]];
+    },
+
+    debugOwnership(txt, guide) {
+        this.loadText(txt); this.stopDemo();
+        document.getElementById('chk-guide').checked = !!guide;
+        this.toggleLayers();
+        const g = this.glyphData, cv = document.getElementById('glyph-canvas');
+        cv.width = g.W; cv.height = g.H;
+        const ctx = cv.getContext('2d'), out = ctx.createImageData(g.W, g.H);
+        const pal = [[230,25,25],[25,120,230],[30,170,60],[240,170,0],[150,40,200],[0,190,190],[240,90,170],[110,110,110],[120,70,20],[0,0,0],[160,200,0],[255,120,0],[60,60,200],[0,120,80],[200,0,100]];
+        for (let i = 0; i < g.idx.length; i++) {
+            const c = pal[g.sid[i] % pal.length], o = g.idx[i] * 4;
+            out.data[o] = c[0]; out.data[o + 1] = c[1]; out.data[o + 2] = c[2]; out.data[o + 3] = 255;
+        }
+        ctx.putImageData(out, 0, 0);
+        this.glyphImg = null;
+        return this.strokes.length;
+    },
+
+    onGlyphToggle() {
+        this.rebuildStrokes();
+        this.renderScene();
+        this.resetPractice();
+        this.playDemo();
+    },
+
+    isGlyphMode() {
+        const chk = document.getElementById('chk-glyph');
+        return !!(this.glyphData && chk && chk.checked);
+    },
+
+    renderGlyphInk() {
+        const cv = document.getElementById('glyph-canvas');
+        if (!cv) return;
+        if (!this.isGlyphMode()) { cv.style.display = 'none'; return; }
+        cv.style.display = 'block';
+        const g = this.glyphData;
+        if (cv.width !== g.W || cv.height !== g.H) { cv.width = g.W; cv.height = g.H; this.glyphImg = null; }
+        const ctx = cv.getContext('2d');
+        const hex = (this.styleParams.inkColor || '#151311').replace('#', '');
+        const ir = parseInt(hex.slice(0, 2), 16), ig = parseInt(hex.slice(2, 4), 16), ib = parseInt(hex.slice(4, 6), 16);
+        const showBg = document.getElementById('chk-bg').checked;
+        const sig = hex + (showBg ? 'b' : 'n');
+
+        // 공개 기준: key(획번호*4096+점번호) < cs*4096+step 인 픽셀 (정렬되어 있으므로 접두 구간)
+        const thr = this.currentStroke * 4096 + this.currentStep;
+        let lo = 0, hi = g.key.length;
+        while (lo < hi) { const mid = (lo + hi) >> 1; if (g.key[mid] < thr) lo = mid + 1; else hi = mid; }
+        const target = lo;
+
+        const paint = (i, d, shown) => {
+            const o = g.idx[i] * 4;
+            if (shown) { d[o] = ir; d[o + 1] = ig; d[o + 2] = ib; d[o + 3] = g.a[i]; }
+            else if (showBg) { d[o] = 205; d[o + 1] = 196; d[o + 2] = 178; d[o + 3] = Math.round(g.a[i] * 0.55); }
+            else { d[o + 3] = 0; }
+        };
+
+        if (!this.glyphImg || this.glyphSig !== sig) {
+            this.glyphImg = ctx.createImageData(g.W, g.H);
+            const d = this.glyphImg.data;
+            for (let i = 0; i < g.idx.length; i++) paint(i, d, i < target);
+            this.glyphShown = target;
+            this.glyphSig = sig;
+            ctx.putImageData(this.glyphImg, 0, 0);
+            return;
+        }
+        if (target === this.glyphShown) return;
+        const d = this.glyphImg.data;
+        const a = Math.min(target, this.glyphShown), b = Math.max(target, this.glyphShown);
+        let minX = g.W, maxX = 0, minY = g.H, maxY = 0;
+        for (let i = a; i < b; i++) {
+            paint(i, d, i < target);
+            const p = g.idx[i], x = p % g.W, y = (p / g.W) | 0;
+            if (x < minX) minX = x; if (x > maxX) maxX = x;
+            if (y < minY) minY = y; if (y > maxY) maxY = y;
+        }
+        this.glyphShown = target;
+        ctx.putImageData(this.glyphImg, 0, 0, minX, minY, maxX - minX + 1, maxY - minY + 1);
+    },
+
+    updateCanvasSize(count) {
+        const svg = document.getElementById('calligraphy-svg');
+        const box = document.getElementById('canvas-box');
+        const totalW = count * 100;
+        svg.setAttribute('viewBox', `0 0 ${totalW} 100`);
+
+        const cellPx = count === 1 ? 380 : count === 2 ? 300 : count === 3 ? 250 : count === 4 ? 210 : 175;
+        box.style.width = (cellPx * count) + 'px';
+        box.style.height = cellPx + 'px';
+
+        const gridLayer = document.getElementById('layer-grid');
+        let gridHtml = '';
+        for (let i = 0; i < count; i++) {
+            const x0 = i * 100;
+            const xm = x0 + 50;
+            const x1 = x0 + 100;
+            if (i > 0) {
+                gridHtml += `<line x1="${x0}" y1="0" x2="${x0}" y2="100" class="cell-border"/>`;
+            }
+            gridHtml += `
+                <line x1="${xm}" y1="0" x2="${xm}" y2="100" class="grid-line"/>
+                <line x1="${x0}" y1="50" x2="${x1}" y2="50" class="grid-line"/>
+                <line x1="${x0}" y1="0" x2="${x1}" y2="100" class="grid-line"/>
+                <line x1="${x1}" y1="0" x2="${x0}" y2="100" class="grid-line"/>
+            `;
+        }
+        gridLayer.innerHTML = gridHtml;
+    },
+
+    renderScene() {
+        const bgLayer = document.getElementById('layer-bg');
+        const guideLayer = document.getElementById('layer-guide');
+        const activeLayer = document.getElementById('layer-active');
+        const clipDefs = document.getElementById('stroke-clip-defs');
+        bgLayer.innerHTML = '';
+        guideLayer.innerHTML = '';
+        if (clipDefs) clipDefs.innerHTML = '';
+
+        activeLayer.setAttribute('filter', this.styleParams.roughness > 0 ? 'url(#dry-brush-filter)' : '');
+
+        // 1. 각 획의 배경 외곽선 교본, 전용 클리핑 마스크(<clipPath>), 중심 유도선(spine) 렌더링
+        this.strokes.forEach((densePts, idx) => {
+            const env = this.strokeEnvelopes[idx];
+
+            if (clipDefs) {
+                const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+                clipPath.setAttribute('id', `clip-stroke-${idx}`);
+                const clipShape = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                clipShape.setAttribute('d', env.fullPathD);
+                clipPath.appendChild(clipShape);
+                clipDefs.appendChild(clipPath);
+            }
+
+            const bgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            bgPath.setAttribute('class', 'bg-brush');
+            bgPath.setAttribute('d', env.fullPathD);
+            bgLayer.appendChild(bgPath);
+
+            const spine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+            spine.setAttribute('class', 'guide-spine');
+            spine.setAttribute('points', densePts.map(p => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' '));
+            guideLayer.appendChild(spine);
+        });
+
+        // 2. 획순 번호 배지 충돌 방지 (동일 시작점 클러스터 및 인접 번호 완벽 분리)
+        const placedBadges = [];
+        const MIN_DIST = 6.2; // 두 번호 원(반지름 3.0)이 서로 절대 겹치지 않는 최소 중심 거리
+
+        // 각 획의 시작점과 초기 진행 단위벡터 미리 계산
+        const strokeStartInfos = this.strokes.map((densePts, idx) => {
+            let [sx, sy] = densePts[0];
+            const anc = this.glyphStartAnchor(idx);
+            if (anc) { sx = anc[0]; sy = anc[1]; }
+            const lookIdx = Math.min(densePts.length - 1, 6);
+            const dx = densePts[lookIdx][0] - sx;
+            const dy = densePts[lookIdx][1] - sy;
+            const dLen = Math.hypot(dx, dy) || 1;
+            return { idx, sx, sy, ux: dx / dLen, uy: dy / dLen };
+        });
+
+        this.badgePositions = strokeStartInfos.map((info, idx) => {
+            const { sx, sy, ux, uy } = info;
+            const hasOverlap = (cx, cy) => placedBadges.some(p => Math.hypot(cx - p.bx, cy - p.by) < MIN_DIST);
+
+            // 현재 획과 거의 같은 시작점(거리 < 3.8)을 공유하는 다른 획이 있는지 확인 (예: ㄹ의 10·11번, ㅁ의 12·13번, ㄷ, ㅌ 등)
+            const sameOriginGroup = strokeStartInfos.filter(other => Math.hypot(other.sx - sx, other.sy - sy) < 3.8);
+            const orderInGroup = sameOriginGroup.findIndex(other => other.idx === idx);
+
+            let bx = sx;
+            let by = sy;
+
+            // 같은 시작점을 공유하는 두 번째 이후 획이거나, 기존 배지와 겹치는 경우
+            if (orderInGroup > 0 || hasOverlap(bx, by)) {
+                if (orderInGroup === 1) {
+                    const firstStroke = sameOriginGroup[0];
+                    const firstBadge = placedBadges[firstStroke.idx];
+                    if (firstBadge && Math.hypot(firstBadge.bx - firstStroke.sx, firstBadge.by - firstStroke.sy) < 1.0) {
+                        const shift1X = firstStroke.sx + firstStroke.ux * 3.4;
+                        const shift1Y = firstStroke.sy + firstStroke.uy * 3.4;
+                        const otherConflict = placedBadges.some((p, pIdx) => pIdx !== firstStroke.idx && Math.hypot(shift1X - p.bx, shift1Y - p.by) < MIN_DIST);
+                        if (!otherConflict) {
+                            firstBadge.bx = shift1X;
+                            firstBadge.by = shift1Y;
+                        }
+                    }
+                }
+
+                const candidates = [];
+                for (let step = 3.4; step <= 13.0; step += 1.1) {
+                    candidates.push([sx + ux * step, sy + uy * step]);
+                }
+                const nx = -uy, ny = ux;
+                for (let dist = 4.2; dist <= 12.0; dist += 1.4) {
+                    candidates.push(
+                        [sx - ux * (dist * 0.7) + nx * (dist * 0.7), sy - uy * (dist * 0.7) + ny * (dist * 0.7)],
+                        [sx - ux * (dist * 0.7) - nx * (dist * 0.7), sy - uy * (dist * 0.7) - ny * (dist * 0.7)],
+                        [sx + ux * (dist * 0.6) + nx * (dist * 0.8), sy + uy * (dist * 0.6) + ny * (dist * 0.8)],
+                        [sx + ux * (dist * 0.6) - nx * (dist * 0.8), sy + uy * (dist * 0.6) - ny * (dist * 0.8)],
+                        [sx - dist, sy],
+                        [sx, sy + dist],
+                        [sx + dist, sy],
+                        [sx, sy - dist]
+                    );
+                }
+
+                for (const [cx, cy] of candidates) {
+                    if (!hasOverlap(cx, cy)) {
+                        bx = cx;
+                        by = cy;
+                        break;
+                    }
+                }
+            }
+
+            const posObj = { sx, sy, bx, by };
+            placedBadges.push(posObj);
+            return posObj;
+        });
+
+        // 3. 각 획의 번호 배지 그룹(<g>) 렌더링
+        this.badgePositions.forEach((pos, idx) => {
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('id', `start-badge-${idx}`);
+
+            if (Math.hypot(pos.bx - pos.sx, pos.by - pos.sy) > 1.2) {
+                const leader = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                leader.setAttribute('x1', pos.sx.toFixed(1));
+                leader.setAttribute('y1', pos.sy.toFixed(1));
+                leader.setAttribute('x2', pos.bx.toFixed(1));
+                leader.setAttribute('y2', pos.by.toFixed(1));
+                leader.setAttribute('stroke', '#2e8b57');
+                leader.setAttribute('stroke-width', '0.75');
+                leader.setAttribute('opacity', '0.85');
+                g.appendChild(leader);
+            }
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('id', `start-dot-${idx}`);
+            circle.setAttribute('class', 'start-dot');
+            circle.setAttribute('cx', pos.bx.toFixed(1));
+            circle.setAttribute('cy', pos.by.toFixed(1));
+            circle.setAttribute('r', '2.95');
+            g.appendChild(circle);
+
+            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            label.setAttribute('class', 'stroke-num');
+            label.setAttribute('x', pos.bx.toFixed(1));
+            label.setAttribute('y', pos.by.toFixed(1));
+            label.textContent = idx + 1;
+            g.appendChild(label);
+
+            guideLayer.appendChild(g);
+        });
+
+        this.toggleLayers();
+    },
+
+    resetPractice() {
+        this.stopDemo();
+        this.currentStroke = 0;
+        this.currentStep = 0;
+        this.isDrawing = false;
+
+        const activeLayer = document.getElementById('layer-active');
+        activeLayer.innerHTML = '';
+
+        this.strokes.forEach((_, idx) => {
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('id', `active-stroke-${idx}`);
+            path.setAttribute('class', 'active-brush');
+            path.setAttribute('clip-path', `url(#clip-stroke-${idx})`);
+            path.style.fill = this.styleParams.inkColor;
+            activeLayer.appendChild(path);
+        });
+
+        this.highlightCurrentStartDot();
+        this.toggleLayers();
+        this.setMessage('▶ [획순 시범 쓰기]를 누르거나 1번 시작점에서 마우스로 따라 그어보세요.');
+    },
+
+    highlightCurrentStartDot() {
+        this.strokes.forEach((_, idx) => {
+            const dot = document.getElementById(`start-dot-${idx}`);
+            if (dot) {
+                if (idx === this.currentStroke) {
+                    dot.classList.add('current');
+                } else {
+                    dot.classList.remove('current');
+                }
+            }
+        });
+    },
+
+    updateActiveRender() {
+        const path = document.getElementById(`active-stroke-${this.currentStroke}`);
+        const env = this.strokeEnvelopes && this.strokeEnvelopes[this.currentStroke];
+        if (path && env) path.setAttribute('d', buildProgressiveStrokePath(env, this.currentStep));
+        this.renderGlyphInk();
+    },
+
+    finishCurrentStroke() {
+        const path = document.getElementById(`active-stroke-${this.currentStroke}`);
+        const env = this.strokeEnvelopes && this.strokeEnvelopes[this.currentStroke];
+        if (path && env) {
+            path.setAttribute('d', env.fullPathD);
+        }
+        this.isDrawing = false;
+        this.currentStroke++;
+        this.currentStep = 0;
+        this.highlightCurrentStartDot();
+        this.renderGlyphInk();
+
+        if (this.currentStroke >= this.strokes.length) {
+            this.setMessage('🎉 번짐 없이 모든 획을 외곽선까지 100% 완벽하게 완성했습니다!');
+        } else {
+            this.setMessage(`✅ 좋습니다! 이제 ${this.currentStroke + 1}번 시작점에서 다음 획을 이어가세요.`);
+        }
+    },
+
+    playDemo() {
+        this.resetPractice();
+        if (this.strokes.length === 0) return;
+
+        const modeTitle = this.styleParams.name;
+        this.setMessage(`🖌️ [${modeTitle}] 획순에 맞춰 시범을 쓰는 중입니다...`);
+        let sIdx = 0;
+        let pIdx = 2;
+        const speedStep = this.charCount >= 3 ? 2 : 1;
+
+        const stepAnim = () => {
+            if (sIdx >= this.strokes.length) {
+                this.demoTimer = null;
+                this.currentStroke = this.strokes.length;
+                this.highlightCurrentStartDot();
+                this.setMessage(`✨ [${modeTitle}] 시범 쓰기 완료! 상단에서 다른 서체 카드를 클릭해 조형 차이를 비교해보세요.`);
+                return;
+            }
+            this.currentStroke = sIdx;
+            this.highlightCurrentStartDot();
+
+            const pts = this.strokes[sIdx];
+            pIdx = Math.min(pts.length, pIdx + speedStep);
+            this.currentStep = pIdx;
+            this.updateActiveRender();
+
+            if (pIdx >= pts.length) {
+                sIdx++;
+                pIdx = 2;
+            }
+            this.demoTimer = requestAnimationFrame(stepAnim);
+        };
+
+        this.demoTimer = requestAnimationFrame(stepAnim);
+    },
+
+    toggleLayers() {
+        const showBg = document.getElementById('chk-bg').checked;
+        const showGuide = document.getElementById('chk-guide').checked;
+        const glyph = this.isGlyphMode();
+        document.getElementById('layer-bg').style.display = (showBg && !glyph) ? 'block' : 'none';
+        document.getElementById('layer-active').style.display = glyph ? 'none' : 'block';
+        document.getElementById('layer-guide').style.display = showGuide ? 'block' : 'none';
+        this.renderGlyphInk();
+    },
+
+    setMessage(msg) {
+        document.getElementById('info-msg').textContent = msg;
+    }
+};
+
+window.addEventListener('DOMContentLoaded', () => Engine.init());
+</script>
+
+</body>
+</html>
