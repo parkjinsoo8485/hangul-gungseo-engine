@@ -2115,23 +2115,11 @@ const Engine = {
         buildAll();
         this.buildGlyphData();
 
-        // 글리프 모드가 아닐 때(봉서체 등 절차적 벡터 모드): 초성·중성·종성 실제 외곽선 간 최소 간격(MIN_GAP) 강제 보장
+        // 글리프 모드가 아닐 때(봉서체 등 절차적 벡터 모드):
+        // 자소 내부 조형 비율(w, h, rScale)은 그대로 보존하면서 평행이동(pbox[0], pbox[1])만으로
+        // 초성·중성·종성 외곽선 간격을 기존의 절반 수준(균일 간격)으로 맞추고 셀 중앙(50,50)에 정렬한다.
         if (!this.isGlyphMode() && this.jamoEntries && this.jamoEntries.length > 0) {
-            const MIN_GAP = Math.max(3.5, (this.styleParams.baseRadius || 3.3) * 0.90);
-            const minDist2D = (ptsA, ptsB) => {
-                let md2 = 1e9;
-                for (let i = 0; i < ptsA.length; i += 2) {
-                    const ax = ptsA[i][0], ay = ptsA[i][1];
-                    for (let j = 0; j < ptsB.length; j += 2) {
-                        const dx = ax - ptsB[j][0], dy = ay - ptsB[j][1];
-                        const d2 = dx * dx + dy * dy;
-                        if (d2 < md2) md2 = d2;
-                    }
-                }
-                return Math.sqrt(md2);
-            };
-
-            for (let iter = 0; iter < 6; iter++) {
+            for (let iter = 0; iter < 5; iter++) {
                 let changed = false;
                 for (let ci = 0; ci < this.charCount; ci++) {
                     const parts = {};
@@ -2177,73 +2165,108 @@ const Engine = {
                         }
                     });
 
-                    // (B) 초성 vs 중성(가로모음 H 또는 복합모음 수평부 jung_h) 상하 간격 보장
-                    const topCho = parts.cho;
-                    const botJungH = parts.jung_h || (topCho && topCho.e.vType === 'H' ? parts.jung : null);
-                    if (topCho && botJungH) {
-                        const gapY = botJungH.minY - topCho.maxY;
-                        const d2 = minDist2D(topCho.pts, botJungH.pts);
-                        const eff = Math.min(gapY, d2);
-                        if (eff < MIN_GAP) {
-                            const need = MIN_GAP - eff + 0.4;
-                            topCho.e.pbox[3] = Math.max(13, topCho.e.pbox[3] - need * 0.65);
-                            topCho.e.pbox[1] = Math.max(4, topCho.e.pbox[1] - need * 0.20);
-                            botJungH.e.pbox[1] += need * 0.35;
-                            changed = true;
+                    const shiftPart = (P, dx, dy) => {
+                        if (!P || (Math.abs(dx) < 0.05 && Math.abs(dy) < 0.05)) return;
+                        P.e.pbox[0] += dx;
+                        P.e.pbox[1] += dy;
+                        P.minX += dx; P.maxX += dx;
+                        P.minY += dy; P.maxY += dy;
+                        changed = true;
+                    };
+
+                    const cho = parts.cho;
+                    if (!cho) continue;
+                    const vType = cho.e.vType;
+                    const hasJong = cho.e.hasJong;
+
+                    if (vType === 'V' && !hasJong && parts.jung) {
+                        const jung = parts.jung;
+                        const targetGapX = 6.2;
+                        const curGapX = jung.minX - cho.maxX;
+                        const diffX = curGapX - targetGapX;
+                        shiftPart(cho, diffX * 0.5, 0);
+                        shiftPart(jung, -diffX * 0.5, 0);
+                        const targetChoMidY = (jung.minY + jung.maxY) * 0.5 - 2.0;
+                        const curChoMidY = (cho.minY + cho.maxY) * 0.5;
+                        shiftPart(cho, 0, (targetChoMidY - curChoMidY) * 0.6);
+                    } else if (vType === 'V' && hasJong && parts.jung && parts.jong) {
+                        const jung = parts.jung;
+                        const jong = parts.jong;
+                        const targetGapX = 5.5;
+                        const targetGapY = 5.0;
+                        const curGapX = jung.minX - cho.maxX;
+                        const diffX = curGapX - targetGapX;
+                        shiftPart(cho, diffX * 0.5, 0);
+                        shiftPart(jung, -diffX * 0.5, 0);
+                        const targetChoMaxY = jung.maxY - 1.2;
+                        shiftPart(cho, 0, targetChoMaxY - cho.maxY);
+                        const upperMaxY = Math.max(cho.maxY, jung.maxY);
+                        const curGapY = jong.minY - upperMaxY;
+                        const diffY = curGapY - targetGapY;
+                        shiftPart(cho, 0, diffY * 0.45);
+                        shiftPart(jung, 0, diffY * 0.45);
+                        shiftPart(jong, 0, -diffY * 0.55);
+                    } else if (vType === 'H' && !hasJong && parts.jung) {
+                        const jung = parts.jung;
+                        const targetGapY = 5.2;
+                        const curGapY = jung.minY - cho.maxY;
+                        const diffY = curGapY - targetGapY;
+                        shiftPart(cho, 0, diffY * 0.5);
+                        shiftPart(jung, 0, -diffY * 0.5);
+                    } else if (vType === 'H' && hasJong && parts.jung && parts.jong) {
+                        const jung = parts.jung;
+                        const jong = parts.jong;
+                        const targetGap1 = 4.6;
+                        const targetGap2 = 4.8;
+                        const curGap1 = jung.minY - cho.maxY;
+                        const curGap2 = jong.minY - jung.maxY;
+                        shiftPart(cho, 0, curGap1 - targetGap1);
+                        shiftPart(jong, 0, -(curGap2 - targetGap2));
+                    } else if (vType === 'C' && parts.jung_h && parts.jung_v) {
+                        const jh = parts.jung_h;
+                        const jv = parts.jung_v;
+                        const targetGapY1 = hasJong ? 3.8 : 4.6;
+                        const targetGapX = hasJong ? 4.8 : 5.2;
+                        const curGapY1 = jh.minY - cho.maxY;
+                        shiftPart(cho, 0, curGapY1 - targetGapY1);
+                        const choMidX = (cho.minX + cho.maxX) * 0.5;
+                        const jhMidX = (jh.minX + jh.maxX) * 0.5;
+                        shiftPart(cho, (jhMidX - choMidX) * 0.5, 0);
+                        const curGapX = jv.minX - Math.max(cho.maxX, jh.maxX);
+                        const diffX = curGapX - targetGapX;
+                        shiftPart(cho, diffX * 0.45, 0);
+                        shiftPart(jh, diffX * 0.45, 0);
+                        shiftPart(jv, -diffX * 0.55, 0);
+                        if (hasJong && parts.jong) {
+                            const jong = parts.jong;
+                            const targetGapY2 = 4.8;
+                            const upperMaxY = Math.max(jh.maxY, jv.maxY);
+                            const curGapY2 = jong.minY - upperMaxY;
+                            shiftPart(jong, 0, -(curGapY2 - targetGapY2));
                         }
                     }
 
-                    // (C) 상단 자소(초성·중성) vs 종성(받침) 상하 간격 보장
-                    if (parts.jong) {
-                        const jong = parts.jong;
-                        ['cho', 'jung', 'jung_h', 'jung_v'].forEach(k => {
-                            const uP = parts[k];
-                            if (!uP) return;
-                            const gapY = jong.minY - uP.maxY;
-                            const d2 = minDist2D(uP.pts, jong.pts);
-                            const eff = Math.min(gapY, d2);
-                            if (eff < MIN_GAP) {
-                                const need = MIN_GAP - eff + 0.4;
-                                uP.e.pbox[3] = Math.max(12, uP.e.pbox[3] - need * 0.65);
-                                jong.e.pbox[1] = Math.min(72, jong.e.pbox[1] + need * 0.35);
-                                if (jong.maxY + need * 0.35 > 93) {
-                                    jong.e.pbox[3] = Math.max(17, jong.e.pbox[3] - need * 0.35);
-                                }
-                                changed = true;
+                    // 음절 전체 외곽 박스를 셀 중심(50, 50)에 정렬
+                    const allParts = Object.values(parts);
+                    if (allParts.length > 0) {
+                        let sMinX = 1e9, sMaxX = -1e9, sMinY = 1e9, sMaxY = -1e9;
+                        allParts.forEach(P => {
+                            if (P.minX < sMinX) sMinX = P.minX;
+                            if (P.maxX > sMaxX) sMaxX = P.maxX;
+                            if (P.minY < sMinY) sMinY = P.minY;
+                            if (P.maxY > sMaxY) sMaxY = P.maxY;
+                        });
+                        const cx = (sMinX + sMaxX) * 0.5;
+                        const cy = (sMinY + sMaxY) * 0.5;
+                        const dxAll = (50 - cx) * 0.65;
+                        const dyAll = (50 - cy) * 0.65;
+                        const seenE = new Set();
+                        allParts.forEach(P => {
+                            if (!seenE.has(P.e)) {
+                                seenE.add(P.e);
+                                shiftPart(P, dxAll, dyAll);
                             }
                         });
-                    }
-
-                    // (D) 초성 vs 중성(세로모음 V 또는 복합모음 수직부 jung_v) 좌우 간격 보장
-                    const rightJungV = parts.jung_v || (topCho && topCho.e.vType === 'V' ? parts.jung : null);
-                    if (topCho && rightJungV) {
-                        const gapX = rightJungV.minX - topCho.maxX;
-                        const d2 = minDist2D(topCho.pts, rightJungV.pts);
-                        const eff = Math.min(gapX, d2);
-                        if (eff < MIN_GAP) {
-                            const need = MIN_GAP - eff + 0.4;
-                            topCho.e.pbox[2] = Math.max(19, topCho.e.pbox[2] - need * 0.55);
-                            topCho.e.pbox[0] = Math.max(6, topCho.e.pbox[0] - need * 0.15);
-                            rightJungV.e.pbox[0] = Math.min(68, rightJungV.e.pbox[0] + need * 0.45);
-                            if (rightJungV.maxX + need * 0.45 > 93) {
-                                rightJungV.e.pbox[2] = Math.max(19, rightJungV.e.pbox[2] - need * 0.35);
-                            }
-                            changed = true;
-                        }
-                    }
-
-                    // (E) 복합모음 내부 수평부(jung_h) vs 수직부(jung_v) 좌우 간격 보장
-                    if (parts.jung_h && parts.jung_v) {
-                        const gapX = parts.jung_v.minX - parts.jung_h.maxX;
-                        const d2 = minDist2D(parts.jung_h.pts, parts.jung_v.pts);
-                        const eff = Math.min(gapX, d2);
-                        const targetG = MIN_GAP * 0.85;
-                        if (eff < targetG) {
-                            const need = targetG - eff + 0.35;
-                            parts.jung_h.e.pbox[2] = Math.max(22, parts.jung_h.e.pbox[2] - need * 0.65);
-                            parts.jung_v.e.pbox[0] = Math.min(68, parts.jung_v.e.pbox[0] + need * 0.35);
-                            changed = true;
-                        }
                     }
                 }
                 if (!changed) break;
