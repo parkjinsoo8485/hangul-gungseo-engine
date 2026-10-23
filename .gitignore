@@ -1,0 +1,20 @@
+# Operating System Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary & Measurement Artifacts
+measure_sampled*.json
+*.png
+!sheet_v2.png
+!test_sheet.png
+harness_chot.json
+harness_offsets.json
+index_test.html
+compare_gungsuh.html
+dumped_envs.json
+
+# Node & Editor
+node_modules/
+.vscode/
+.idea/

@@ -118,6 +118,16 @@
                 <input type="text" id="char-input" value="한글" maxlength="6" placeholder="글자/단어 입력" onkeydown="if(event.key==='Enter') Engine.loadText(this.value)" />
                 <button class="btn" onclick="Engine.loadText(document.getElementById('char-input').value)">글자/단어 생성</button>
                 <button class="btn btn-accent" onclick="Engine.playDemo()">▶ 획순 시범 쓰기</button>
+                <div style="display:inline-flex; align-items:center; gap:6px; background:#fff; border:1.5px solid #2c2c2c; border-radius:6px; padding:6px 10px; font-size:13px; font-weight:bold;">
+                    <span>⏱️ 시범 속도:</span>
+                    <select id="select-demo-speed" onchange="Engine.setDemoSpeed(this.value)" style="border:none; background:transparent; font-weight:bold; cursor:pointer; outline:none; color:#8b2635;">
+                        <option value="0.6">매우 느리게 (학습 집중)</option>
+                        <option value="1.0" selected>느리게 (학습 표준)</option>
+                        <option value="1.8">보통</option>
+                        <option value="3.0">빠르게</option>
+                    </select>
+                </div>
+                <button id="btn-loop-demo" class="btn btn-outline" onclick="Engine.toggleLoopDemo()">🔁 무한 반복: OFF</button>
                 <button class="btn" onclick="Engine.resetPractice()">🧹 지우기</button>
             </div>
         </div>
@@ -309,13 +319,72 @@
             <div class="options">
                 <label><input type="checkbox" id="chk-bg" checked onchange="Engine.toggleLayers()"> 연한 서예 교본 본(本) 표시</label>
                 <label><input type="checkbox" id="chk-guide" checked onchange="Engine.toggleLayers()"> 획순 중심 유도선 및 번호 표시</label>
-                <label><input type="checkbox" id="chk-glyph" onchange="Engine.onGlyphToggle()"> 선택 폰트의 실제 글자 외곽선 사용 (비트맵 실험 모드)</label>
+                <label><input type="checkbox" id="chk-glyph" checked onchange="Engine.onGlyphToggle()"> 선택 폰트의 실제 글자 외곽선 사용 (비트맵 실험 모드)</label>
+                <label><input type="checkbox" id="chk-wh" checked onchange="Engine.onWarehouseToggle()"> 수집기 정밀 중심선(153개 자소) 사용 <span id="wh-status" style="color:#8b2635;font-weight:bold;"></span></label>
+                <button class="btn-outline" onclick="Engine.runWarehouseHarness()">🔁 전 음절 검증·자동보정 하네스 실행</button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="warehouse_centerlines.js"></script>
+<script src="warehouse_bridge.js"></script>
 <script>
+class RenderHarness {
+    constructor() {
+        this.dirty = false;
+        this.running = false;
+        this.rafId = null;
+        this.subscribers = new Set();
+        this.lastFrameTime = 0;
+        this.fps = 60;
+    }
+
+    markDirty(reason = 'unknown') {
+        this.dirty = true;
+        if (!this.running) this.start();
+    }
+
+    subscribe(fn) {
+        this.subscribers.add(fn);
+    }
+
+    unsubscribe(fn) {
+        this.subscribers.delete(fn);
+    }
+
+    start() {
+        if (this.running) return;
+        this.running = true;
+        this._loop(performance.now());
+    }
+
+    stop() {
+        this.running = false;
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+        }
+    }
+
+    _loop(now) {
+        if (!this.running) return;
+        this.rafId = requestAnimationFrame((t) => this._loop(t));
+
+        const elapsed = now - this.lastFrameTime;
+        if (elapsed < 1000 / this.fps) return;
+
+        if (this.dirty) {
+            this.dirty = false;
+            this.lastFrameTime = now;
+            this.subscribers.forEach(fn => {
+                try { fn(); } catch(e) { console.error('[RenderHarness]', e); }
+            });
+        }
+    }
+}
+(typeof window !== 'undefined' ? window : globalThis).RenderHarness = new RenderHarness();
+
 /**
  * ============================================================================
  * [원인 분석 및 절차적 해결 아키텍처 v12]
@@ -657,8 +726,10 @@ function interpolateCatmullRom(pts, segmentsPerSpan = 12) {
  *   [0, 1] × [0, 1] 정규화 공간에서 서체별 직교화/곡률(archCurve, upwardTilt)을 먼저 적용하고,
  *   자소 내 공유 모서리 정점(ㄹ, ㄷ, ㅁ, ㅂ, ㅌ 등)을 직교 교점(x_vert, y_horiz)으로 100% 용접(Welding)한다.
  */
-function normalizeJamoStrokes(normStrokes, styleParams, part = 'cho') {
+function normalizeJamoStrokes(normStrokes, styleParams, part = 'cho', exact = false) {
     if (!normStrokes || !normStrokes.length) return normStrokes;
+    // 정밀 모드(창고 중심선 + 정통 궁서체): 에디터에서 미세조정한 중심선을 변형·용접 없이 그대로 사용
+    if (exact) return normStrokes.map(st => st.map(pt => [pt[0], pt[1], pt[2], pt[3] || null]));
     const upwardTilt = styleParams.upwardTilt !== undefined ? styleParams.upwardTilt : 1.0;
     const archCurve = styleParams.archCurve !== undefined ? styleParams.archCurve : 1.0;
     const capStyle = styleParams.capStyle || 'gungseo';
@@ -1607,6 +1678,173 @@ function extractFontVectorProfile(fontFamily, fontLabel) {
 /**
  * 4. 메인 엔진 컨트롤러
  */
+
+/**
+ * 실제 폰트 글리프의 잉크 투영(Histogram)으로부터 초성·중성·종성의 수학적 분할벽(Partition Walls)을 동적 도출
+ */
+function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
+    const W = R * count;
+    const projY = new Float32Array(R);
+    const projX = new Float32Array(R);
+    let minY = R, maxY = 0, minX = R, maxX = 0;
+
+    for (let y = 0; y < R; y++) {
+        for (let lx = 0; lx < R; lx++) {
+            const gx = ci * R + lx;
+            const a = img[(y * W + gx) * 4 + 3];
+            if (a > 50) {
+                projY[y] += 1;
+                projX[lx] += 1;
+                if (lx < minX) minX = lx;
+                if (lx > maxX) maxX = lx;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+        }
+    }
+    if (minY >= maxY) return null;
+
+    const b = {
+        minX, maxX, minY, maxY, vType, hasJong,
+        choY1: minY, choY2: maxY,
+        jungY1: minY, jungY2: maxY,
+        jongY1: minY, jongY2: maxY,
+        splitX: Math.round((minX + maxX) * 0.5)
+    };
+
+    if (vType === 'H') {
+        if (hasJong) {
+            let y1 = Math.round(minY + (maxY - minY) * 0.35);
+            let min1 = 1e9;
+            const r1Start = Math.round(minY + (maxY - minY) * 0.18);
+            const r1End = Math.round(minY + (maxY - minY) * 0.48);
+            for (let y = r1Start; y <= r1End; y++) {
+                if (projY[y] < min1) { min1 = projY[y]; y1 = y; }
+            }
+
+            let y2 = Math.round(minY + (maxY - minY) * 0.65);
+            let min2 = 1e9;
+            const r2Start = Math.max(y1 + 5, Math.round(minY + (maxY - minY) * 0.48));
+            const r2End = Math.round(minY + (maxY - minY) * 0.80);
+            for (let y = r2Start; y <= r2End; y++) {
+                if (projY[y] < min2) { min2 = projY[y]; y2 = y; }
+            }
+
+            b.choY1 = minY; b.choY2 = y1;
+            b.jungY1 = y1; b.jungY2 = y2;
+            b.jongY1 = y2; b.jongY2 = maxY;
+        } else {
+            let y1 = Math.round(minY + (maxY - minY) * (info.jung === 'ㅡ' ? 0.72 : 0.48));
+            let min1 = 1e9;
+            const r1Start = Math.round(minY + (maxY - minY) * (info.jung === 'ㅡ' ? 0.58 : 0.35));
+            const r1End = Math.round(minY + (maxY - minY) * 0.82);
+            for (let y = r1Start; y <= r1End; y++) {
+                if (projY[y] < min1) { min1 = projY[y]; y1 = y; }
+            }
+            b.choY1 = minY; b.choY2 = y1;
+            b.jungY1 = y1; b.jungY2 = maxY;
+        }
+    } else if (vType === 'V') {
+        let xSplit = Math.round(minX + (maxX - minX) * 0.55);
+        let minXVal = 1e9;
+        const isDoubleCho = (info.cho === 'ㅃ' || info.cho === 'ㅉ' || info.cho === 'ㄲ' || info.cho === 'ㄸ' || info.cho === 'ㅆ');
+        const xStart = Math.round(minX + (maxX - minX) * (isDoubleCho ? 0.46 : 0.35));
+        const isWideCho = (info.cho === 'ㅁ' || info.cho === 'ㅂ' || info.cho === 'ㅃ' || info.cho === 'ㅍ');
+        const xEnd = Math.round(minX + (maxX - minX) * (isWideCho ? 0.70 : 0.58));
+        for (let x = xStart; x <= xEnd; x++) {
+            if (projX[x] < minXVal) { minXVal = projX[x]; xSplit = x; }
+        }
+        b.splitX = xSplit;
+
+        let ySplit = maxY;
+        if (hasJong) {
+            ySplit = Math.round(minY + (maxY - minY) * 0.58);
+            let minYVal = 1e9;
+            const yStart = Math.round(minY + (maxY - minY) * 0.40);
+            const yEnd = Math.round(minY + (maxY - minY) * 0.78);
+            for (let y = yStart; y <= yEnd; y++) {
+                let rowSum = 0;
+                for (let x = minX; x <= xSplit; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowSum++;
+                }
+                if (rowSum < minYVal) { minYVal = rowSum; ySplit = y; }
+            }
+            b.choY2 = ySplit;
+            b.jongY1 = ySplit; b.jongY2 = maxY;
+        }
+
+        let choYTop = R;
+        const choRightV = Math.min(xSplit, Math.round(minX + (maxX - minX) * 0.48));
+        for (let y = minY; y <= ySplit; y++) {
+            for (let x = minX; x <= choRightV; x++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                    if (y < choYTop) { choYTop = y; break; }
+                }
+            }
+            if (choYTop < R) break;
+        }
+        b.choY1 = choYTop < R ? choYTop : minY;
+    } else if (vType === 'C') {
+        // C형 복합모음(ㅘ, ㅙ, ㅚ, ㅝ, ㅞ, ㅟ, ㅢ): 초성(좌상단) + 가로모음(중좌단) + 세로모음(우측전체) + 받침(하단)
+        // (1) splitX: 초성·가로모음(좌측)과 세로모음(우측) 사이의 수직 분할벽
+        const isDoubleV = (info.jung === 'ㅞ' || info.jung === 'ㅙ');
+        let xSplit = Math.round(minX + (maxX - minX) * (isDoubleV ? 0.48 : 0.62));
+        let minXVal = 1e9;
+        const xStart = Math.round(minX + (maxX - minX) * (isDoubleV ? 0.38 : 0.50));
+        const xEnd = Math.round(minX + (maxX - minX) * (isDoubleV ? 0.58 : 0.82));
+        for (let x = xStart; x <= xEnd; x++) {
+            if (projX[x] < minXVal) { minXVal = projX[x]; xSplit = x; }
+        }
+        b.splitX = xSplit;
+
+        // (2) choY2: 초성(좌상)과 가로모음(좌중) 사이의 수평 분할벽
+        const isUiOpen = (!hasJong && info.jung === 'ㅢ');
+        let yCho = Math.round(minY + (maxY - minY) * (isUiOpen ? 0.68 : 0.42));
+        let minYCho = 1e9;
+        const ycStart = Math.round(minY + (maxY - minY) * (isUiOpen ? 0.52 : 0.28));
+        const ycEnd = Math.round(minY + (maxY - minY) * (isUiOpen ? 0.80 : 0.55));
+        for (let y = ycStart; y <= ycEnd; y++) {
+            let rowLeft = 0;
+            for (let x = minX; x <= xSplit; x++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowLeft++;
+            }
+            if (rowLeft < minYCho) { minYCho = rowLeft; yCho = y; }
+        }
+        let choYTop = R;
+        const choRight = Math.round(minX + (maxX - minX) * 0.48);
+        for (let y = minY; y <= yCho; y++) {
+            for (let x = minX; x <= choRight; x++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                    if (y < choYTop) { choYTop = y; break; }
+                }
+            }
+            if (choYTop < R) break;
+        }
+        b.choY1 = choYTop < R ? choYTop : minY;
+        b.choY2 = yCho;
+        b.jungY1 = yCho; b.jungY2 = maxY;
+
+        // (3) jongY1: 가로모음과 종성(받침) 사이의 수평 분할벽 (55%~80% 범위 탐색)
+        if (hasJong) {
+            let yJong = Math.round(minY + (maxY - minY) * 0.66);
+            let minYJong = 1e9;
+            const yjStart = Math.max(yCho + 5, Math.round(minY + (maxY - minY) * 0.52));
+            const yjEnd = Math.round(minY + (maxY - minY) * 0.82);
+            for (let y = yjStart; y <= yjEnd; y++) {
+                let rowSum = 0;
+                for (let x = minX; x <= maxX; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowSum++;
+                }
+                if (rowSum < minYJong) { minYJong = rowSum; yJong = y; }
+            }
+            b.jungY2 = yJong;
+            b.jongY1 = yJong; b.jongY2 = maxY;
+        }
+    }
+
+    return b;
+}
+
 const Engine = {
     charCount: 1,
     charsInfo: [],
@@ -1694,8 +1932,42 @@ const Engine = {
         window.addEventListener('touchmove', onMove, { passive: false });
         window.addEventListener('touchend', onEnd);
 
+        if (window.WH) {
+            WH.env = { decomposeHangul, VOWEL_TYPE, normalizeJamoStrokes, mapSubBox };
+            // 수집기가 창고를 저장 → build_centerlines.js --watch 가 재생성 → 여기서 자동 반영 (http 로 열었을 때)
+            WH.startLiveSync('warehouse_centerlines.js', () => { this.updateWarehouseStatus(); this.loadText(document.getElementById('char-input').value); }, 2000);
+        }
+        this.updateWarehouseStatus();
         this.syncSlidersFromParams();
         this.loadText('한글');
+    },
+
+    onWarehouseToggle() {
+        if (window.WH) WH.enabled = document.getElementById('chk-wh').checked;
+        this.loadText(document.getElementById('char-input').value);
+    },
+
+    updateWarehouseStatus() {
+        const el = document.getElementById('wh-status');
+        if (!el) return;
+        el.textContent = (window.WH && WH.ready())
+            ? '(v' + WH.version + ', ' + Object.keys(WH.data.parts).length + '개 로드됨)'
+            : '(데이터 없음 → 기본 골격 사용)';
+    },
+
+    /** 무한 루프 하네스: 모든 완성형 음절을 검증하고 이탈·충돌이 사라질 때까지 자동 보정 */
+    async runWarehouseHarness() {
+        if (!window.WH || !WH.ready()) { this.setMessage('⚠️ warehouse_centerlines.js 가 없습니다. node tools/build_centerlines.js 를 먼저 실행하세요.'); return; }
+        const all = WH.allSyllables();
+        this.setMessage('🔁 하네스 실행 중... 0%');
+        const rep = await WH.runHarness(all, this.styleParams, {
+            onProgress: p => this.setMessage('🔁 하네스 ' + p.round + '라운드 ' + Math.round(p.done / p.total * 100) + '% (문제 ' + p.failing + '건)')
+        });
+        const last = rep.rounds[rep.rounds.length - 1];
+        const trail = rep.rounds.map(r => r.round + '라운드:' + r.failing).join(' → ');
+        this.setMessage((last.failing === 0 ? '✅ ' : '⚠️ ') + '검사 ' + rep.checked + '음절 / 미지원 ' + rep.skipped + ' / 남은 문제 ' + last.failing + '건 (' + trail + ')');
+        console.log('[Harness]', rep.rounds, rep.failing.slice(0, 30));
+        this.loadText(document.getElementById('char-input').value);
     },
 
     syncSlidersFromParams() {
@@ -1904,6 +2176,10 @@ const Engine = {
                 const jongChar = info.jong || '';
                 const boxes = getLayoutBoxes(vType, hasJong, jongChar);
 
+                // 창고(수집기) 중심선이 있으면 자소별 위치·형태를 그대로 사용 (없으면 아래 기존 방식)
+                const whEntries = (window.WH && WH.ready()) ? WH.buildEntries(info, charIdx, vType, hasJong) : null;
+                if (whEntries) { this.jamoEntries.push(...whEntries); return; }
+
                 if (COMPOUND_VOWEL[info.jung]) {
                     const [h, v] = COMPOUND_VOWEL[info.jung];
                     if (!hasJong) {
@@ -1948,7 +2224,7 @@ const Engine = {
         for (let i = 0; i < this.charCount; i++) { per.push([]); metaPer.push([]); }
         (this.jamoEntries || []).forEach((e, ei) => {
             const b = e.fbox || e.pbox || e.box;
-            const normWelded = normalizeJamoStrokes(e.norm, this.styleParams, e.part || 'cho');
+            const normWelded = normalizeJamoStrokes(e.norm, this.styleParams, e.part || 'cho', !!(e.whId && window.WH && WH.isExactStyle(this.styleParams)));
             const mapped = mapSubBox(normWelded, e.ci * 100 + b[0], b[1], b[2], b[3], e.pScale);
             if (e.fbox && e.so) mapped.forEach((st, i) => st.forEach(p => { p[0] += e.so[i][0]; p[1] += e.so[i][1]; }));
             else if (!e.fbox && e.pso) mapped.forEach((st, i) => st.forEach(p => { p[0] += e.pso[i][0]; p[1] += e.pso[i][1]; }));
@@ -2017,7 +2293,11 @@ const Engine = {
                 if (x > 0 && y < R - 1) v = Math.min(v, dt[(y + 1) * R + x - 1] + b);
                 dt[y * R + x] = v;
             }
-            return { dt, ink };
+            return { dt, ink, d };
+        });
+        const fitDynBounds = this.charsInfo.map((info, ci) => {
+            const vType = VOWEL_TYPE[info.jung] || 'V';
+            return computeDynamicJamoBounds(cells[ci].d, 0, 1, R, info, vType, !!info.jong);
         });
 
         const dtAt = (cell, ux, uy) => {
@@ -2028,22 +2308,118 @@ const Engine = {
 
         this.jamoEntries.forEach(e => {
             e.fbox = [...e.box];
-            e.def = [...e.box];
-            // 자소 박스 안에서 실제 잉크가 있어야 할 영역(초성·중성·종성 경계 준수) 내 잉크 점 수집
             const cell = cells[e.ci];
-            const jungYMax = (e.jongChar === 'ㄴ') ? 69 : 59;
-            const choYMax = (e.vType === 'H') ? 38 : 54;
-            e.region = cell.ink.filter(([x, y]) => {
-                if (x < e.def[0] - 5 || x > e.def[0] + e.def[2] + 5 || y < e.def[1] - 5 || y > e.def[1] + e.def[3] + 5) return false;
-                if (e.hasJong) {
+            const jb = fitDynBounds[e.ci];
+            const choY2 = jb ? jb.choY2 / s : ((e.vType === 'H') ? 38 : 54);
+            const jungY1 = jb ? jb.jungY1 / s : 35;
+            const jungY2 = jb ? jb.jungY2 / s : ((e.jongChar === 'ㄴ') ? 69 : 59);
+            const jongY1 = jb ? jb.jongY1 / s : 54;
+            const splitX = jb ? jb.splitX / s : 55;
+
+            // ★ 자소 박스를 실제 글리프의 동적 분할벽(Partition Walls)에 맞게 초기 적응
+            if (jb) {
+                if (jb.vType === 'V') {
                     if (e.part === 'cho') {
-                        if (y > choYMax) return false;
-                        if (e.vType !== 'H' && x > 58) return false;
+                        if (jb.choY1) {
+                            const actTop = jb.choY1 / s;
+                            const diff = actTop - e.fbox[1];
+                            e.fbox[1] = actTop;
+                            e.fbox[3] = Math.max(14, e.fbox[3] - diff);
+                        }
+                        if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
+                        if (jb.hasJong && e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(14, choY2 - e.fbox[1]);
                     } else if (e.part === 'jung') {
-                        if (y > jungYMax) return false;
-                        if (e.vType === 'H' && y < 35) return false;
+                        if (e.fbox[0] < splitX + 0.5) {
+                            const right = e.fbox[0] + e.fbox[2];
+                            e.fbox[0] = splitX + 0.5;
+                            e.fbox[2] = Math.max(14, right - e.fbox[0]);
+                        }
                     } else if (e.part === 'jong') {
-                        if (y < 54) return false;
+                        if (e.fbox[1] < jongY1 - 0.5) {
+                            const bot = e.fbox[1] + e.fbox[3];
+                            e.fbox[1] = jongY1 - 0.5;
+                            e.fbox[3] = Math.max(14, bot - e.fbox[1]);
+                        }
+                    }
+                } else if (jb.vType === 'H') {
+                    if (e.part === 'cho') {
+                        if (jb.choY1) {
+                            const actTop = jb.choY1 / s;
+                            if (e.fbox[1] < actTop - 0.5) {
+                                const diff = (actTop - 0.5) - e.fbox[1];
+                                e.fbox[1] = actTop - 0.5;
+                                e.fbox[3] = Math.max(12, e.fbox[3] - diff);
+                            }
+                        }
+                        if (jb.hasJong && e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(12, choY2 - e.fbox[1]);
+                    } else if (e.part === 'jung') {
+                        if (jb.hasJong) {
+                            if (e.fbox[1] < choY2 - 1) e.fbox[1] = choY2 - 1;
+                            if (e.fbox[1] + e.fbox[3] > jongY1 + 1) e.fbox[3] = Math.max(10, jongY1 + 1 - e.fbox[1]);
+                        } else if (jb.jungY1 && jb.jungY2) {
+                            const actJungTop = jb.jungY1 / s;
+                            const actJungH = Math.max(14, (jb.jungY2 - jb.jungY1) / s);
+                            if (e.fbox[1] < choY2 - 0.5) e.fbox[1] = choY2 - 0.5;
+                            if (actJungTop > e.fbox[1]) e.fbox[1] = actJungTop - 1.5;
+                            e.fbox[3] = actJungH + 3.0;
+                        }
+                    } else if (e.part === 'jong') {
+                        if (e.fbox[1] < jongY1 - 1) {
+                            const bot = e.fbox[1] + e.fbox[3];
+                            e.fbox[1] = jongY1 - 1;
+                            e.fbox[3] = Math.max(14, bot - e.fbox[1]);
+                        }
+                    }
+                } else if (jb.vType === 'C') {
+                    if (e.part === 'cho') {
+                        if (jb.choY1) {
+                            const actTop = jb.choY1 / s;
+                            const diff = actTop - e.fbox[1];
+                            e.fbox[1] = actTop;
+                            e.fbox[3] = Math.max(12, e.fbox[3] - diff);
+                        }
+                        if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
+                        if (e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(12, choY2 - e.fbox[1]);
+                    } else if (e.part === 'jung') {
+                        if (jb.hasJong && ['ㅝ', 'ㅞ', 'ㅟ'].some(v => (e.whId || e.char || '').includes(v))) {
+                            if (e.fbox[1] + e.fbox[3] < jongY1 - 1) {
+                                e.fbox[3] = Math.max(e.fbox[3], jongY1 - 0.5 - e.fbox[1]);
+                            }
+                        }
+                    } else if (e.part === 'jong') {
+                        if (e.fbox[1] < jongY1 - 1) {
+                            const bot = e.fbox[1] + e.fbox[3];
+                            e.fbox[1] = jongY1 - 1;
+                            e.fbox[3] = Math.max(14, bot - e.fbox[1]);
+                        }
+                    }
+                }
+            }
+            e.def = [...e.fbox];
+            // 자소 박스 안에서 실제 잉크가 있어야 할 영역(초성·중성·종성 경계 준수) 내 잉크 점 수집
+            e.region = cell.ink.filter(([x, y]) => {
+                if (x < e.def[0] - 8 || x > e.def[0] + e.def[2] + 8 || y < e.def[1] - 8 || y > e.def[1] + e.def[3] + 8) return false;
+                if (jb) {
+                    if (jb.vType === 'H' && jb.hasJong) {
+                        if (e.part === 'cho' && y > choY2 + 2) return false;
+                        if (e.part === 'jung' && (y < jungY1 - 2 || y > jungY2 + 2)) return false;
+                        if (e.part === 'jong' && y < jongY1 - 2) return false;
+                    } else if (jb.vType === 'V') {
+                        if (e.part === 'cho') {
+                            if (x > splitX + 3) return false;
+                            if (jb.hasJong && y > choY2 + 3) return false;
+                        } else if (e.part === 'jung') {
+                            if (x < splitX - 3 && y > 22) return false;
+                            if (jb.hasJong && y > jungY2 + 3) return false;
+                        } else if (e.part === 'jong') {
+                            if (jb.hasJong && y < jongY1 - 3) return false;
+                        }
+                    } else if (jb.vType === 'C') {
+                        if (jb.hasJong && e.part === 'jong' && y < jongY1 - 3) return false;
+                        if (e.part === 'cho') {
+                            if (x > splitX + 3) return false;
+                            if (jb.hasJong && y > jongY1 - 4) return false;
+                        }
                     }
                 }
                 return true;
@@ -2084,8 +2460,12 @@ const Engine = {
         for (let round = 0; round < 2; round++) {
             this.jamoEntries.forEach(e => {
                 let best = cost(e, e.fbox);
-                const jungYMax = (e.jongChar === 'ㄴ') ? 69 : 60;
-                const choYMax = (e.vType === 'H') ? 39 : 54;
+                const jb = fitDynBounds[e.ci];
+                const choY2 = jb ? jb.choY2 / s : ((e.vType === 'H') ? 39 : 54);
+                const jungY1 = jb ? jb.jungY1 / s : 35;
+                const jungY2 = jb ? jb.jungY2 / s : ((e.jongChar === 'ㄴ') ? 69 : 60);
+                const jongY1 = jb ? jb.jongY1 / s : 54;
+                const splitX = jb ? jb.splitX / s : 55;
                 const minScale = (e.part === 'jong') ? 0.55 : 0.72;
                 [6, 3, 1.5, 0.75].forEach(step => {
                     for (let sweep = 0; sweep < 3; sweep++) {
@@ -2096,10 +2476,32 @@ const Engine = {
                                 nb[p] += sg * step * (p >= 2 ? 1.5 : 1);
                                 if (p < 2 && Math.abs(nb[p] - e.def[p]) > 12) continue;
                                 if (p >= 2 && (nb[p] < e.def[p] * minScale || nb[p] > e.def[p] * 1.18)) continue;
-                                if (e.hasJong) {
-                                    if (e.part === 'jung' && nb[1] + nb[3] > jungYMax) continue;
-                                    if (e.part === 'cho' && nb[1] + nb[3] > choYMax) continue;
-                                    if (e.part === 'jong' && nb[1] < 53) continue;
+                                if (jb) {
+                                    if (jb.vType === 'V') {
+                                        if (e.part === 'cho') {
+                                            if (nb[0] + nb[2] > splitX - 0.5) continue;
+                                            if (jb.hasJong && nb[1] + nb[3] > choY2 + 1) continue;
+                                        } else if (e.part === 'jung') {
+                                            if (nb[0] < splitX - 1) continue;
+                                        } else if (e.part === 'jong') {
+                                            if (nb[1] < jongY1 - 2) continue;
+                                        }
+                                    } else if (jb.vType === 'H') {
+                                        if (e.part === 'cho') {
+                                            if (jb.hasJong && nb[1] + nb[3] > choY2 + 1) continue;
+                                        } else if (e.part === 'jung') {
+                                            if (jb.hasJong && (nb[1] < choY2 - 2 || nb[1] + nb[3] > jongY1 + 2)) continue;
+                                        } else if (e.part === 'jong') {
+                                            if (nb[1] < jongY1 - 2) continue;
+                                        }
+                                    } else if (jb.vType === 'C') {
+                                        if (e.part === 'cho') {
+                                            if (nb[0] + nb[2] > splitX - 0.5) continue;
+                                            if (nb[1] + nb[3] > choY2 + 1) continue;
+                                        } else if (e.part === 'jong') {
+                                            if (nb[1] < jongY1 - 2) continue;
+                                        }
+                                    }
                                 }
                                 const c = cost(e, nb);
                                 if (c < best - 1e-4) { best = c; e.fbox = nb; improved = true; }
@@ -2130,7 +2532,7 @@ const Engine = {
             const choYMax = (e.vType === 'H') ? 39.5 : 55;
             e.norm.forEach((st, si) => {
                 const samples = [];
-                let minSmpY = 100, maxSmpY = 0;
+                let minSmpX = 100, maxSmpX = 0, minSmpY = 100, maxSmpY = 0;
                 for (let i = 0; i < st.length - 1; i++) {
                     const ax = st[i][0] * b[2], ay = st[i][1] * b[3], bx2 = st[i + 1][0] * b[2], by2 = st[i + 1][1] * b[3];
                     const len = Math.hypot(bx2 - ax, by2 - ay) || 1;
@@ -2138,6 +2540,8 @@ const Engine = {
                     for (let t = 0; t < 5; t++) {
                         const f = t / 5;
                         const sx = b[0] + ax * (1 - f) + bx2 * f, sy = b[1] + ay * (1 - f) + by2 * f;
+                        if (sx < minSmpX) minSmpX = sx;
+                        if (sx > maxSmpX) maxSmpX = sx;
                         if (sy < minSmpY) minSmpY = sy;
                         if (sy > maxSmpY) maxSmpY = sy;
                         samples.push([sx, sy, nx, ny]);
@@ -2145,14 +2549,43 @@ const Engine = {
                 }
                 if (!samples.length) return;
                 const occ = occArr[e.ci] || (occArr[e.ci] = []);
-                const isVertSt = Math.abs(st[st.length - 1][1] - st[0][1]) > Math.abs(st[st.length - 1][0] - st[0][0]);
-                const maxShiftX = (e.part === 'cho' && e.vType === 'H') ? 6 : (e.part === 'jung' && isVertSt ? 18 : 10);
-                const maxShiftY = (e.part === 'cho' && e.vType === 'H') ? 4 : (e.part === 'jung' && !isVertSt ? 16 : 10);
+                const spanX = Math.abs(st[st.length - 1][0] - st[0][0]) * b[2];
+                const spanY = Math.abs(st[st.length - 1][1] - st[0][1]) * b[3];
+                const maxShiftX = Math.min(3.5, Math.max(1.0, spanX * 0.45));
+                const maxShiftY = Math.min(3.5, Math.max(1.0, spanY * 0.45));
+                const jb = fitDynBounds[e.ci];
+                const choY2 = jb ? jb.choY2 / s : ((e.vType === 'H') ? 39.5 : 55);
+                const jungY1 = jb ? jb.jungY1 / s : 35;
+                const jungY2 = jb ? jb.jungY2 / s : ((e.jongChar === 'ㄴ') ? 70 : 61);
+                const jongY1 = jb ? jb.jongY1 / s : 54;
+                const splitX = jb ? jb.splitX / s : 55;
                 const sc = (dx, dy) => {
-                    if (e.hasJong) {
-                        if (e.part === 'jung' && maxSmpY + dy > jungYMax) return 1e6;
-                        if (e.part === 'cho' && maxSmpY + dy > choYMax) return 1e6;
-                        if (e.part === 'jong' && minSmpY + dy < 53) return 1e6;
+                    if (jb) {
+                        if (jb.vType === 'V') {
+                            if (e.part === 'cho') {
+                                if (maxSmpX + dx > splitX - 0.5) return 1e6;
+                                if (jb.hasJong && maxSmpY + dy > choY2 + 1) return 1e6;
+                            } else if (e.part === 'jung') {
+                                if (minSmpX + dx < splitX - 1) return 1e6;
+                            } else if (e.part === 'jong') {
+                                if (minSmpY + dy < jongY1 - 2) return 1e6;
+                            }
+                        } else if (jb.vType === 'H') {
+                            if (e.part === 'cho') {
+                                if (jb.hasJong && maxSmpY + dy > choY2 + 1) return 1e6;
+                            } else if (e.part === 'jung') {
+                                if (jb.hasJong && (minSmpY + dy < choY2 - 2 || maxSmpY + dy > jongY1 + 2)) return 1e6;
+                            } else if (e.part === 'jong') {
+                                if (minSmpY + dy < jongY1 - 2) return 1e6;
+                            }
+                        } else if (jb.vType === 'C') {
+                            if (e.part === 'cho') {
+                                if (maxSmpX + dx > splitX - 0.5) return 1e6;
+                                if (maxSmpY + dy > choY2 + 1) return 1e6;
+                            } else if (e.part === 'jong') {
+                                if (minSmpY + dy < jongY1 - 2) return 1e6;
+                            }
+                        }
                     }
                     let A = 0, Cp = 0, ov = 0;
                     samples.forEach(p => {
@@ -2162,7 +2595,8 @@ const Engine = {
                         Cp += Math.min(Math.max(0, L - 17), 12) + (L < 0.5 ? 6 : 0) + (L <= 17 ? asym * 0.55 : 0);
                         for (let q = 0; q < occ.length; q++) {
                             const ddx = occ[q][0] - x, ddy = occ[q][1] - y;
-                            if (ddx * ddx + ddy * ddy < 12 && Math.abs(p[2] * occ[q][2] + p[3] * occ[q][3]) > 0.78) { ov++; break; }
+                            const ddx2 = ddx * ddx + ddy * ddy;
+                            if (ddx2 < 12 && Math.abs(p[2] * occ[q][2] + p[3] * occ[q][3]) > 0.78) { ov++; break; }
                         }
                     });
                     return (A + 0.9 * Cp + 6 * ov) / samples.length + 0.08 * (Math.abs(dx) + Math.abs(dy));
@@ -2205,6 +2639,12 @@ const Engine = {
         const thick = br > 2.4;
         (this.jamoEntries || []).forEach(e => {
             if (e.fbox) { e.pbox = null; e.pso = null; e.rScale = 1.0; return; }
+            if (e.whId) {
+                // 창고 자소: 위치는 수집기 box 그대로, 다획(3획+)·복합 자소만 살짝 가늘게 해 획 간 번짐 방지
+                e.pbox = null; e.pso = null;
+                e.rScale = (e.norm && e.norm.length >= 3) ? 0.9 : 1.0;
+                return;
+            }
             const nSt = e.norm ? e.norm.length : 1;
             e.pso = (e.norm || []).map(() => [0, 0]);
             if (e.part === 'single') {
@@ -2268,7 +2708,7 @@ const Engine = {
         // 글리프 모드가 아닐 때(봉서체 등 절차적 벡터 모드):
         // 자소 내부 조형 비율(w, h, rScale)은 그대로 보존하면서 평행이동(pbox[0], pbox[1])만으로
         // 초성·중성·종성 외곽선 간격을 기존의 절반 수준(균일 간격)으로 맞추고 셀 중앙(50,50)에 정렬한다.
-        if (!this.isGlyphMode() && this.jamoEntries && this.jamoEntries.length > 0) {
+        if (!this.isGlyphMode() && this.jamoEntries && this.jamoEntries.length > 0 && !this.jamoEntries.some(e => e.whId)) {
             for (let iter = 0; iter < 5; iter++) {
                 let changed = false;
                 for (let ci = 0; ci < this.charCount; ci++) {
@@ -2465,6 +2905,14 @@ const Engine = {
         };
 
         const strokeEndLy = new Float32Array(this.strokes.length).fill(1e6);
+        this.dynBounds = null;
+        const dynBounds = this.charsInfo.map((info, ci) => {
+            const vType = VOWEL_TYPE[info.jung] || 'V';
+            const hasJong = !!info.jong;
+            return computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong);
+        });
+        this.dynBounds = dynBounds;
+
 
         // 0) 글리프 모드일 때 초성·중성 세로획의 하단 침필/종성 경계(Pinch/Gap)를 검출하고,
         //    기필/수필을 실제 자소 잉크 끝까지 정확히 맞추되 타 자소(종성 등) 침범을 차단한다.
@@ -2562,15 +3010,16 @@ const Engine = {
                         iEnd = Math.max(iStart + 3, j - 1);
                         break;
                     }
-                    if (!onInk[j] && (j + 1 >= work.length || !onInk[j + 1] || isSingleSegWork || (meta.hasJong && meta.part !== 'jong' && work[j][1] > 48))) {
+                    // 종성 침범 방지 트리밍은 오직 종성이 있을 때 중성 하향 획에만 적용
+                    if (meta.part === 'jung' && meta.hasJong && work[j][1] > 48 && !onInk[j]) {
                         iEnd = Math.max(iStart + 3, j - 1);
                         break;
                     }
                 }
-                while (iEnd > checkStart && !onInk[iEnd]) iEnd--;
+                while (iEnd > checkStart && meta.part === 'jung' && !onInk[iEnd]) iEnd--;
 
                 const sliced = work.slice(iStart, iEnd + 1);
-                if (sliced.length >= 4) {
+                if (sliced.length >= Math.max(4, Math.floor(work.length * 0.70))) {
                     const isSingleSeg = (sliced[0][7] === sliced[sliced.length - 1][7]);
                     // (c) 기필(시작점)이 잉크 머리 끝보다 안쪽에서 시작하면 기필 역방향으로 연장
                     {
@@ -2599,7 +3048,8 @@ const Engine = {
                     const dl = Math.hypot(dx, dy) || 1;
                     const isLastH = dx > Math.abs(dy) * 2.0;
                     const isLastV = isSingleSeg && (sliced[0][4] === 'V' || dy > Math.abs(dx) * 2.0);
-                    if (isLastH || isLastV) {
+                    const isLastD = dl > 0.05 && sliced.length >= 4;
+                    if (isLastH || isLastV || isLastD) {
                         const tx = dx / dl, ty = dy / dl, nx = -ty, ny = tx;
                         const midPt = sliced[Math.floor(sliced.length * 0.65)];
                         const refW = Math.max(14, perpRunAt(ci, (midPt[0] - ci * 100) * R / 100, midPt[1] * R / 100, nx, ny));
@@ -2764,8 +3214,9 @@ const Engine = {
                     if (minDEnd < w[k2] * 1.55 && pu[bestB] >= 0.08 && pu[bestB] <= 1.00) {
                         const dot = Math.abs(ptx[a1] * ptx[bestB] + pty[a1] * pty[bestB]);
                         if (dot < 0.65) {
+                            const minCutJ = a1 - Math.max(2, Math.floor((a1 - a0) * 0.35));
                             let cutJ = a1;
-                            while (cutJ > a0 + 3) {
+                            while (cutJ > minCutJ) {
                                 let dToK2 = 1e9;
                                 for (let jb = b0; jb <= b1; jb++) {
                                     const d = Math.hypot(px[cutJ] - px[jb], py[cutJ] - py[jb]);
@@ -2781,13 +3232,6 @@ const Engine = {
                                 pu[j] = Math.min(1.0, (j - a0) / effSpan);
                             }
                             retractedEnd[k1] = 1;
-                            if (glyphActive) {
-                                const stPts = this.strokes[sIds[k1]];
-                                const keepLen = Math.max(3, cutJ - a0 + 1);
-                                if (stPts && stPts.length > keepLen) {
-                                    this.strokes[sIds[k1]] = stPts.slice(0, keepLen);
-                                }
-                            }
                         }
                     }
                     // (B) 단일 구간 가지 획(k2)의 시작점이 앞선 획(k1)의 몸통(0.20<=u<=1.00)에서 갈라져 나오는 경우 (ㅂ/ㅁ 하단 가로획 시작점 포함)
@@ -2821,17 +3265,16 @@ const Engine = {
                                         pu[j] = Math.max(0.0, (j - cutB) / effSpan);
                                     }
                                     retractedStart[k2] = 1;
-                                    if (glyphActive) {
-                                        const stPts = this.strokes[sIds[k2]];
-                                        const dropCnt = Math.min(stPts.length - 3, cutB - b0);
-                                        if (stPts && dropCnt > 0) {
-                                            this.strokes[sIds[k2]] = stPts.slice(dropCnt);
-                                        }
-                                    }
                                 }
                             }
                         }
                     }
+                }
+            }
+            for (let k = 0; k < K; k++) {
+                if (retractedStart[k] && retractedEnd[k]) {
+                    retractedStart[k] = 0;
+                    retractedEnd[k] = 0;
                 }
             }
 
@@ -2865,27 +3308,38 @@ const Engine = {
                     const sId = sIds[k];
                     const mk = metaK[k];
 
-                    // (가) 초성·중성 획은 종성 영역(하단 침필 한계선 아래) 픽셀을 절대 소유할 수 없음
-                    if (hasJongCell && mk.part !== 'jong') {
-                        const endCap = strokeEndLy[sId] < 1e5 ? (strokeEndLy[sId] + 1.5) : Math.min(maxPy[k] + w[k] * 1.65, minJongTopLy + 3);
-                        if (ly > endCap) {
-                            dist += 1e6;
-                        } else if (strokeEndLy[sId] < 1e5 && ly > strokeEndLy[sId] - 10 && lx < px[starts[k + 1] - 1] - w[k] * 1.12) {
-                            // 세로모음 침필 끝 좌측의 종성 상단부 픽셀이 세로모음에 빨려들어가는 현상 차단
-                            dist += 1e6;
-                        }
-                    }
-                    // (나) 종성 획은 초성·중성 상단 영역 픽셀을 소유할 수 없음
-                    if (hasJongCell && mk.part === 'jong') {
-                        const topFloor = Math.max(minPy[k] - w[k] * 1.28, minJongTopLy - 4);
-                        if (ly < topFloor) dist += 1e6;
-                    }
-                    // (다) 초성과 우측 세로모음(중성) 간 좌우 침범 차단 (상단 역입 기필봉 ly<=82px은 보존)
-                    if (mk.vType !== 'H' && minJungVLx < R) {
-                        if (mk.part === 'cho' && lx > minJungVLx + 4) {
-                            dist += 1e5;
-                        } else if (mk.part === 'jung' && Math.abs(pty[starts[k]]) > 0.72 && ly > 82 && lx < meanPx[k] - w[k] * 1.55) {
-                            dist += 1e5;
+                    // ★ 동적 히스토그램 분할벽 (Dynamic Partition Walls) 적용: 자소 간 먹물 누수 100% 원천 차단
+                    const jb = dynBounds[ci];
+                    if (jb) {
+                        if (jb.vType === 'H') {
+                            if (mk.part === 'cho' && ly > jb.choY2 + 3) dist += 1e7;
+                            else if (mk.part === 'jung') {
+                                if (ly < jb.choY2 - 3) dist += 1e7;
+                                if (jb.hasJong && ly > jb.jungY2 + 3) dist += 1e7;
+                            }
+                            else if (jb.hasJong && mk.part === 'jong' && ly < jb.jongY1 - 3) dist += 1e7;
+                        } else if (jb.vType === 'V') {
+                            if (mk.part === 'cho') {
+                                const allowBottom = !jb.hasJong && ly > (jb.choY1 + (jb.choY2 - jb.choY1) * 0.55);
+                                if (lx > jb.splitX + 3 && !allowBottom) dist += 1e7;
+                                if (jb.hasJong && ly > jb.choY2 + 3) dist += 1e7;
+                            } else if (mk.part === 'jung') {
+                                if (lx < jb.splitX - 3) dist += 1e7;
+                                if (ptx[starts[k]] > 0.5 && lx < px[starts[k]] - 2) dist += 1e7;
+                                if (jb.hasJong && strokeEndLy[sId] < 1e5 && ly > strokeEndLy[sId] + 3) dist += 1e7;
+                            } else if (mk.part === 'jong') {
+                                if (jb.hasJong && ly < jb.jongY1 - 3) dist += 1e7;
+                            }
+                        } else if (jb.vType === 'C') {
+                            if (jb.hasJong && mk.part === 'jong' && ly < jb.jongY1 - 3) dist += 1e7;
+                            if (mk.part === 'cho') {
+                                if (lx > jb.splitX + 3) dist += 1e7;
+                                if (ly > jb.choY2 + (jb.hasJong ? Math.max(15, (jb.jongY1 - jb.choY2) * 0.45) : 35)) dist += 1e7;
+                            } else if (mk.part === 'jung') {
+                                const isVerticalJung = (mk.subPart === 'jung_v' || lx > jb.splitX - 12);
+                                if (isVerticalJung && lx < jb.splitX - 3) dist += 1e7;
+                                if (jb.hasJong && ly > jb.jongY1 + 3 && lx < jb.splitX) dist += 1e7;
+                            }
                         }
                     }
 
@@ -2906,7 +3360,10 @@ const Engine = {
                                 break;
                             }
                         }
-                        if (crossedGap) dist += 600;
+                        if (crossedGap || (exitedInk && steps >= 4)) dist += 600;
+                    }
+                    if (dist > w[k] * 2.2) {
+                        dist += Math.pow(dist / (w[k] * 2.0), 2) * 50;
                     }
                     D[p * K + k] = dist; Ix[p * K + k] = bi;
                 }
@@ -2940,24 +3397,44 @@ const Engine = {
                 }
             }
 
-            // 4) 소유권 배정 (동일 자소 내 T자 교차부에서 관통 주 획의 몸통 내부 보호)
+            // 4) 소유권 배정 (동일 자소 내 관통 주 획의 몸통 보호 및 T자 접합부 하프스페이스 격리)
             const owners = new Int16Array(P);
             const effN = new Float64Array(K);
             for (let p = 0; p < P; p++) {
                 for (let k = 0; k < K; k++) effN[k] = D[p * K + k] / w[k];
 
+                // [규칙 1 & 2] 동일 자소 내 선행 관통획(Trunk) 보호 및 후속 가지획(Branch) 간섭 차단
                 for (let kA = 0; kA < K; kA++) {
-                    if (effN[kA] > 0.96) continue;
                     const jA = Ix[p * K + kA], uA = pu[jA];
-                    if (uA < 0.10 || uA > 0.90) continue;
+                    const isTrunkBody = (uA >= 0.05 && uA <= 0.95);
+                    const inCorridor = effN[kA] <= 1.25;
+
                     for (let kB = 0; kB < K; kB++) {
-                        if (kB === kA || metaK[kA].part !== metaK[kB].part || effN[kB] > 1.45) continue;
+                        if (kB === kA || metaK[kA].part !== metaK[kB].part) continue;
                         const jB = Ix[p * K + kB], uB = pu[jB];
                         const dot = Math.abs(ptx[jA] * ptx[jB] + pty[jA] * pty[jB]);
-                        if (dot >= 0.68) continue;
-                        if ((kB < kA && uB > 0.65) || (kB > kA && (uB < 0.35 || uB > 0.65))) {
-                            effN[kB] = Math.max(effN[kB], 1.38);
+
+                        // (A) 선행 관통획 kA의 몸통 픽셀은 후속 가지획 kB(kB > kA)가 침범할 수 없음 (단, 수직/수평 관통 주간선에만 적용)
+                        const isTrueTrunk = (Math.abs(ptx[jA]) > 0.80 || Math.abs(pty[jA]) > 0.80);
+                        if (isTrueTrunk && kB > kA && inCorridor && isTrunkBody) {
+                            if (uB <= 0.38 || dot < 0.82) {
+                                effN[kB] += 5.0; // kB가 kA의 몸통을 파먹는 것을 원천 차단
+                            }
                         }
+                        // (B) 반대로 kA가 후속획 kB의 끝에 닿는 경우(kB < kA이고 uA가 시작부)
+                        else if (kB < kA && effN[kB] <= 1.25 && (uB >= 0.05 && uB <= 0.95)) {
+                            if (uA <= 0.35 || dot < 0.82) {
+                                effN[kA] += 5.0;
+                            }
+                        }
+                    }
+                }
+
+                // [규칙 4] 작은 획(꼭지 점 등, pts <= 35) 최소 잉크 보장: 큰 획에 먹히지 않도록 보호
+                for (let k = 0; k < K; k++) {
+                    const kLen = starts[k + 1] - starts[k];
+                    if (kLen <= 35 && effN[k] <= 1.50 && D[p * K + k] <= w[k] * 1.5) {
+                        effN[k] = Math.min(effN[k], 0.55);
                     }
                 }
 
@@ -2965,73 +3442,137 @@ const Engine = {
                 for (let k = 0; k < K; k++) {
                     if (effN[k] < nmin) { nmin = effN[k]; fb = k; }
                 }
-                let owner = fb;
-                for (let k = 0; k < K; k++) {
-                    if (effN[k] <= nmin + 0.16 && effN[k] <= 1.32) { owner = k; break; }
-                }
-                owners[p] = owner;
+                owners[p] = fb;
             }
             for (let p = 0; p < P; p++) {
                 const o = owners[p];
                 idxList.push(pxY[p] * W + pxX[p]); sidList.push(sIds[o]);
+if (!this._rawSidCounts) this._rawSidCounts = {}; this._rawSidCounts[sIds[o]] = (this._rawSidCounts[sIds[o]] || 0) + 1;
                 pidList.push(pp[Ix[p * K + o]]); aList.push(pxA[p]);
             }
         }
-        // 고립된 작은 조각(다른 획 사이에 박힌 점/얼룩)은 동일 자소(초·중·종성) 내 이웃 획으로 우선 재배정
+        // ★ 정통 8-연결성 골격 주간선 보존 및 분할 섬 동화 알고리즘:
+        //   - 각 획의 최대 8-연결 컴포넌트(주간선)는 100% 영구 보존한다.
+        //   - 떨어진 2차 분할 섬(Secondary Island)은 접하는 동일 자소 이웃 획으로 완벽 동화한다.
+        //   - 흰 여백에 고립된 섬은 유클리드 최근접 획 골격으로 귀속하여 전수 1-아일랜드 무결성을 달성한다.
         {
             const N = idxList.length;
             const posToI = new Int32Array(W * R).fill(-1);
             for (let i = 0; i < N; i++) posToI[idxList[i]] = i;
-            const seen = new Uint8Array(N);
-            const MIN_AREA = 160;
             const partOf = (s) => (this.strokeMeta && this.strokeMeta[s]) ? this.strokeMeta[s].part : 'single';
-            for (let i0 = 0; i0 < N; i0++) {
-                if (seen[i0]) continue;
-                const own = sidList[i0];
-                const ownPart = partOf(own);
-                const comp = [i0];
-                seen[i0] = 1;
-                for (let h = 0; h < comp.length; h++) {
-                    const p = idxList[comp[h]];
-                    const cx = p % W, cy = (p / W) | 0;
-                    for (const [ax, ay] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-                        const nx2 = cx + ax, ny2 = cy + ay;
-                        if (nx2 < 0 || ny2 < 0 || nx2 >= W || ny2 >= R) continue;
-                        const j = posToI[ny2 * W + nx2];
-                        if (j >= 0 && !seen[j] && sidList[j] === own) { seen[j] = 1; comp.push(j); }
-                    }
-                }
-                if (comp.length >= MIN_AREA) continue;
-                const sameVotes = new Map(), anyVotes = new Map();
-                const ref = new Map();
-                comp.forEach(ci2 => {
-                    const p = idxList[ci2];
-                    const cx = p % W, cy = (p / W) | 0;
-                    for (const [ax, ay] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-                        const nx2 = cx + ax, ny2 = cy + ay;
-                        if (nx2 < 0 || ny2 < 0 || nx2 >= W || ny2 >= R) continue;
-                        const j = posToI[ny2 * W + nx2];
-                        if (j >= 0 && sidList[j] !== own) {
-                            const nbS = sidList[j];
-                            anyVotes.set(nbS, (anyVotes.get(nbS) || 0) + 1);
-                            if (partOf(nbS) === ownPart) sameVotes.set(nbS, (sameVotes.get(nbS) || 0) + 1);
-                            if (!ref.has(nbS)) ref.set(nbS, j);
+            const K = this.strokes.length;
+
+            for (let pass = 0; pass < 8; pass++) {
+                const visited = new Uint8Array(N);
+                const strokeIslands = Array.from({ length: K }, () => []);
+
+                for (let i = 0; i < N; i++) {
+                    if (visited[i]) continue;
+                    const s = sidList[i];
+                    const comp = [i];
+                    visited[i] = 1;
+                    let head = 0;
+                    while (head < comp.length) {
+                        const cur = comp[head++];
+                        const p = idxList[cur];
+                        const cx = p % W, cy = (p / W) | 0;
+                        for (let dy = -1; dy <= 1; dy++) {
+                            for (let dx = -1; dx <= 1; dx++) {
+                                if (dx === 0 && dy === 0) continue;
+                                const nx = cx + dx, ny = cy + dy;
+                                if (nx < 0 || ny < 0 || nx >= W || ny >= R) continue;
+                                const j = posToI[ny * W + nx];
+                                if (j >= 0 && !visited[j] && sidList[j] === s) {
+                                    visited[j] = 1;
+                                    comp.push(j);
+                                }
+                            }
                         }
                     }
-                });
-                const targetVotes = sameVotes.size > 0 ? sameVotes : (comp.length < 40 ? anyVotes : null);
-                if (!targetVotes || !targetVotes.size) continue;
-                let bestO = -1, bestV = -1;
-                targetVotes.forEach((v, o) => { if (v > bestV) { bestV = v; bestO = o; } });
-                const pidRef = pidList[ref.get(bestO)];
-                comp.forEach(ci2 => { sidList[ci2] = bestO; pidList[ci2] = pidRef; });
+                    strokeIslands[s].push(comp);
+                }
+
+                let reassignedCount = 0;
+                for (let k = 0; k < K; k++) {
+                    const islands = strokeIslands[k];
+                    if (islands.length <= 1) continue;
+                    islands.sort((a, b) => b.length - a.length);
+
+                    for (let islIdx = 1; islIdx < islands.length; islIdx++) {
+                        const comp = islands[islIdx];
+                        const ownPart = partOf(k);
+                        const sameVotes = new Map(), anyVotes = new Map();
+                        const ref = new Map();
+
+                        comp.forEach(ci2 => {
+                            const p = idxList[ci2];
+                            const cx = p % W, cy = (p / W) | 0;
+                            for (let dy = -1; dy <= 1; dy++) {
+                                for (let dx = -1; dx <= 1; dx++) {
+                                    if (dx === 0 && dy === 0) continue;
+                                    const nx = cx + dx, ny = cy + dy;
+                                    if (nx < 0 || ny < 0 || nx >= W || ny >= R) continue;
+                                    const j = posToI[ny * W + nx];
+                                    if (j >= 0 && sidList[j] !== k) {
+                                        const nbS = sidList[j];
+                                        anyVotes.set(nbS, (anyVotes.get(nbS) || 0) + 1);
+                                        if (partOf(nbS) === ownPart) sameVotes.set(nbS, (sameVotes.get(nbS) || 0) + 1);
+                                        if (!ref.has(nbS)) ref.set(nbS, j);
+                                    }
+                                }
+                            }
+                        });
+
+                        const targetVotes = sameVotes.size > 0 ? sameVotes : anyVotes;
+                        let bestO = -1, bestV = -1;
+                        if (targetVotes && targetVotes.size > 0) {
+                            targetVotes.forEach((v, o) => { if (v > bestV) { bestV = v; bestO = o; } });
+                        } else {
+                            // 흰 여백에 고립된 섬: 동일 자소 내 최근접 획으로 귀속
+                            let cX = 0, cY = 0;
+                            comp.forEach(ci2 => { const p = idxList[ci2]; cX += p % W; cY += (p / W) | 0; });
+                            cX /= comp.length; cY /= comp.length;
+                            let minD = 1e9;
+                            for (let candK = 0; candK < K; candK++) {
+                                if (candK === k) continue;
+                                if (partOf(candK) !== ownPart) continue;
+                                const candPts = this.strokes[candK];
+                                if (!candPts) continue;
+                                candPts.forEach(pt => {
+                                    const d = Math.hypot(cX - pt[0] * R / 100, cY - pt[1] * R / 100);
+                                    if (d < minD) { minD = d; bestO = candK; }
+                                });
+                            }
+                            if (bestO < 0) {
+                                for (let candK = 0; candK < K; candK++) {
+                                    if (candK === k) continue;
+                                    const candPts = this.strokes[candK];
+                                    if (!candPts) continue;
+                                    candPts.forEach(pt => {
+                                        const d = Math.hypot(cX - pt[0] * R / 100, cY - pt[1] * R / 100);
+                                        if (d < minD) { minD = d; bestO = candK; }
+                                    });
+                                }
+                            }
+                        }
+
+                        if (bestO >= 0) {
+                            const pidRef = ref.has(bestO) ? pidList[ref.get(bestO)] : 0;
+                            comp.forEach(ci2 => { sidList[ci2] = bestO; pidList[ci2] = pidRef; });
+                            reassignedCount += comp.length;
+                        }
+                    }
+                }
+                if (reassignedCount === 0) break;
             }
         }
         const order = Array.from({ length: idxList.length }, (_, i) => i)
             .sort((a, b) => (sidList[a] * 4096 + pidList[a]) - (sidList[b] * 4096 + pidList[b]));
         this.glyphImg = null;
         this.glyphShown = 0;
-        this.glyphData = {
+        this._glyphDataRawCounts = this._rawSidCounts;
+this._rawSidCounts = null;
+this.glyphData = {
             R, W, H: R,
             idx: Int32Array.from(order, i => idxList[i]), sid: Int16Array.from(order, i => sidList[i]),
             pid: Int16Array.from(order, i => pidList[i]), a: Uint8Array.from(order, i => aList[i]),
@@ -3251,11 +3792,28 @@ const Engine = {
                     );
                 }
 
+                let found = false;
                 for (const [cx, cy] of candidates) {
                     if (!hasOverlap(cx, cy)) {
                         bx = cx;
                         by = cy;
+                        found = true;
                         break;
+                    }
+                }
+                if (!found && candidates.length > 0) {
+                    let bestScore = -1;
+                    for (const [cx, cy] of candidates) {
+                        let dMin = Infinity;
+                        for (const p of placedBadges) {
+                            const d = Math.hypot(cx - p.bx, cy - p.by);
+                            if (d < dMin) dMin = d;
+                        }
+                        if (dMin > bestScore) {
+                            bestScore = dMin;
+                            bx = cx;
+                            by = cy;
+                        }
                     }
                 }
             }
@@ -3365,35 +3923,96 @@ const Engine = {
         }
     },
 
+    isLoopDemo: false,
+    loopTimer: null,
+    toggleLoopDemo() {
+        this.isLoopDemo = !this.isLoopDemo;
+        const btn = document.getElementById('btn-loop-demo');
+        if (btn) {
+            btn.textContent = this.isLoopDemo ? '🔁 무한 반복: ON' : '🔁 무한 반복: OFF';
+            btn.className = this.isLoopDemo ? 'btn btn-accent' : 'btn btn-outline';
+        }
+        if (this.isLoopDemo) {
+            this.playDemo();
+        } else if (this.loopTimer) {
+            clearTimeout(this.loopTimer);
+            this.loopTimer = null;
+        }
+    },
+    demoSpeedMultiplier: 1.0,
+    setDemoSpeed(val) {
+        this.demoSpeedMultiplier = parseFloat(val) || 1.0;
+        const speedName = this.demoSpeedMultiplier <= 0.6 ? '매우 느리게 (학습 집중)' : this.demoSpeedMultiplier <= 1.0 ? '느리게 (학습 표준)' : this.demoSpeedMultiplier <= 1.8 ? '보통' : '빠르게';
+        this.setMessage('⏱️ 획순 시범 쓰기 속도 설정: [' + speedName + ']');
+        if (this.demoTimer) {
+            this.playDemo();
+        }
+    },
     playDemo() {
+        this.stopDemo();
         this.resetPractice();
         if (this.strokes.length === 0) return;
 
         const modeTitle = this.styleParams.name;
-        this.setMessage(`🖌️ [${modeTitle}] 획순에 맞춰 시범을 쓰는 중입니다...`);
+        this.setMessage('🖌️ [' + modeTitle + '] 획순에 맞춰 시범을 쓰는 중입니다...');
+
+        // [규칙 5] 각 획의 누적 곡선 길이(Arc-length) 사전 계산 (자소 크기·점 밀도와 무관한 물리적 등속 이동 보장)
+        const strokeLens = this.strokes.map(pts => {
+            const cum = new Float32Array(pts.length);
+            for (let i = 1; i < pts.length; i++) {
+                cum[i] = cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+            }
+            return { cum, total: cum[pts.length - 1] || 1 };
+        });
+
         let sIdx = 0;
-        let pIdx = 2;
-        const speedStep = this.charCount >= 3 ? 2 : 1;
+        let curDist = 0;
+        let pauseFrames = 0;
+        // 학습을 위해 기필/중봉/수필 운필을 눈으로 편안하게 따라갈 수 있도록 기본 속도를 안정적인 저속으로 조정
+        const speedFactor = this.demoSpeedMultiplier || 1.0;
+        const speedDist = 1.15 * speedFactor;
 
         const stepAnim = () => {
             if (sIdx >= this.strokes.length) {
                 this.demoTimer = null;
                 this.currentStroke = this.strokes.length;
                 this.highlightCurrentStartDot();
-                this.setMessage(`✨ [${modeTitle}] 시범 쓰기 완료! 상단에서 다른 서체 카드를 클릭해 조형 차이를 비교해보세요.`);
+                if (this.isLoopDemo) {
+                    this.setMessage('✨ [' + modeTitle + '] 1회 완필! 1초 후 자동으로 다시 시작합니다 (무한 루핑)...');
+                    this.loopTimer = setTimeout(() => {
+                        if (this.isLoopDemo) this.playDemo();
+                    }, 1000);
+                } else {
+                    this.setMessage('✨ [' + modeTitle + '] 시범 쓰기 완료! 상단에서 다른 서체 카드를 클릭해 조형 차이를 비교해보세요.');
+                }
                 return;
             }
+
+            if (pauseFrames > 0) {
+                pauseFrames--;
+                this.demoTimer = requestAnimationFrame(stepAnim);
+                return;
+            }
+
             this.currentStroke = sIdx;
             this.highlightCurrentStartDot();
 
             const pts = this.strokes[sIdx];
-            pIdx = Math.min(pts.length, pIdx + speedStep);
+            const { cum, total } = strokeLens[sIdx];
+            curDist = Math.min(total, curDist + speedDist);
+
+            // 누적 거리에 해당하는 점 인덱스 찾기
+            let pIdx = 0;
+            while (pIdx < pts.length - 1 && cum[pIdx] < curDist) pIdx++;
+            pIdx = Math.max(2, pIdx);
             this.currentStep = pIdx;
             this.updateActiveRender();
 
-            if (pIdx >= pts.length) {
+            if (curDist >= total || pIdx >= pts.length - 1) {
                 sIdx++;
-                pIdx = 2;
+                curDist = 0;
+                // 한 획이 끝나면 학습자가 기필 머리와 획 순서를 충분히 인지할 수 있도록 획간 정지 시간(약 300ms) 부여
+                pauseFrames = Math.round(18 / Math.max(0.4, speedFactor));
             }
             this.demoTimer = requestAnimationFrame(stepAnim);
         };
@@ -3415,6 +4034,7 @@ const Engine = {
         document.getElementById('info-msg').textContent = msg;
     }
 };
+window.Engine = Engine;
 
 window.addEventListener('DOMContentLoaded', () => Engine.init());
 </script>
