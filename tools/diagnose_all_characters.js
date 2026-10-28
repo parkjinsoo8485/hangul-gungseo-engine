@@ -197,7 +197,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
         return reports;
     })()`);
 
-    fs.writeFileSync('C:/Users/user/.gemini/antigravity/brain/9a1def4d-17fd-4c3a-ba0b-080870cccc5e/survey_all_characters.json', JSON.stringify(results, null, 2));
+    const withIssues = results.filter(r => r.issues && r.issues.length > 0); console.log('Total tested:', results.length, 'With issues:', withIssues.length); withIssues.forEach(r => console.log(r.char, r.issues));
     console.log(`Survey complete. Wrote ${results.length} reports to survey_all_characters.json`);
 
     ws.close();

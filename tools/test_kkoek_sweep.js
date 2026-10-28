@@ -1,0 +1,69 @@
+const { spawn } = require('child_process'), http = require('http');
+const PORT = 9996;
+const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', [
+    '--headless=new', '--disable-gpu', '--remote-debugging-port=' + PORT,
+    '--user-data-dir=' + process.env.TEMP + '/cdp_rec_' + PORT, 'about:blank'
+], { stdio: 'ignore' });
+const get = u => new Promise((res, rej) => http.get(u, r => { let b = ''; r.on('data', d => b += d); r.on('end', () => res(b)); }).on('error', rej));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+(async () => {
+    let list;
+    for (let i = 0; i < 40; i++) { try { list = JSON.parse(await get('http://127.0.0.1:' + PORT + '/json/list')); if (list.length) break; } catch (e) { } await sleep(250); }
+    const ws = new WebSocket(list.find(t => t.type === 'page').webSocketDebuggerUrl);
+    let id = 1;
+    const send = (m, p = {}) => new Promise((res, rej) => {
+        const reqId = id++;
+        const onMsg = ({ data }) => { const r = JSON.parse(data); if (r.id === reqId) { ws.removeEventListener('message', onMsg); res(r.result); } };
+        ws.addEventListener('message', onMsg);
+        ws.send(JSON.stringify({ id: reqId, method: m, params: p }));
+    });
+    await new Promise(r => ws.onopen = r);
+    await send('Page.enable');
+    await send('Page.navigate', { url: 'http://localhost:8080/index.html' });
+    await sleep(1500);
+
+    const res = await send('Runtime.evaluate', {
+        expression: `(() => {
+            Engine.loadText('꾁');
+            const R = 150, s = R / 100;
+            const off = document.createElement('canvas');
+            off.width = R; off.height = R;
+            const ctx = off.getContext('2d');
+            ctx.fillStyle = '#000';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const ff = Engine.styleParams.fontFamily;
+            ctx.font = 'normal ' + Math.round(R * 0.81) + 'px ' + ff;
+            ctx.fillText('꾁', R / 2, R / 2);
+            const d = ctx.getImageData(0, 0, R, R).data;
+
+            const ptHit = (p, maxD) => {
+                const px = Math.round(p[0] * s), py = Math.round(p[1] * s);
+                for (let dy = -maxD; dy <= maxD; dy++) {
+                    for (let dx = -maxD; dx <= maxD; dx++) {
+                        const x = px + dx, y = py + dy;
+                        if (x >= 0 && x < R && y >= 0 && y < R && d[(y * R + x) * 4 + 3] > 50) return true;
+                    }
+                }
+                return false;
+            };
+
+            const eJungH = Engine.jamoEntries.find(e => e.subPart === 'jung_h');
+            const results = [];
+            const origSO = [...eJungH.so[0]];
+            for (let testDy = -5; testDy <= 9; testDy += 0.5) {
+                eJungH.so[0] = [origSO[0], testDy];
+                Engine.entriesToRaw();
+                const flatRaw = Engine.rawCharStrokes.flat();
+                const st = buildProceduralStrokePoints(flatRaw[2], Engine.styleParams);
+                const ratio = +(st.filter(p => ptHit(p, 3)).length * 100 / st.length).toFixed(1);
+                results.push({ testDy, ratio, p0: [+st[0][0].toFixed(1), +st[0][1].toFixed(1)], pEnd: [+st[st.length-1][0].toFixed(1), +st[st.length-1][1].toFixed(1)] });
+            }
+            return JSON.stringify(results);
+        })()`,
+        returnByValue: true
+    });
+    console.log(JSON.parse(res.result.value));
+    ws.close(); chrome.kill(); process.exit(0);
+})();

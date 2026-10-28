@@ -2,6 +2,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>한글 정통 서예 & 만능 폰트 절차적 벡터 모필 엔진 v13</title>
 <style>
     body { font-family: 'Malgun Gothic', sans-serif; background: #f5f2eb; margin: 0; padding: 20px; color: #2b2623; display: flex; flex-direction: column; align-items: center; }
@@ -115,7 +118,7 @@
         <!-- 1. 단어 입력 및 실행 버튼 -->
         <div class="top-controls">
             <div class="input-group">
-                <input type="text" id="char-input" value="한글" maxlength="6" placeholder="글자/단어 입력" onkeydown="if(event.key==='Enter') Engine.loadText(this.value)" />
+                <input type="text" id="char-input" value="회의" maxlength="6" placeholder="글자/단어 입력" onkeydown="if(event.key==='Enter') Engine.loadText(this.value)" />
                 <button class="btn" onclick="Engine.loadText(document.getElementById('char-input').value)">글자/단어 생성</button>
                 <button class="btn btn-accent" onclick="Engine.playDemo()">▶ 획순 시범 쓰기</button>
                 <div style="display:inline-flex; align-items:center; gap:6px; background:#fff; border:1.5px solid #2c2c2c; border-radius:6px; padding:6px 10px; font-size:13px; font-weight:bold;">
@@ -800,7 +803,7 @@ function normalizeJamoStrokes(normStrokes, styleParams, part = 'cho', exact = fa
             const dx = pEnd[0] - pStart[0], dy = pEnd[1] - pStart[1];
             const spanLen = Math.hypot(dx, dy) || 1;
 
-            const isHoriz = Math.abs(dx) > Math.abs(dy) * 1.35;
+            const isHoriz = dx > 0 && Math.abs(dx) > Math.abs(dy) * 1.35;
             // [0, 1] 정규화 공간에서는 ㄹ 우측 기둥(dx=-0.07, dy=0.33), ㅁ 우측 기둥 등이 모두 명확히 수직(isVert)으로 판별됨
             const isVert = Math.abs(dy) > Math.abs(dx) * 1.35 && Math.abs(dx) < spanLen * 0.35;
             // ㄱ, ㅋ의 우측 사선 기둥(i0 > 0 이고 하향하는 끝 구간)을 직교 서체(archCurve < 0.5)에서 수직 기둥으로 보정
@@ -938,7 +941,7 @@ function buildProceduralStrokePoints(rawCtrlPts, styleParams) {
     const denseResult = [];
 
     if (isClosedLoop) {
-        const loopPts = interpolateCatmullRom(adjustedCtrl, 14);
+        const loopPts = interpolateCatmullRom(adjustedCtrl, 7);
         loopPts.forEach((pt, idx) => {
             const u = idx / Math.max(1, loopPts.length - 1);
             denseResult.push([pt[0], pt[1], pt[2], u, 'O', false, false, 0]);
@@ -956,7 +959,7 @@ function buildProceduralStrokePoints(rawCtrlPts, styleParams) {
             if (!segType) {
                 if (numSegs === 1 && subCtrl[0][2] < 0.70 && dx > 0 && dy >= 0) {
                     segType = 'DOT';
-                } else if (Math.abs(dx) > Math.abs(dy) * 1.35) {
+                } else if (dx > 0 && Math.abs(dx) > Math.abs(dy) * 1.35) {
                     segType = 'H';
                 } else if (Math.abs(dy) > Math.abs(dx) * 1.25 && Math.abs(dx) < segLen * 0.42) {
                     segType = 'V';
@@ -1713,19 +1716,41 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
     };
 
     if (vType === 'H') {
+        const isO = (info.jung === 'ㅗ' || info.jung === 'ㅛ');
+        const H = maxY - minY;
+        // Find yBar: the main full-width horizontal stroke of ㅗ, ㅛ, ㅜ, ㅠ, ㅡ
+        const barSearchStart = Math.round(minY + H * (hasJong ? (info.jung === 'ㅡ' ? 0.42 : (isO ? 0.40 : 0.32)) : (info.jung === 'ㅡ' ? 0.65 : (isO ? 0.60 : 0.42))));
+        const barSearchEnd = Math.round(minY + H * (hasJong ? (info.jung === 'ㅡ' ? 0.64 : (isO ? 0.60 : 0.54)) : (info.jung === 'ㅡ' ? 0.92 : (isO ? 0.88 : 0.68))));
+        let yBar = Math.round((barSearchStart + barSearchEnd) * 0.5);
+        let maxBar = -1;
+        for (let y = barSearchStart; y <= barSearchEnd; y++) {
+            if (projY[y] > maxBar) { maxBar = projY[y]; yBar = y; }
+        }
+
         if (hasJong) {
-            let y1 = Math.round(minY + (maxY - minY) * 0.35);
-            let min1 = 1e9;
-            const r1Start = Math.round(minY + (maxY - minY) * 0.18);
-            const r1End = Math.round(minY + (maxY - minY) * 0.48);
+            let r1Start, r1End, r2Start, r2End;
+            if (isO) {
+                r1Start = Math.max(minY + 4, Math.round(yBar - H * 0.20));
+                r1End = Math.max(r1Start + 2, Math.round(yBar - H * 0.12));
+                r2Start = Math.min(maxY - 4, Math.round(yBar + H * 0.06));
+                r2End = Math.min(maxY - 2, Math.round(yBar + H * 0.16));
+            } else if (info.jung === 'ㅡ') {
+                r1Start = Math.max(minY + 4, Math.round(yBar - H * 0.10));
+                r1End = Math.max(r1Start + 2, Math.round(yBar - H * 0.03));
+                r2Start = Math.min(maxY - 4, Math.round(yBar + H * 0.05));
+                r2End = Math.min(maxY - 2, Math.round(yBar + H * 0.15));
+            } else {
+                // ㅜ, ㅠ: horizontal bar is at the top of the vowel
+                r1Start = Math.max(minY + 4, Math.round(yBar - H * 0.10));
+                r1End = Math.max(r1Start + 2, Math.round(yBar - H * 0.03));
+                r2Start = Math.min(maxY - 4, Math.round(yBar + H * 0.11));
+                r2End = Math.min(maxY - 2, Math.round(yBar + H * 0.21));
+            }
+            let y1 = Math.round((r1Start + r1End) * 0.5), min1 = 1e9;
             for (let y = r1Start; y <= r1End; y++) {
                 if (projY[y] < min1) { min1 = projY[y]; y1 = y; }
             }
-
-            let y2 = Math.round(minY + (maxY - minY) * 0.65);
-            let min2 = 1e9;
-            const r2Start = Math.max(y1 + 5, Math.round(minY + (maxY - minY) * 0.48));
-            const r2End = Math.round(minY + (maxY - minY) * 0.80);
+            let y2 = Math.round((r2Start + r2End) * 0.5), min2 = 1e9;
             for (let y = r2Start; y <= r2End; y++) {
                 if (projY[y] < min2) { min2 = projY[y]; y2 = y; }
             }
@@ -1733,11 +1758,50 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
             b.choY1 = minY; b.choY2 = y1;
             b.jungY1 = y1; b.jungY2 = y2;
             b.jongY1 = y2; b.jongY2 = maxY;
+
+            if (info.jung === 'ㅜ' || info.jung === 'ㅠ') {
+                const uScanStart = Math.round(minX + (maxX - minX) * 0.35);
+                const uScanEnd = Math.round(minX + (maxX - minX) * 0.85);
+                const yUTop = yBar + Math.max(2, Math.round(H * 0.03));
+                const yUBot = b.jongY1 - Math.max(2, Math.round(H * 0.02));
+                const uCols = [];
+                let maxUCol = 0;
+                for (let x = uScanStart; x <= uScanEnd; x++) {
+                    let sum = 0;
+                    for (let y = yUTop; y <= yUBot; y++) {
+                        if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+                    }
+                    uCols.push({ x, sum });
+                    if (sum > maxUCol) maxUCol = sum;
+                }
+                if (maxUCol >= 3) {
+                    const peakCols = uCols.filter(c => c.sum >= maxUCol * 0.85);
+                    if (peakCols.length) {
+                        b.stemX_U = (peakCols[0].x + peakCols[peakCols.length - 1].x) * 0.5;
+                        const cX = Math.round(b.stemX_U);
+                        let stemBot = yBar;
+                        for (let y = yBar; y <= maxY; y++) {
+                            let hasInk = false;
+                            for (let dx = -3; dx <= 3; dx++) {
+                                if (img[(y * W + ci * R + cX + dx) * 4 + 3] > 60) { hasInk = true; break; }
+                            }
+                            if (hasInk) stemBot = y;
+                            else if (y > yBar + 12) break;
+                        }
+                        b.stemBotY_U = stemBot;
+                    }
+                }
+            }
         } else {
-            let y1 = Math.round(minY + (maxY - minY) * (info.jung === 'ㅡ' ? 0.72 : 0.48));
-            let min1 = 1e9;
-            const r1Start = Math.round(minY + (maxY - minY) * (info.jung === 'ㅡ' ? 0.58 : 0.35));
-            const r1End = Math.round(minY + (maxY - minY) * 0.82);
+            let r1Start, r1End;
+            if (isO) {
+                r1Start = Math.max(minY + 4, Math.round(yBar - H * 0.30));
+                r1End = Math.max(r1Start + 2, Math.round(yBar - H * 0.18));
+            } else {
+                r1Start = Math.max(minY + 4, Math.round(yBar - H * 0.12));
+                r1End = Math.max(r1Start + 2, Math.round(yBar - H * 0.04));
+            }
+            let y1 = Math.round((r1Start + r1End) * 0.5), min1 = 1e9;
             for (let y = r1Start; y <= r1End; y++) {
                 if (projY[y] < min1) { min1 = projY[y]; y1 = y; }
             }
@@ -1745,36 +1809,113 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
             b.jungY1 = y1; b.jungY2 = maxY;
         }
     } else if (vType === 'V') {
-        let xSplit = Math.round(minX + (maxX - minX) * 0.55);
-        let minXVal = 1e9;
-        const isDoubleCho = (info.cho === 'ㅃ' || info.cho === 'ㅉ' || info.cho === 'ㄲ' || info.cho === 'ㄸ' || info.cho === 'ㅆ');
-        const xStart = Math.round(minX + (maxX - minX) * (isDoubleCho ? 0.46 : 0.35));
-        const isWideCho = (info.cho === 'ㅁ' || info.cho === 'ㅂ' || info.cho === 'ㅃ' || info.cho === 'ㅍ');
-        const xEnd = Math.round(minX + (maxX - minX) * (isWideCho ? 0.70 : 0.58));
-        for (let x = xStart; x <= xEnd; x++) {
-            if (projX[x] < minXVal) { minXVal = projX[x]; xSplit = x; }
-        }
-        b.splitX = xSplit;
-
         let ySplit = maxY;
         if (hasJong) {
             ySplit = Math.round(minY + (maxY - minY) * 0.58);
             let minYVal = 1e9;
-            const yStart = Math.round(minY + (maxY - minY) * 0.40);
-            const yEnd = Math.round(minY + (maxY - minY) * 0.78);
+            const yStart = Math.round(minY + (maxY - minY) * 0.48);
+            const yEnd = Math.round(minY + (maxY - minY) * 0.66);
+            const leftSearchX = Math.round(minX + (maxX - minX) * 0.48);
+            const lowThresh = Math.max(2, Math.round(R * 0.014));
+            const spikeThresh = Math.max(6, Math.round(R * 0.065));
             for (let y = yStart; y <= yEnd; y++) {
                 let rowSum = 0;
-                for (let x = minX; x <= xSplit; x++) {
+                for (let x = minX; x <= leftSearchX; x++) {
                     if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowSum++;
                 }
                 if (rowSum < minYVal) { minYVal = rowSum; ySplit = y; }
+                else if (y > minY + (maxY - minY) * 0.53 && minYVal <= lowThresh && rowSum >= minYVal + spikeThresh) {
+                    break;
+                }
             }
             b.choY2 = ySplit;
+            b.jungY2 = ySplit;
             b.jongY1 = ySplit; b.jongY2 = maxY;
         }
 
+        let xSplit = Math.round(minX + (maxX - minX) * 0.55);
+        let minXVal = 1e9;
+        const isDoubleCho = (info.cho === 'ㅃ' || info.cho === 'ㅉ' || info.cho === 'ㄲ' || info.cho === 'ㄸ' || info.cho === 'ㅆ');
+        const isWideCho = (info.cho === 'ㅁ' || info.cho === 'ㅂ' || info.cho === 'ㅃ' || info.cho === 'ㅍ' || info.cho === 'ㅎ' || info.cho === 'ㅈ' || info.cho === 'ㅊ');
+        const isLeftTickVowel = (info.jung === 'ㅓ' || info.jung === 'ㅔ' || info.jung === 'ㅕ' || info.jung === 'ㅖ');
+        const isDoubleVertVowel = (info.jung === 'ㅐ' || info.jung === 'ㅒ' || info.jung === 'ㅔ' || info.jung === 'ㅖ');
+        const xStartRatio = isLeftTickVowel ? 0.52 : ((isDoubleCho || isWideCho) ? 0.48 : 0.48);
+        const xEndRatio = isDoubleVertVowel ? 0.58 : (isWideCho ? 0.68 : (isLeftTickVowel ? 0.65 : 0.62));
+        const xStart = Math.round(minX + (maxX - minX) * xStartRatio);
+        const xEnd = Math.max(xStart + 2, Math.round(minX + (maxX - minX) * xEndRatio));
+        const yUpperEnd = hasJong ? Math.max(minY + 10, ySplit - 2) : maxY;
+        for (let x = xStart; x <= xEnd; x++) {
+            let colSum = 0;
+            for (let y = minY; y <= yUpperEnd; y++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) colSum++;
+            }
+            if (colSum < minXVal) { minXVal = colSum; xSplit = x; }
+        }
+        b.splitX = xSplit;
+
+        if (hasJong) {
+            const yJongScan = Math.round(ySplit + (maxY - ySplit) * 0.16);
+            let jLeft = R, jRight = 0;
+            for (let y = yJongScan; y <= maxY; y++) {
+                for (let x = minX; x <= maxX; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                        if (x < jLeft) jLeft = x;
+                        if (x > jRight) jRight = x;
+                    }
+                }
+            }
+            if (jLeft < jRight) { b.jongX1 = jLeft; b.jongX2 = jRight; }
+
+            let jungX2 = 0;
+            for (let y = minY; y <= ySplit; y++) {
+                for (let x = xSplit; x <= maxX; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                        if (x > jungX2) jungX2 = x;
+                    }
+                }
+            }
+            if (jungX2 > 0) b.jungX2 = jungX2;
+        }
+
+        const yTopHalf = hasJong ? ySplit : maxY;
+        let stemX_V = xSplit + 4, maxStemCol = -1;
+        for (let x = xSplit + 2; x <= maxX; x++) {
+            let colSum = 0;
+            for (let y = minY; y <= yTopHalf; y++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) colSum++;
+            }
+            if (colSum > maxStemCol) { maxStemCol = colSum; stemX_V = x; }
+        }
+        b.stemX_V = stemX_V;
+
+        if (info.jung === 'ㅏ' || info.jung === 'ㅑ') {
+            let tickY_R = Math.round(minY + (yTopHalf - minY) * 0.45), maxTickRun = -1;
+            const yScanStart = Math.round(minY + (yTopHalf - minY) * 0.20);
+            const yScanEnd = Math.round(minY + (yTopHalf - minY) * 0.90);
+            for (let y = yScanStart; y <= yScanEnd; y++) {
+                let run = 0;
+                for (let x = stemX_V + 3; x <= maxX; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) run++;
+                }
+                if (run > maxTickRun) { maxTickRun = run; tickY_R = y; }
+            }
+            if (maxTickRun >= 2) b.tickY_R = tickY_R;
+        } else if (info.jung === 'ㅓ' || info.jung === 'ㅕ') {
+            let tickY_L = Math.round(minY + (yTopHalf - minY) * 0.45), maxTickRun = -1;
+            const yScanStart = Math.round(minY + (yTopHalf - minY) * 0.20);
+            const yScanEnd = Math.round(minY + (yTopHalf - minY) * 0.90);
+            for (let y = yScanStart; y <= yScanEnd; y++) {
+                let run = 0;
+                for (let x = Math.max(minX, stemX_V - 16); x <= stemX_V - 3; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) run++;
+                }
+                if (run > maxTickRun) { maxTickRun = run; tickY_L = y; }
+            }
+            if (maxTickRun >= 2) b.tickY_L = tickY_L;
+        }
+
         let choYTop = R;
-        const choRightV = Math.min(xSplit, Math.round(minX + (maxX - minX) * 0.48));
+        const choRightV = Math.min(xSplit - 2, Math.round(minX + (maxX - minX) * 0.46));
         for (let y = minY; y <= ySplit; y++) {
             for (let x = minX; x <= choRightV; x++) {
                 if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
@@ -1787,31 +1928,89 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
     } else if (vType === 'C') {
         // C형 복합모음(ㅘ, ㅙ, ㅚ, ㅝ, ㅞ, ㅟ, ㅢ): 초성(좌상단) + 가로모음(중좌단) + 세로모음(우측전체) + 받침(하단)
         // (1) splitX: 초성·가로모음(좌측)과 세로모음(우측) 사이의 수직 분할벽
-        const isDoubleV = (info.jung === 'ㅞ' || info.jung === 'ㅙ');
-        let xSplit = Math.round(minX + (maxX - minX) * (isDoubleV ? 0.48 : 0.62));
-        let minXVal = 1e9;
-        const xStart = Math.round(minX + (maxX - minX) * (isDoubleV ? 0.38 : 0.50));
-        const xEnd = Math.round(minX + (maxX - minX) * (isDoubleV ? 0.58 : 0.82));
-        for (let x = xStart; x <= xEnd; x++) {
-            if (projX[x] < minXVal) { minXVal = projX[x]; xSplit = x; }
+        // (1) splitX: 초성·가로모음(좌측)과 세로모음(우측) 사이의 수직 분할벽
+        // 상단 절반(y <= 0.45*H)에서 우측 세로모음의 기둥 위치(stemX)를 먼저 찾고, 그 좌측의 최소 계곡을 splitX로 설정
+        const Hc = maxY - minY;
+        const yTopHalf = Math.round(minY + Hc * 0.45);
+        const stemCols = [];
+        let maxStemCol = 0;
+        const stemScanStart = Math.round(minX + (maxX - minX) * 0.58);
+        const stemScanEnd = maxX;
+        for (let x = stemScanStart; x <= stemScanEnd; x++) {
+            let sum = 0;
+            for (let y = minY; y <= yTopHalf; y++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+            }
+            stemCols.push({ x, sum });
+            if (sum > maxStemCol) maxStemCol = sum;
+        }
+        let stemX = Math.round(minX + (maxX - minX) * 0.75);
+        if (maxStemCol >= 3) {
+            const peakCols = stemCols.filter(c => c.sum >= maxStemCol * 0.85);
+            if (peakCols.length) {
+                stemX = Math.round((peakCols[0].x + peakCols[peakCols.length - 1].x) * 0.5);
+            }
+        }
+        b.stemX_C = stemX;
+        let minXVal = 1e9, xSplit = stemX - Math.max(4, Math.round(R * 0.03));
+        const xStart = Math.round(minX + (maxX - minX) * 0.45);
+        const xEnd = stemX - Math.max(3, Math.round(R * 0.02));
+        for (let x = xEnd; x >= xStart; x--) {
+            let colSum = 0;
+            for (let y = minY; y <= yTopHalf; y++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) colSum++;
+            }
+            if (colSum < minXVal) { minXVal = colSum; xSplit = x; }
+            if (colSum === 0) break;
         }
         b.splitX = xSplit;
 
-        // (2) choY2: 초성(좌상)과 가로모음(좌중) 사이의 수평 분할벽
-        const isUiOpen = (!hasJong && info.jung === 'ㅢ');
-        let yCho = Math.round(minY + (maxY - minY) * (isUiOpen ? 0.68 : 0.42));
-        let minYCho = 1e9;
-        const ycStart = Math.round(minY + (maxY - minY) * (isUiOpen ? 0.52 : 0.28));
-        const ycEnd = Math.round(minY + (maxY - minY) * (isUiOpen ? 0.80 : 0.55));
+        let choX1 = R, choX2 = 0;
+        for (let y = minY; y <= yTopHalf; y++) {
+            for (let x = minX; x <= xSplit; x++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                    if (x < choX1) choX1 = x;
+                    if (x > choX2) choX2 = x;
+                }
+            }
+        }
+        if (choX1 < choX2) { b.choX1 = choX1; b.choX2 = choX2; }
+
+        // (2) yBarC: 가로모음(ㅗ/ㅜ/ㅡ)의 핵심 수평획 Y좌표를 좌측(x <= splitX - 2)에서 정밀 검출
+        const isO = (info.jung === 'ㅘ' || info.jung === 'ㅙ' || info.jung === 'ㅚ');
+        const isU = (info.jung === 'ㅝ' || info.jung === 'ㅞ' || info.jung === 'ㅟ');
+        const isUi = (info.jung === 'ㅢ');
+
+        const barSearchMin = Math.round(minY + Hc * (hasJong ? 0.38 : (isUi ? 0.48 : (isO ? 0.54 : 0.42))));
+        const barSearchMax = Math.round(minY + Hc * (hasJong ? 0.62 : (isUi ? 0.68 : (isO ? 0.76 : 0.62))));
+        let yBarC = Math.round((barSearchMin + barSearchMax) * 0.5), maxLeftBar = -1;
+        for (let y = barSearchMin; y <= barSearchMax; y++) {
+            let leftSum = 0;
+            for (let x = minX; x <= xSplit - 2; x++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) leftSum++;
+            }
+            if (leftSum > maxLeftBar) { maxLeftBar = leftSum; yBarC = y; }
+        }
+        b.yBarC = yBarC;
+
+        // (3) choY2: 초성 하단 경계
+        // ㅗ(ㅘ, ㅙ, ㅚ)의 경우 세로 꼭지가 초성과 가로획 사이를 연결하므로 초성 하단은 yBarC 위쪽 꼭지 시작점 이전이어야 함
+        const minGapAboveBar = Math.round(Hc * (isO ? (hasJong ? 0.08 : 0.12) : 0.05));
+        const maxChoY = yBarC - minGapAboveBar;
+
+        let yCho = maxChoY, minYCho = 1e9;
+        const ycStart = Math.round(minY + Hc * (hasJong ? 0.32 : 0.38));
+        const ycEnd = maxChoY;
         for (let y = ycStart; y <= ycEnd; y++) {
             let rowLeft = 0;
-            for (let x = minX; x <= xSplit; x++) {
+            for (let x = minX; x <= xSplit - 2; x++) {
                 if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowLeft++;
             }
             if (rowLeft < minYCho) { minYCho = rowLeft; yCho = y; }
         }
+
         let choYTop = R;
-        const choRight = Math.round(minX + (maxX - minX) * 0.48);
+        const choRight = Math.round(minX + (maxX - minX) * 0.46);
         for (let y = minY; y <= yCho; y++) {
             for (let x = minX; x <= choRight; x++) {
                 if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
@@ -1822,24 +2021,44 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
         }
         b.choY1 = choYTop < R ? choYTop : minY;
         b.choY2 = yCho;
-        b.jungY1 = yCho; b.jungY2 = maxY;
+        b.jungY1 = yCho;
+        b.jungY2 = hasJong ? maxY : Math.min(maxY, Math.round(yBarC + Hc * (isU ? 0.18 : 0.06)));
 
-        // (3) jongY1: 가로모음과 종성(받침) 사이의 수평 분할벽 (55%~80% 범위 탐색)
+        // (4) jongY1: 가로모음과 종성(받침) 사이의 수평 분할벽
         if (hasJong) {
-            let yJong = Math.round(minY + (maxY - minY) * 0.66);
+            let yJong = Math.round(minY + Hc * 0.64);
             let minYJong = 1e9;
-            const yjStart = Math.max(yCho + 5, Math.round(minY + (maxY - minY) * 0.52));
-            const yjEnd = Math.round(minY + (maxY - minY) * 0.82);
+            const yjStart = Math.max(yBarC + Math.max(3, Math.round(Hc * 0.05)), Math.round(minY + Hc * 0.54));
+            const yjEnd = Math.max(yjStart + 2, Math.round(minY + Hc * 0.68));
+            const lowThreshC = Math.max(3, Math.round(R * 0.025));
+            const spikeThreshC = Math.max(8, Math.round(R * 0.08));
             for (let y = yjStart; y <= yjEnd; y++) {
                 let rowSum = 0;
                 for (let x = minX; x <= maxX; x++) {
                     if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowSum++;
                 }
                 if (rowSum < minYJong) { minYJong = rowSum; yJong = y; }
+                else if (minYJong <= lowThreshC && rowSum >= minYJong + spikeThreshC) {
+                    break;
+                }
             }
             b.jungY2 = yJong;
             b.jongY1 = yJong; b.jongY2 = maxY;
         }
+    }
+
+    if (hasJong && b.jongY1) {
+        const yJongScan = Math.round(b.jongY1 + (maxY - b.jongY1) * 0.16);
+        let jLeft = R, jRight = 0;
+        for (let y = yJongScan; y <= maxY; y++) {
+            for (let x = minX; x <= maxX; x++) {
+                if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                    if (x < jLeft) jLeft = x;
+                    if (x > jRight) jRight = x;
+                }
+            }
+        }
+        if (jLeft < jRight) { b.jongX1 = jLeft; b.jongX2 = jRight; }
     }
 
     return b;
@@ -1939,7 +2158,7 @@ const Engine = {
         }
         this.updateWarehouseStatus();
         this.syncSlidersFromParams();
-        this.loadText('한글');
+        this.loadText('회의');
     },
 
     onWarehouseToggle() {
@@ -2237,6 +2456,7 @@ const Engine = {
                 vType: e.vType || 'V',
                 hasJong: !!e.hasJong,
                 jongChar: e.jongChar || '',
+                whId: e.whId || '',
                 rScale: e.fbox ? 1.0 : (e.rScale || 1.0)
             }));
         });
@@ -2323,22 +2543,43 @@ const Engine = {
                         if (jb.choY1) {
                             const actTop = jb.choY1 / s;
                             const diff = actTop - e.fbox[1];
-                            e.fbox[1] = actTop;
-                            e.fbox[3] = Math.max(14, e.fbox[3] - diff);
+                            if (jb.hasJong) {
+                                e.fbox[1] = actTop;
+                                if (diff < 0) e.fbox[3] = Math.max(14, e.fbox[3] - diff);
+                            } else if (diff < 0) {
+                                e.fbox[1] = actTop;
+                                e.fbox[3] = Math.min(40, e.fbox[3] - diff * 0.75);
+                            } else if (diff > 0) {
+                                e.fbox[1] = actTop;
+                            }
                         }
                         if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
                         if (jb.hasJong && e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(14, choY2 - e.fbox[1]);
                     } else if (e.part === 'jung') {
-                        if (e.fbox[0] < splitX + 0.5) {
-                            const right = e.fbox[0] + e.fbox[2];
-                            e.fbox[0] = splitX + 0.5;
-                            e.fbox[2] = Math.max(14, right - e.fbox[0]);
+                        const isLeftTick = ['ㅓ', 'ㅔ', 'ㅕ', 'ㅖ'].some(v => (e.whId || e.char || '').includes(v));
+                        const isSingleStem = ['ㅏ', 'ㅓ', 'ㅑ', 'ㅕ', 'ㅣ'].some(v => (e.whId || e.char || '').includes(v));
+                        const jungLeftWall = isLeftTick ? splitX - 3.5 : splitX + 0.5;
+                        if (e.fbox[0] < jungLeftWall) {
+                            e.fbox[0] = jungLeftWall;
                         }
+                        const actMaxX = (jb.hasJong && jb.jungX2 ? jb.jungX2 : jb.maxX) / s;
+                        const targetRight = Math.max(e.fbox[0] + 14, Math.min(e.fbox[0] + (isSingleStem ? Math.min(26, e.fbox[2]) : e.fbox[2]), actMaxX + 0.5));
+                        e.fbox[2] = Math.max(14, targetRight - e.fbox[0]);
                     } else if (e.part === 'jong') {
                         if (e.fbox[1] < jongY1 - 0.5) {
                             const bot = e.fbox[1] + e.fbox[3];
                             e.fbox[1] = jongY1 - 0.5;
                             e.fbox[3] = Math.max(14, bot - e.fbox[1]);
+                        }
+                        if (jb.jongX1 !== undefined && jb.jongX2 !== undefined) {
+                            const actLeft = jb.jongX1 / s;
+                            const actRight = jb.jongX2 / s;
+                            const actMidX = (actLeft + actRight) * 0.5;
+                            const actW = Math.max(16, actRight - actLeft);
+                            const fitW = Math.max(16, Math.min(e.fbox[2], actW + 2.0));
+                            e.fbox[0] = Math.max(actLeft - 1.0, actMidX - fitW * 0.5);
+                            e.fbox[2] = fitW;
+                            if (e.fbox[0] + e.fbox[2] > actRight + 0.5) e.fbox[2] = Math.max(16, actRight + 0.5 - e.fbox[0]);
                         }
                     }
                 } else if (jb.vType === 'H') {
@@ -2351,11 +2592,14 @@ const Engine = {
                                 e.fbox[3] = Math.max(12, e.fbox[3] - diff);
                             }
                         }
-                        if (jb.hasJong && e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(12, choY2 - e.fbox[1]);
+                        if (e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(12, choY2 - e.fbox[1]);
                     } else if (e.part === 'jung') {
                         if (jb.hasJong) {
-                            if (e.fbox[1] < choY2 - 1) e.fbox[1] = choY2 - 1;
-                            if (e.fbox[1] + e.fbox[3] > jongY1 + 1) e.fbox[3] = Math.max(10, jongY1 + 1 - e.fbox[1]);
+                            if (e.fbox[1] < choY2 - 1) {
+                                e.fbox[1] = choY2 - 1;
+                            }
+                            const botLimit = (jb.stemBotY_U && ((e.whId || '').includes('ㅜ') || (e.whId || '').includes('ㅠ'))) ? (jb.stemBotY_U / s) : jongY1;
+                            e.fbox[3] = Math.max(15, botLimit + 1.5 - e.fbox[1]);
                         } else if (jb.jungY1 && jb.jungY2) {
                             const actJungTop = jb.jungY1 / s;
                             const actJungH = Math.max(14, (jb.jungY2 - jb.jungY1) / s);
@@ -2369,21 +2613,68 @@ const Engine = {
                             e.fbox[1] = jongY1 - 1;
                             e.fbox[3] = Math.max(14, bot - e.fbox[1]);
                         }
+                        if (jb.jongX1 !== undefined && jb.jongX2 !== undefined) {
+                            const actLeft = jb.jongX1 / s;
+                            const actRight = jb.jongX2 / s;
+                            const actMidX = (actLeft + actRight) * 0.5;
+                            const actW = Math.max(16, actRight - actLeft);
+                            const fitW = Math.max(16, Math.min(e.fbox[2], actW + 2.0));
+                            e.fbox[0] = Math.max(actLeft - 1.0, actMidX - fitW * 0.5);
+                            e.fbox[2] = fitW;
+                            if (e.fbox[0] + e.fbox[2] > actRight + 0.5) e.fbox[2] = Math.max(16, actRight + 0.5 - e.fbox[0]);
+                        }
                     }
                 } else if (jb.vType === 'C') {
                     if (e.part === 'cho') {
-                        if (jb.choY1) {
-                            const actTop = jb.choY1 / s;
-                            const diff = actTop - e.fbox[1];
-                            e.fbox[1] = actTop;
-                            e.fbox[3] = Math.max(12, e.fbox[3] - diff);
+                        const actTop = jb.choY1 / s;
+                        e.fbox[1] = actTop;
+                        // 초성 박스는 [actTop, choY2 - 0.5] 높이에 완벽히 적응
+                        e.fbox[3] = Math.max(14, Math.min(42, (choY2 - 0.5) - actTop));
+                        if (jb.choX1 !== undefined && jb.choX2 !== undefined) {
+                            const actLeft = jb.choX1 / s;
+                            const actRight = jb.choX2 / s;
+                            const actW = Math.max(16, actRight - actLeft);
+                            const midX = (actLeft + actRight) * 0.5;
+                            const fitW = Math.max(18, Math.min(splitX - 1.0 - actLeft, Math.max(actW, e.fbox[2])));
+                            e.fbox[0] = Math.max(actLeft - 1.0, midX - fitW * 0.5);
+                            e.fbox[2] = fitW;
+                            if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
+                        } else {
+                            if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
                         }
-                        if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
-                        if (e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(12, choY2 - e.fbox[1]);
                     } else if (e.part === 'jung') {
-                        if (jb.hasJong && ['ㅝ', 'ㅞ', 'ㅟ'].some(v => (e.whId || e.char || '').includes(v))) {
-                            if (e.fbox[1] + e.fbox[3] < jongY1 - 1) {
-                                e.fbox[3] = Math.max(e.fbox[3], jongY1 - 0.5 - e.fbox[1]);
+                        if (e.subPart === 'jung_h') {
+                            const barY = (jb.yBarC ? jb.yBarC / s : 65);
+                            const isO = ['ㅘ', 'ㅙ', 'ㅚ'].some(v => (e.whId || e.char || '').includes(v));
+                            const isU = ['ㅝ', 'ㅞ', 'ㅟ'].some(v => (e.whId || e.char || '').includes(v));
+                            if (isO) {
+                                // ㅗ: 꼭지는 choY2 바로 아래서 시작하고, 가로획은 barY에 안착
+                                e.fbox[1] = Math.max(choY2 + 0.2, e.fbox[1]);
+                                e.fbox[3] = Math.max(9, Math.min(13, (barY + 2.5) - e.fbox[1]));
+                            } else if (isU) {
+                                // ㅜ: 가로획은 barY 부근에서 시작하고 세로획은 아래로 연장
+                                e.fbox[1] = Math.max(choY2 + 0.5, barY - 3.0);
+                                const botLimit = jb.hasJong ? Math.min(barY + 10, jongY1 - 1.0) : Math.min(84, barY + 14);
+                                e.fbox[3] = Math.max(9, Math.min(13, botLimit - e.fbox[1]));
+                            } else {
+                                // ㅢ (ㅡ): barY에 단단히 안착
+                                e.fbox[1] = barY - e.fbox[3] * 0.5;
+                            }
+                            const stemX_C = (jb && jb.stemX_C) ? (jb.stemX_C / s) : (splitX + 10);
+                            const targetJungHRight = Math.max(splitX + 2.0, stemX_C - 0.5);
+                            e.fbox[2] = Math.max(22, targetJungHRight - e.fbox[0]);
+                        } else if (e.subPart === 'jung_v') {
+                            // 세로모음(ㅏ/ㅐ/ㅣ/ㅓ/ㅔ): splitX 우측 전체 영역
+                            const isLeftTick = ['ㅓ', 'ㅕ'].some(v => (e.whId || e.char || '').includes(v));
+                            const jungLeftWall = isLeftTick ? splitX - 3.0 : splitX + 0.5;
+                            const actMaxX = jb.maxX / s;
+                            if (e.fbox[0] < jungLeftWall) {
+                                e.fbox[0] = jungLeftWall;
+                            }
+                            const targetRight = Math.max(e.fbox[0] + 14, Math.min(e.fbox[0] + e.fbox[2], actMaxX + 0.5));
+                            e.fbox[2] = Math.max(14, targetRight - e.fbox[0]);
+                            if (jb.hasJong && e.fbox[1] + e.fbox[3] > jongY1 + 1.5) {
+                                e.fbox[3] = Math.max(25, jongY1 + 1.0 - e.fbox[1]);
                             }
                         }
                     } else if (e.part === 'jong') {
@@ -2391,6 +2682,16 @@ const Engine = {
                             const bot = e.fbox[1] + e.fbox[3];
                             e.fbox[1] = jongY1 - 1;
                             e.fbox[3] = Math.max(14, bot - e.fbox[1]);
+                        }
+                        if (jb.jongX1 !== undefined && jb.jongX2 !== undefined) {
+                            const actLeft = jb.jongX1 / s;
+                            const actRight = jb.jongX2 / s;
+                            const actMidX = (actLeft + actRight) * 0.5;
+                            const actW = Math.max(16, actRight - actLeft);
+                            const fitW = Math.max(16, Math.min(e.fbox[2], actW + 2.0));
+                            e.fbox[0] = Math.max(actLeft - 1.0, actMidX - fitW * 0.5);
+                            e.fbox[2] = fitW;
+                            if (e.fbox[0] + e.fbox[2] > actRight + 0.5) e.fbox[2] = Math.max(16, actRight + 0.5 - e.fbox[0]);
                         }
                     }
                 }
@@ -2417,8 +2718,18 @@ const Engine = {
                     } else if (jb.vType === 'C') {
                         if (jb.hasJong && e.part === 'jong' && y < jongY1 - 3) return false;
                         if (e.part === 'cho') {
-                            if (x > splitX + 3) return false;
-                            if (jb.hasJong && y > jongY1 - 4) return false;
+                            if (x > splitX + 2) return false;
+                            if (y > choY2 + 2) return false;
+                        } else if (e.part === 'jung') {
+                            if (e.subPart === 'jung_h') {
+                                const maxJungHRegionX = (jb && jb.stemX_C) ? (jb.stemX_C / s + 2) : (splitX + 12);
+                                if (x > maxJungHRegionX) return false;
+                                if (y < choY2 - 2) return false;
+                                if (jb.hasJong && y > jongY1 + 2) return false;
+                            } else if (e.subPart === 'jung_v') {
+                                if (x < splitX - 6) return false;
+                                if (jb.hasJong && y > jongY1 + 3) return false;
+                            }
                         }
                     }
                 }
@@ -2477,18 +2788,23 @@ const Engine = {
                                 if (p < 2 && Math.abs(nb[p] - e.def[p]) > 12) continue;
                                 if (p >= 2 && (nb[p] < e.def[p] * minScale || nb[p] > e.def[p] * 1.18)) continue;
                                 if (jb) {
+                                    if (e.part === 'jong') {
+                                        const actMaxX = (jb && jb.maxX) ? (jb.maxX / s) : 88;
+                                        if (nb[0] + nb[2] > actMaxX + 0.5) continue;
+                                    }
                                     if (jb.vType === 'V') {
                                         if (e.part === 'cho') {
                                             if (nb[0] + nb[2] > splitX - 0.5) continue;
                                             if (jb.hasJong && nb[1] + nb[3] > choY2 + 1) continue;
                                         } else if (e.part === 'jung') {
-                                            if (nb[0] < splitX - 1) continue;
+                                            const isLT = ['ㅓ', 'ㅕ'].some(v => (e.whId || e.char || '').includes(v));
+                                            if (nb[0] < (isLT ? splitX - 5 : splitX - 1)) continue;
                                         } else if (e.part === 'jong') {
                                             if (nb[1] < jongY1 - 2) continue;
                                         }
                                     } else if (jb.vType === 'H') {
                                         if (e.part === 'cho') {
-                                            if (jb.hasJong && nb[1] + nb[3] > choY2 + 1) continue;
+                                            if (nb[1] + nb[3] > choY2 + 1) continue;
                                         } else if (e.part === 'jung') {
                                             if (jb.hasJong && (nb[1] < choY2 - 2 || nb[1] + nb[3] > jongY1 + 2)) continue;
                                         } else if (e.part === 'jong') {
@@ -2498,6 +2814,16 @@ const Engine = {
                                         if (e.part === 'cho') {
                                             if (nb[0] + nb[2] > splitX - 0.5) continue;
                                             if (nb[1] + nb[3] > choY2 + 1) continue;
+                                        } else if (e.part === 'jung') {
+                                            if (e.subPart === 'jung_h') {
+                                                if (nb[1] < choY2 - 2) continue;
+                                                const maxJungHRight = (jb && jb.stemX_C) ? (jb.stemX_C / s + 2) : (splitX + 12);
+                                                if (nb[0] + nb[2] > maxJungHRight) continue;
+                                                if (jb.hasJong && nb[1] + nb[3] > jongY1 + 2) continue;
+                                            } else if (e.subPart === 'jung_v') {
+                                                if (nb[0] < splitX - 4) continue;
+                                                if (jb.hasJong && nb[1] + nb[3] > jongY1 + 3) continue;
+                                            }
                                         } else if (e.part === 'jong') {
                                             if (nb[1] < jongY1 - 2) continue;
                                         }
@@ -2551,9 +2877,27 @@ const Engine = {
                 const occ = occArr[e.ci] || (occArr[e.ci] = []);
                 const spanX = Math.abs(st[st.length - 1][0] - st[0][0]) * b[2];
                 const spanY = Math.abs(st[st.length - 1][1] - st[0][1]) * b[3];
-                const maxShiftX = Math.min(3.5, Math.max(1.0, spanX * 0.45));
-                const maxShiftY = Math.min(3.5, Math.max(1.0, spanY * 0.45));
                 const jb = fitDynBounds[e.ci];
+                const splitX0 = jb ? jb.splitX / s : 55;
+                const isCLeftJung = (jb && jb.vType === 'C' && e.part === 'jung' && minSmpX < splitX0 - 8);
+                const strokeSpan = Math.hypot(spanX, spanY);
+                const isVertJungTick = (e.part === 'jung' && spanX < 2.0 && spanY > 3.5);
+                const isShortHorizTick = (e.part === 'jung' && spanY < 1.8 && spanX <= 15.0);
+                const maxShiftX = isShortHorizTick ? 1.0 : ((isVertJungTick && jb && jb.stemX_U !== undefined) ? 1.0 : Math.min(4.5, Math.max(2.5, strokeSpan * 0.45)));
+                const isHorizBar = (e.part === 'jung' && spanY < 2.5 && spanX > 15.0);
+                const maxShiftY = isVertJungTick ? Math.min(2.0, strokeSpan * 0.3) : (isShortHorizTick ? 1.5 : (((isCLeftJung && spanX > spanY) || isHorizBar) ? 10.0 : Math.min(3.5, Math.max(2.2, strokeSpan * 0.45))));
+                let forceShiftX = null;
+                if (isVertJungTick && jb && jb.stemX_U !== undefined && (e.whId || '').includes('ㅜ')) {
+                    forceShiftX = (jb.stemX_U / s) - (b[0] + st[0][0] * b[2]);
+                }
+                let forceShiftY = null;
+                if (isShortHorizTick && jb) {
+                    if (jb.tickY_R !== undefined && ['ㅏ', 'ㅑ'].some(v => (e.whId || e.char || '').includes(v))) {
+                        forceShiftY = (jb.tickY_R / s) - (b[1] + st[0][1] * b[3]);
+                    } else if (jb.tickY_L !== undefined && ['ㅓ', 'ㅕ'].some(v => (e.whId || e.char || '').includes(v))) {
+                        forceShiftY = (jb.tickY_L / s) - (b[1] + st[0][1] * b[3]);
+                    }
+                }
                 const choY2 = jb ? jb.choY2 / s : ((e.vType === 'H') ? 39.5 : 55);
                 const jungY1 = jb ? jb.jungY1 / s : 35;
                 const jungY2 = jb ? jb.jungY2 / s : ((e.jongChar === 'ㄴ') ? 70 : 61);
@@ -2566,13 +2910,14 @@ const Engine = {
                                 if (maxSmpX + dx > splitX - 0.5) return 1e6;
                                 if (jb.hasJong && maxSmpY + dy > choY2 + 1) return 1e6;
                             } else if (e.part === 'jung') {
-                                if (minSmpX + dx < splitX - 1) return 1e6;
+                                const isLT = ['ㅓ', 'ㅕ'].some(v => (e.whId || e.char || '').includes(v));
+                                if (minSmpX + dx < (isLT ? splitX - 5 : splitX - 1)) return 1e6;
                             } else if (e.part === 'jong') {
                                 if (minSmpY + dy < jongY1 - 2) return 1e6;
                             }
                         } else if (jb.vType === 'H') {
                             if (e.part === 'cho') {
-                                if (jb.hasJong && maxSmpY + dy > choY2 + 1) return 1e6;
+                                if (maxSmpY + dy > choY2 + 1) return 1e6;
                             } else if (e.part === 'jung') {
                                 if (jb.hasJong && (minSmpY + dy < choY2 - 2 || maxSmpY + dy > jongY1 + 2)) return 1e6;
                             } else if (e.part === 'jong') {
@@ -2582,9 +2927,29 @@ const Engine = {
                             if (e.part === 'cho') {
                                 if (maxSmpX + dx > splitX - 0.5) return 1e6;
                                 if (maxSmpY + dy > choY2 + 1) return 1e6;
+                            } else if (e.part === 'jung') {
+                                if (e.subPart === 'jung_h' || isCLeftJung) {
+                                    if (minSmpY + dy < choY2 - 0.5) return 1e6;
+                                    if (isVertJungTick && maxSmpY + dy > b[1] + b[3] + 1.0) return 1e6;
+                                    if (jb.hasJong && maxSmpY + dy > jongY1 + 2) return 1e6;
+                                } else if (e.subPart === 'jung_v') {
+                                    if (minSmpX + dx < splitX - 5) return 1e6;
+                                    if (jb.hasJong && maxSmpY + dy > jongY1 + 3) return 1e6;
+                                }
                             } else if (e.part === 'jong') {
                                 if (minSmpY + dy < jongY1 - 2) return 1e6;
                             }
+                        }
+                    }
+                    if (e.part === 'cho') {
+                        if ((e.whId || '').includes('ㅊ') && si === 3) {
+                            const leg2StartX = b[0] + e.norm[2][0][0] * b[2] + e.so[2][0];
+                            const curStartX = b[0] + st[0][0] * b[2] + dx;
+                            if (curStartX < leg2StartX + 0.5) return 1e6;
+                        } else if ((e.whId || '').includes('ㅈ') && si === 2) {
+                            const leg1StartX = b[0] + e.norm[1][0][0] * b[2] + e.so[1][0];
+                            const curStartX = b[0] + st[0][0] * b[2] + dx;
+                            if (curStartX < leg1StartX + 0.5) return 1e6;
                         }
                     }
                     let A = 0, Cp = 0, ov = 0;
@@ -2601,25 +2966,32 @@ const Engine = {
                     });
                     return (A + 0.9 * Cp + 6 * ov) / samples.length + 0.08 * (Math.abs(dx) + Math.abs(dy));
                 };
-                let best = sc(0, 0), cur = [0, 0];
-                for (let gy = -maxShiftY; gy <= maxShiftY; gy += 2) {
-                    for (let gx = -maxShiftX; gx <= maxShiftX; gx += 2) {
-                        const c = sc(gx, gy);
-                        if (c < best - 1e-4) { best = c; cur = [gx, gy]; }
-                    }
-                }
-                [3, 1.5, 0.75].forEach(step => {
-                    for (let sweep = 0; sweep < 3; sweep++) {
-                        let imp = false;
-                        for (const [mx, my] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-                            const nx2 = cur[0] + mx * step, ny2 = cur[1] + my * step;
-                            if (Math.abs(nx2) > maxShiftX || Math.abs(ny2) > maxShiftY) continue;
-                            const c = sc(nx2, ny2);
-                            if (c < best - 1e-4) { best = c; cur = [nx2, ny2]; imp = true; }
+                let cur = [0, 0];
+                if (forceShiftX !== null) {
+                    cur = [forceShiftX, 0];
+                } else if (forceShiftY !== null) {
+                    cur = [0, forceShiftY];
+                } else {
+                    let best = sc(0, 0);
+                    for (let gy = -maxShiftY; gy <= maxShiftY; gy += 2) {
+                        for (let gx = -maxShiftX; gx <= maxShiftX; gx += 2) {
+                            const c = sc(gx, gy);
+                            if (c < best - 1e-4) { best = c; cur = [gx, gy]; }
                         }
-                        if (!imp) break;
                     }
-                });
+                    [3, 1.5, 0.75].forEach(step => {
+                        for (let sweep = 0; sweep < 3; sweep++) {
+                            let imp = false;
+                            for (const [mx, my] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+                                const nx2 = cur[0] + mx * step, ny2 = cur[1] + my * step;
+                                if (Math.abs(nx2) > maxShiftX || Math.abs(ny2) > maxShiftY) continue;
+                                const c = sc(nx2, ny2);
+                                if (c < best - 1e-4) { best = c; cur = [nx2, ny2]; imp = true; }
+                            }
+                            if (!imp) break;
+                        }
+                    });
+                }
                 e.so[si] = cur;
                 for (let i = 0; i < st.length - 1; i++) {
                     const ax = b[0] + st[i][0] * b[2] + cur[0], ay = b[1] + st[i][1] * b[3] + cur[1];
@@ -3016,7 +3388,7 @@ const Engine = {
                         break;
                     }
                 }
-                while (iEnd > checkStart && meta.part === 'jung' && !onInk[iEnd]) iEnd--;
+                while (iEnd > checkStart && (meta.part === 'jung' || meta.part === 'jong') && !onInk[iEnd]) iEnd--;
 
                 const sliced = work.slice(iStart, iEnd + 1);
                 if (sliced.length >= Math.max(4, Math.floor(work.length * 0.70))) {
@@ -3030,10 +3402,24 @@ const Engine = {
                         const tx = dx / dl, ty = dy / dl, nx = -ty, ny = tx;
                         const refW = Math.max(16, perpRunAt(ci, (first[0] - ci * 100) * R / 100, first[1] * R / 100, nx, ny));
                         const pre = [];
+                        const jb = dynBounds[ci];
+                        const choY2 = jb ? jb.choY2 * 100 / R : 52;
+                        const jongY1 = jb ? jb.jongY1 * 100 / R : 56;
+                        const splitX = jb ? jb.splitX * 100 / R : 55;
                         for (let step = 1.1; step <= 7.5; step += 1.1) {
                             const sx = first[0] + tx * step, sy = first[1] + ty * step;
-                            if (meta.part === 'jong' && sy < 53) break;
-                            const lx = (sx - ci * 100) * R / 100, ly = sy * R / 100;
+                            const lx100 = sx - ci * 100;
+                            if (meta.part === 'jong' && sy < jongY1 - 0.5) break;
+                            if (meta.part === 'jung' && meta.subPart === 'jung_h' && sy < choY2 - 0.5) break;
+                            if (meta.part === 'jung' && meta.subPart === 'jung_v') {
+                                const isDoubleV = ['ㅐ', 'ㅔ', 'ㅒ', 'ㅖ', 'ㅙ', 'ㅞ'].some(v => (meta.whId || '').includes(v));
+                                const leftLimit = isDoubleV ? (splitX + 0.5) : (splitX - 1.0);
+                                if (lx100 < leftLimit) break;
+                            }
+                            if (meta.part === 'cho' && (meta.vType === 'C' || meta.vType === 'V') && lx100 > splitX - 0.5) break;
+                            if (meta.part === 'cho' && (meta.vType === 'C' || meta.vType === 'H') && sy > choY2 + 0.5) break;
+                            if (meta.part === 'cho' && first[4] === 'D' && sy < first[1] - 0.2) break;
+                            const lx = lx100 * R / 100, ly = sy * R / 100;
                             if (alphaAt(ci, lx, ly) < 96) break;
                             const rw = perpRunAt(ci, lx, ly, nx, ny);
                             if (rw > refW * 1.75) break;
@@ -3053,11 +3439,32 @@ const Engine = {
                         const tx = dx / dl, ty = dy / dl, nx = -ty, ny = tx;
                         const midPt = sliced[Math.floor(sliced.length * 0.65)];
                         const refW = Math.max(14, perpRunAt(ci, (midPt[0] - ci * 100) * R / 100, midPt[1] * R / 100, nx, ny));
+                        const jb = dynBounds[ci];
+                        const choY2 = jb ? jb.choY2 * 100 / R : 52;
+                        const jongY1 = jb ? jb.jongY1 * 100 / R : 56;
+                        const splitX = jb ? jb.splitX * 100 / R : 55;
                         for (let step = 1.0; step <= 13.0; step += 1.0) {
                             const ex = last[0] + tx * step, ey = last[1] + ty * step;
                             if (ey > yEndLimit100) break;
-                            if (isLastH && meta.part === 'cho' && meta.vType !== 'H' && (ex - ci * 100) > 62.2) break;
-                            const lx = (ex - ci * 100) * R / 100, ly = ey * R / 100;
+                            const lx100 = ex - ci * 100;
+                            if (meta.part === 'cho' && (meta.vType === 'C' || meta.vType === 'V') && lx100 > splitX - 0.5) break;
+                            if (meta.part === 'cho' && (meta.vType === 'C' || meta.vType === 'H') && ey > choY2 + 0.5) break;
+                            const maxJungHRight = (jb && jb.stemX_C) ? (jb.stemX_C * 100 / R + 0.5) : (splitX + 2.0);
+                            if (meta.part === 'jung' && meta.subPart === 'jung_h' && lx100 > maxJungHRight) break;
+                            if (meta.part === 'jung' && meta.subPart === 'jung_v') {
+                                const isDoubleV = ['ㅐ', 'ㅔ', 'ㅒ', 'ㅖ', 'ㅙ', 'ㅞ'].some(v => (meta.whId || '').includes(v));
+                                const leftLimit = isDoubleV ? (splitX + 0.5) : (splitX - 1.0);
+                                if (lx100 < leftLimit) break;
+                            }
+                            if (meta.part === 'jong' && ey < jongY1 - 0.5) break;
+                            if (meta.part === 'jong' && isLastH) {
+                                const maxJongRight = (jb && jb.maxX) ? (jb.maxX * 100 / R + 0.2) : 88;
+                                if (lx100 > maxJongRight) break;
+                            }
+                            const maxJungVBot = (jb && jb.stemBotY_U && isLastV) ? (jb.stemBotY_U * 100 / R + 0.5) : (jongY1 - 0.5);
+                            if (meta.part === 'jung' && meta.hasJong && ey > maxJungVBot) break;
+                            if (isLastH && meta.part === 'cho' && meta.vType !== 'H' && lx100 > 62.2) break;
+                            const lx = lx100 * R / 100, ly = ey * R / 100;
                             if (alphaAt(ci, lx, ly) < 64) break;
                             const rw = perpRunAt(ci, lx, ly, nx, ny);
                             if (rw > refW * (isLastH ? 1.65 : 1.80)) break;
@@ -3315,9 +3722,13 @@ const Engine = {
                             if (mk.part === 'cho' && ly > jb.choY2 + 3) dist += 1e7;
                             else if (mk.part === 'jung') {
                                 if (ly < jb.choY2 - 3) dist += 1e7;
-                                if (jb.hasJong && ly > jb.jungY2 + 3) dist += 1e7;
+                                const maxJungY = (jb.stemBotY_U && Math.abs(lx - jb.stemX_U) <= 16) ? (jb.stemBotY_U + 3) : (jb.jungY2 + 3);
+                                if (jb.hasJong && ly > maxJungY) dist += 1e7;
                             }
-                            else if (jb.hasJong && mk.part === 'jong' && ly < jb.jongY1 - 3) dist += 1e7;
+                            else if (jb.hasJong && mk.part === 'jong') {
+                                const isUnderUStem = (jb.stemBotY_U && Math.abs(lx - jb.stemX_U) <= 16 && ly <= jb.stemBotY_U);
+                                if (ly < jb.jongY1 - 3 || isUnderUStem) dist += 1e7;
+                            }
                         } else if (jb.vType === 'V') {
                             if (mk.part === 'cho') {
                                 const allowBottom = !jb.hasJong && ly > (jb.choY1 + (jb.choY2 - jb.choY1) * 0.55);
@@ -3336,8 +3747,12 @@ const Engine = {
                                 if (lx > jb.splitX + 3) dist += 1e7;
                                 if (ly > jb.choY2 + (jb.hasJong ? Math.max(15, (jb.jongY1 - jb.choY2) * 0.45) : 35)) dist += 1e7;
                             } else if (mk.part === 'jung') {
-                                const isVerticalJung = (mk.subPart === 'jung_v' || lx > jb.splitX - 12);
-                                if (isVerticalJung && lx < jb.splitX - 3) dist += 1e7;
+                                if (mk.subPart === 'jung_v') {
+                                    if (lx < jb.splitX - 3) dist += 1e7;
+                                } else if (mk.subPart === 'jung_h') {
+                                    if (ly < jb.choY2 - 2) dist += 1e7;
+                                    if (jb.stemX_C && lx > jb.stemX_C + 4) dist += 1e7;
+                                }
                                 if (jb.hasJong && ly > jb.jongY1 + 3 && lx < jb.splitX) dist += 1e7;
                             }
                         }
@@ -3632,7 +4047,8 @@ this.glyphData = {
         const sig = hex + (showBg ? 'b' : 'n');
 
         // 공개 기준: key(획번호*4096+점번호) < cs*4096+step 인 픽셀 (정렬되어 있으므로 접두 구간)
-        const thr = this.currentStroke * 4096 + this.currentStep;
+        const stepOffset = (this.currentStep <= 0) ? 0 : (this.currentStep + 1);
+        const thr = this.currentStroke * 4096 + stepOffset;
         let lo = 0, hi = g.key.length;
         while (lo < hi) { const mid = (lo + hi) >> 1; if (g.key[mid] < thr) lo = mid + 1; else hi = mid; }
         const target = lo;
@@ -3775,11 +4191,11 @@ this.glyphData = {
                 }
 
                 const candidates = [];
-                for (let step = 3.4; step <= 13.0; step += 1.1) {
+                for (let step = 3.4; step <= 7.0; step += 1.0) {
                     candidates.push([sx + ux * step, sy + uy * step]);
                 }
                 const nx = -uy, ny = ux;
-                for (let dist = 4.2; dist <= 12.0; dist += 1.4) {
+                for (let dist = 3.8; dist <= 6.5; dist += 1.0) {
                     candidates.push(
                         [sx - ux * (dist * 0.7) + nx * (dist * 0.7), sy - uy * (dist * 0.7) + ny * (dist * 0.7)],
                         [sx - ux * (dist * 0.7) - nx * (dist * 0.7), sy - uy * (dist * 0.7) - ny * (dist * 0.7)],
@@ -3835,8 +4251,9 @@ this.glyphData = {
                 leader.setAttribute('x2', pos.bx.toFixed(1));
                 leader.setAttribute('y2', pos.by.toFixed(1));
                 leader.setAttribute('stroke', '#2e8b57');
-                leader.setAttribute('stroke-width', '0.75');
-                leader.setAttribute('opacity', '0.85');
+                leader.setAttribute('stroke-width', '0.5');
+                leader.setAttribute('stroke-dasharray', '1.0, 1.0');
+                leader.setAttribute('opacity', '0.6');
                 g.appendChild(leader);
             }
 
@@ -4009,6 +4426,8 @@ this.glyphData = {
             this.updateActiveRender();
 
             if (curDist >= total || pIdx >= pts.length - 1) {
+                this.currentStep = 4095;
+                this.updateActiveRender();
                 sIdx++;
                 curDist = 0;
                 // 한 획이 끝나면 학습자가 기필 머리와 획 순서를 충분히 인지할 수 있도록 획간 정지 시간(약 300ms) 부여

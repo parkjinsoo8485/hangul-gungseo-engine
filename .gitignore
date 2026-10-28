@@ -13,6 +13,9 @@ harness_offsets.json
 index_test.html
 compare_gungsuh.html
 dumped_envs.json
+__pycache__/
+*.pyc
+tools/__pycache__/
 
 # Node & Editor
 node_modules/

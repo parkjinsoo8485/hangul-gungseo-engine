@@ -1,0 +1,155 @@
+{
+  "overall": {
+    "total_points": 505,
+    "within_2px_pct": 98.41584158415841,
+    "within_3px_pct": 100.0,
+    "max_distance_px": 2.5815692901799077,
+    "outliers_gt_3px": 0
+  },
+  "strokes": [
+    {
+      "stroke": 1,
+      "char": "획",
+      "name": "ㅎ 꼭지 (첫 획)",
+      "points_count": 29,
+      "min_dist": 0.05099019513594,
+      "avg_dist": 0.6579511549462942,
+      "max_dist": 1.7010584939971822,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 2,
+      "char": "획",
+      "name": "ㅎ 가로획",
+      "points_count": 21,
+      "min_dist": 0.21633307652783573,
+      "avg_dist": 0.6405808678020145,
+      "max_dist": 1.4578408692309304,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 3,
+      "char": "획",
+      "name": "ㅎ 이응(ㅇ)",
+      "points_count": 197,
+      "min_dist": 0.04999999999999431,
+      "avg_dist": 0.6898655470543128,
+      "max_dist": 1.90055255123347,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 4,
+      "char": "획",
+      "name": "ㅗ 세로 꼭지",
+      "points_count": 18,
+      "min_dist": 0.31144823004794653,
+      "avg_dist": 1.2813587267818543,
+      "max_dist": 2.5815692901799077,
+      "within_2px_pct": 77.77777777777777,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 5,
+      "char": "획",
+      "name": "ㅗ 가로획",
+      "points_count": 27,
+      "min_dist": 0.14212670403550967,
+      "avg_dist": 0.6827643878837575,
+      "max_dist": 2.261791325476327,
+      "within_2px_pct": 96.29629629629629,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 6,
+      "char": "획",
+      "name": "ㅣ 세로 기둥",
+      "points_count": 16,
+      "min_dist": 0.16552945357247076,
+      "avg_dist": 0.6393781537934473,
+      "max_dist": 1.6002812252851009,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 7,
+      "char": "획",
+      "name": "ㄱ 받침",
+      "points_count": 46,
+      "min_dist": 0.03605551275464652,
+      "avg_dist": 0.7293804467664576,
+      "max_dist": 2.4481217289996184,
+      "within_2px_pct": 97.82608695652173,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 8,
+      "char": "순",
+      "name": "ㅅ 좌측 삐침",
+      "points_count": 32,
+      "min_dist": 0.08062257748300207,
+      "avg_dist": 0.7543516181711369,
+      "max_dist": 2.1920766409959436,
+      "within_2px_pct": 93.75,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 9,
+      "char": "순",
+      "name": "ㅅ 우측 파임",
+      "points_count": 28,
+      "min_dist": 0.1403566884761819,
+      "avg_dist": 0.7108351709827342,
+      "max_dist": 1.8321571984958334,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 10,
+      "char": "순",
+      "name": "ㅜ 가로획",
+      "points_count": 27,
+      "min_dist": 0.21954498400099212,
+      "avg_dist": 0.7747966597063276,
+      "max_dist": 1.4663219291819847,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 11,
+      "char": "순",
+      "name": "ㅜ 세로 기둥",
+      "points_count": 21,
+      "min_dist": 0.020000000000010232,
+      "avg_dist": 0.4897231115798653,
+      "max_dist": 1.113597772986283,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    },
+    {
+      "stroke": 12,
+      "char": "순",
+      "name": "ㄴ 받침",
+      "points_count": 43,
+      "min_dist": 0.12165525060597056,
+      "avg_dist": 0.7394240514090047,
+      "max_dist": 1.8700267377767714,
+      "within_2px_pct": 100.0,
+      "within_3px_pct": 100.0,
+      "outliers_count": 0
+    }
+  ]
+}

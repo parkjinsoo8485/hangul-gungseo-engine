@@ -1,7 +1,8 @@
 const fs = require('fs');
 
 global.window = global;
-eval(fs.readFileSync('c:/project/한글획순/warehouse_centerlines.js', 'utf8'));
+const path = require('path');
+eval(fs.readFileSync(path.join(__dirname, '../warehouse_centerlines.js'), 'utf8'));
 
 const parts = HANGUL_WH_CENTERLINES.parts;
 console.log('Total parts in warehouse:', Object.keys(parts).length);

@@ -62,7 +62,7 @@ async function main() {
         '타', '터', '토', '투', '트', '티',
         '파', '퍼', '포', '푸', '프', '피',
         '하', '허', '호', '후', '흐', '히',
-        '훈', '민', '정', '음'
+        '훈', '민', '정', '음', '팧', '대', '한', '뷁', '쐤', '쯀', '휍', '궭', '뙠', '옰'
     ];
 
     console.log(`Auditing ${syllables.length} individual syllables with engine internal ink data...`);

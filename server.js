@@ -9,6 +9,9 @@ const MIME_TYPES = {
     '.json': 'application/json; charset=utf-8',
     '.css': 'text/css; charset=utf-8',
     '.svg': 'image/svg+xml',
+    '.png': 'image/png',
+    '.gif': 'image/gif',
+    '.mp4': 'video/mp4',
     '.ttf': 'font/ttf',
     '.woff': 'font/woff',
     '.woff2': 'font/woff2'
@@ -17,8 +20,10 @@ const MIME_TYPES = {
 const server = http.createServer((req, res) => {
     // CORS 헤더 추가 (수집기-엔진 간 실시간 통신 원활화)
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
 
     if (req.method === 'OPTIONS') {
         res.writeHead(200);
@@ -38,6 +43,9 @@ const server = http.createServer((req, res) => {
         const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
         res.writeHead(200, { 'Content-Type': contentType });
+        if (req.method === 'HEAD') {
+            return res.end();
+        }
         fs.createReadStream(filePath).pipe(res);
     });
 });
