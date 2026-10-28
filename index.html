@@ -330,8 +330,8 @@
     </div>
 </div>
 
-<script src="warehouse_centerlines.js"></script>
-<script src="warehouse_bridge.js"></script>
+<script src="warehouse_centerlines.js?v=20261028_1645"></script>
+<script src="warehouse_bridge.js?v=20261028_1645"></script>
 <script>
 class RenderHarness {
     constructor() {
@@ -1993,6 +1993,25 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
         }
         b.yBarC = yBarC;
 
+        if (isU) {
+            const yStart = Math.min(maxY - 4, yBarC + Math.max(3, Math.round(Hc * 0.05)));
+            const yEnd = hasJong ? Math.min(maxY, (b.jongY1 || maxY)) : maxY;
+            const xRightLimit = Math.max(minX + 8, xSplit - 2);
+            let stemX_U = Math.round(minX + (xRightLimit - minX) * 0.5), maxStemRun = -1;
+            let stemBot = yStart;
+            for (let x = minX + 2; x <= xRightLimit; x++) {
+                let run = 0, lastY = yStart;
+                for (let y = yStart; y <= yEnd; y++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) { run++; lastY = y; }
+                }
+                if (run > maxStemRun) { maxStemRun = run; stemX_U = x; stemBot = lastY; }
+            }
+            if (maxStemRun >= 4) {
+                b.stemX_U = stemX_U;
+                b.stemBotY_U = stemBot;
+            }
+        }
+
         // (3) choY2: 초성 하단 경계
         // ㅗ(ㅘ, ㅙ, ㅚ)의 경우 세로 꼭지가 초성과 가로획 사이를 연결하므로 초성 하단은 yBarC 위쪽 꼭지 시작점 이전이어야 함
         const minGapAboveBar = Math.round(Hc * (isO ? (hasJong ? 0.08 : 0.12) : 0.05));
@@ -2654,15 +2673,15 @@ const Engine = {
                             } else if (isU) {
                                 // ㅜ: 가로획은 barY 부근에서 시작하고 세로획은 아래로 연장
                                 e.fbox[1] = Math.max(choY2 + 0.5, barY - 3.0);
-                                const botLimit = jb.hasJong ? Math.min(barY + 10, jongY1 - 1.0) : Math.min(84, barY + 14);
-                                e.fbox[3] = Math.max(9, Math.min(13, botLimit - e.fbox[1]));
+                                const botLimit = (jb.stemBotY_U ? (jb.stemBotY_U / s) : (jb.hasJong ? Math.min(barY + 10, jongY1 - 1.0) : Math.min(84, barY + 14)));
+                                e.fbox[3] = Math.max(14, botLimit + 1.0 - e.fbox[1]);
                             } else {
                                 // ㅢ (ㅡ): barY에 단단히 안착
                                 e.fbox[1] = barY - e.fbox[3] * 0.5;
                             }
                             const stemX_C = (jb && jb.stemX_C) ? (jb.stemX_C / s) : (splitX + 10);
-                            const targetJungHRight = Math.max(splitX + 2.0, stemX_C - 0.5);
-                            e.fbox[2] = Math.max(22, targetJungHRight - e.fbox[0]);
+                            const targetJungHRight = isU ? (splitX + 2.0) : Math.max(splitX + 2.0, stemX_C - 0.5);
+                            e.fbox[2] = Math.max(18, targetJungHRight - e.fbox[0]);
                         } else if (e.subPart === 'jung_v') {
                             // 세로모음(ㅏ/ㅐ/ㅣ/ㅓ/ㅔ): splitX 우측 전체 영역
                             const isLeftTick = ['ㅓ', 'ㅕ'].some(v => (e.whId || e.char || '').includes(v));
@@ -2881,13 +2900,13 @@ const Engine = {
                 const splitX0 = jb ? jb.splitX / s : 55;
                 const isCLeftJung = (jb && jb.vType === 'C' && e.part === 'jung' && minSmpX < splitX0 - 8);
                 const strokeSpan = Math.hypot(spanX, spanY);
-                const isVertJungTick = (e.part === 'jung' && spanX < 2.0 && spanY > 3.5);
+                const isVertJungTick = (e.subPart === 'jung_h' || e.vType === 'H') && e.part === 'jung' && spanX < 2.0 && spanY > 3.5;
                 const isShortHorizTick = (e.part === 'jung' && spanY < 1.8 && spanX <= 15.0);
                 const maxShiftX = isShortHorizTick ? 1.0 : ((isVertJungTick && jb && jb.stemX_U !== undefined) ? 1.0 : Math.min(4.5, Math.max(2.5, strokeSpan * 0.45)));
                 const isHorizBar = (e.part === 'jung' && spanY < 2.5 && spanX > 15.0);
                 const maxShiftY = isVertJungTick ? Math.min(2.0, strokeSpan * 0.3) : (isShortHorizTick ? 1.5 : (((isCLeftJung && spanX > spanY) || isHorizBar) ? 10.0 : Math.min(3.5, Math.max(2.2, strokeSpan * 0.45))));
                 let forceShiftX = null;
-                if (isVertJungTick && jb && jb.stemX_U !== undefined && (e.whId || '').includes('ㅜ')) {
+                if (isVertJungTick && jb && jb.stemX_U !== undefined && ['ㅜ', 'ㅝ', 'ㅞ', 'ㅟ'].some(v => (e.whId || e.char || '').includes(v))) {
                     forceShiftX = (jb.stemX_U / s) - (b[0] + st[0][0] * b[2]);
                 }
                 let forceShiftY = null;
