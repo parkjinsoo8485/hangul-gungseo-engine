@@ -1,0 +1,85 @@
+const http = require('http');
+const PORT = 9958;
+const { spawn } = require('child_process');
+const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', [
+    '--headless=new', '--disable-gpu',
+    '--remote-debugging-port=' + PORT,
+    '--user-data-dir=' + process.env.TEMP + '/cdp_test_' + PORT,
+    'about:blank'
+], { stdio: 'ignore' });
+
+const get = u => new Promise((res, rej) => http.get(u, r => {
+    let b = ''; r.on('data', d => b += d); r.on('end', () => res(b));
+}).on('error', rej));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+(async () => {
+    try {
+        let list;
+        for (let i = 0; i < 40; i++) {
+            try { list = JSON.parse(await get('http://127.0.0.1:' + PORT + '/json/list')); if (list && list.length) break; } catch (e) { }
+            await sleep(250);
+        }
+        const wsUrl = list.find(t => t.type === 'page').webSocketDebuggerUrl;
+        const ws = new WebSocket(wsUrl);
+        let id = 1;
+        const send = (m, p = {}) => new Promise((res, rej) => {
+            const reqId = id++;
+            const onMsg = ({ data }) => {
+                const r = JSON.parse(data);
+                if (r.id === reqId) { ws.removeEventListener('message', onMsg); if (r.error) rej(r.error); else res(r.result); }
+            };
+            ws.addEventListener('message', onMsg);
+            ws.send(JSON.stringify({ id: reqId, method: m, params: p }));
+        });
+        await new Promise(r => ws.onopen = r);
+
+        await send('Page.enable');
+        await send('Network.setCacheDisabled', { cacheDisabled: true });
+        await send('Page.navigate', { url: 'http://localhost:8080/index.html' });
+        
+        for (let i = 0; i < 40; i++) {
+            const chk = await send('Runtime.evaluate', { expression: 'typeof Engine !== "undefined" && !!Engine.loadText' });
+            if (chk.result && chk.result.value) break;
+            await sleep(250);
+        }
+
+        const res = await send('Runtime.evaluate', {
+            expression: `(() => {
+                const parts = window.HANGUL_WH_CENTERLINES.parts;
+                
+                // Update Jung_T1_ㅞ downward stem of ㅜ
+                parts['Jung_T1_ㅞ'].m[1] = [ [ 455, 492 ], [ 445, 370 ], [ 430, 250 ] ];
+                
+                // Also update the rest of Jung_T1_ㅞ
+                parts['Jung_T1_ㅞ'].m[2] = [ [435, 420], [490, 420], [550, 420] ];
+                parts['Jung_T1_ㅞ'].m[3] = [ [550, 810], [550, 510], [555, 210] ];
+                parts['Jung_T1_ㅞ'].m[4] = [ [680, 845], [680, 505], [685, 164] ];
+                
+                window.WH.load(window.HANGUL_WH_CENTERLINES);
+                
+                Engine.loadText('웨');
+                const g = Engine.glyphData;
+                const R = g.R, W = g.W;
+                const pts = Engine.strokes[2]; // stroke 3
+                return pts.map((p, idx) => {
+                    const px = Math.round(p[0] * R / 100);
+                    const py = Math.round(p[1] * R / 100);
+                    const pIdx = py * W + px;
+                    const gIdx = g.idx.indexOf(pIdx);
+                    const a = gIdx >= 0 ? g.a[gIdx] : 0;
+                    return { idx, x: p[0].toFixed(1), y: p[1].toFixed(1), px, py, alpha: a };
+                });
+            })()`,
+            returnByValue: true
+        });
+        console.log('웨 stroke 3 with corrected warehouse coords:');
+        console.table(res.result.value);
+
+        ws.close();
+    } catch (e) {
+        console.error(e);
+    } finally {
+        chrome.kill();
+    }
+})();

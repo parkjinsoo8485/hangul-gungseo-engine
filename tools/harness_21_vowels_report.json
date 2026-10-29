@@ -1,0 +1,2970 @@
+{
+  "meta": {
+    "timestamp": "2026-10-29T06:07:57.753Z",
+    "totalSyllables": 820,
+    "totalStrokes": 6024,
+    "totalFrames": 18072,
+    "totalWallBleedEvents": 264242,
+    "totalFutureBleedEvents": 0,
+    "anomaliesCount": 430
+  },
+  "stats": {
+    "orderPassCount": 820,
+    "multiTickCount": 156,
+    "multiTickPassCount": 156,
+    "pixelOwnershipPassCount": 814,
+    "meanOnInkRatio": 0.9858824682664544,
+    "minOnInkRatio": 0.19047619047619047,
+    "maxOnInkRatio": 1,
+    "perfectOnInkCount": 5318
+  },
+  "userWordsTelemetry": {
+    "예": {
+      "ch": "예",
+      "strokesCount": 5,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": true,
+        "valid": true,
+        "dy": 16.666666666666693
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T1_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 5948
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅖ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 569
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅖ",
+          "part": "jung",
+          "ptsCount": 22,
+          "onInkCount": 22,
+          "onInkRatio": 1,
+          "pxCount": 577
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅖ",
+          "part": "jung",
+          "ptsCount": 17,
+          "onInkCount": 17,
+          "onInkRatio": 1,
+          "pxCount": 5329
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jung_T1_ㅖ",
+          "part": "jung",
+          "ptsCount": 25,
+          "onInkCount": 25,
+          "onInkRatio": 1,
+          "pxCount": 7851
+        }
+      ]
+    },
+    "에": {
+      "ch": "에",
+      "strokesCount": 4,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T1_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 5637
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅔ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 560
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅔ",
+          "part": "jung",
+          "ptsCount": 16,
+          "onInkCount": 16,
+          "onInkRatio": 1,
+          "pxCount": 4929
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅔ",
+          "part": "jung",
+          "ptsCount": 29,
+          "onInkCount": 29,
+          "onInkRatio": 1,
+          "pxCount": 7584
+        }
+      ]
+    },
+    "여": {
+      "ch": "여",
+      "strokesCount": 4,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": true,
+        "valid": true,
+        "dy": 18.614733455791004
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T1_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 6922
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅕ",
+          "part": "jung",
+          "ptsCount": 21,
+          "onInkCount": 21,
+          "onInkRatio": 1,
+          "pxCount": 944
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅕ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1163
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅕ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 8340
+        }
+      ]
+    },
+    "야": {
+      "ch": "야",
+      "strokesCount": 4,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": true,
+        "valid": true,
+        "dy": 17.830296017909895
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T1_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 7343
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅑ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 8276
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅑ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1268
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅑ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1297
+        }
+      ]
+    },
+    "약": {
+      "ch": "약",
+      "strokesCount": 5,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": true,
+        "valid": true,
+        "dy": 14.4366337431046
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 7022
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T2_ㅑ",
+          "part": "jung",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 5316
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T2_ㅑ",
+          "part": "jung",
+          "ptsCount": 28,
+          "onInkCount": 28,
+          "onInkRatio": 1,
+          "pxCount": 1160
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T2_ㅑ",
+          "part": "jung",
+          "ptsCount": 28,
+          "onInkCount": 28,
+          "onInkRatio": 1,
+          "pxCount": 1134
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jong_T1_ㄱ",
+          "part": "jong",
+          "ptsCount": 48,
+          "onInkCount": 48,
+          "onInkRatio": 1,
+          "pxCount": 5236
+        }
+      ]
+    },
+    "닮": {
+      "ch": "닮",
+      "strokesCount": 10,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㄷ",
+          "part": "cho",
+          "ptsCount": 27,
+          "onInkCount": 27,
+          "onInkRatio": 1,
+          "pxCount": 3406
+        },
+        {
+          "sIdx": 1,
+          "whId": "Cho_T3_ㄷ",
+          "part": "cho",
+          "ptsCount": 72,
+          "onInkCount": 72,
+          "onInkRatio": 1,
+          "pxCount": 5473
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T2_ㅏ",
+          "part": "jung",
+          "ptsCount": 22,
+          "onInkCount": 22,
+          "onInkRatio": 1,
+          "pxCount": 5175
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T2_ㅏ",
+          "part": "jung",
+          "ptsCount": 29,
+          "onInkCount": 29,
+          "onInkRatio": 1,
+          "pxCount": 1291
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jong_T1_ㄻ",
+          "part": "jong",
+          "ptsCount": 46,
+          "onInkCount": 46,
+          "onInkRatio": 1,
+          "pxCount": 2355
+        },
+        {
+          "sIdx": 5,
+          "whId": "Jong_T1_ㄻ",
+          "part": "jong",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1959
+        },
+        {
+          "sIdx": 6,
+          "whId": "Jong_T1_ㄻ",
+          "part": "jong",
+          "ptsCount": 46,
+          "onInkCount": 46,
+          "onInkRatio": 1,
+          "pxCount": 2194
+        },
+        {
+          "sIdx": 7,
+          "whId": "Jong_T1_ㄻ",
+          "part": "jong",
+          "ptsCount": 25,
+          "onInkCount": 25,
+          "onInkRatio": 1,
+          "pxCount": 2949
+        },
+        {
+          "sIdx": 8,
+          "whId": "Jong_T1_ㄻ",
+          "part": "jong",
+          "ptsCount": 44,
+          "onInkCount": 44,
+          "onInkRatio": 1,
+          "pxCount": 2648
+        },
+        {
+          "sIdx": 9,
+          "whId": "Jong_T1_ㄻ",
+          "part": "jong",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 790
+        }
+      ]
+    },
+    "왜": {
+      "ch": "왜",
+      "strokesCount": 6,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 4708
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅙ",
+          "part": "jung_h",
+          "ptsCount": 22,
+          "onInkCount": 22,
+          "onInkRatio": 1,
+          "pxCount": 1280
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅙ",
+          "part": "jung_h",
+          "ptsCount": 24,
+          "onInkCount": 24,
+          "onInkRatio": 1,
+          "pxCount": 2412
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅙ",
+          "part": "jung_v",
+          "ptsCount": 19,
+          "onInkCount": 19,
+          "onInkRatio": 1,
+          "pxCount": 5224
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jung_T1_ㅙ",
+          "part": "jung_v",
+          "ptsCount": 22,
+          "onInkCount": 22,
+          "onInkRatio": 1,
+          "pxCount": 661
+        },
+        {
+          "sIdx": 5,
+          "whId": "Jung_T1_ㅙ",
+          "part": "jung_v",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 7690
+        }
+      ]
+    },
+    "웨": {
+      "ch": "웨",
+      "strokesCount": 6,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 351,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㅇ",
+          "part": "cho",
+          "ptsCount": 197,
+          "onInkCount": 197,
+          "onInkRatio": 1,
+          "pxCount": 4735
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅞ",
+          "part": "jung_h",
+          "ptsCount": 21,
+          "onInkCount": 21,
+          "onInkRatio": 1,
+          "pxCount": 3305
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅞ",
+          "part": "jung_h",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1390
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅞ",
+          "part": "jung_v",
+          "ptsCount": 21,
+          "onInkCount": 21,
+          "onInkRatio": 1,
+          "pxCount": 777
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jung_T1_ㅞ",
+          "part": "jung_v",
+          "ptsCount": 22,
+          "onInkCount": 20,
+          "onInkRatio": 0.9090909090909091,
+          "pxCount": 5656
+        },
+        {
+          "sIdx": 5,
+          "whId": "Jung_T1_ㅞ",
+          "part": "jung_v",
+          "ptsCount": 24,
+          "onInkCount": 24,
+          "onInkRatio": 1,
+          "pxCount": 7845
+        }
+      ]
+    },
+    "되": {
+      "ch": "되",
+      "strokesCount": 5,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㄷ",
+          "part": "cho",
+          "ptsCount": 27,
+          "onInkCount": 27,
+          "onInkRatio": 1,
+          "pxCount": 3158
+        },
+        {
+          "sIdx": 1,
+          "whId": "Cho_T3_ㄷ",
+          "part": "cho",
+          "ptsCount": 55,
+          "onInkCount": 55,
+          "onInkRatio": 1,
+          "pxCount": 3826
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅚ",
+          "part": "jung_h",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1562
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅚ",
+          "part": "jung_h",
+          "ptsCount": 21,
+          "onInkCount": 21,
+          "onInkRatio": 1,
+          "pxCount": 3816
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jung_T1_ㅚ",
+          "part": "jung_v",
+          "ptsCount": 26,
+          "onInkCount": 26,
+          "onInkRatio": 1,
+          "pxCount": 8466
+        }
+      ]
+    },
+    "과": {
+      "ch": "과",
+      "strokesCount": 5,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㄱ",
+          "part": "cho",
+          "ptsCount": 48,
+          "onInkCount": 48,
+          "onInkRatio": 1,
+          "pxCount": 4657
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅘ",
+          "part": "jung_h",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1942
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅘ",
+          "part": "jung_h",
+          "ptsCount": 21,
+          "onInkCount": 21,
+          "onInkRatio": 1,
+          "pxCount": 4001
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅘ",
+          "part": "jung_v",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 8482
+        },
+        {
+          "sIdx": 4,
+          "whId": "Jung_T1_ㅘ",
+          "part": "jung_v",
+          "ptsCount": 24,
+          "onInkCount": 24,
+          "onInkRatio": 1,
+          "pxCount": 1328
+        }
+      ]
+    },
+    "괴": {
+      "ch": "괴",
+      "strokesCount": 4,
+      "orderOk": true,
+      "tickCheck": {
+        "hasTicks": false,
+        "valid": true,
+        "dy": null
+      },
+      "allHavePixels": true,
+      "wallBleedEvents": 0,
+      "futureBleedEvents": 0,
+      "strokeStats": [
+        {
+          "sIdx": 0,
+          "whId": "Cho_T3_ㄱ",
+          "part": "cho",
+          "ptsCount": 47,
+          "onInkCount": 47,
+          "onInkRatio": 1,
+          "pxCount": 4581
+        },
+        {
+          "sIdx": 1,
+          "whId": "Jung_T1_ㅚ",
+          "part": "jung_h",
+          "ptsCount": 23,
+          "onInkCount": 23,
+          "onInkRatio": 1,
+          "pxCount": 1977
+        },
+        {
+          "sIdx": 2,
+          "whId": "Jung_T1_ㅚ",
+          "part": "jung_h",
+          "ptsCount": 21,
+          "onInkCount": 21,
+          "onInkRatio": 1,
+          "pxCount": 3939
+        },
+        {
+          "sIdx": 3,
+          "whId": "Jung_T1_ㅚ",
+          "part": "jung_v",
+          "ptsCount": 24,
+          "onInkCount": 24,
+          "onInkRatio": 1,
+          "pxCount": 8602
+        }
+      ]
+    }
+  },
+  "anomalies": [
+    {
+      "ch": "웨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 351
+    },
+    {
+      "ch": "개",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 27
+    },
+    {
+      "ch": "겨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 60
+    },
+    {
+      "ch": "고",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3088
+    },
+    {
+      "ch": "괘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 75
+    },
+    {
+      "ch": "교",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 5792
+    },
+    {
+      "ch": "궈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 975
+    },
+    {
+      "ch": "궤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 629
+    },
+    {
+      "ch": "까",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 132
+    },
+    {
+      "ch": "깨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 106
+    },
+    {
+      "ch": "꺠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 29
+    },
+    {
+      "ch": "껴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3878
+    },
+    {
+      "ch": "꼬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3236
+    },
+    {
+      "ch": "꽈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 351
+    },
+    {
+      "ch": "꽈",
+      "stroke": 1,
+      "whId": "Cho_T3_ㄲ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5238095238095238
+    },
+    {
+      "ch": "꽤",
+      "stroke": 2,
+      "whId": "Jung_T1_ㅙ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5714285714285714
+    },
+    {
+      "ch": "꾀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 300
+    },
+    {
+      "ch": "꿔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1520
+    },
+    {
+      "ch": "꿰",
+      "stroke": 2,
+      "whId": "Jung_T1_ㅞ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6470588235294118
+    },
+    {
+      "ch": "뀌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 18
+    },
+    {
+      "ch": "끼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2544
+    },
+    {
+      "ch": "너",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1198
+    },
+    {
+      "ch": "녀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 690
+    },
+    {
+      "ch": "녜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 198
+    },
+    {
+      "ch": "놔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 36
+    },
+    {
+      "ch": "놰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 63
+    },
+    {
+      "ch": "뇨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 87
+    },
+    {
+      "ch": "눠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1713
+    },
+    {
+      "ch": "눼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "더",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 796
+    },
+    {
+      "ch": "뎌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 162
+    },
+    {
+      "ch": "돼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 63
+    },
+    {
+      "ch": "됴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 36
+    },
+    {
+      "ch": "둬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 903
+    },
+    {
+      "ch": "뒈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 351
+    },
+    {
+      "ch": "따",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 126
+    },
+    {
+      "ch": "땨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 258
+    },
+    {
+      "ch": "똬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 207
+    },
+    {
+      "ch": "뙈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 210
+    },
+    {
+      "ch": "뙤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 105
+    },
+    {
+      "ch": "뚸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1682
+    },
+    {
+      "ch": "뛔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 714
+    },
+    {
+      "ch": "뛰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 291
+    },
+    {
+      "ch": "띄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "뢔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 15
+    },
+    {
+      "ch": "료",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 16
+    },
+    {
+      "ch": "뤄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 531
+    },
+    {
+      "ch": "뤠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 292
+    },
+    {
+      "ch": "먜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 42
+    },
+    {
+      "ch": "뫄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 63
+    },
+    {
+      "ch": "뫠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 45
+    },
+    {
+      "ch": "뫼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 12
+    },
+    {
+      "ch": "묘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 496
+    },
+    {
+      "ch": "뭐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1047
+    },
+    {
+      "ch": "뭬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 394
+    },
+    {
+      "ch": "믜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 12
+    },
+    {
+      "ch": "배",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 108
+    },
+    {
+      "ch": "보",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 108
+    },
+    {
+      "ch": "붜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 696
+    },
+    {
+      "ch": "붸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 51
+    },
+    {
+      "ch": "붸",
+      "stroke": 7,
+      "whId": "Jung_T1_ㅞ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.3333333333333333
+    },
+    {
+      "ch": "빼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3288
+    },
+    {
+      "ch": "뺴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3288
+    },
+    {
+      "ch": "뻐",
+      "stroke": 4,
+      "whId": "Cho_T1_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.4482758620689655
+    },
+    {
+      "ch": "뻐",
+      "stroke": 7,
+      "whId": "Cho_T1_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.47619047619047616
+    },
+    {
+      "ch": "뼈",
+      "stroke": 4,
+      "whId": "Cho_T1_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.4482758620689655
+    },
+    {
+      "ch": "뼈",
+      "stroke": 7,
+      "whId": "Cho_T1_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.47619047619047616
+    },
+    {
+      "ch": "뽀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 4
+    },
+    {
+      "ch": "뽸",
+      "stroke": 8,
+      "whId": "Jung_T1_ㅙ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5909090909090909
+    },
+    {
+      "ch": "뽸",
+      "stroke": 9,
+      "whId": "Jung_T1_ㅙ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5882352941176471
+    },
+    {
+      "ch": "뽸",
+      "stroke": 10,
+      "whId": "Jung_T1_ㅙ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6
+    },
+    {
+      "ch": "뿨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1191
+    },
+    {
+      "ch": "쀄",
+      "type": "EMPTY_STROKE_ANOMALY"
+    },
+    {
+      "ch": "쀼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 10
+    },
+    {
+      "ch": "삐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 4630
+    },
+    {
+      "ch": "삐",
+      "stroke": 4,
+      "whId": "Cho_T1_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.4482758620689655
+    },
+    {
+      "ch": "삐",
+      "stroke": 7,
+      "whId": "Cho_T1_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.47619047619047616
+    },
+    {
+      "ch": "섀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 102
+    },
+    {
+      "ch": "세",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 102
+    },
+    {
+      "ch": "세",
+      "stroke": 0,
+      "whId": "Cho_T1_ㅅ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6190476190476191
+    },
+    {
+      "ch": "소",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2892
+    },
+    {
+      "ch": "솨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 300
+    },
+    {
+      "ch": "쇄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 483
+    },
+    {
+      "ch": "쇼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 147
+    },
+    {
+      "ch": "숴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1214
+    },
+    {
+      "ch": "쉐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 879
+    },
+    {
+      "ch": "쉬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 339
+    },
+    {
+      "ch": "싀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 189
+    },
+    {
+      "ch": "싸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 132
+    },
+    {
+      "ch": "써",
+      "stroke": 3,
+      "whId": "Cho_T1_ㅆ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "쎄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 45
+    },
+    {
+      "ch": "쎠",
+      "stroke": 3,
+      "whId": "Cho_T1_ㅆ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "쏘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 224
+    },
+    {
+      "ch": "쏴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 351
+    },
+    {
+      "ch": "쐐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 531
+    },
+    {
+      "ch": "쐬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 213
+    },
+    {
+      "ch": "쒀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1571
+    },
+    {
+      "ch": "쒜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1349
+    },
+    {
+      "ch": "쒸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 204
+    },
+    {
+      "ch": "쓔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 462
+    },
+    {
+      "ch": "씌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 279
+    },
+    {
+      "ch": "씨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2983
+    },
+    {
+      "ch": "씨",
+      "stroke": 1,
+      "whId": "Cho_T1_ㅆ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.631578947368421
+    },
+    {
+      "ch": "워",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 942
+    },
+    {
+      "ch": "재",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "쟤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 42
+    },
+    {
+      "ch": "저",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 86
+    },
+    {
+      "ch": "제",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 64
+    },
+    {
+      "ch": "져",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 483
+    },
+    {
+      "ch": "좨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 24
+    },
+    {
+      "ch": "죠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 368
+    },
+    {
+      "ch": "줘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 765
+    },
+    {
+      "ch": "줴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 352
+    },
+    {
+      "ch": "째",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3266
+    },
+    {
+      "ch": "째",
+      "stroke": 1,
+      "whId": "Cho_T1_ㅉ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6818181818181818
+    },
+    {
+      "ch": "째",
+      "stroke": 2,
+      "whId": "Cho_T1_ㅉ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5238095238095238
+    },
+    {
+      "ch": "쨰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1122
+    },
+    {
+      "ch": "쩨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 450
+    },
+    {
+      "ch": "쪄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2219
+    },
+    {
+      "ch": "쪄",
+      "stroke": 1,
+      "whId": "Cho_T1_ㅉ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "쪠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 18
+    },
+    {
+      "ch": "쫘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 462
+    },
+    {
+      "ch": "쫴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 303
+    },
+    {
+      "ch": "쬐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 300
+    },
+    {
+      "ch": "쬬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 36
+    },
+    {
+      "ch": "쭤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1917
+    },
+    {
+      "ch": "쮀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 879
+    },
+    {
+      "ch": "쮜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 504
+    },
+    {
+      "ch": "쯰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 330
+    },
+    {
+      "ch": "찌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2958
+    },
+    {
+      "ch": "찌",
+      "stroke": 1,
+      "whId": "Cho_T1_ㅉ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "채",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 102
+    },
+    {
+      "ch": "챼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 102
+    },
+    {
+      "ch": "처",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 34
+    },
+    {
+      "ch": "체",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 94
+    },
+    {
+      "ch": "쳐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 24
+    },
+    {
+      "ch": "쳬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 47
+    },
+    {
+      "ch": "초",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 219
+    },
+    {
+      "ch": "촤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 39
+    },
+    {
+      "ch": "쵀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 264
+    },
+    {
+      "ch": "쵸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 371
+    },
+    {
+      "ch": "춰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 726
+    },
+    {
+      "ch": "췌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 669
+    },
+    {
+      "ch": "커",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 45
+    },
+    {
+      "ch": "켸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 6
+    },
+    {
+      "ch": "코",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 99
+    },
+    {
+      "ch": "쾌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 270
+    },
+    {
+      "ch": "쿄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 565
+    },
+    {
+      "ch": "쿼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1157
+    },
+    {
+      "ch": "퀘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 939
+    },
+    {
+      "ch": "킈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 12
+    },
+    {
+      "ch": "퇘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 96
+    },
+    {
+      "ch": "퉈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 531
+    },
+    {
+      "ch": "퉤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 410
+    },
+    {
+      "ch": "펴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 333
+    },
+    {
+      "ch": "폐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 171
+    },
+    {
+      "ch": "포",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 72
+    },
+    {
+      "ch": "퐈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 129
+    },
+    {
+      "ch": "퐤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 102
+    },
+    {
+      "ch": "푀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 51
+    },
+    {
+      "ch": "풔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1164
+    },
+    {
+      "ch": "풰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 499
+    },
+    {
+      "ch": "퓌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 90
+    },
+    {
+      "ch": "픠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 54
+    },
+    {
+      "ch": "해",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 327
+    },
+    {
+      "ch": "혀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "혜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 60
+    },
+    {
+      "ch": "호",
+      "stroke": 1,
+      "whId": "Cho_T2_ㅎ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5714285714285714
+    },
+    {
+      "ch": "홰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 165
+    },
+    {
+      "ch": "효",
+      "stroke": 1,
+      "whId": "Cho_T2_ㅎ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.47619047619047616
+    },
+    {
+      "ch": "훠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 528
+    },
+    {
+      "ch": "훼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1022
+    },
+    {
+      "ch": "흐",
+      "stroke": 1,
+      "whId": "Cho_T2_ㅎ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.47619047619047616
+    },
+    {
+      "ch": "싹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 681
+    },
+    {
+      "ch": "착",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 40
+    },
+    {
+      "ch": "남",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 150
+    },
+    {
+      "ch": "탐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 76
+    },
+    {
+      "ch": "짱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 255
+    },
+    {
+      "ch": "딺",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 174
+    },
+    {
+      "ch": "댁",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 172
+    },
+    {
+      "ch": "빽",
+      "type": "EMPTY_STROKE_ANOMALY"
+    },
+    {
+      "ch": "빽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 5242
+    },
+    {
+      "ch": "빽",
+      "stroke": 4,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5714285714285714
+    },
+    {
+      "ch": "짹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2181
+    },
+    {
+      "ch": "팩",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 187
+    },
+    {
+      "ch": "땐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 28
+    },
+    {
+      "ch": "샌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 90
+    },
+    {
+      "ch": "챈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 60
+    },
+    {
+      "ch": "핸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3113
+    },
+    {
+      "ch": "램",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "쌤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 392
+    },
+    {
+      "ch": "캠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "갬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "맹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 36
+    },
+    {
+      "ch": "깽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 8
+    },
+    {
+      "ch": "밺",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 20
+    },
+    {
+      "ch": "잶",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 110
+    },
+    {
+      "ch": "팲",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3345
+    },
+    {
+      "ch": "탹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 40
+    },
+    {
+      "ch": "꺅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 92
+    },
+    {
+      "ch": "퍈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 138
+    },
+    {
+      "ch": "뺨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 186
+    },
+    {
+      "ch": "뺨",
+      "stroke": 6,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "뺨",
+      "stroke": 7,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5925925925925926
+    },
+    {
+      "ch": "쨤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 375
+    },
+    {
+      "ch": "햠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 110
+    },
+    {
+      "ch": "댬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 158
+    },
+    {
+      "ch": "땽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 174
+    },
+    {
+      "ch": "쌺",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 672
+    },
+    {
+      "ch": "캶",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 111
+    },
+    {
+      "ch": "꺎",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 58
+    },
+    {
+      "ch": "섁",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 262
+    },
+    {
+      "ch": "챽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 311
+    },
+    {
+      "ch": "걕",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 172
+    },
+    {
+      "ch": "떅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 172
+    },
+    {
+      "ch": "썐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 48
+    },
+    {
+      "ch": "럔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 30
+    },
+    {
+      "ch": "얨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "턤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "냼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "먬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 224
+    },
+    {
+      "ch": "쟹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 165
+    },
+    {
+      "ch": "퍵",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 15
+    },
+    {
+      "ch": "쨺",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2009
+    },
+    {
+      "ch": "햶",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 24
+    },
+    {
+      "ch": "뺾",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 4936
+    },
+    {
+      "ch": "적",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 37
+    },
+    {
+      "ch": "쩐",
+      "stroke": 4,
+      "whId": "Cho_T3_ㅉ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6956521739130435
+    },
+    {
+      "ch": "헌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 75
+    },
+    {
+      "ch": "뻔",
+      "stroke": 7,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.42857142857142855
+    },
+    {
+      "ch": "검",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "럼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 28
+    },
+    {
+      "ch": "섬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "컹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 36
+    },
+    {
+      "ch": "썽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 6846
+    },
+    {
+      "ch": "켁",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 172
+    },
+    {
+      "ch": "텐",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2557
+    },
+    {
+      "ch": "텐",
+      "stroke": 2,
+      "whId": "Cho_T3_ㅌ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6122448979591837
+    },
+    {
+      "ch": "넨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1578
+    },
+    {
+      "ch": "뎀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 188
+    },
+    {
+      "ch": "뻼",
+      "type": "EMPTY_STROKE_ANOMALY"
+    },
+    {
+      "ch": "젬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 203
+    },
+    {
+      "ch": "쩽",
+      "stroke": 7,
+      "whId": "Jung_T2_ㅔ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.23809523809523808
+    },
+    {
+      "ch": "겖",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 54
+    },
+    {
+      "ch": "쎎",
+      "stroke": 5,
+      "whId": "Jung_T2_ㅔ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.23809523809523808
+    },
+    {
+      "ch": "첾",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 36
+    },
+    {
+      "ch": "뗙",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 166
+    },
+    {
+      "ch": "쪅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3143
+    },
+    {
+      "ch": "련",
+      "stroke": 2,
+      "whId": "Cho_T3_ㄹ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6363636363636364
+    },
+    {
+      "ch": "쳔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "꼄",
+      "stroke": 1,
+      "whId": "Cho_T3_ㄲ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5882352941176471
+    },
+    {
+      "ch": "졍",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 16
+    },
+    {
+      "ch": "뎖",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "뼒",
+      "stroke": 4,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6190476190476191
+    },
+    {
+      "ch": "뼒",
+      "stroke": 6,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "뼒",
+      "stroke": 7,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.38095238095238093
+    },
+    {
+      "ch": "쪎",
+      "type": "EMPTY_STROKE_ANOMALY"
+    },
+    {
+      "ch": "쪎",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 6136
+    },
+    {
+      "ch": "펾",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 546
+    },
+    {
+      "ch": "녝",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 527
+    },
+    {
+      "ch": "톅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 169
+    },
+    {
+      "ch": "뼨",
+      "type": "EMPTY_STROKE_ANOMALY"
+    },
+    {
+      "ch": "쪤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 19
+    },
+    {
+      "ch": "폔",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 324
+    },
+    {
+      "ch": "쳼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 132
+    },
+    {
+      "ch": "혬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "톎",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 129
+    },
+    {
+      "ch": "꼚",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 44
+    },
+    {
+      "ch": "록",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 48
+    },
+    {
+      "ch": "쏙",
+      "stroke": 2,
+      "whId": "Cho_T2_ㅆ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "콕",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 147
+    },
+    {
+      "ch": "곡",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 343
+    },
+    {
+      "ch": "톤",
+      "stroke": 2,
+      "whId": "Cho_T2_ㅌ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5238095238095238
+    },
+    {
+      "ch": "꼰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1274
+    },
+    {
+      "ch": "봄",
+      "stroke": 3,
+      "whId": "Cho_T2_ㅂ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6190476190476191
+    },
+    {
+      "ch": "좀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 552
+    },
+    {
+      "ch": "솖",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 358
+    },
+    {
+      "ch": "촒",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 147
+    },
+    {
+      "ch": "곪",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 321
+    },
+    {
+      "ch": "똚",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 183
+    },
+    {
+      "ch": "뽝",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 39
+    },
+    {
+      "ch": "뽝",
+      "stroke": 8,
+      "whId": "Jung_T2_ㅘ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6190476190476191
+    },
+    {
+      "ch": "쫙",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 216
+    },
+    {
+      "ch": "확",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 32
+    },
+    {
+      "ch": "솬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 24
+    },
+    {
+      "ch": "촨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 58
+    },
+    {
+      "ch": "관",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 77
+    },
+    {
+      "ch": "똰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 33
+    },
+    {
+      "ch": "쐄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 216
+    },
+    {
+      "ch": "쾀",
+      "stroke": 2,
+      "whId": "Jung_T2_ㅘ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "꽘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 180
+    },
+    {
+      "ch": "뢈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 388
+    },
+    {
+      "ch": "퇑",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 242
+    },
+    {
+      "ch": "놩",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 21
+    },
+    {
+      "ch": "퇙",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 362
+    },
+    {
+      "ch": "놱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 213
+    },
+    {
+      "ch": "뫡",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "좬",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 180
+    },
+    {
+      "ch": "퐨",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 492
+    },
+    {
+      "ch": "퐨",
+      "stroke": 3,
+      "whId": "Cho_T3_ㅍ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "됀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 45
+    },
+    {
+      "ch": "봰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 180
+    },
+    {
+      "ch": "쬄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 431
+    },
+    {
+      "ch": "횀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "뙘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 45
+    },
+    {
+      "ch": "뾈",
+      "stroke": 8,
+      "whId": "Jung_T2_ㅙ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5714285714285714
+    },
+    {
+      "ch": "뾈",
+      "stroke": 10,
+      "whId": "Jung_T2_ㅙ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "쵕",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 959
+    },
+    {
+      "ch": "괭",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 175
+    },
+    {
+      "ch": "뢩",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 874
+    },
+    {
+      "ch": "쇙",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1508
+    },
+    {
+      "ch": "쾖",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 116
+    },
+    {
+      "ch": "꽮",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 432
+    },
+    {
+      "ch": "뫪",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "쐚",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 360
+    },
+    {
+      "ch": "뢱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 341
+    },
+    {
+      "ch": "꾄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 120
+    },
+    {
+      "ch": "쐰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 81
+    },
+    {
+      "ch": "툄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 592
+    },
+    {
+      "ch": "뾩",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 21
+    },
+    {
+      "ch": "죙",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 24
+    },
+    {
+      "ch": "뙮",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 204
+    },
+    {
+      "ch": "쬚",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 246
+    },
+    {
+      "ch": "푝",
+      "stroke": 3,
+      "whId": "Cho_T2_ㅍ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6190476190476191
+    },
+    {
+      "ch": "굠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3182
+    },
+    {
+      "ch": "룜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 21
+    },
+    {
+      "ch": "쑘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 102
+    },
+    {
+      "ch": "쑘",
+      "stroke": 2,
+      "whId": "Cho_T2_ㅆ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "춈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 185
+    },
+    {
+      "ch": "꾱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1634
+    },
+    {
+      "ch": "꾱",
+      "stroke": 2,
+      "whId": "Jung_T2_ㅛ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.47619047619047616
+    },
+    {
+      "ch": "쿙",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 193
+    },
+    {
+      "ch": "뵮",
+      "stroke": 3,
+      "whId": "Cho_T2_ㅂ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "툚",
+      "stroke": 2,
+      "whId": "Cho_T2_ㅌ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6222222222222222
+    },
+    {
+      "ch": "꾹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 73
+    },
+    {
+      "ch": "쿡",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 11
+    },
+    {
+      "ch": "눈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 659
+    },
+    {
+      "ch": "분",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 630
+    },
+    {
+      "ch": "준",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 965
+    },
+    {
+      "ch": "툰",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 524
+    },
+    {
+      "ch": "뿜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 10
+    },
+    {
+      "ch": "쭘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "룲",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 2
+    },
+    {
+      "ch": "쑮",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 183
+    },
+    {
+      "ch": "뚹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1315
+    },
+    {
+      "ch": "숵",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1315
+    },
+    {
+      "ch": "춱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 898
+    },
+    {
+      "ch": "훡",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 406
+    },
+    {
+      "ch": "뤈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 622
+    },
+    {
+      "ch": "뤈",
+      "stroke": 2,
+      "whId": "Cho_T3_ㄹ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "쒄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1604
+    },
+    {
+      "ch": "퀀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1268
+    },
+    {
+      "ch": "권",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 748
+    },
+    {
+      "ch": "뭠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1327
+    },
+    {
+      "ch": "웜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1327
+    },
+    {
+      "ch": "퉘",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 940
+    },
+    {
+      "ch": "꿤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1737
+    },
+    {
+      "ch": "붱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 724
+    },
+    {
+      "ch": "줭",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1469
+    },
+    {
+      "ch": "풩",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1469
+    },
+    {
+      "ch": "눵",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1796
+    },
+    {
+      "ch": "뿲",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1303
+    },
+    {
+      "ch": "쭮",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1315
+    },
+    {
+      "ch": "훪",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 368
+    },
+    {
+      "ch": "둶",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1315
+    },
+    {
+      "ch": "붹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 490
+    },
+    {
+      "ch": "줵",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1391
+    },
+    {
+      "ch": "풱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 5238
+    },
+    {
+      "ch": "눽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1168
+    },
+    {
+      "ch": "쀈",
+      "type": "EMPTY_STROKE_ANOMALY"
+    },
+    {
+      "ch": "쀈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 14969
+    },
+    {
+      "ch": "쀈",
+      "stroke": 12,
+      "whId": "Jung_T2_ㅞ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.19047619047619047
+    },
+    {
+      "ch": "쮄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 711
+    },
+    {
+      "ch": "휀",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 411
+    },
+    {
+      "ch": "뒌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 408
+    },
+    {
+      "ch": "쉠",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1484
+    },
+    {
+      "ch": "췜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 873
+    },
+    {
+      "ch": "궴",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1159
+    },
+    {
+      "ch": "뛤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1484
+    },
+    {
+      "ch": "쒱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 453
+    },
+    {
+      "ch": "퀭",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1208
+    },
+    {
+      "ch": "뀅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1164
+    },
+    {
+      "ch": "뤵",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 428
+    },
+    {
+      "ch": "웲",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 490
+    },
+    {
+      "ch": "퉮",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 149
+    },
+    {
+      "ch": "뉆",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1058
+    },
+    {
+      "ch": "뭶",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 325
+    },
+    {
+      "ch": "쒹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "뀍",
+      "stroke": 0,
+      "whId": "Cho_T3_ㄲ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6363636363636364
+    },
+    {
+      "ch": "뀍",
+      "stroke": 3,
+      "whId": "Jung_T2_ㅟ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5714285714285714
+    },
+    {
+      "ch": "튄",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 139
+    },
+    {
+      "ch": "퓜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 9
+    },
+    {
+      "ch": "쮱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 248
+    },
+    {
+      "ch": "휭",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 89
+    },
+    {
+      "ch": "뜅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3462
+    },
+    {
+      "ch": "쀵",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 168
+    },
+    {
+      "ch": "쮹",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "쀽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 32
+    },
+    {
+      "ch": "츈",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 345
+    },
+    {
+      "ch": "균",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 931
+    },
+    {
+      "ch": "륜",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 345
+    },
+    {
+      "ch": "슌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 584
+    },
+    {
+      "ch": "뀸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 40
+    },
+    {
+      "ch": "튱",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 166
+    },
+    {
+      "ch": "늉",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 75
+    },
+    {
+      "ch": "븅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 93
+    },
+    {
+      "ch": "융",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 330
+    },
+    {
+      "ch": "쁆",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 32
+    },
+    {
+      "ch": "쥶",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 141
+    },
+    {
+      "ch": "씍",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3288
+    },
+    {
+      "ch": "킌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 45
+    },
+    {
+      "ch": "늼",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 21
+    },
+    {
+      "ch": "찅",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 210
+    },
+    {
+      "ch": "띎",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 126
+    },
+    {
+      "ch": "싊",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 18
+    },
+    {
+      "ch": "딕",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 186
+    },
+    {
+      "ch": "삑",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 6294
+    },
+    {
+      "ch": "삑",
+      "stroke": 6,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.5925925925925926
+    },
+    {
+      "ch": "삑",
+      "stroke": 7,
+      "whId": "Cho_T3_ㅃ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.38095238095238093
+    },
+    {
+      "ch": "찍",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3905
+    },
+    {
+      "ch": "픽",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 166
+    },
+    {
+      "ch": "띤",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 58
+    },
+    {
+      "ch": "신",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 1136
+    },
+    {
+      "ch": "친",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 57
+    },
+    {
+      "ch": "힌",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 4196
+    },
+    {
+      "ch": "림",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 114
+    },
+    {
+      "ch": "씸",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 7568
+    },
+    {
+      "ch": "씸",
+      "stroke": 1,
+      "whId": "Cho_T3_ㅆ",
+      "type": "LOW_INK_RATIO",
+      "onInkRatio": 0.6666666666666666
+    },
+    {
+      "ch": "낑",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 155
+    },
+    {
+      "ch": "핆",
+      "type": "WALL_BLEED_ANOMALY",
+      "count": 3986
+    }
+  ]
+}

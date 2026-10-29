@@ -73,6 +73,7 @@ async function main() {
             const ctx = window.__auditCtx;
             const failures = [];
             let strokesCount = 0;
+            const vowelStats = {};
 
             for (let k = 0; k < ${count}; k++) {
                 const code = ${START_CODE + offset} + k;
@@ -91,6 +92,10 @@ async function main() {
                 Engine.strokes = flatRaw.map(rawCtrl => buildProceduralStrokePoints(rawCtrl, Engine.styleParams));
 
                 strokesCount += Engine.strokes.length;
+                const j = info.jung;
+                if (!vowelStats[j]) vowelStats[j] = { syllables: 0, strokes: 0 };
+                vowelStats[j].syllables++;
+                vowelStats[j].strokes += Engine.strokes.length;
 
                 // 1. 글자 폰트 렌더링
                 ctx.clearRect(0, 0, R, R);
@@ -157,11 +162,18 @@ async function main() {
                     }
                 });
             }
-            return { failures, strokesCount };
+            return { failures, strokesCount, vowelStats };
         })()`);
 
         allFailures.push(...batchResult.failures);
         stats.totalStrokesChecked += batchResult.strokesCount;
+        if (batchResult.vowelStats) {
+            for (const [v, st] of Object.entries(batchResult.vowelStats)) {
+                if (!stats.distributionByVowel[v]) stats.distributionByVowel[v] = { syllables: 0, strokes: 0 };
+                stats.distributionByVowel[v].syllables += st.syllables;
+                stats.distributionByVowel[v].strokes += st.strokes;
+            }
+        }
 
         const done = offset + count;
         if (done % 1500 === 0 || done === TOTAL) {
@@ -181,6 +193,8 @@ async function main() {
     console.log(`Overall Pass Rate:        ${((TOTAL - allFailures.length) / TOTAL * 100).toFixed(2)}%`);
     console.log('======================================================\n');
 
+    console.log('Distribution by vowel:');
+    console.table(stats.distributionByVowel);
     fs.writeFileSync('tools/all_11172_comprehensive_report.json', JSON.stringify({
         summary: {
             totalSyllables: TOTAL,

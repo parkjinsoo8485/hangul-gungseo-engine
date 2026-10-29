@@ -1,0 +1,9038 @@
+[
+  {
+    "ch": "갠",
+    "sIdx": 3,
+    "code": "ac20",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 7,
+    "totalPts": 17,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "곁",
+    "sIdx": 6,
+    "code": "acc1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "과",
+    "sIdx": 2,
+    "code": "acfc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T1_ㅘ"
+  },
+  {
+    "ch": "괴",
+    "sIdx": 2,
+    "code": "ad34",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T1_ㅚ"
+  },
+  {
+    "ch": "괿",
+    "sIdx": 9,
+    "code": "ad3f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "깬",
+    "sIdx": 4,
+    "code": "ae6c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "꽈",
+    "sIdx": 2,
+    "code": "af48",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾃",
+    "sIdx": 2,
+    "code": "af83",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾆",
+    "sIdx": 2,
+    "code": "af86",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾈",
+    "sIdx": 2,
+    "code": "af88",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾉",
+    "sIdx": 2,
+    "code": "af89",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾋",
+    "sIdx": 2,
+    "code": "af8b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾋",
+    "sIdx": 10,
+    "code": "af8b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "꾌",
+    "sIdx": 2,
+    "code": "af8c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾏",
+    "sIdx": 2,
+    "code": "af8f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾘",
+    "sIdx": 2,
+    "code": "af98",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾛",
+    "sIdx": 2,
+    "code": "af9b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "꾯",
+    "sIdx": 3,
+    "code": "afaf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "꾱",
+    "sIdx": 3,
+    "code": "afb1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "꿳",
+    "sIdx": 4,
+    "code": "aff3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "꿵",
+    "sIdx": 4,
+    "code": "aff5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "꿶",
+    "sIdx": 4,
+    "code": "aff6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "꿼",
+    "sIdx": 4,
+    "code": "affc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "꿿",
+    "sIdx": 4,
+    "code": "afff",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뀄",
+    "sIdx": 4,
+    "code": "b004",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뀊",
+    "sIdx": 4,
+    "code": "b00a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뀋",
+    "sIdx": 4,
+    "code": "b00b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뀍",
+    "sIdx": 1,
+    "code": "b00d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀍",
+    "sIdx": 4,
+    "code": "b00d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀎",
+    "sIdx": 1,
+    "code": "b00e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀎",
+    "sIdx": 4,
+    "code": "b00e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀑",
+    "sIdx": 1,
+    "code": "b011",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀑",
+    "sIdx": 4,
+    "code": "b011",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀒",
+    "sIdx": 1,
+    "code": "b012",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀒",
+    "sIdx": 4,
+    "code": "b012",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀓",
+    "sIdx": 1,
+    "code": "b013",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀓",
+    "sIdx": 4,
+    "code": "b013",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀔",
+    "sIdx": 1,
+    "code": "b014",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀔",
+    "sIdx": 4,
+    "code": "b014",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀕",
+    "sIdx": 1,
+    "code": "b015",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀕",
+    "sIdx": 4,
+    "code": "b015",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀖",
+    "sIdx": 1,
+    "code": "b016",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀖",
+    "sIdx": 4,
+    "code": "b016",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀗",
+    "sIdx": 1,
+    "code": "b017",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀗",
+    "sIdx": 4,
+    "code": "b017",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀙",
+    "sIdx": 1,
+    "code": "b019",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀙",
+    "sIdx": 4,
+    "code": "b019",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀚",
+    "sIdx": 1,
+    "code": "b01a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀚",
+    "sIdx": 4,
+    "code": "b01a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀛",
+    "sIdx": 1,
+    "code": "b01b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀛",
+    "sIdx": 4,
+    "code": "b01b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀜",
+    "sIdx": 1,
+    "code": "b01c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀜",
+    "sIdx": 4,
+    "code": "b01c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀝",
+    "sIdx": 1,
+    "code": "b01d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀝",
+    "sIdx": 4,
+    "code": "b01d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀞",
+    "sIdx": 1,
+    "code": "b01e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀞",
+    "sIdx": 4,
+    "code": "b01e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀟",
+    "sIdx": 1,
+    "code": "b01f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀠",
+    "sIdx": 1,
+    "code": "b020",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀠",
+    "sIdx": 4,
+    "code": "b020",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀡",
+    "sIdx": 1,
+    "code": "b021",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀢",
+    "sIdx": 1,
+    "code": "b022",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀢",
+    "sIdx": 4,
+    "code": "b022",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀣",
+    "sIdx": 1,
+    "code": "b023",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀣",
+    "sIdx": 4,
+    "code": "b023",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀤",
+    "sIdx": 1,
+    "code": "b024",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀤",
+    "sIdx": 4,
+    "code": "b024",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀥",
+    "sIdx": 1,
+    "code": "b025",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀥",
+    "sIdx": 4,
+    "code": "b025",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀦",
+    "sIdx": 1,
+    "code": "b026",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀦",
+    "sIdx": 4,
+    "code": "b026",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "뀧",
+    "sIdx": 1,
+    "code": "b027",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 33,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "뀧",
+    "sIdx": 4,
+    "code": "b027",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅟ"
+  },
+  {
+    "ch": "끠",
+    "sIdx": 2,
+    "code": "b060",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 55.54700195721825,
+    "splitX": 40,
+    "whId": "Cho_T3_ㄲ"
+  },
+  {
+    "ch": "날",
+    "sIdx": 1,
+    "code": "b0a0",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 55.78515625,
+    "splitX": 52.77777777777778,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "놜",
+    "sIdx": 2,
+    "code": "b19c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅘ"
+  },
+  {
+    "ch": "뇗",
+    "sIdx": 9,
+    "code": "b1d7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "뉄",
+    "sIdx": 7,
+    "code": "b244",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "뉄",
+    "sIdx": 9,
+    "code": "b244",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "늷",
+    "sIdx": 8,
+    "code": "b2b7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "닉",
+    "sIdx": 1,
+    "code": "b2c9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닊",
+    "sIdx": 1,
+    "code": "b2ca",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닋",
+    "sIdx": 1,
+    "code": "b2cb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닍",
+    "sIdx": 1,
+    "code": "b2cd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닎",
+    "sIdx": 1,
+    "code": "b2ce",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닏",
+    "sIdx": 1,
+    "code": "b2cf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닐",
+    "sIdx": 1,
+    "code": "b2d0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닑",
+    "sIdx": 1,
+    "code": "b2d1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닒",
+    "sIdx": 1,
+    "code": "b2d2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닓",
+    "sIdx": 1,
+    "code": "b2d3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닔",
+    "sIdx": 1,
+    "code": "b2d4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닕",
+    "sIdx": 1,
+    "code": "b2d5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닖",
+    "sIdx": 1,
+    "code": "b2d6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닗",
+    "sIdx": 1,
+    "code": "b2d7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닙",
+    "sIdx": 1,
+    "code": "b2d9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닚",
+    "sIdx": 1,
+    "code": "b2da",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닛",
+    "sIdx": 1,
+    "code": "b2db",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닜",
+    "sIdx": 1,
+    "code": "b2dc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닝",
+    "sIdx": 1,
+    "code": "b2dd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닞",
+    "sIdx": 1,
+    "code": "b2de",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닟",
+    "sIdx": 1,
+    "code": "b2df",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닠",
+    "sIdx": 1,
+    "code": "b2e0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닡",
+    "sIdx": 1,
+    "code": "b2e1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 36,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "닢",
+    "sIdx": 1,
+    "code": "b2e2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 43,
+    "whId": "Cho_T3_ㄴ"
+  },
+  {
+    "ch": "대",
+    "sIdx": 2,
+    "code": "b300",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 40,
+    "whId": "Cho_T1_ㄷ"
+  },
+  {
+    "ch": "댄",
+    "sIdx": 4,
+    "code": "b304",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "데",
+    "sIdx": 2,
+    "code": "b370",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T1_ㄷ"
+  },
+  {
+    "ch": "뎨",
+    "sIdx": 2,
+    "code": "b3a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T1_ㄷ"
+  },
+  {
+    "ch": "됣",
+    "sIdx": 10,
+    "code": "b423",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "둿",
+    "sIdx": 2,
+    "code": "b47f",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 60.42170542635659,
+    "splitX": 55.55555555555556,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒁",
+    "sIdx": 2,
+    "code": "b481",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 60.42170542635659,
+    "splitX": 55.55555555555556,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒉",
+    "sIdx": 2,
+    "code": "b489",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒊",
+    "sIdx": 2,
+    "code": "b48a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒋",
+    "sIdx": 2,
+    "code": "b48b",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒍",
+    "sIdx": 2,
+    "code": "b48d",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒎",
+    "sIdx": 2,
+    "code": "b48e",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒐",
+    "sIdx": 2,
+    "code": "b490",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒐",
+    "sIdx": 8,
+    "code": "b490",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "뒑",
+    "sIdx": 2,
+    "code": "b491",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒒",
+    "sIdx": 2,
+    "code": "b492",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒓",
+    "sIdx": 2,
+    "code": "b493",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒔",
+    "sIdx": 2,
+    "code": "b494",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒕",
+    "sIdx": 2,
+    "code": "b495",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒖",
+    "sIdx": 2,
+    "code": "b496",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒗",
+    "sIdx": 2,
+    "code": "b497",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒘",
+    "sIdx": 2,
+    "code": "b498",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒘",
+    "sIdx": 9,
+    "code": "b498",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "뒙",
+    "sIdx": 2,
+    "code": "b499",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒚",
+    "sIdx": 2,
+    "code": "b49a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒜",
+    "sIdx": 2,
+    "code": "b49c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒞",
+    "sIdx": 2,
+    "code": "b49e",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒟",
+    "sIdx": 2,
+    "code": "b49f",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒠",
+    "sIdx": 2,
+    "code": "b4a0",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒡",
+    "sIdx": 2,
+    "code": "b4a1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒢",
+    "sIdx": 2,
+    "code": "b4a2",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "뒣",
+    "sIdx": 2,
+    "code": "b4a3",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.729069767441864,
+    "splitX": 46.388888888888886,
+    "whId": "Cho_T3_ㄷ"
+  },
+  {
+    "ch": "듆",
+    "sIdx": 5,
+    "code": "b4c6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "딃",
+    "sIdx": 9,
+    "code": "b503",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "땐",
+    "sIdx": 6,
+    "code": "b550",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 23,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "떤",
+    "sIdx": 4,
+    "code": "b5a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "뗴",
+    "sIdx": 4,
+    "code": "b5f4",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 46.96460389254386,
+    "splitX": 43.888888888888886,
+    "whId": "Cho_T1_ㄸ"
+  },
+  {
+    "ch": "뙯",
+    "sIdx": 12,
+    "code": "b66f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "뛜",
+    "sIdx": 10,
+    "code": "b6dc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "뛤",
+    "sIdx": 11,
+    "code": "b6e4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "뛧",
+    "sIdx": 6,
+    "code": "b6e7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뛧",
+    "sIdx": 7,
+    "code": "b6e7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뛩",
+    "sIdx": 6,
+    "code": "b6e9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뜒",
+    "sIdx": 7,
+    "code": "b712",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "띏",
+    "sIdx": 11,
+    "code": "b74f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "띠",
+    "sIdx": 4,
+    "code": "b760",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T1_ㄸ"
+  },
+  {
+    "ch": "띡",
+    "sIdx": 4,
+    "code": "b761",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띢",
+    "sIdx": 4,
+    "code": "b762",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띣",
+    "sIdx": 3,
+    "code": "b763",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띣",
+    "sIdx": 4,
+    "code": "b763",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띥",
+    "sIdx": 3,
+    "code": "b765",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띥",
+    "sIdx": 4,
+    "code": "b765",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띦",
+    "sIdx": 4,
+    "code": "b766",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띧",
+    "sIdx": 4,
+    "code": "b767",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띨",
+    "sIdx": 4,
+    "code": "b768",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띩",
+    "sIdx": 4,
+    "code": "b769",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띪",
+    "sIdx": 4,
+    "code": "b76a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띫",
+    "sIdx": 3,
+    "code": "b76b",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띫",
+    "sIdx": 4,
+    "code": "b76b",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띬",
+    "sIdx": 3,
+    "code": "b76c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띬",
+    "sIdx": 4,
+    "code": "b76c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띭",
+    "sIdx": 3,
+    "code": "b76d",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.10301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띮",
+    "sIdx": 3,
+    "code": "b76e",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띮",
+    "sIdx": 4,
+    "code": "b76e",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띯",
+    "sIdx": 3,
+    "code": "b76f",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.10301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띰",
+    "sIdx": 4,
+    "code": "b770",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띱",
+    "sIdx": 4,
+    "code": "b771",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띲",
+    "sIdx": 3,
+    "code": "b772",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 53.58984375,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띲",
+    "sIdx": 4,
+    "code": "b772",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 55.06640625,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띳",
+    "sIdx": 3,
+    "code": "b773",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띳",
+    "sIdx": 4,
+    "code": "b773",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띴",
+    "sIdx": 3,
+    "code": "b774",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띴",
+    "sIdx": 4,
+    "code": "b774",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띵",
+    "sIdx": 4,
+    "code": "b775",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띶",
+    "sIdx": 3,
+    "code": "b776",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띶",
+    "sIdx": 4,
+    "code": "b776",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띸",
+    "sIdx": 4,
+    "code": "b778",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띹",
+    "sIdx": 4,
+    "code": "b779",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띺",
+    "sIdx": 3,
+    "code": "b77a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.35301598837209,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "띺",
+    "sIdx": 4,
+    "code": "b77a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 52.07358284883721,
+    "splitX": 47.77777777777778,
+    "whId": "Cho_T3_ㄸ"
+  },
+  {
+    "ch": "랜",
+    "sIdx": 5,
+    "code": "b79c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "럽",
+    "sIdx": 3,
+    "code": "b7fd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "렇",
+    "sIdx": 3,
+    "code": "b807",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 44,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "렋",
+    "sIdx": 1,
+    "code": "b80b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 39,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "렔",
+    "sIdx": 1,
+    "code": "b814",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 39,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "롄",
+    "sIdx": 8,
+    "code": "b844",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Jong_T1_ㄴ"
+  },
+  {
+    "ch": "뢕",
+    "sIdx": 7,
+    "code": "b895",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢖",
+    "sIdx": 7,
+    "code": "b896",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢗",
+    "sIdx": 7,
+    "code": "b897",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢙",
+    "sIdx": 7,
+    "code": "b899",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢛",
+    "sIdx": 7,
+    "code": "b89b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢝",
+    "sIdx": 7,
+    "code": "b89d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢞",
+    "sIdx": 7,
+    "code": "b89e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢢",
+    "sIdx": 7,
+    "code": "b8a2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢤",
+    "sIdx": 7,
+    "code": "b8a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢫",
+    "sIdx": 7,
+    "code": "b8ab",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢯",
+    "sIdx": 7,
+    "code": "b8af",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "뢱",
+    "sIdx": 3,
+    "code": "b8b1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢲",
+    "sIdx": 3,
+    "code": "b8b2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢵",
+    "sIdx": 3,
+    "code": "b8b5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢶",
+    "sIdx": 3,
+    "code": "b8b6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢷",
+    "sIdx": 3,
+    "code": "b8b7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢸",
+    "sIdx": 3,
+    "code": "b8b8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢸",
+    "sIdx": 9,
+    "code": "b8b8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "뢹",
+    "sIdx": 3,
+    "code": "b8b9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢺",
+    "sIdx": 3,
+    "code": "b8ba",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢻",
+    "sIdx": 3,
+    "code": "b8bb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢽",
+    "sIdx": 3,
+    "code": "b8bd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "뢿",
+    "sIdx": 3,
+    "code": "b8bf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룀",
+    "sIdx": 3,
+    "code": "b8c0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룁",
+    "sIdx": 3,
+    "code": "b8c1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룄",
+    "sIdx": 3,
+    "code": "b8c4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룆",
+    "sIdx": 3,
+    "code": "b8c6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룇",
+    "sIdx": 3,
+    "code": "b8c7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룈",
+    "sIdx": 3,
+    "code": "b8c8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룉",
+    "sIdx": 3,
+    "code": "b8c9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룊",
+    "sIdx": 3,
+    "code": "b8ca",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룋",
+    "sIdx": 3,
+    "code": "b8cb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Cho_T3_ㄹ"
+  },
+  {
+    "ch": "룒",
+    "sIdx": 4,
+    "code": "b8d2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "룕",
+    "sIdx": 4,
+    "code": "b8d5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "룘",
+    "sIdx": 4,
+    "code": "b8d8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "룚",
+    "sIdx": 4,
+    "code": "b8da",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "룛",
+    "sIdx": 4,
+    "code": "b8db",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "룥",
+    "sIdx": 4,
+    "code": "b8e5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "룧",
+    "sIdx": 4,
+    "code": "b8e7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뤌",
+    "sIdx": 10,
+    "code": "b90c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "륄",
+    "sIdx": 9,
+    "code": "b944",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 40,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "륩",
+    "sIdx": 8,
+    "code": "b969",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Jong_T2_ㅂ"
+  },
+  {
+    "ch": "륳",
+    "sIdx": 6,
+    "code": "b973",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "릘",
+    "sIdx": 8,
+    "code": "b998",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "맨",
+    "sIdx": 5,
+    "code": "b9e8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 7,
+    "totalPts": 17,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "뫈",
+    "sIdx": 3,
+    "code": "bac8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅁ"
+  },
+  {
+    "ch": "묇",
+    "sIdx": 11,
+    "code": "bb07",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "묙",
+    "sIdx": 5,
+    "code": "bb19",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묚",
+    "sIdx": 5,
+    "code": "bb1a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묛",
+    "sIdx": 5,
+    "code": "bb1b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묟",
+    "sIdx": 5,
+    "code": "bb1f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묤",
+    "sIdx": 3,
+    "code": "bb24",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T2_ㅁ"
+  },
+  {
+    "ch": "묧",
+    "sIdx": 3,
+    "code": "bb27",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅁ"
+  },
+  {
+    "ch": "묨",
+    "sIdx": 5,
+    "code": "bb28",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묩",
+    "sIdx": 5,
+    "code": "bb29",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묬",
+    "sIdx": 5,
+    "code": "bb2c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묮",
+    "sIdx": 5,
+    "code": "bb2e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묰",
+    "sIdx": 5,
+    "code": "bb30",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묲",
+    "sIdx": 5,
+    "code": "bb32",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "묳",
+    "sIdx": 3,
+    "code": "bb33",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T2_ㅁ"
+  },
+  {
+    "ch": "뭴",
+    "sIdx": 9,
+    "code": "bb74",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "뭼",
+    "sIdx": 10,
+    "code": "bb7c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "뭾",
+    "sIdx": 6,
+    "code": "bb7e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뭿",
+    "sIdx": 5,
+    "code": "bb7f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뭿",
+    "sIdx": 6,
+    "code": "bb7f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뮁",
+    "sIdx": 5,
+    "code": "bb81",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "뮪",
+    "sIdx": 6,
+    "code": "bbaa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "믧",
+    "sIdx": 10,
+    "code": "bbe7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "변",
+    "sIdx": 1,
+    "code": "bcc0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "복",
+    "sIdx": 4,
+    "code": "bcf5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볶",
+    "sIdx": 4,
+    "code": "bcf6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볷",
+    "sIdx": 4,
+    "code": "bcf7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볹",
+    "sIdx": 4,
+    "code": "bcf9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볺",
+    "sIdx": 4,
+    "code": "bcfa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볻",
+    "sIdx": 4,
+    "code": "bcfb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볼",
+    "sIdx": 4,
+    "code": "bcfc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볽",
+    "sIdx": 4,
+    "code": "bcfd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볾",
+    "sIdx": 4,
+    "code": "bcfe",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "볿",
+    "sIdx": 4,
+    "code": "bcff",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봀",
+    "sIdx": 4,
+    "code": "bd00",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봁",
+    "sIdx": 4,
+    "code": "bd01",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봂",
+    "sIdx": 4,
+    "code": "bd02",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봃",
+    "sIdx": 4,
+    "code": "bd03",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봄",
+    "sIdx": 4,
+    "code": "bd04",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봅",
+    "sIdx": 4,
+    "code": "bd05",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봆",
+    "sIdx": 4,
+    "code": "bd06",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봇",
+    "sIdx": 4,
+    "code": "bd07",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봈",
+    "sIdx": 4,
+    "code": "bd08",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봊",
+    "sIdx": 4,
+    "code": "bd0a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봋",
+    "sIdx": 4,
+    "code": "bd0b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봌",
+    "sIdx": 4,
+    "code": "bd0c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봍",
+    "sIdx": 4,
+    "code": "bd0d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봎",
+    "sIdx": 4,
+    "code": "bd0e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봏",
+    "sIdx": 4,
+    "code": "bd0f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "봭",
+    "sIdx": 4,
+    "code": "bd2d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봮",
+    "sIdx": 4,
+    "code": "bd2e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봯",
+    "sIdx": 4,
+    "code": "bd2f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봱",
+    "sIdx": 4,
+    "code": "bd31",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봲",
+    "sIdx": 4,
+    "code": "bd32",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봳",
+    "sIdx": 4,
+    "code": "bd33",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봴",
+    "sIdx": 4,
+    "code": "bd34",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봵",
+    "sIdx": 4,
+    "code": "bd35",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봶",
+    "sIdx": 4,
+    "code": "bd36",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봷",
+    "sIdx": 4,
+    "code": "bd37",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봸",
+    "sIdx": 4,
+    "code": "bd38",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봹",
+    "sIdx": 4,
+    "code": "bd39",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봺",
+    "sIdx": 4,
+    "code": "bd3a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봻",
+    "sIdx": 4,
+    "code": "bd3b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봼",
+    "sIdx": 4,
+    "code": "bd3c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봽",
+    "sIdx": 4,
+    "code": "bd3d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "봾",
+    "sIdx": 4,
+    "code": "bd3e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵀",
+    "sIdx": 4,
+    "code": "bd40",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵂",
+    "sIdx": 4,
+    "code": "bd42",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵃",
+    "sIdx": 4,
+    "code": "bd43",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵄",
+    "sIdx": 4,
+    "code": "bd44",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵅",
+    "sIdx": 4,
+    "code": "bd45",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵆",
+    "sIdx": 4,
+    "code": "bd46",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵇",
+    "sIdx": 4,
+    "code": "bd47",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 32,
+    "whId": "Cho_T3_ㅂ"
+  },
+  {
+    "ch": "뵓",
+    "sIdx": 12,
+    "code": "bd53",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "뵥",
+    "sIdx": 4,
+    "code": "bd65",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵥",
+    "sIdx": 5,
+    "code": "bd65",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵦",
+    "sIdx": 4,
+    "code": "bd66",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵦",
+    "sIdx": 5,
+    "code": "bd66",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵧",
+    "sIdx": 4,
+    "code": "bd67",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵧",
+    "sIdx": 5,
+    "code": "bd67",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵩",
+    "sIdx": 4,
+    "code": "bd69",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵩",
+    "sIdx": 5,
+    "code": "bd69",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵪",
+    "sIdx": 4,
+    "code": "bd6a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵫",
+    "sIdx": 4,
+    "code": "bd6b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵫",
+    "sIdx": 5,
+    "code": "bd6b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵬",
+    "sIdx": 4,
+    "code": "bd6c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵭",
+    "sIdx": 4,
+    "code": "bd6d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵮",
+    "sIdx": 4,
+    "code": "bd6e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵯",
+    "sIdx": 4,
+    "code": "bd6f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵰",
+    "sIdx": 4,
+    "code": "bd70",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵱",
+    "sIdx": 4,
+    "code": "bd71",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵲",
+    "sIdx": 4,
+    "code": "bd72",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵳",
+    "sIdx": 4,
+    "code": "bd73",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵴",
+    "sIdx": 4,
+    "code": "bd74",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵴",
+    "sIdx": 5,
+    "code": "bd74",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵵",
+    "sIdx": 4,
+    "code": "bd75",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵵",
+    "sIdx": 5,
+    "code": "bd75",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵶",
+    "sIdx": 4,
+    "code": "bd76",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵸",
+    "sIdx": 4,
+    "code": "bd78",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵸",
+    "sIdx": 5,
+    "code": "bd78",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵺",
+    "sIdx": 4,
+    "code": "bd7a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵺",
+    "sIdx": 5,
+    "code": "bd7a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵻",
+    "sIdx": 4,
+    "code": "bd7b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵼",
+    "sIdx": 4,
+    "code": "bd7c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵼",
+    "sIdx": 5,
+    "code": "bd7c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵽",
+    "sIdx": 4,
+    "code": "bd7d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵾",
+    "sIdx": 4,
+    "code": "bd7e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뵾",
+    "sIdx": 5,
+    "code": "bd7e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "뵿",
+    "sIdx": 4,
+    "code": "bd7f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅂ"
+  },
+  {
+    "ch": "뷀",
+    "sIdx": 10,
+    "code": "bdc0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "뷈",
+    "sIdx": 11,
+    "code": "bdc8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "뷶",
+    "sIdx": 7,
+    "code": "bdf6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "븳",
+    "sIdx": 11,
+    "code": "be33",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "빽",
+    "sIdx": 8,
+    "code": "be7d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "빾",
+    "sIdx": 8,
+    "code": "be7e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺀",
+    "sIdx": 8,
+    "code": "be80",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺀",
+    "sIdx": 10,
+    "code": "be80",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 23,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "뺁",
+    "sIdx": 5,
+    "code": "be81",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺃",
+    "sIdx": 8,
+    "code": "be83",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺄",
+    "sIdx": 8,
+    "code": "be84",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺅",
+    "sIdx": 8,
+    "code": "be85",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺆",
+    "sIdx": 8,
+    "code": "be86",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 24,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺇",
+    "sIdx": 8,
+    "code": "be87",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 24,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺉",
+    "sIdx": 8,
+    "code": "be89",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺌",
+    "sIdx": 8,
+    "code": "be8c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺍",
+    "sIdx": 8,
+    "code": "be8d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺏",
+    "sIdx": 6,
+    "code": "be8f",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.77281976744186,
+    "splitX": 42.22222222222222,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺑",
+    "sIdx": 8,
+    "code": "be91",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺔",
+    "sIdx": 8,
+    "code": "be94",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺕",
+    "sIdx": 8,
+    "code": "be95",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺗",
+    "sIdx": 5,
+    "code": "be97",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺵",
+    "sIdx": 8,
+    "code": "beb5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺶",
+    "sIdx": 8,
+    "code": "beb6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺸",
+    "sIdx": 8,
+    "code": "beb8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺸",
+    "sIdx": 10,
+    "code": "beb8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅒ"
+  },
+  {
+    "ch": "뺸",
+    "sIdx": 11,
+    "code": "beb8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅒ"
+  },
+  {
+    "ch": "뺹",
+    "sIdx": 5,
+    "code": "beb9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺻",
+    "sIdx": 8,
+    "code": "bebb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺼",
+    "sIdx": 8,
+    "code": "bebc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺽",
+    "sIdx": 8,
+    "code": "bebd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺾",
+    "sIdx": 8,
+    "code": "bebe",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 24,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뺿",
+    "sIdx": 8,
+    "code": "bebf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 24,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻁",
+    "sIdx": 8,
+    "code": "bec1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻄",
+    "sIdx": 8,
+    "code": "bec4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻅",
+    "sIdx": 8,
+    "code": "bec5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻇",
+    "sIdx": 6,
+    "code": "bec7",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.77281976744186,
+    "splitX": 42.22222222222222,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻉",
+    "sIdx": 8,
+    "code": "bec9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻌",
+    "sIdx": 8,
+    "code": "becc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻍",
+    "sIdx": 8,
+    "code": "becd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻏",
+    "sIdx": 5,
+    "code": "becf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻐",
+    "sIdx": 8,
+    "code": "bed0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅃ"
+  },
+  {
+    "ch": "뻑",
+    "sIdx": 5,
+    "code": "bed1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻑",
+    "sIdx": 7,
+    "code": "bed1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻑",
+    "sIdx": 8,
+    "code": "bed1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻒",
+    "sIdx": 5,
+    "code": "bed2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻒",
+    "sIdx": 7,
+    "code": "bed2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻒",
+    "sIdx": 8,
+    "code": "bed2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻓",
+    "sIdx": 5,
+    "code": "bed3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻓",
+    "sIdx": 7,
+    "code": "bed3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻓",
+    "sIdx": 8,
+    "code": "bed3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻔",
+    "sIdx": 5,
+    "code": "bed4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 16,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻔",
+    "sIdx": 8,
+    "code": "bed4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻕",
+    "sIdx": 5,
+    "code": "bed5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻕",
+    "sIdx": 7,
+    "code": "bed5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻕",
+    "sIdx": 8,
+    "code": "bed5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻖",
+    "sIdx": 5,
+    "code": "bed6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻖",
+    "sIdx": 7,
+    "code": "bed6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻖",
+    "sIdx": 8,
+    "code": "bed6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻗",
+    "sIdx": 5,
+    "code": "bed7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻗",
+    "sIdx": 7,
+    "code": "bed7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻗",
+    "sIdx": 8,
+    "code": "bed7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻘",
+    "sIdx": 7,
+    "code": "bed8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻘",
+    "sIdx": 8,
+    "code": "bed8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻙",
+    "sIdx": 8,
+    "code": "bed9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻚",
+    "sIdx": 8,
+    "code": "beda",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻛",
+    "sIdx": 7,
+    "code": "bedb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻛",
+    "sIdx": 8,
+    "code": "bedb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻜",
+    "sIdx": 7,
+    "code": "bedc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻜",
+    "sIdx": 8,
+    "code": "bedc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻝",
+    "sIdx": 7,
+    "code": "bedd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻝",
+    "sIdx": 8,
+    "code": "bedd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻞",
+    "sIdx": 5,
+    "code": "bede",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻞",
+    "sIdx": 7,
+    "code": "bede",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻞",
+    "sIdx": 8,
+    "code": "bede",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻟",
+    "sIdx": 7,
+    "code": "bedf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻟",
+    "sIdx": 8,
+    "code": "bedf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻠",
+    "sIdx": 5,
+    "code": "bee0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻠",
+    "sIdx": 7,
+    "code": "bee0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻠",
+    "sIdx": 8,
+    "code": "bee0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻡",
+    "sIdx": 5,
+    "code": "bee1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻡",
+    "sIdx": 7,
+    "code": "bee1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻡",
+    "sIdx": 8,
+    "code": "bee1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻣",
+    "sIdx": 5,
+    "code": "bee3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻣",
+    "sIdx": 7,
+    "code": "bee3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻣",
+    "sIdx": 8,
+    "code": "bee3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻤",
+    "sIdx": 5,
+    "code": "bee4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻤",
+    "sIdx": 7,
+    "code": "bee4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻤",
+    "sIdx": 8,
+    "code": "bee4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻥",
+    "sIdx": 5,
+    "code": "bee5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻥",
+    "sIdx": 7,
+    "code": "bee5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻥",
+    "sIdx": 8,
+    "code": "bee5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻦",
+    "sIdx": 5,
+    "code": "bee6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻦",
+    "sIdx": 7,
+    "code": "bee6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻦",
+    "sIdx": 8,
+    "code": "bee6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻧",
+    "sIdx": 7,
+    "code": "bee7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻧",
+    "sIdx": 8,
+    "code": "bee7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻨",
+    "sIdx": 5,
+    "code": "bee8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻨",
+    "sIdx": 7,
+    "code": "bee8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻨",
+    "sIdx": 8,
+    "code": "bee8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻩",
+    "sIdx": 5,
+    "code": "bee9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻩",
+    "sIdx": 7,
+    "code": "bee9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻩",
+    "sIdx": 8,
+    "code": "bee9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻪",
+    "sIdx": 5,
+    "code": "beea",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻪",
+    "sIdx": 7,
+    "code": "beea",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻪",
+    "sIdx": 8,
+    "code": "beea",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻫",
+    "sIdx": 7,
+    "code": "beeb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뻫",
+    "sIdx": 8,
+    "code": "beeb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼈",
+    "sIdx": 8,
+    "code": "bf08",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅃ"
+  },
+  {
+    "ch": "뼉",
+    "sIdx": 5,
+    "code": "bf09",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼉",
+    "sIdx": 7,
+    "code": "bf09",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼉",
+    "sIdx": 8,
+    "code": "bf09",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼊",
+    "sIdx": 5,
+    "code": "bf0a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼊",
+    "sIdx": 7,
+    "code": "bf0a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼊",
+    "sIdx": 8,
+    "code": "bf0a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼋",
+    "sIdx": 5,
+    "code": "bf0b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼋",
+    "sIdx": 7,
+    "code": "bf0b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼋",
+    "sIdx": 8,
+    "code": "bf0b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼌",
+    "sIdx": 5,
+    "code": "bf0c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 16,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼌",
+    "sIdx": 8,
+    "code": "bf0c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼍",
+    "sIdx": 5,
+    "code": "bf0d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼍",
+    "sIdx": 7,
+    "code": "bf0d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼍",
+    "sIdx": 8,
+    "code": "bf0d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼎",
+    "sIdx": 5,
+    "code": "bf0e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼎",
+    "sIdx": 7,
+    "code": "bf0e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼎",
+    "sIdx": 8,
+    "code": "bf0e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼏",
+    "sIdx": 5,
+    "code": "bf0f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼏",
+    "sIdx": 7,
+    "code": "bf0f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼏",
+    "sIdx": 8,
+    "code": "bf0f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼐",
+    "sIdx": 7,
+    "code": "bf10",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼐",
+    "sIdx": 8,
+    "code": "bf10",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼑",
+    "sIdx": 8,
+    "code": "bf11",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼒",
+    "sIdx": 8,
+    "code": "bf12",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼓",
+    "sIdx": 7,
+    "code": "bf13",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼓",
+    "sIdx": 8,
+    "code": "bf13",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼔",
+    "sIdx": 7,
+    "code": "bf14",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼔",
+    "sIdx": 8,
+    "code": "bf14",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼕",
+    "sIdx": 7,
+    "code": "bf15",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼕",
+    "sIdx": 8,
+    "code": "bf15",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼖",
+    "sIdx": 5,
+    "code": "bf16",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼖",
+    "sIdx": 7,
+    "code": "bf16",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼖",
+    "sIdx": 8,
+    "code": "bf16",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼗",
+    "sIdx": 7,
+    "code": "bf17",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼗",
+    "sIdx": 8,
+    "code": "bf17",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼘",
+    "sIdx": 5,
+    "code": "bf18",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼘",
+    "sIdx": 7,
+    "code": "bf18",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼘",
+    "sIdx": 8,
+    "code": "bf18",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼙",
+    "sIdx": 5,
+    "code": "bf19",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼙",
+    "sIdx": 7,
+    "code": "bf19",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼙",
+    "sIdx": 8,
+    "code": "bf19",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼚",
+    "sIdx": 5,
+    "code": "bf1a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼚",
+    "sIdx": 8,
+    "code": "bf1a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼛",
+    "sIdx": 5,
+    "code": "bf1b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼛",
+    "sIdx": 7,
+    "code": "bf1b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼛",
+    "sIdx": 8,
+    "code": "bf1b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼜",
+    "sIdx": 5,
+    "code": "bf1c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼜",
+    "sIdx": 7,
+    "code": "bf1c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼜",
+    "sIdx": 8,
+    "code": "bf1c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼝",
+    "sIdx": 5,
+    "code": "bf1d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼝",
+    "sIdx": 7,
+    "code": "bf1d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼝",
+    "sIdx": 8,
+    "code": "bf1d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼞",
+    "sIdx": 5,
+    "code": "bf1e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼞",
+    "sIdx": 7,
+    "code": "bf1e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼞",
+    "sIdx": 8,
+    "code": "bf1e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼟",
+    "sIdx": 7,
+    "code": "bf1f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼟",
+    "sIdx": 8,
+    "code": "bf1f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼠",
+    "sIdx": 5,
+    "code": "bf20",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼠",
+    "sIdx": 7,
+    "code": "bf20",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼠",
+    "sIdx": 8,
+    "code": "bf20",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼡",
+    "sIdx": 5,
+    "code": "bf21",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼡",
+    "sIdx": 7,
+    "code": "bf21",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼡",
+    "sIdx": 8,
+    "code": "bf21",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼢",
+    "sIdx": 5,
+    "code": "bf22",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼢",
+    "sIdx": 7,
+    "code": "bf22",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼢",
+    "sIdx": 8,
+    "code": "bf22",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼣",
+    "sIdx": 7,
+    "code": "bf23",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼣",
+    "sIdx": 8,
+    "code": "bf23",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼮",
+    "sIdx": 5,
+    "code": "bf2e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뼯",
+    "sIdx": 5,
+    "code": "bf2f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뽇",
+    "sIdx": 8,
+    "code": "bf47",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T2_ㅃ"
+  },
+  {
+    "ch": "뽈",
+    "sIdx": 9,
+    "code": "bf48",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "뽉",
+    "sIdx": 9,
+    "code": "bf49",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "뽊",
+    "sIdx": 9,
+    "code": "bf4a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "뽌",
+    "sIdx": 9,
+    "code": "bf4c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "뽍",
+    "sIdx": 9,
+    "code": "bf4d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "뽓",
+    "sIdx": 8,
+    "code": "bf53",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T2_ㅃ"
+  },
+  {
+    "ch": "뽕",
+    "sIdx": 8,
+    "code": "bf55",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 23,
+    "whId": "Cho_T2_ㅃ"
+  },
+  {
+    "ch": "뽼",
+    "sIdx": 8,
+    "code": "bf7c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "뾟",
+    "sIdx": 16,
+    "code": "bf9f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "뿳",
+    "sIdx": 17,
+    "code": "bff3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "쀄",
+    "sIdx": 2,
+    "code": "c004",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀄",
+    "sIdx": 10,
+    "code": "c004",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T1_ㅞ"
+  },
+  {
+    "ch": "쀅",
+    "sIdx": 11,
+    "code": "c005",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀆",
+    "sIdx": 11,
+    "code": "c006",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀇",
+    "sIdx": 11,
+    "code": "c007",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀉",
+    "sIdx": 11,
+    "code": "c009",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀊",
+    "sIdx": 5,
+    "code": "c00a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 41.37131782945737,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀊",
+    "sIdx": 6,
+    "code": "c00a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.58992248062016,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀊",
+    "sIdx": 7,
+    "code": "c00a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.106133772828485,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀊",
+    "sIdx": 8,
+    "code": "c00a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.590603317908126,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀋",
+    "sIdx": 11,
+    "code": "c00b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 5,
+    "code": "c00c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 41.37131782945737,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 6,
+    "code": "c00c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.58992248062016,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 7,
+    "code": "c00c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.106133772828485,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 8,
+    "code": "c00c",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.590603317908126,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 11,
+    "code": "c00c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 14,
+    "code": "c00c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "쀌",
+    "sIdx": 16,
+    "code": "c00c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "쀍",
+    "sIdx": 11,
+    "code": "c00d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀎",
+    "sIdx": 11,
+    "code": "c00e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀏",
+    "sIdx": 11,
+    "code": "c00f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀐",
+    "sIdx": 11,
+    "code": "c010",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀑",
+    "sIdx": 5,
+    "code": "c011",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 41.37131782945737,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀑",
+    "sIdx": 6,
+    "code": "c011",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.58992248062016,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀑",
+    "sIdx": 7,
+    "code": "c011",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.106133772828485,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀑",
+    "sIdx": 8,
+    "code": "c011",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.590603317908126,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀒",
+    "sIdx": 11,
+    "code": "c012",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀔",
+    "sIdx": 11,
+    "code": "c014",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀕",
+    "sIdx": 11,
+    "code": "c015",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀕",
+    "sIdx": 15,
+    "code": "c015",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 31,
+    "whId": "Jong_T2_ㅂ"
+  },
+  {
+    "ch": "쀗",
+    "sIdx": 11,
+    "code": "c017",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀘",
+    "sIdx": 11,
+    "code": "c018",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀙",
+    "sIdx": 11,
+    "code": "c019",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀚",
+    "sIdx": 5,
+    "code": "c01a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 41.37131782945737,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀚",
+    "sIdx": 6,
+    "code": "c01a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.58992248062016,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀚",
+    "sIdx": 7,
+    "code": "c01a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.106133772828485,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀚",
+    "sIdx": 8,
+    "code": "c01a",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.590603317908126,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀛",
+    "sIdx": 11,
+    "code": "c01b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀜",
+    "sIdx": 11,
+    "code": "c01c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쀝",
+    "sIdx": 5,
+    "code": "c01d",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 41.37131782945737,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀝",
+    "sIdx": 6,
+    "code": "c01d",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.58992248062016,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀝",
+    "sIdx": 7,
+    "code": "c01d",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.106133772828485,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쀝",
+    "sIdx": 8,
+    "code": "c01d",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.590603317908126,
+    "splitX": 33.888888888888886,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "쁂",
+    "sIdx": 11,
+    "code": "c042",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "쁿",
+    "sIdx": 15,
+    "code": "c07f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "삐",
+    "sIdx": 8,
+    "code": "c090",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅃ"
+  },
+  {
+    "ch": "삑",
+    "sIdx": 5,
+    "code": "c091",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삑",
+    "sIdx": 7,
+    "code": "c091",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삑",
+    "sIdx": 8,
+    "code": "c091",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삒",
+    "sIdx": 5,
+    "code": "c092",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삒",
+    "sIdx": 7,
+    "code": "c092",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삒",
+    "sIdx": 8,
+    "code": "c092",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삓",
+    "sIdx": 5,
+    "code": "c093",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삓",
+    "sIdx": 7,
+    "code": "c093",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삓",
+    "sIdx": 8,
+    "code": "c093",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삔",
+    "sIdx": 5,
+    "code": "c094",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 16,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삔",
+    "sIdx": 8,
+    "code": "c094",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삕",
+    "sIdx": 5,
+    "code": "c095",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삕",
+    "sIdx": 7,
+    "code": "c095",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삕",
+    "sIdx": 8,
+    "code": "c095",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삖",
+    "sIdx": 5,
+    "code": "c096",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삖",
+    "sIdx": 7,
+    "code": "c096",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삖",
+    "sIdx": 8,
+    "code": "c096",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삗",
+    "sIdx": 5,
+    "code": "c097",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삗",
+    "sIdx": 7,
+    "code": "c097",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삗",
+    "sIdx": 8,
+    "code": "c097",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삘",
+    "sIdx": 7,
+    "code": "c098",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삘",
+    "sIdx": 8,
+    "code": "c098",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삙",
+    "sIdx": 8,
+    "code": "c099",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삚",
+    "sIdx": 8,
+    "code": "c09a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삛",
+    "sIdx": 7,
+    "code": "c09b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삛",
+    "sIdx": 8,
+    "code": "c09b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삜",
+    "sIdx": 7,
+    "code": "c09c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삜",
+    "sIdx": 8,
+    "code": "c09c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삝",
+    "sIdx": 7,
+    "code": "c09d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삝",
+    "sIdx": 8,
+    "code": "c09d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삞",
+    "sIdx": 5,
+    "code": "c09e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삞",
+    "sIdx": 7,
+    "code": "c09e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삞",
+    "sIdx": 8,
+    "code": "c09e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삟",
+    "sIdx": 7,
+    "code": "c09f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삟",
+    "sIdx": 8,
+    "code": "c09f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삠",
+    "sIdx": 5,
+    "code": "c0a0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삠",
+    "sIdx": 7,
+    "code": "c0a0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삠",
+    "sIdx": 8,
+    "code": "c0a0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삡",
+    "sIdx": 5,
+    "code": "c0a1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삡",
+    "sIdx": 7,
+    "code": "c0a1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삡",
+    "sIdx": 8,
+    "code": "c0a1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삣",
+    "sIdx": 5,
+    "code": "c0a3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삣",
+    "sIdx": 7,
+    "code": "c0a3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삣",
+    "sIdx": 8,
+    "code": "c0a3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삤",
+    "sIdx": 5,
+    "code": "c0a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삤",
+    "sIdx": 7,
+    "code": "c0a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삤",
+    "sIdx": 8,
+    "code": "c0a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삥",
+    "sIdx": 5,
+    "code": "c0a5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삥",
+    "sIdx": 7,
+    "code": "c0a5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삥",
+    "sIdx": 8,
+    "code": "c0a5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삦",
+    "sIdx": 5,
+    "code": "c0a6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삦",
+    "sIdx": 7,
+    "code": "c0a6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삦",
+    "sIdx": 8,
+    "code": "c0a6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삧",
+    "sIdx": 7,
+    "code": "c0a7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삧",
+    "sIdx": 8,
+    "code": "c0a7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삨",
+    "sIdx": 5,
+    "code": "c0a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삨",
+    "sIdx": 7,
+    "code": "c0a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삨",
+    "sIdx": 8,
+    "code": "c0a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삩",
+    "sIdx": 5,
+    "code": "c0a9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삩",
+    "sIdx": 7,
+    "code": "c0a9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삩",
+    "sIdx": 8,
+    "code": "c0a9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삪",
+    "sIdx": 5,
+    "code": "c0aa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삪",
+    "sIdx": 7,
+    "code": "c0aa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삪",
+    "sIdx": 8,
+    "code": "c0aa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삫",
+    "sIdx": 7,
+    "code": "c0ab",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "삫",
+    "sIdx": 8,
+    "code": "c0ab",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅃ"
+  },
+  {
+    "ch": "샌",
+    "sIdx": 4,
+    "code": "c0cc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 7,
+    "totalPts": 17,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "서",
+    "sIdx": 1,
+    "code": "c11c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅅ"
+  },
+  {
+    "ch": "섵",
+    "sIdx": 6,
+    "code": "c135",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "세",
+    "sIdx": 1,
+    "code": "c138",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅅ"
+  },
+  {
+    "ch": "셔",
+    "sIdx": 1,
+    "code": "c154",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅅ"
+  },
+  {
+    "ch": "솰",
+    "sIdx": 3,
+    "code": "c1b0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅘ"
+  },
+  {
+    "ch": "쇗",
+    "sIdx": 2,
+    "code": "c1d7",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 47.6984496124031,
+    "splitX": 39.166666666666664,
+    "whId": "Cho_T3_ㅅ"
+  },
+  {
+    "ch": "쇙",
+    "sIdx": 2,
+    "code": "c1d9",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 47.6984496124031,
+    "splitX": 39.166666666666664,
+    "whId": "Cho_T3_ㅅ"
+  },
+  {
+    "ch": "쇫",
+    "sIdx": 10,
+    "code": "c1eb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "쉘",
+    "sIdx": 8,
+    "code": "c258",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "쉠",
+    "sIdx": 9,
+    "code": "c260",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "쉣",
+    "sIdx": 4,
+    "code": "c263",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쉣",
+    "sIdx": 5,
+    "code": "c263",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쉥",
+    "sIdx": 4,
+    "code": "c265",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "슎",
+    "sIdx": 5,
+    "code": "c28e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "싋",
+    "sIdx": 9,
+    "code": "c2cb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "시",
+    "sIdx": 1,
+    "code": "c2dc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅅ"
+  },
+  {
+    "ch": "쌘",
+    "sIdx": 6,
+    "code": "c318",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "쌭",
+    "sIdx": 9,
+    "code": "c32d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "썥",
+    "sIdx": 10,
+    "code": "c365",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "써",
+    "sIdx": 1,
+    "code": "c368",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 17,
+    "whId": "Cho_T1_ㅆ"
+  },
+  {
+    "ch": "쎠",
+    "sIdx": 1,
+    "code": "c3a0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 17,
+    "whId": "Cho_T1_ㅆ"
+  },
+  {
+    "ch": "쏜",
+    "sIdx": 1,
+    "code": "c3dc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅆ"
+  },
+  {
+    "ch": "쐷",
+    "sIdx": 12,
+    "code": "c437",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "쑌",
+    "sIdx": 1,
+    "code": "c44c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅆ"
+  },
+  {
+    "ch": "쒤",
+    "sIdx": 10,
+    "code": "c4a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "쒬",
+    "sIdx": 11,
+    "code": "c4ac",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "쒯",
+    "sIdx": 6,
+    "code": "c4af",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쒯",
+    "sIdx": 7,
+    "code": "c4af",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쒱",
+    "sIdx": 6,
+    "code": "c4b1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쓚",
+    "sIdx": 7,
+    "code": "c4da",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "씒",
+    "sIdx": 3,
+    "code": "c512",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 51.75387596899224,
+    "splitX": 40.55555555555556,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씒",
+    "sIdx": 4,
+    "code": "c512",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 58.26596986175204,
+    "splitX": 40.55555555555556,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씗",
+    "sIdx": 11,
+    "code": "c517",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "씧",
+    "sIdx": 3,
+    "code": "c527",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 51.75387596899224,
+    "splitX": 40.833333333333336,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씧",
+    "sIdx": 4,
+    "code": "c527",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 58.26596986175204,
+    "splitX": 40.833333333333336,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씨",
+    "sIdx": 1,
+    "code": "c528",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 17,
+    "whId": "Cho_T1_ㅆ"
+  },
+  {
+    "ch": "씨",
+    "sIdx": 2,
+    "code": "c528",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T1_ㅆ"
+  },
+  {
+    "ch": "씭",
+    "sIdx": 3,
+    "code": "c52d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씮",
+    "sIdx": 2,
+    "code": "c52e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씮",
+    "sIdx": 3,
+    "code": "c52e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씰",
+    "sIdx": 2,
+    "code": "c530",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씳",
+    "sIdx": 3,
+    "code": "c533",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씻",
+    "sIdx": 3,
+    "code": "c53b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씾",
+    "sIdx": 3,
+    "code": "c53e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씿",
+    "sIdx": 2,
+    "code": "c53f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "씿",
+    "sIdx": 3,
+    "code": "c53f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "앁",
+    "sIdx": 2,
+    "code": "c541",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "앃",
+    "sIdx": 3,
+    "code": "c543",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅆ"
+  },
+  {
+    "ch": "앤",
+    "sIdx": 3,
+    "code": "c564",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 7,
+    "totalPts": 17,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "욃",
+    "sIdx": 9,
+    "code": "c683",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "욫",
+    "sIdx": 2,
+    "code": "c6ab",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 16,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "욯",
+    "sIdx": 2,
+    "code": "c6af",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 16,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "웰",
+    "sIdx": 7,
+    "code": "c6f0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "웸",
+    "sIdx": 8,
+    "code": "c6f8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "웻",
+    "sIdx": 4,
+    "code": "c6fb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "웽",
+    "sIdx": 4,
+    "code": "c6fd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "읣",
+    "sIdx": 8,
+    "code": "c763",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "잰",
+    "sIdx": 5,
+    "code": "c7b0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 7,
+    "totalPts": 17,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "쟁",
+    "sIdx": 5,
+    "code": "c7c1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 24,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "적",
+    "sIdx": 3,
+    "code": "c801",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅈ"
+  },
+  {
+    "ch": "졑",
+    "sIdx": 8,
+    "code": "c851",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "졦",
+    "sIdx": 3,
+    "code": "c866",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅈ"
+  },
+  {
+    "ch": "존",
+    "sIdx": 3,
+    "code": "c874",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 22,
+    "whId": "Cho_T2_ㅈ"
+  },
+  {
+    "ch": "죏",
+    "sIdx": 11,
+    "code": "c8cf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "줼",
+    "sIdx": 9,
+    "code": "c93c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "쥄",
+    "sIdx": 10,
+    "code": "c944",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "쥇",
+    "sIdx": 5,
+    "code": "c947",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쥇",
+    "sIdx": 6,
+    "code": "c947",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쥉",
+    "sIdx": 5,
+    "code": "c949",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쥲",
+    "sIdx": 6,
+    "code": "c972",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "즯",
+    "sIdx": 10,
+    "code": "c9af",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "째",
+    "sIdx": 2,
+    "code": "c9f8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅉ"
+  },
+  {
+    "ch": "짼",
+    "sIdx": 8,
+    "code": "c9fc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 22,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "쩐",
+    "sIdx": 2,
+    "code": "ca50",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "쩐",
+    "sIdx": 3,
+    "code": "ca50",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 19,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "쩔",
+    "sIdx": 2,
+    "code": "ca54",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "쪈",
+    "sIdx": 2,
+    "code": "ca88",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "쪈",
+    "sIdx": 3,
+    "code": "ca88",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 19,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "쬛",
+    "sIdx": 14,
+    "code": "cb1b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "쮈",
+    "sIdx": 12,
+    "code": "cb88",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "쮐",
+    "sIdx": 13,
+    "code": "cb90",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "쮓",
+    "sIdx": 8,
+    "code": "cb93",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쮓",
+    "sIdx": 9,
+    "code": "cb93",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쮕",
+    "sIdx": 8,
+    "code": "cb95",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쮕",
+    "sIdx": 9,
+    "code": "cb95",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "쮾",
+    "sIdx": 9,
+    "code": "cbbe",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "쯻",
+    "sIdx": 13,
+    "code": "cbfb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "찌",
+    "sIdx": 3,
+    "code": "cc0c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T1_ㅉ"
+  },
+  {
+    "ch": "찍",
+    "sIdx": 2,
+    "code": "cc0d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찍",
+    "sIdx": 3,
+    "code": "cc0d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찎",
+    "sIdx": 3,
+    "code": "cc0e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찓",
+    "sIdx": 3,
+    "code": "cc13",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찔",
+    "sIdx": 2,
+    "code": "cc14",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찔",
+    "sIdx": 3,
+    "code": "cc14",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찕",
+    "sIdx": 2,
+    "code": "cc15",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찕",
+    "sIdx": 3,
+    "code": "cc15",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찖",
+    "sIdx": 2,
+    "code": "cc16",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찖",
+    "sIdx": 3,
+    "code": "cc16",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찜",
+    "sIdx": 3,
+    "code": "cc1c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찝",
+    "sIdx": 3,
+    "code": "cc1d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찡",
+    "sIdx": 3,
+    "code": "cc21",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찤",
+    "sIdx": 3,
+    "code": "cc24",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찥",
+    "sIdx": 3,
+    "code": "cc25",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찧",
+    "sIdx": 4,
+    "code": "cc27",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.18865067829457,
+    "splitX": 41.666666666666664,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찧",
+    "sIdx": 5,
+    "code": "cc27",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.49085513565892,
+    "splitX": 41.666666666666664,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "찧",
+    "sIdx": 6,
+    "code": "cc27",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 50.30664874031007,
+    "splitX": 41.666666666666664,
+    "whId": "Cho_T3_ㅉ"
+  },
+  {
+    "ch": "체",
+    "sIdx": 4,
+    "code": "ccb4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅊ"
+  },
+  {
+    "ch": "쳐",
+    "sIdx": 3,
+    "code": "ccd0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅊ"
+  },
+  {
+    "ch": "쳐",
+    "sIdx": 4,
+    "code": "ccd0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T1_ㅊ"
+  },
+  {
+    "ch": "쵁",
+    "sIdx": 8,
+    "code": "cd41",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵂",
+    "sIdx": 8,
+    "code": "cd42",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵃",
+    "sIdx": 8,
+    "code": "cd43",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵉",
+    "sIdx": 8,
+    "code": "cd49",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵊",
+    "sIdx": 8,
+    "code": "cd4a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵎",
+    "sIdx": 8,
+    "code": "cd4e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵐",
+    "sIdx": 8,
+    "code": "cd50",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵗",
+    "sIdx": 8,
+    "code": "cd57",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵛",
+    "sIdx": 8,
+    "code": "cd5b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "쵠",
+    "sIdx": 2,
+    "code": "cd60",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅊ"
+  },
+  {
+    "ch": "쵤",
+    "sIdx": 10,
+    "code": "cd64",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "춸",
+    "sIdx": 11,
+    "code": "cdb8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "췰",
+    "sIdx": 10,
+    "code": "cdf0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 40,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "츕",
+    "sIdx": 9,
+    "code": "ce15",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Jong_T2_ㅂ"
+  },
+  {
+    "ch": "칄",
+    "sIdx": 9,
+    "code": "ce44",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "캔",
+    "sIdx": 4,
+    "code": "ce94",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 7,
+    "totalPts": 17,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "컽",
+    "sIdx": 6,
+    "code": "cefd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "켵",
+    "sIdx": 7,
+    "code": "cf35",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "콰",
+    "sIdx": 3,
+    "code": "cf70",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jung_T1_ㅘ"
+  },
+  {
+    "ch": "쾳",
+    "sIdx": 10,
+    "code": "cfb3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "쾿",
+    "sIdx": 3,
+    "code": "cfbf",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅚ"
+  },
+  {
+    "ch": "쿙",
+    "sIdx": 3,
+    "code": "cfd9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 14,
+    "whId": "Jung_T2_ㅛ"
+  },
+  {
+    "ch": "퀠",
+    "sIdx": 8,
+    "code": "d020",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 40,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "퀠",
+    "sIdx": 10,
+    "code": "d020",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "킓",
+    "sIdx": 9,
+    "code": "d093",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "킽",
+    "sIdx": 5,
+    "code": "d0bd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "탠",
+    "sIdx": 5,
+    "code": "d0e0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 6,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "텔",
+    "sIdx": 3,
+    "code": "d154",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Cho_T3_ㅌ"
+  },
+  {
+    "ch": "톇",
+    "sIdx": 3,
+    "code": "d187",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Cho_T3_ㅌ"
+  },
+  {
+    "ch": "톈",
+    "sIdx": 3,
+    "code": "d188",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 46,
+    "whId": "Cho_T3_ㅌ"
+  },
+  {
+    "ch": "톐",
+    "sIdx": 3,
+    "code": "d190",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 45,
+    "whId": "Cho_T3_ㅌ"
+  },
+  {
+    "ch": "톡",
+    "sIdx": 3,
+    "code": "d1a1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톢",
+    "sIdx": 3,
+    "code": "d1a2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톣",
+    "sIdx": 3,
+    "code": "d1a3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톤",
+    "sIdx": 3,
+    "code": "d1a4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 42,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톦",
+    "sIdx": 3,
+    "code": "d1a6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톨",
+    "sIdx": 3,
+    "code": "d1a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톩",
+    "sIdx": 3,
+    "code": "d1a9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톪",
+    "sIdx": 3,
+    "code": "d1aa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톬",
+    "sIdx": 3,
+    "code": "d1ac",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톭",
+    "sIdx": 3,
+    "code": "d1ad",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톮",
+    "sIdx": 3,
+    "code": "d1ae",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톯",
+    "sIdx": 3,
+    "code": "d1af",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톰",
+    "sIdx": 3,
+    "code": "d1b0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톱",
+    "sIdx": 3,
+    "code": "d1b1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톶",
+    "sIdx": 3,
+    "code": "d1b6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톷",
+    "sIdx": 3,
+    "code": "d1b7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톸",
+    "sIdx": 3,
+    "code": "d1b8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톹",
+    "sIdx": 3,
+    "code": "d1b9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톺",
+    "sIdx": 3,
+    "code": "d1ba",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "톻",
+    "sIdx": 3,
+    "code": "d1bb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "퇙",
+    "sIdx": 7,
+    "code": "d1d9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇛",
+    "sIdx": 7,
+    "code": "d1db",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇡",
+    "sIdx": 7,
+    "code": "d1e1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇢",
+    "sIdx": 7,
+    "code": "d1e2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇦",
+    "sIdx": 7,
+    "code": "d1e6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇨",
+    "sIdx": 7,
+    "code": "d1e8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇯",
+    "sIdx": 7,
+    "code": "d1ef",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇳",
+    "sIdx": 7,
+    "code": "d1f3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "퇼",
+    "sIdx": 9,
+    "code": "d1fc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "툔",
+    "sIdx": 3,
+    "code": "d214",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 46,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툖",
+    "sIdx": 3,
+    "code": "d216",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툘",
+    "sIdx": 3,
+    "code": "d218",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툙",
+    "sIdx": 3,
+    "code": "d219",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툚",
+    "sIdx": 3,
+    "code": "d21a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툛",
+    "sIdx": 3,
+    "code": "d21b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툜",
+    "sIdx": 3,
+    "code": "d21c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툝",
+    "sIdx": 3,
+    "code": "d21d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툞",
+    "sIdx": 3,
+    "code": "d21e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툟",
+    "sIdx": 3,
+    "code": "d21f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툢",
+    "sIdx": 3,
+    "code": "d222",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툧",
+    "sIdx": 3,
+    "code": "d227",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툩",
+    "sIdx": 3,
+    "code": "d229",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "툫",
+    "sIdx": 3,
+    "code": "d22b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 45,
+    "whId": "Cho_T2_ㅌ"
+  },
+  {
+    "ch": "퉐",
+    "sIdx": 10,
+    "code": "d250",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "튈",
+    "sIdx": 9,
+    "code": "d288",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 40,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "튭",
+    "sIdx": 8,
+    "code": "d2ad",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 27,
+    "whId": "Jong_T2_ㅂ"
+  },
+  {
+    "ch": "튷",
+    "sIdx": 6,
+    "code": "d2b7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "틜",
+    "sIdx": 8,
+    "code": "d2dc",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "패",
+    "sIdx": 2,
+    "code": "d328",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 22,
+    "whId": "Cho_T1_ㅍ"
+  },
+  {
+    "ch": "펕",
+    "sIdx": 8,
+    "code": "d395",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "펱",
+    "sIdx": 9,
+    "code": "d3b1",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "폍",
+    "sIdx": 9,
+    "code": "d3cd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "폩",
+    "sIdx": 10,
+    "code": "d3e9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "폲",
+    "sIdx": 4,
+    "code": "d3f2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폴",
+    "sIdx": 4,
+    "code": "d3f4",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폵",
+    "sIdx": 4,
+    "code": "d3f5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폶",
+    "sIdx": 4,
+    "code": "d3f6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폷",
+    "sIdx": 4,
+    "code": "d3f7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폸",
+    "sIdx": 4,
+    "code": "d3f8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폹",
+    "sIdx": 4,
+    "code": "d3f9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폺",
+    "sIdx": 4,
+    "code": "d3fa",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폻",
+    "sIdx": 4,
+    "code": "d3fb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "폾",
+    "sIdx": 4,
+    "code": "d3fe",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "퐃",
+    "sIdx": 4,
+    "code": "d403",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "퐅",
+    "sIdx": 4,
+    "code": "d405",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "퐇",
+    "sIdx": 4,
+    "code": "d407",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푃",
+    "sIdx": 4,
+    "code": "d443",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푆",
+    "sIdx": 4,
+    "code": "d446",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푈",
+    "sIdx": 4,
+    "code": "d448",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푉",
+    "sIdx": 4,
+    "code": "d449",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푋",
+    "sIdx": 4,
+    "code": "d44b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푋",
+    "sIdx": 12,
+    "code": "d44b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "푌",
+    "sIdx": 4,
+    "code": "d44c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푏",
+    "sIdx": 4,
+    "code": "d44f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푖",
+    "sIdx": 4,
+    "code": "d456",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 17,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푘",
+    "sIdx": 4,
+    "code": "d458",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푛",
+    "sIdx": 4,
+    "code": "d45b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "푝",
+    "sIdx": 4,
+    "code": "d45d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푞",
+    "sIdx": 4,
+    "code": "d45e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푟",
+    "sIdx": 4,
+    "code": "d45f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푡",
+    "sIdx": 4,
+    "code": "d461",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푢",
+    "sIdx": 4,
+    "code": "d462",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푣",
+    "sIdx": 4,
+    "code": "d463",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푤",
+    "sIdx": 4,
+    "code": "d464",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푥",
+    "sIdx": 4,
+    "code": "d465",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푦",
+    "sIdx": 4,
+    "code": "d466",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푧",
+    "sIdx": 4,
+    "code": "d467",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푨",
+    "sIdx": 4,
+    "code": "d468",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푩",
+    "sIdx": 4,
+    "code": "d469",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푪",
+    "sIdx": 4,
+    "code": "d46a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푫",
+    "sIdx": 4,
+    "code": "d46b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푬",
+    "sIdx": 4,
+    "code": "d46c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푭",
+    "sIdx": 4,
+    "code": "d46d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푮",
+    "sIdx": 4,
+    "code": "d46e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푰",
+    "sIdx": 4,
+    "code": "d470",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푲",
+    "sIdx": 4,
+    "code": "d472",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푳",
+    "sIdx": 4,
+    "code": "d473",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푴",
+    "sIdx": 4,
+    "code": "d474",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푵",
+    "sIdx": 4,
+    "code": "d475",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푶",
+    "sIdx": 4,
+    "code": "d476",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "푷",
+    "sIdx": 4,
+    "code": "d477",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 17,
+    "whId": "Cho_T2_ㅍ"
+  },
+  {
+    "ch": "풱",
+    "sIdx": 1,
+    "code": "d4b1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풱",
+    "sIdx": 3,
+    "code": "d4b1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풱",
+    "sIdx": 4,
+    "code": "d4b1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풲",
+    "sIdx": 2,
+    "code": "d4b2",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풵",
+    "sIdx": 1,
+    "code": "d4b5",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풵",
+    "sIdx": 3,
+    "code": "d4b5",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풵",
+    "sIdx": 4,
+    "code": "d4b5",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풶",
+    "sIdx": 2,
+    "code": "d4b6",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풸",
+    "sIdx": 1,
+    "code": "d4b8",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풸",
+    "sIdx": 3,
+    "code": "d4b8",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풸",
+    "sIdx": 4,
+    "code": "d4b8",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풸",
+    "sIdx": 10,
+    "code": "d4b8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 41,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "풹",
+    "sIdx": 2,
+    "code": "d4b9",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풺",
+    "sIdx": 1,
+    "code": "d4ba",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풺",
+    "sIdx": 3,
+    "code": "d4ba",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풺",
+    "sIdx": 4,
+    "code": "d4ba",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풻",
+    "sIdx": 1,
+    "code": "d4bb",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풻",
+    "sIdx": 3,
+    "code": "d4bb",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풻",
+    "sIdx": 4,
+    "code": "d4bb",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풽",
+    "sIdx": 1,
+    "code": "d4bd",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풽",
+    "sIdx": 3,
+    "code": "d4bd",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풽",
+    "sIdx": 4,
+    "code": "d4bd",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풾",
+    "sIdx": 1,
+    "code": "d4be",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풾",
+    "sIdx": 3,
+    "code": "d4be",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풾",
+    "sIdx": 4,
+    "code": "d4be",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풿",
+    "sIdx": 1,
+    "code": "d4bf",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.032945736434115,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풿",
+    "sIdx": 3,
+    "code": "d4bf",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.23255813953489,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "풿",
+    "sIdx": 4,
+    "code": "d4bf",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.1531007751938,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓀",
+    "sIdx": 1,
+    "code": "d4c0",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓀",
+    "sIdx": 3,
+    "code": "d4c0",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓀",
+    "sIdx": 4,
+    "code": "d4c0",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓀",
+    "sIdx": 11,
+    "code": "d4c0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 48,
+    "whId": "Jong_T2_ㅁ"
+  },
+  {
+    "ch": "퓁",
+    "sIdx": 1,
+    "code": "d4c1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓁",
+    "sIdx": 3,
+    "code": "d4c1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓁",
+    "sIdx": 4,
+    "code": "d4c1",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓃",
+    "sIdx": 6,
+    "code": "d4c3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "퓃",
+    "sIdx": 7,
+    "code": "d4c3",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "퓅",
+    "sIdx": 6,
+    "code": "d4c5",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "퓆",
+    "sIdx": 1,
+    "code": "d4c6",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓆",
+    "sIdx": 3,
+    "code": "d4c6",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓆",
+    "sIdx": 4,
+    "code": "d4c6",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓇",
+    "sIdx": 1,
+    "code": "d4c7",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓇",
+    "sIdx": 3,
+    "code": "d4c7",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓇",
+    "sIdx": 4,
+    "code": "d4c7",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓈",
+    "sIdx": 2,
+    "code": "d4c8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓉",
+    "sIdx": 1,
+    "code": "d4c9",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓉",
+    "sIdx": 3,
+    "code": "d4c9",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓉",
+    "sIdx": 4,
+    "code": "d4c9",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓊",
+    "sIdx": 1,
+    "code": "d4ca",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.60271317829457,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓊",
+    "sIdx": 3,
+    "code": "d4ca",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.45542635658914,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓊",
+    "sIdx": 4,
+    "code": "d4ca",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 48.711627906976744,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓋",
+    "sIdx": 1,
+    "code": "d4cb",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 43.032945736434115,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓋",
+    "sIdx": 3,
+    "code": "d4cb",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 40.23255813953489,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓋",
+    "sIdx": 4,
+    "code": "d4cb",
+    "type": "CHO_OVERSHOOT_INTO_VOWEL",
+    "maxChoX": 45.1531007751938,
+    "splitX": 33.611111111111114,
+    "whId": "Cho_T3_ㅍ"
+  },
+  {
+    "ch": "퓮",
+    "sIdx": 7,
+    "code": "d4ee",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "픫",
+    "sIdx": 11,
+    "code": "d52b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 20,
+    "whId": "Jong_T2_ㄼ"
+  },
+  {
+    "ch": "피",
+    "sIdx": 2,
+    "code": "d53c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Cho_T1_ㅍ"
+  },
+  {
+    "ch": "핕",
+    "sIdx": 7,
+    "code": "d555",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 22,
+    "whId": "Jong_T1_ㅌ"
+  },
+  {
+    "ch": "해",
+    "sIdx": 2,
+    "code": "d574",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 18,
+    "whId": "Cho_T1_ㅎ"
+  },
+  {
+    "ch": "해",
+    "sIdx": 3,
+    "code": "d574",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 197,
+    "whId": "Cho_T1_ㅎ"
+  },
+  {
+    "ch": "핵",
+    "sIdx": 5,
+    "code": "d575",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 23,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "핸",
+    "sIdx": 2,
+    "code": "d578",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 19,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "핸",
+    "sIdx": 3,
+    "code": "d578",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "핸",
+    "sIdx": 5,
+    "code": "d578",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 23,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "했",
+    "sIdx": 5,
+    "code": "d588",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 24,
+    "whId": "Jung_T2_ㅐ"
+  },
+  {
+    "ch": "헗",
+    "sIdx": 3,
+    "code": "d5d7",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혁",
+    "sIdx": 3,
+    "code": "d601",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혂",
+    "sIdx": 3,
+    "code": "d602",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혃",
+    "sIdx": 3,
+    "code": "d603",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혅",
+    "sIdx": 3,
+    "code": "d605",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혆",
+    "sIdx": 3,
+    "code": "d606",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혇",
+    "sIdx": 3,
+    "code": "d607",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혈",
+    "sIdx": 3,
+    "code": "d608",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혉",
+    "sIdx": 3,
+    "code": "d609",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혊",
+    "sIdx": 3,
+    "code": "d60a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혋",
+    "sIdx": 3,
+    "code": "d60b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혌",
+    "sIdx": 3,
+    "code": "d60c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혍",
+    "sIdx": 3,
+    "code": "d60d",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혎",
+    "sIdx": 3,
+    "code": "d60e",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혏",
+    "sIdx": 3,
+    "code": "d60f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혐",
+    "sIdx": 3,
+    "code": "d610",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "협",
+    "sIdx": 3,
+    "code": "d611",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혒",
+    "sIdx": 3,
+    "code": "d612",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혓",
+    "sIdx": 3,
+    "code": "d613",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혔",
+    "sIdx": 3,
+    "code": "d614",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혖",
+    "sIdx": 3,
+    "code": "d616",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혗",
+    "sIdx": 3,
+    "code": "d617",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혘",
+    "sIdx": 3,
+    "code": "d618",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혙",
+    "sIdx": 3,
+    "code": "d619",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혚",
+    "sIdx": 3,
+    "code": "d61a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "혛",
+    "sIdx": 3,
+    "code": "d61b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  },
+  {
+    "ch": "호",
+    "sIdx": 2,
+    "code": "d638",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "호",
+    "sIdx": 3,
+    "code": "d638",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 197,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "홇",
+    "sIdx": 4,
+    "code": "d647",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "홏",
+    "sIdx": 4,
+    "code": "d64f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅗ"
+  },
+  {
+    "ch": "홴",
+    "sIdx": 7,
+    "code": "d674",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅙ"
+  },
+  {
+    "ch": "횔",
+    "sIdx": 9,
+    "code": "d694",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "효",
+    "sIdx": 2,
+    "code": "d6a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "효",
+    "sIdx": 3,
+    "code": "d6a8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 197,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "횻",
+    "sIdx": 3,
+    "code": "d6bb",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 197,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "횽",
+    "sIdx": 3,
+    "code": "d6bd",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 197,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "훠",
+    "sIdx": 6,
+    "code": "d6e0",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T1_ㅝ"
+  },
+  {
+    "ch": "훨",
+    "sIdx": 10,
+    "code": "d6e8",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "휆",
+    "sIdx": 6,
+    "code": "d706",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "휉",
+    "sIdx": 6,
+    "code": "d709",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "휋",
+    "sIdx": 6,
+    "code": "d70b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅞ"
+  },
+  {
+    "ch": "휠",
+    "sIdx": 9,
+    "code": "d720",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "휺",
+    "sIdx": 6,
+    "code": "d73a",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "흃",
+    "sIdx": 6,
+    "code": "d743",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "흅",
+    "sIdx": 8,
+    "code": "d745",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 28,
+    "whId": "Jong_T2_ㅂ"
+  },
+  {
+    "ch": "흋",
+    "sIdx": 6,
+    "code": "d74b",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "흏",
+    "sIdx": 6,
+    "code": "d74f",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 21,
+    "whId": "Jung_T2_ㅠ"
+  },
+  {
+    "ch": "흐",
+    "sIdx": 2,
+    "code": "d750",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 5,
+    "totalPts": 21,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "흐",
+    "sIdx": 3,
+    "code": "d750",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 3,
+    "totalPts": 197,
+    "whId": "Cho_T2_ㅎ"
+  },
+  {
+    "ch": "흴",
+    "sIdx": 8,
+    "code": "d774",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 39,
+    "whId": "Jong_T2_ㄹ"
+  },
+  {
+    "ch": "힌",
+    "sIdx": 3,
+    "code": "d78c",
+    "type": "AIR_LEAK_POINTS",
+    "airPoints": 4,
+    "totalPts": 197,
+    "whId": "Cho_T3_ㅎ"
+  }
+]
