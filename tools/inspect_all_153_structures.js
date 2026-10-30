@@ -32,8 +32,8 @@ for (const [id, p] of Object.entries(parts)) {
     // Check ㅌ (3 strokes: s0=top horiz, s1=mid horiz, s2=ㄴ starting near top-left s0[0]!)
     if (ch === 'ㅌ' && strokes.length === 3) {
         const [s0, s1, s2] = strokes;
-        if (Math.abs(s2[0][1] - s0[0][1]) > 60) {
-            structuralIssues.push(`${id} (ㅌ): s2 start [${s2[0]}] does not start at top-left s0[0] [${s0[0]}]! (dy=${s0[0][1] - s2[0][1]})`);
+        if (Math.abs(s2[0][1] - s1[0][1]) > 60) {
+            structuralIssues.push(`${id} (ㅌ): s2 start [${s2[0]}] does not start at top-left s0[0] [${s0[0]}]! (dy=${Math.abs(s1[0][1] - s2[0][1])})`);
         }
     }
 

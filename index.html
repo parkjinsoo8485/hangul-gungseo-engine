@@ -1715,6 +1715,12 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
         splitX: Math.round((minX + maxX) * 0.5)
     };
 
+    if (info && info.single) {
+        b.choY1 = minY; b.choY2 = maxY;
+        b.choX1 = minX; b.choX2 = maxX;
+        return b;
+    }
+
     if (vType === 'H') {
         const isO = (info.jung === 'ㅗ' || info.jung === 'ㅛ');
         const H = maxY - minY;
@@ -1747,8 +1753,34 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
                 r2End = Math.min(maxY - 2, Math.round(yBar + H * 0.21));
             }
             let y1 = Math.round((r1Start + r1End) * 0.5), min1 = 1e9;
-            for (let y = r1Start; y <= r1End; y++) {
-                if (projY[y] < min1) { min1 = projY[y]; y1 = y; }
+            if (isO) {
+                const oScanStart = Math.round(minX + (maxX - minX) * 0.28);
+                const oScanEnd = Math.round(minX + (maxX - minX) * 0.72);
+                const yOTop = Math.max(minY + 20, Math.round(yBar - H * 0.12));
+                const yOBot = Math.max(yOTop + 2, Math.round(yBar - H * 0.03));
+                let bestOX = Math.round((minX + maxX) * 0.5), maxOSum = 0;
+                for (let x = oScanStart; x <= oScanEnd; x++) {
+                    let sum = 0;
+                    for (let y = yOTop; y <= yOBot; y++) {
+                        if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+                    }
+                    if (sum > maxOSum) { maxOSum = sum; bestOX = x; }
+                }
+                b.stemX_O = bestOX;
+                const stemBand = Math.max(5, Math.round(R * 0.065));
+                const r1ScanEnd = Math.max(r1End, Math.round(yBar - H * 0.08));
+                for (let y = r1Start; y <= r1ScanEnd; y++) {
+                    let rowNonStem = 0;
+                    for (let x = minX; x <= maxX; x++) {
+                        if (Math.abs(x - bestOX) <= stemBand) continue;
+                        if (img[(y * W + ci * R + x) * 4 + 3] > 50) rowNonStem++;
+                    }
+                    if (rowNonStem <= min1) { min1 = rowNonStem; y1 = y; }
+                }
+            } else {
+                for (let y = r1Start; y <= r1End; y++) {
+                    if (projY[y] <= min1) { min1 = projY[y]; y1 = y; }
+                }
             }
             let y2 = Math.round((r2Start + r2End) * 0.5), min2 = 1e9;
             for (let y = r2Start; y <= r2End; y++) {
@@ -1809,6 +1841,19 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
             b.choY1 = minY; b.choY2 = y1;
             b.jungY1 = y1; b.jungY2 = maxY;
         }
+        {
+            const yChoBot = Math.max(b.choY1 + 4, b.choY2 - 2);
+            let cLeft = R, cRight = 0;
+            for (let y = b.choY1; y <= yChoBot; y++) {
+                for (let x = minX; x <= maxX; x++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
+                        if (x < cLeft) cLeft = x;
+                        if (x > cRight) cRight = x;
+                    }
+                }
+            }
+            if (cLeft < cRight) { b.choX1 = cLeft; b.choX2 = cRight; }
+        }
         if (info.jung === 'ㅗ') {
             const oScanStart = Math.round(minX + (maxX - minX) * 0.28);
             const oScanEnd = Math.round(minX + (maxX - minX) * 0.72);
@@ -1860,7 +1905,7 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
             const yStart = Math.round(minY + (maxY - minY) * 0.48);
             const yEnd = Math.round(minY + (maxY - minY) * 0.66);
             const leftSearchX = Math.round(minX + (maxX - minX) * 0.48);
-            const lowThresh = Math.max(2, Math.round(R * 0.014));
+            const lowThresh = Math.max(1, Math.round(R * 0.006));
             const spikeThresh = Math.max(6, Math.round(R * 0.065));
             for (let y = yStart; y <= yEnd; y++) {
                 let rowSum = 0;
@@ -2111,19 +2156,29 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
         }
 
         let choYTop = R, choYBot = 0, choXLeft = R, choXRight = 0;
-        const choRightV = Math.min(xSplit - 2, Math.round(minX + (maxX - minX) * 0.46));
+        const choRightV = (isWideCho || isDoubleCho) ? (xSplit - 2) : Math.min(xSplit - 2, Math.round(minX + (maxX - minX) * 0.48));
+        const choCoreRight = Math.round(minX + (xSplit - minX) * 0.75);
         for (let y = minY; y <= ySplit; y++) {
+            let rowCore = 0, rowAll = 0, rLeft = R, rRight = 0;
             for (let x = minX; x <= choRightV; x++) {
                 if (img[(y * W + ci * R + x) * 4 + 3] > 50) {
-                    if (y < choYTop) choYTop = y;
-                    if (y > choYBot) choYBot = y;
-                    if (x < choXLeft) choXLeft = x;
-                    if (x > choXRight) choXRight = x;
+                    rowAll++;
+                    if (x <= choCoreRight) rowCore++;
+                    if (x < rLeft) rLeft = x;
+                    if (x > rRight) rRight = x;
                 }
+            }
+            if (rowAll > 0) {
+                if ((rowCore === 0 || rLeft > minX + (xSplit - minX) * 0.45) && choYTop === R && y < minY + Math.round(R * 0.22)) continue;
+                if (y < choYTop) choYTop = y;
+                if (y > choYBot) choYBot = y;
+                if (rLeft < choXLeft) choXLeft = rLeft;
+                if (rRight > choXRight) choXRight = rRight;
             }
         }
         b.choY1 = choYTop < R ? choYTop : minY;
-        if (!hasJong) b.choY2 = choYBot > b.choY1 ? choYBot : maxY;
+        b.choInkY2 = choYBot > b.choY1 ? choYBot : (hasJong ? ySplit : maxY);
+        if (!hasJong) b.choY2 = b.choInkY2;
         if (choXLeft < choXRight) { b.choX1 = choXLeft; b.choX2 = choXRight; }
     } else if (vType === 'C') {
         // C형 복합모음(ㅘ, ㅙ, ㅚ, ㅝ, ㅞ, ㅟ, ㅢ): 초성(좌상단) + 가로모음(중좌단) + 세로모음(우측전체) + 받침(하단)
@@ -2706,10 +2761,15 @@ const Engine = {
         validChars.forEach((info, charIdx) => {
             if (info.single) {
                 jamoSummaries.push(`[${info.char}: ${info.single}]`);
-                this.jamoEntries.push({
-                    ci: charIdx, norm: getJamoStrokes(info.single), box: [15, 15, 70, 70], pScale: 1.1,
-                    part: 'single', subPart: 'single', vType: 'V', hasJong: false, jongChar: ''
-                });
+                const whSingle = (window.WH && WH.ready()) ? WH.buildSingleEntry(info, charIdx) : null;
+                if (whSingle) {
+                    this.jamoEntries.push(whSingle);
+                } else {
+                    this.jamoEntries.push({
+                        ci: charIdx, norm: getJamoStrokes(info.single), box: [15, 15, 70, 70], pScale: 1.1,
+                        part: 'single', subPart: 'single', vType: 'V', hasJong: false, jongChar: ''
+                    });
+                }
             } else {
                 const jamoLabel = info.jong ? `${info.cho}+${info.jung}+${info.jong}` : `${info.cho}+${info.jung}`;
                 jamoSummaries.push(`[${info.char}: ${jamoLabel}]`);
@@ -2862,32 +2922,58 @@ const Engine = {
 
             // ★ 자소 박스를 실제 글리프의 동적 분할벽(Partition Walls)에 맞게 초기 적응
             if (jb) {
-                if (jb.vType === 'V') {
+                if (e.part === 'single') {
+                    const actLeft = jb.minX / s;
+                    const actRight = jb.maxX / s;
+                    const actTop = jb.minY / s;
+                    const actBot = jb.maxY / s;
+                    const allPts = e.norm.flat();
+                    if (allPts.length) {
+                        const uXs = allPts.map(p => p[0]);
+                        const uYs = allPts.map(p => p[1]);
+                        const uMinX = Math.min(...uXs), uMaxX = Math.max(...uXs);
+                        const uMinY = Math.min(...uYs), uMaxY = Math.max(...uYs);
+                        const uSpanX = Math.max(0.18, uMaxX - uMinX);
+                        const uSpanY = Math.max(0.18, uMaxY - uMinY);
+                        const padX = Math.min(2.2, (actRight - actLeft) * 0.08);
+                        const padY = Math.min(2.2, (actBot - actTop) * 0.08);
+                        const targetW = Math.max(12, Math.min(76, (actRight - actLeft - padX * 2) / uSpanX));
+                        const targetH = Math.max(12, Math.min(76, (actBot - actTop - padY * 2) / uSpanY));
+                        const uMidX = (uMinX + uMaxX) * 0.5;
+                        const uMidY = (uMinY + uMaxY) * 0.5;
+                        e.fbox[2] = targetW;
+                        e.fbox[3] = targetH;
+                        e.fbox[0] = (actLeft + actRight) * 0.5 - uMidX * targetW;
+                        e.fbox[1] = (actTop + actBot) * 0.5 - uMidY * targetH;
+                    }
+                } else if (jb.vType === 'V') {
                     if (e.part === 'cho') {
-                        if (jb.choY1) {
-                            const actTop = jb.choY1 / s;
-                            const diff = actTop - e.fbox[1];
-                            if (jb.hasJong) {
-                                e.fbox[1] = actTop;
-                                if (diff < 0) e.fbox[3] = Math.max(14, e.fbox[3] - diff);
-                            } else if (diff < 0) {
-                                e.fbox[1] = actTop;
-                                e.fbox[3] = Math.min(40, e.fbox[3] - diff * 0.75);
-                            } else if (diff > 0) {
-                                e.fbox[1] = actTop;
-                            }
+                        const allPtsY = e.norm.flat();
+                        const uYs = allPtsY.map(p => p[1]);
+                        const uMinY = Math.min(...uYs), uMaxY = Math.max(...uYs);
+                        const uSpanY = Math.max(0.18, uMaxY - uMinY);
+                        const actTop = (jb.choY1 !== undefined ? jb.choY1 : jb.minY) / s;
+                        const actBot = (jb.hasJong ? Math.min(choY2 - 0.5, (jb.choInkY2 || jb.choY2) / s) : ((jb.choInkY2 || jb.choY2) / s));
+                        if (actBot > actTop + 6) {
+                            const padY = Math.min(1.4, (actBot - actTop) * 0.05);
+                            const maxH = jb.hasJong ? Math.max(44, (actBot - actTop) / uSpanY + 2.0) : Math.max(70, (actBot - actTop) / uSpanY + 2.0);
+                            const fitH = Math.max(14, Math.min(maxH, (actBot - actTop - padY * 2) / uSpanY));
+                            const uMidY = (uMinY + uMaxY) * 0.5;
+                            e.fbox[3] = fitH;
+                            e.fbox[1] = (actTop + actBot) * 0.5 - uMidY * fitH;
                         }
                         if (jb.choX1 !== undefined && jb.choX2 !== undefined) {
                             const actLeft = jb.choX1 / s;
                             const actRight = Math.min(splitX - 0.5, jb.choX2 / s);
                             if (actRight > actLeft + 6) {
-                                const actW = Math.max(14, actRight - actLeft);
-                                if (e.fbox[0] < actLeft - 1.5 || e.fbox[0] + e.fbox[2] > actRight + 1.5) {
-                                    const fitW = Math.max(14, Math.min(e.fbox[2], actW + 2.0));
-                                    const midX = (actLeft + actRight) * 0.5;
-                                    e.fbox[0] = Math.max(actLeft - 1.0, midX - fitW * 0.5);
-                                    e.fbox[2] = fitW;
-                                }
+                                const uXs = e.norm.flat().map(p => p[0]);
+                                const uMinX = Math.min(...uXs), uMaxX = Math.max(...uXs);
+                                const uSpanX = Math.max(0.25, uMaxX - uMinX);
+                                const padX = Math.min(1.4, (actRight - actLeft) * 0.06);
+                                const fitW = Math.max(14, Math.min(52, (actRight - actLeft - padX * 2) / uSpanX));
+                                const uMidX = (uMinX + uMaxX) * 0.5;
+                                e.fbox[2] = fitW;
+                                e.fbox[0] = (actLeft + actRight) * 0.5 - uMidX * fitW;
                             }
                         }
                         if (e.fbox[0] + e.fbox[2] > splitX - 0.5) e.fbox[2] = Math.max(14, splitX - 0.5 - e.fbox[0]);
@@ -2961,12 +3047,40 @@ const Engine = {
                     }
                 } else if (jb.vType === 'H') {
                     if (e.part === 'cho') {
-                        if (jb.choY1) {
-                            const actTop = jb.choY1 / s;
-                            if (e.fbox[1] < actTop - 0.5) {
-                                const diff = (actTop - 0.5) - e.fbox[1];
-                                e.fbox[1] = actTop - 0.5;
-                                e.fbox[3] = Math.max(12, e.fbox[3] - diff);
+                        const allPtsY = e.norm.flat();
+                        const uYs = allPtsY.map(p => p[1]);
+                        const uMinY = Math.min(...uYs), uMaxY = Math.max(...uYs);
+                        const uSpanY = Math.max(0.18, uMaxY - uMinY);
+                        const actTop = (jb.choY1 !== undefined ? jb.choY1 : jb.minY) / s;
+                        const actBot = Math.min(choY2 - 0.5, (jb.choInkY2 || jb.choY2) / s);
+                        if (actBot > actTop + 6) {
+                            const curMinY = e.fbox[1] + uMinY * e.fbox[3];
+                            const curMaxY = e.fbox[1] + uMaxY * e.fbox[3];
+                            if (curMinY < actTop - 1.2 || curMaxY > actBot + 1.2 || (actBot - actTop) > (curMaxY - curMinY) + 3.0) {
+                                const padY = Math.min(1.4, (actBot - actTop) * 0.05);
+                                const maxH = jb.hasJong ? Math.max(42, (actBot - actTop) / uSpanY + 2.0) : Math.max(68, (actBot - actTop) / uSpanY + 2.0);
+                                const fitH = Math.max(12, Math.min(maxH, (actBot - actTop - padY * 2) / uSpanY));
+                                const uMidY = (uMinY + uMaxY) * 0.5;
+                                e.fbox[3] = fitH;
+                                e.fbox[1] = (actTop + actBot) * 0.5 - uMidY * fitH;
+                            }
+                        }
+                        if (jb.choX1 !== undefined && jb.choX2 !== undefined) {
+                            const actLeft = jb.choX1 / s;
+                            const actRight = jb.choX2 / s;
+                            if (actRight > actLeft + 6) {
+                                const uXs = e.norm.flat().map(p => p[0]);
+                                const uMinX = Math.min(...uXs), uMaxX = Math.max(...uXs);
+                                const uSpanX = Math.max(0.25, uMaxX - uMinX);
+                                const curMinX = e.fbox[0] + uMinX * e.fbox[2];
+                                const curMaxX = e.fbox[0] + uMaxX * e.fbox[2];
+                                if (curMinX < actLeft - 1.2 || curMaxX > actRight + 1.2 || (actRight - actLeft) > (curMaxX - curMinX) + 3.5) {
+                                    const padX = Math.min(1.6, (actRight - actLeft) * 0.06);
+                                    const fitW = Math.max(16, Math.min(68, (actRight - actLeft - padX * 2) / uSpanX));
+                                    const uMidX = (uMinX + uMaxX) * 0.5;
+                                    e.fbox[2] = fitW;
+                                    e.fbox[0] = (actLeft + actRight) * 0.5 - uMidX * fitW;
+                                }
                             }
                         }
                         if (e.fbox[1] + e.fbox[3] > choY2) e.fbox[3] = Math.max(12, choY2 - e.fbox[1]);
@@ -3157,7 +3271,7 @@ const Engine = {
                 const jungY2 = jb ? jb.jungY2 / s : ((e.jongChar === 'ㄴ') ? 69 : 60);
                 const jongY1 = jb ? jb.jongY1 / s : 54;
                 const splitX = jb ? jb.splitX / s : 55;
-                const minScale = (e.part === 'jong') ? 0.55 : 0.72;
+                const minScale = (e.part === 'single') ? 0.45 : ((e.part === 'jong') ? 0.55 : 0.72);
                 [6, 3, 1.5, 0.75].forEach(step => {
                     for (let sweep = 0; sweep < 3; sweep++) {
                         let improved = false;
@@ -3274,11 +3388,12 @@ const Engine = {
                 const tickRank = horizTickIndices.indexOf(si);
                 const stemRank = vertStemIndices.indexOf(si);
                 const isShortHorizTick = (tickRank >= 0);
-                const maxShiftX = isShortHorizTick ? 1.5 : ((isVertJungTick && jb && (jb.stemX_U !== undefined || jb.stemX_O !== undefined)) ? 1.5 : Math.min(4.5, Math.max(2.5, strokeSpan * 0.45)));
-                const isHorizBar = (e.part === 'jung' && spanY < 2.5 && spanX > 18.0);
-                const maxShiftY = isVertJungTick ? Math.min(2.0, strokeSpan * 0.3) : (isShortHorizTick ? 1.5 : (((isCLeftJung && spanX > spanY) || isHorizBar) ? 10.0 : Math.min(3.5, Math.max(2.2, strokeSpan * 0.45))));
-                let forceShiftX = null;
                 const whStr = (e.whId || e.char || '');
+                const isDoubleChoEntry = (e.part === 'cho' && ['ㄲ', 'ㄸ', 'ㅃ', 'ㅆ', 'ㅉ'].some(c => whStr.includes(c)));
+                const maxShiftX = isShortHorizTick ? 1.5 : ((isVertJungTick && jb && (jb.stemX_U !== undefined || jb.stemX_O !== undefined)) ? 1.5 : (isDoubleChoEntry ? 1.2 : (e.part === 'cho' ? 1.4 : (e.part === 'single' ? 2.2 : Math.min(4.5, Math.max(2.5, strokeSpan * 0.45))))));
+                const isHorizBar = (e.part === 'jung' && spanY < 2.5 && spanX > 18.0);
+                const maxShiftY = isVertJungTick ? Math.min(2.0, strokeSpan * 0.3) : (isShortHorizTick ? 1.5 : (((isCLeftJung && spanX > spanY) || isHorizBar) ? 10.0 : (isDoubleChoEntry ? 1.2 : (e.part === 'cho' ? 1.2 : (e.part === 'single' ? 2.2 : Math.min(3.5, Math.max(2.2, strokeSpan * 0.45)))))));
+                let forceShiftX = null;
                 if (isVertJungTick && jb) {
                     if (jb.stemX_U !== undefined && ['ㅜ', 'ㅝ', 'ㅞ', 'ㅟ'].some(v => whStr.includes(v))) {
                         forceShiftX = (jb.stemX_U / s) - (b[0] + st[0][0] * b[2]);
@@ -3421,6 +3536,26 @@ const Engine = {
                     for (let t = 0; t <= n; t++) occ.push([ax + (bx2 - ax) * t / n, ay + (by2 - ay) * t / n, nx, ny]);
                 }
             });
+            // ★ ㅂ(4획) 및 ㅃ(8획) 가로 보(Crossbar) X-오프셋을 좌우 세로기둥 평균 X-오프셋에 동기화하여 삐져나옴 원천 차단
+            const eWh = (e.whId || e.char || '');
+            if ((e.part === 'cho' || e.part === 'single' || e.part === 'jong') && (eWh.includes('ㅂ') || e.norm.length === 4) && e.so.length === 4 && !eWh.includes('ㅍ') && !eWh.includes('ㅊ')) {
+                const avgX = (e.so[0][0] + e.so[1][0]) * 0.5;
+                e.so[2][0] = avgX;
+                e.so[3][0] = avgX;
+                e.so[2][1] = Math.max(-1.5, Math.min(1.5, e.so[2][1]));
+                e.so[3][1] = Math.max(-1.5, Math.min(1.5, e.so[3][1]));
+            } else if ((e.part === 'cho' || e.part === 'single') && (eWh.includes('ㅃ') || e.norm.length === 8) && e.so.length === 8) {
+                const avgX1 = (e.so[0][0] + e.so[1][0]) * 0.5;
+                const avgX2 = (e.so[4][0] + e.so[5][0]) * 0.5;
+                e.so[2][0] = avgX1;
+                e.so[3][0] = avgX1;
+                e.so[6][0] = avgX2;
+                e.so[7][0] = avgX2;
+                e.so[2][1] = Math.max(-1.5, Math.min(1.5, e.so[2][1]));
+                e.so[3][1] = Math.max(-1.5, Math.min(1.5, e.so[3][1]));
+                e.so[6][1] = Math.max(-1.5, Math.min(1.5, e.so[6][1]));
+                e.so[7][1] = Math.max(-1.5, Math.min(1.5, e.so[7][1]));
+            }
         });
         this.fitKey = key;
     },
@@ -3883,10 +4018,10 @@ const Engine = {
                         break;
                     }
                 }
-                while (iEnd > checkStart && (meta.part === 'jung' || meta.part === 'jong') && !onInk[iEnd]) iEnd--;
+                while (iEnd > checkStart && !onInk[iEnd]) iEnd--;
 
                 const sliced = work.slice(iStart, iEnd + 1);
-                if (sliced.length >= Math.max(4, Math.floor(work.length * 0.70))) {
+                if (sliced.length >= Math.max(4, Math.floor(work.length * 0.45))) {
                     const isSingleSeg = (sliced[0][7] === sliced[sliced.length - 1][7]);
                     // (c) 기필(시작점)이 잉크 머리 끝보다 안쪽에서 시작하면 기필 역방향으로 연장
                     {
@@ -4423,7 +4558,10 @@ const Engine = {
                         const isPerp = dot < 0.82;
 
                         // (A) 세로 기둥(Vertical Trunk) 보호: 수직 주간선 몸통 픽셀은 가로 가지획(선행이든 후속이든)이 절대 침범 불가
-                        if (isVTrunk && inCorridor && isTrunkBody && isPerp) {
+                        // 단, 짧은 내부 가로획(ㅂ/ㅃ 가로 보 등, kBLen <= 35)의 중심부(0.20 <= uB <= 0.80)가 기둥 가장자리에 걸친 경우는 보호
+                        const kB5Len = starts[kB + 1] - starts[kB];
+                        const isShortInteriorCrossbar = (kB5Len <= 35 && uB >= 0.20 && uB <= 0.80 && D[p * K + kB] <= w[kB] * 0.65 && effN[kA] > 0.55);
+                        if (isVTrunk && inCorridor && isTrunkBody && isPerp && !isShortInteriorCrossbar) {
                             effN[kB] += 5.0;
                         }
                         // (B) 선행 가로 주간선(Horizontal Trunk) 보호: 후속 수직 가지획(kB > kA)의 침범 차단
@@ -4452,6 +4590,33 @@ const Engine = {
                     if (effN[k] < nmin) { nmin = effN[k]; fb = k; }
                 }
                 owners[p] = fb;
+            }
+            // ★ Zero-Pixel Rescue (밀집 자소 내부 단획 최소 픽셀 보장):
+            // ㅃ, ㅉ 등 밀집 겹자음에서 중심선이 잉크 위에 있음에도 인접 굵은 기둥에 가려 픽셀이 15개 미만 배정된 획의 중심부 픽셀을 복원
+            const kCounts = new Int32Array(K);
+            for (let p = 0; p < P; p++) kCounts[owners[p]]++;
+            for (let k = 0; k < K; k++) {
+                if (kCounts[k] >= 15) continue;
+                const cands = [];
+                for (let p = 0; p < P; p++) {
+                    const o = owners[p];
+                    if (o === k || metaK[o].part !== metaK[k].part || kCounts[o] <= 24) continue;
+                    const jK = Ix[p * K + k], uK = pu[jK];
+                    const dK = D[p * K + k];
+                    if (uK >= 0.15 && uK <= 0.85 && dK <= Math.min(5.5, w[k] * 0.80)) {
+                        cands.push({ p, dK });
+                    }
+                }
+                cands.sort((a, b) => a.dK - b.dK);
+                const need = Math.min(cands.length, 18 - kCounts[k]);
+                for (let i = 0; i < need; i++) {
+                    const p = cands[i].p;
+                    const prevO = owners[p];
+                    if (kCounts[prevO] <= 20) continue;
+                    owners[p] = k;
+                    kCounts[prevO]--;
+                    kCounts[k]++;
+                }
             }
             for (let p = 0; p < P; p++) {
                 const o = owners[p];
@@ -4511,9 +4676,9 @@ if (!this._rawSidCounts) this._rawSidCounts = {}; this._rawSidCounts[sIds[o]] = 
                         const comp = islands[islIdx];
                         // ★ 주간선 절단 보호: 컴포넌트가 자신의 획 골격(this.strokes[k]) 위에 놓여 있는 경우(교차획에 의한 절단) 동화 대상에서 제외
                         const kPts = this.strokes[k];
-                        if (kPts && kPts.length >= 4 && comp.length >= 20) {
+                        if (kPts && kPts.length >= 4 && comp.length >= 60) {
                             const ci = Math.floor(kPts[Math.floor(kPts.length / 2)][0] / 100);
-                            const maxDist = 15.0;
+                            const maxDist = Math.max(4.0, R * 0.035);
                             let onSpineCount = 0;
                             const smpStep = Math.max(1, Math.floor(comp.length / 15));
                             let smpTotal = 0;
@@ -4529,7 +4694,7 @@ if (!this._rawSidCounts) this._rawSidCounts = {}; this._rawSidCounts[sIds[o]] = 
                                 }
                                 if (minD <= maxDist) onSpineCount++;
                             }
-                            if (smpTotal > 0 && (onSpineCount / smpTotal >= 0.45 || onSpineCount >= 6)) continue;
+                            if (smpTotal > 0 && onSpineCount / smpTotal >= 0.70) continue;
                         }
                         const ownPart = partOf(k);
                         const sameVotes = new Map(), anyVotes = new Map();

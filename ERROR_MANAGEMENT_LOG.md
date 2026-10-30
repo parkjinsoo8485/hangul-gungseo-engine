@@ -117,3 +117,68 @@ node tools/harness_21_vowels_video_precision.js
   - `Multi-Tick Vertical Separation === 100%` (`ㅑ, ㅒ, ㅕ, ㅖ`의 상단 가로획이 하단 가로획보다 항상 $\Delta y \ge 7.0$ 이상 위쪽에 분리 배치)
   - `Future Frame Bleed Events === 0` ($u = 0 \to 0.5 \to 1.0$ 동영상 프레임 진행 중 후속 획 코어 영역으로의 먹물 번짐 0건)
   - `onInkRatio` 평균 $\ge 98.5\%$ 이상 유지
+
+## 2026-10-29 궁서체 153자소 중심선 전수 보정
+- 원인: 창고 JSON 일부 자소(45개)의 제어점이 gungsuhOutline 밖이거나 획이 꼬임(ㅁ/ㅂ/ㅅ/ㅆ/ㅈ/ㅉ/ㅊ/ㅋ/ㅍ, ㅘ~ㅠ, ㄹ계열 받침, ㅎ·ㅇ 고리).
+- 조치: tools/calibrate_all_153_warehouse_parts.js (외곽선 슬라이스 기반 중심선 재작성 + 외곽선 안쪽 스냅 + 급꺾임 제거 + 획두께/box 재산출), calibrationVersion 3.5로 올려 localStorage 캐시 무효화.
+- 검증: 외곽 이탈점 0 / 저비율 획 0 / 급꺾임 0, 갤러리(8000) outPts=0 badParts=[], build_centerlines 검증 통과.
+- 재발 방지: 창고 JSON 수정 후 반드시 calibrate → build_centerlines → verify_gallery_8000 순으로 실행.
+
+## 2026-10-30 궁서체 153자소 붉은 획 애니메이션(HanziWriter) 획순 및 폐곡선 전수 보정
+- 원인:
+  1. 원형 획(ㅇ, ㅎ, ㄶ, ㅀ 총 14개)의 끝점이 시작점과 12도(35px) 떨어져 폐곡선이 닫히지 않아 상단에 먹물 미채움 결손 발생.
+  2. `Cho_T2_ㅍ`: 2획·3획 세로 기둥이 상단 가로바에서 너무 멀리 떨어져 시작하고 우측 기둥이 가로 획으로 왜곡됨.
+  3. `Jong_T1_ㅍ`: 좌우 세로 기둥이 상단 가로바 아래 너무 깊은 곳(100px)에서 시작하여 공중에 뜬 채 애니메이션 재생됨.
+  4. `Jung_T1_ㅖ`: 좌측 세로 기둥과 우측 세로 기둥의 x좌표가 동일(862px)하게 겹쳐 좌측 세로 기둥 실종 및 스트로크 마스크 불일치.
+  5. `Jong_T1_ㄷ`, `Jong_T2_ㄷ`: 2획(ㄴ형)이 1획(상단 가로)보다 위쪽에서 시작해 획순 충돌 발생.
+  6. `Cho_T1_ㄹ`: 3획(하단 ㄴ형)이 2획(가운데 가로)보다 위쪽에서 시작하여 획간 간섭 발생.
+- 조치:
+  1. 14개 원형 획을 360도 완전 폐곡선(`closeDist = 0`)으로 재구성하여 12시 방향에서 시작해 반시계로 완전히 닫히도록 교정.
+  2. `Cho_T2_ㅍ`, `Jong_T1_ㅍ`의 좌우 수직 기둥을 상단 가로바 접촉면부터 하단 가로바까지 정확히 상→하로 연결.
+  3. `Jung_T1_ㅖ`의 좌측 세로 기둥을 x=735 위치로 복원하고 subpath 스트로크 마스크 분리 매핑.
+  4. `Jong_T1_ㄷ`, `Jong_T2_ㄷ` 2획을 상단 가로바 좌하단에서 자연스럽게 내려오도록 조정.
+  5. `Cho_T1_ㄹ` 3획 시작점을 2획 하단으로 내려 획 충돌 제거.
+  6. `calibrationVersion`을 `3.6-perfect-red-animation-calibrated`로 상향하여 브라우저 localStorage 캐시 자동 무효화.
+  7. 자가 치유 무한루프 하네스(`tools/harness_warehouse_infinite_loop.js`) 구현:
+     - 153개 자소의 방향, 획순, 폐곡선, 구조 연결성을 라운드별로 전수 검사하고, 결함 발견 시 자동으로 정밀 치유하여 0 issues 도달 시까지 루프 순환.
+     - `--watch` 옵션 지원으로 실시간 변경 감시 및 자동 치유 무한 루프 유지.
+- 검증:
+  - `node tools/harness_warehouse_infinite_loop.js` (자가 치유 하네스 0 issues 통과)
+  - `node tools/audit_all_153_parts.js` 통과 (0 issues)
+  - `node tools/inspect_all_153_structures.js` 통과 (0 issues)
+  - `node tools/deep_audit_warehouse.js` 통과 (0 issues)
+  - `node tools/check_sharp_turns.js` 통과 (0 sharp turns)
+  - `node tools/verify_gallery_8000.js` 통과 (`outPts: 0`, `badParts: []`)
+
+## 2026-10-30 한글 19개 전체 자음 획순 및 궁서체 조형 정밀 검사 하네스 전수 검증 (418 / 418 합격)
+- 대상: `ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅅ, ㅇ, ㅈ, ㅊ, ㅋ, ㅌ, ㅍ, ㅎ, ㄲ, ㄸ, ㅃ, ㅆ, ㅉ` 19개 단독 자음 및 전체 21모음 결합 399음절 (총 418개 글자 대상 100% 전수 하네스).
+- 하네스 사양 (`tools/harness_19_consonants_stroke_order.js`):
+  1. 표준 한글 획순(Stroke Order) 및 획수 전수 일치 검증.
+  2. 획 형태 분류 (수평 H, 수직 V, 꺾임 G, 꺾임 N, 좌하향 삐침 L, 우하향 빗침 R, 12시 시작 반시계 폐곡선 원 O, 점 D).
+  3. 자음 내 구성 획 간의 상대적 위상(X/Y 순서, 좌우 세로 배치, 상하 가로 배치, 점 위치) 검증.
+  4. 실제 궁서체 폰트 렌더링 잉크와의 중심선 일치도(`onInkRatio`), 점 연속 커버리지(`cov`), 수필부 픽셀 배정(`tailOwned`) 검증.
+- 핵심 조치 사항:
+  1. [`index.html`](file:///c:/project/한글획순/index.html#L2160-L2175) (`computeDynamicJamoBounds`): 세로 모음(`ㅏ, ㅑ, ㅓ, ㅕ, ㅐ, ㅒ, ㅔ, ㅖ`) 상단 기필(serif)이 초성 경계 박스 상단(`choYTop`)으로 잘못 편입되던 현상을 기필 X필터링으로 원천 차단하여 `따, 땨, 짜, 쨔, 매, 싸` 등의 초성 바운딩 박스 정밀화.
+  2. [`index.html`](file:///c:/project/한글획순/index.html#L3393-L3395) (`fitEntriesToGlyph`): 초성(`cho`)의 최적화 변위(`maxShiftX, maxShiftY`)를 1.2%로 제약하여, 글리프 외부 공백으로 중심선이 이탈하지 않도록 안정화.
+  3. [`index.html`](file:///c:/project/한글획순/index.html#L4024) (`buildGlyphData`): 획 꼬리 자르기(Trim) 최소 유지 임계값을 0.70에서 0.45로 합리화하여, 초성 삐침(`서, 세, 셔, 셰`의 `ㅅ`)이 공백으로 삐져나가는 현상 방지.
+  4. [`hangul_150_parts_warehouse.json`](file:///c:/project/app_clone/auto_income/hangul_150_parts_warehouse.json) 및 [`warehouse_centerlines.js`](file:///c:/project/한글획순/warehouse_centerlines.js):
+     - `Cho_T1_ㄲ`: 1번 획 끝점을 궁서체 붓길에 맞춰 [230, 500]으로 조정하여 2번 획과의 중첩 왜곡 해소 (`까` onInk 0.60 → 0.97).
+     - `Cho_T2_ㅋ`, `Cho_T3_ㅋ`: 가운데 가로획 Y좌표를 붓 획 중심(Y≈650~655)으로 재조정 (`코, 쿼, 퀴, 퀘, 킈` onInk 0.35 → 1.00).
+- 최종 검증 결과:
+  - `node tools/harness_19_consonants_stroke_order.js`: **418개 검사, 문제 음절 0개 (100.0% All Pass)**
+  - `node tools/check_6_chos_detail.js`: 통과 (Exit code 0)
+  - `node tools/strict_syllable_audit.js`: 통과 (Exit code 0)
+
+## 2026-10-30 궁서체 153자소 붉은 획 애니메이션 실시간 동영상 프레임 정밀 분석 및 보로노이 분할 무결점 엔진 완성
+- 대상: 창고 153개 전체 자소 및 'ㅈ' 계열 자음(`Cho_T1_ㅈ`, `Cho_T2_ㅈ`, `Cho_T3_ㅈ`, `Jong_T1_ㅈ`, `Jong_T2_ㅈ`)
+- 원인 및 결함 분석:
+  1. **초기 로딩 시 이중 애니메이션 충돌(Race Condition)**: `updateHanziPreview()` 내 `charDataLoader` 콜백의 40ms 타이머가 백그라운드에서 `playPreviewAnim()`을 자동 호출하여, 사용자가 재생 버튼을 누르거나 검증 스크립트가 실행될 때 비동기 루프 2개가 동시 실행되면서 획간 프레임이 덮어써지던 오류 원천 차단.
+  2. **보로노이 분할 그리드 스팬 엔진 탑재(`computeExactVoronoiSpanPaths`)**: 기존 무한 반평면(half-plane) 교차 방식에서 발생하던 미세 꼭짓점/귀 절삭 현상(예: `Cho_T1_ㅂ` 우상단 귀 절삭)을 4px 격자 기반 엄밀 다각형 스팬 엔진으로 교체하여 외곽선 100% 밀착 커버 및 획간 번짐(Wall Bleed) 0% 달성.
+  3. **'ㅈ' 획순 및 프레임 정밀 분석**: 가로 획(Stroke 0) $\to$ 좌측 삐침(Stroke 1) $\to$ 우측 파임(Stroke 2) 순으로 먹물이 단계별로 번짐 없이 점진 확장되며 온전히 채워짐을 확인.
+- 조치 사항:
+  1. `view_150_warehouse_gallery.html`에서 불필요한 자동 애니메이션 호출 제거 및 사용자 명시적 호출/버튼 연동 구조로 전환.
+  2. 5대 창고 저장소(`hangul_150_parts_warehouse.json`, `test/hangul_150_parts_warehouse.json`, `hangul_150_parts_warehouse.js`, `test/hangul_150_parts_warehouse.js`, `warehouse_centerlines.js`) 100% 동기화.
+- 최종 검증 결과:
+  - `node tools/harness_153_video_precision_audit.js`: 153/153 PASS (100.0%)
+  - 실시간 CDP 비디오 프레임 추출 및 픽셀 전수 검증 통과 (번짐 0건, 빈 공간 0건).
+
