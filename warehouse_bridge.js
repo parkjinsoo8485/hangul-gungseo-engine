@@ -270,7 +270,7 @@
     /** 자소 역할 및 모음 유형에 따른 맞춤형 최소 허용 간격 */
     function getRoleGapMin(a, b, vType) {
         if ((a === 'cho' && b === 'jung') || (a === 'jung' && b === 'cho')) {
-            return vType === 'V' ? 3.0 : 0.4; // 세로모음은 완전 분리, 가로/복합모음은 정통 궁체 접필 밀착 허용
+            return vType === 'V' ? 3.0 : 0.0; // 세로모음은 완전 분리, 가로/복합모음은 정통 궁체 접필 밀착 허용
         }
         if ((a === 'cho' && b === 'jong') || (a === 'jong' && b === 'cho')) {
             return 2.0; // 초성과 종성은 상하 분리 유지

@@ -330,8 +330,8 @@
     </div>
 </div>
 
-<script src="warehouse_centerlines.js?v=20261028_1645"></script>
-<script src="warehouse_bridge.js?v=20261028_1645"></script>
+<script src="warehouse_centerlines.js?v=20261102_0855"></script>
+<script src="warehouse_bridge.js?v=20261102_0855"></script>
 <script>
 class RenderHarness {
     constructor() {
@@ -733,9 +733,10 @@ function normalizeJamoStrokes(normStrokes, styleParams, part = 'cho', exact = fa
     if (!normStrokes || !normStrokes.length) return normStrokes;
     // 정밀 모드(창고 중심선 + 정통 궁서체): 에디터에서 미세조정한 중심선을 변형·용접 없이 그대로 사용
     if (exact) return normStrokes.map(st => st.map(pt => [pt[0], pt[1], pt[2], pt[3] || null]));
-    const upwardTilt = styleParams.upwardTilt !== undefined ? styleParams.upwardTilt : 1.0;
-    const archCurve = styleParams.archCurve !== undefined ? styleParams.archCurve : 1.0;
-    const capStyle = styleParams.capStyle || 'gungseo';
+    const sp = styleParams || {};
+    const upwardTilt = sp.upwardTilt !== undefined ? sp.upwardTilt : 1.0;
+    const archCurve = sp.archCurve !== undefined ? sp.archCurve : 1.0;
+    const capStyle = sp.capStyle || 'gungseo';
 
     // 깊은 복사 (각 점: [x, y, p, segTag])
     const strokes = normStrokes.map(st => st.map(pt => [pt[0], pt[1], pt[2], pt[3] || null]));
@@ -1928,33 +1929,64 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
     } else if (vType === 'C') {
         // C형 복합모음(ㅘ, ㅙ, ㅚ, ㅝ, ㅞ, ㅟ, ㅢ): 초성(좌상단) + 가로모음(중좌단) + 세로모음(우측전체) + 받침(하단)
         // (1) splitX: 초성·가로모음(좌측)과 세로모음(우측) 사이의 수직 분할벽
-        // (1) splitX: 초성·가로모음(좌측)과 세로모음(우측) 사이의 수직 분할벽
-        // 상단 절반(y <= 0.45*H)에서 우측 세로모음의 기둥 위치(stemX)를 먼저 찾고, 그 좌측의 최소 계곡을 splitX로 설정
         const Hc = maxY - minY;
+        const Wc = maxX - minX;
         const yTopHalf = Math.round(minY + Hc * 0.45);
-        const stemCols = [];
-        let maxStemCol = 0;
-        const stemScanStart = Math.round(minX + (maxX - minX) * 0.58);
-        const stemScanEnd = maxX;
-        for (let x = stemScanStart; x <= stemScanEnd; x++) {
-            let sum = 0;
-            for (let y = minY; y <= yTopHalf; y++) {
-                if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+        const isDoubleV = ['ㅙ', 'ㅞ', 'ㅐ', 'ㅒ', 'ㅔ', 'ㅖ'].includes(info.jung);
+
+        let stemX = Math.round(minX + Wc * 0.75);
+        if (isDoubleV) {
+            // 이중 세로기둥 모음 (ㅙ, ㅞ):
+            // 기둥 1 (stemX_C)은 50% ~ 78% 영역에서 최대 밀도 탐색
+            const s1Start = Math.round(minX + Wc * 0.50);
+            const s1End = Math.round(minX + Wc * 0.78);
+            let maxCol1 = 0, pCol1 = Math.round(minX + Wc * 0.65);
+            for (let x = s1Start; x <= s1End; x++) {
+                let sum = 0;
+                for (let y = minY; y <= yTopHalf; y++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+                }
+                if (sum > maxCol1) { maxCol1 = sum; pCol1 = x; }
             }
-            stemCols.push({ x, sum });
-            if (sum > maxStemCol) maxStemCol = sum;
-        }
-        let stemX = Math.round(minX + (maxX - minX) * 0.75);
-        if (maxStemCol >= 3) {
-            const peakCols = stemCols.filter(c => c.sum >= maxStemCol * 0.85);
-            if (peakCols.length) {
-                stemX = Math.round((peakCols[0].x + peakCols[peakCols.length - 1].x) * 0.5);
+            stemX = pCol1;
+
+            // 기둥 2 (stemX_C2)는 78% ~ maxX 영역에서 탐색
+            const s2Start = Math.round(minX + Wc * 0.78);
+            let maxCol2 = 0, pCol2 = Math.round(minX + Wc * 0.86);
+            for (let x = s2Start; x <= maxX; x++) {
+                let sum = 0;
+                for (let y = minY; y <= yTopHalf; y++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+                }
+                if (sum > maxCol2) { maxCol2 = sum; pCol2 = x; }
+            }
+            b.stemX_C2 = pCol2;
+        } else {
+            const stemCols = [];
+            let maxStemCol = 0;
+            const stemScanStart = Math.round(minX + Wc * 0.58);
+            const stemScanEnd = maxX;
+            for (let x = stemScanStart; x <= stemScanEnd; x++) {
+                let sum = 0;
+                for (let y = minY; y <= yTopHalf; y++) {
+                    if (img[(y * W + ci * R + x) * 4 + 3] > 50) sum++;
+                }
+                stemCols.push({ x, sum });
+                if (sum > maxStemCol) maxStemCol = sum;
+            }
+            if (maxStemCol >= 3) {
+                const peakCols = stemCols.filter(c => c.sum >= maxStemCol * 0.85);
+                if (peakCols.length) {
+                    stemX = Math.round((peakCols[0].x + peakCols[peakCols.length - 1].x) * 0.5);
+                }
             }
         }
         b.stemX_C = stemX;
+
+        // splitX는 기둥 1의 좌측에서 최소 계곡 탐색 (기둥 1을 침범하거나 두 기둥 사이 골짜기로 빠지지 않도록 상한 제한)
         let minXVal = 1e9, xSplit = stemX - Math.max(4, Math.round(R * 0.03));
-        const xStart = Math.round(minX + (maxX - minX) * 0.45);
-        const xEnd = stemX - Math.max(3, Math.round(R * 0.02));
+        const xStart = Math.round(minX + Wc * 0.38);
+        const xEnd = stemX - Math.max(3, Math.round(R * 0.015));
         for (let x = xEnd; x >= xStart; x--) {
             let colSum = 0;
             for (let y = minY; y <= yTopHalf; y++) {
@@ -3468,7 +3500,7 @@ const Engine = {
                             const lx100 = ex - ci * 100;
                             if (meta.part === 'cho' && (meta.vType === 'C' || meta.vType === 'V') && lx100 > splitX - 0.5) break;
                             if (meta.part === 'cho' && (meta.vType === 'C' || meta.vType === 'H') && ey > choY2 + 0.5) break;
-                            const maxJungHRight = (jb && jb.stemX_C) ? (jb.stemX_C * 100 / R + 0.5) : (splitX + 2.0);
+                            const maxJungHRight = (jb && jb.stemX_C) ? (jb.stemX_C * 100 / R - 0.2) : (splitX - 0.2);
                             if (meta.part === 'jung' && meta.subPart === 'jung_h' && lx100 > maxJungHRight) break;
                             if (meta.part === 'jung' && meta.subPart === 'jung_v') {
                                 const isDoubleV = ['ㅐ', 'ㅔ', 'ㅒ', 'ㅖ', 'ㅙ', 'ㅞ'].some(v => (meta.whId || '').includes(v));
@@ -3701,6 +3733,29 @@ const Engine = {
                 if (retractedStart[k] && retractedEnd[k]) {
                     retractedStart[k] = 0;
                     retractedEnd[k] = 0;
+                }
+            }
+
+            // (C) 초성-중성 수직 분할벽(splitX) 비침범 및 가로모음-세로기둥 관통 방지 장벽
+            const jb = dynBounds[ci];
+            if (jb && (jb.vType === 'C' || jb.vType === 'V')) {
+                const spX = jb.splitX;
+                const stX = jb.stemX_C;
+                for (let k = 0; k < K; k++) {
+                    const a0 = starts[k], a1 = starts[k + 1] - 1;
+                    if (metaK[k].part === 'cho') {
+                        // 초성 획은 splitX 우측으로 절대 침범 불가
+                        for (let j = a0; j <= a1; j++) {
+                            if (px[j] > spX - 0.5) px[j] = spX - 0.5;
+                        }
+                    } else if (metaK[k].part === 'jung' && metaK[k].subPart === 'jung_h') {
+                        // C형 가로모음은 세로기둥 1(stemX_C)을 절대 관통 불가
+                        if (stX) {
+                            for (let j = a0; j <= a1; j++) {
+                                if (px[j] > stX - 0.5) px[j] = stX - 0.5;
+                            }
+                        }
+                    }
                 }
             }
 
