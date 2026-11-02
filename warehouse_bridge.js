@@ -176,6 +176,26 @@
         };
     };
 
+    const CHO_STANDALONE = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    WH.buildSingleEntry = function (info, ci) {
+        if (!WH.ready() || !WH.enabled) return null;
+        const ch = info.single;
+        let id = null;
+        if (CHO_STANDALONE.includes(ch)) {
+            id = 'Cho_T2_' + ch;
+        } else if (info.single) {
+            id = 'Jung_T1_' + ch;
+            if (!WH.data.parts[id]) id = 'Jung_T2_' + ch;
+        }
+        if (!id || !WH.data.parts[id]) return null;
+        const pn = WH.partNorm(id);
+        if (!pn) return null;
+        return {
+            ci, norm: pn.norm, wbox: pn.wbox, box: [15, 15, 70, 70], pScale: 1.0,
+            part: 'single', subPart: 'single', vType: 'H', hasJong: false, jongChar: '', whId: id
+        };
+    };
+
     /** 한 음절 → 엔진 jamoEntries (창고에 없으면 null 반환 → 호출부가 기존 방식으로 대체) */
     WH.buildEntries = function (info, ci, vType, hasJong, opt) {
         if (!WH.ready() || !WH.enabled || info.single) return null;

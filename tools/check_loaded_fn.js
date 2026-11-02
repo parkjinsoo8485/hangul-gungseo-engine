@@ -1,0 +1,61 @@
+const { spawn } = require('child_process');
+const http = require('http');
+
+const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const PORT = 9356;
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function getJson(url) {
+  return new Promise((resolve) => {
+    http.get(url, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => resolve(JSON.parse(data)));
+    });
+  });
+}
+
+(async () => {
+  const chrome = spawn(CHROME_PATH, [
+    `--remote-debugging-port=${PORT}`,
+    '--headless=new',
+    '--disable-gpu',
+    'http://localhost:8000/view_150_warehouse_gallery.html'
+  ], { stdio: 'ignore' });
+
+  try {
+    await sleep(2000);
+    const targets = await getJson(`http://127.0.0.1:${PORT}/json`);
+    const page = targets.find(t => t.type === 'page');
+    const ws = new WebSocket(page.webSocketDebuggerUrl);
+    await new Promise(r => ws.onopen = r);
+
+    let msgId = 1;
+    function send(method, params = {}) {
+      return new Promise((resolve) => {
+        const id = msgId++;
+        const listener = (evt) => {
+          const d = JSON.parse(evt.data);
+          if (d.id === id) {
+            ws.removeEventListener('message', listener);
+            resolve(d.result);
+          }
+        };
+        ws.addEventListener('message', listener);
+        ws.send(JSON.stringify({ id, method, params }));
+      });
+    }
+
+    await send('Runtime.enable');
+
+    const fnStr = await send('Runtime.evaluate', {
+      expression: `applyHanziChainedVoronoi.toString()`,
+      returnByValue: true
+    });
+
+    console.log('applyHanziChainedVoronoi code in browser:\n', fnStr.result.value);
+
+    ws.close();
+  } finally {
+    chrome.kill();
+  }
+})();

@@ -1,0 +1,812 @@
+{
+  "summary": {
+    "sampleSize": 100,
+    "totalFrames": 8147,
+    "totalCutoffs": 0,
+    "totalBleedEvents": 0,
+    "passRate": "100.00%",
+    "elapsedSeconds": "20.5"
+  },
+  "samples": [
+    {
+      "ch": "웨",
+      "strokesCount": 6,
+      "totalFramesInspected": 54,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "에",
+      "strokesCount": 4,
+      "totalFramesInspected": 29,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "예",
+      "strokesCount": 5,
+      "totalFramesInspected": 41,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "왜",
+      "strokesCount": 6,
+      "totalFramesInspected": 50,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "애",
+      "strokesCount": 4,
+      "totalFramesInspected": 30,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "얘",
+      "strokesCount": 5,
+      "totalFramesInspected": 43,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "워",
+      "strokesCount": 5,
+      "totalFramesInspected": 43,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "외",
+      "strokesCount": 4,
+      "totalFramesInspected": 31,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "위",
+      "strokesCount": 4,
+      "totalFramesInspected": 32,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "의",
+      "strokesCount": 3,
+      "totalFramesInspected": 20,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "와",
+      "strokesCount": 5,
+      "totalFramesInspected": 42,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "값",
+      "strokesCount": 9,
+      "totalFramesInspected": 78,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "닭",
+      "strokesCount": 8,
+      "totalFramesInspected": 74,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "흙",
+      "strokesCount": 8,
+      "totalFramesInspected": 71,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "밝",
+      "strokesCount": 10,
+      "totalFramesInspected": 87,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "맑",
+      "strokesCount": 9,
+      "totalFramesInspected": 79,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "앉",
+      "strokesCount": 7,
+      "totalFramesInspected": 60,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "얹",
+      "strokesCount": 7,
+      "totalFramesInspected": 57,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "넓",
+      "strokesCount": 10,
+      "totalFramesInspected": 90,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "얇",
+      "strokesCount": 11,
+      "totalFramesInspected": 102,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "끊",
+      "strokesCount": 7,
+      "totalFramesInspected": 59,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "닳",
+      "strokesCount": 10,
+      "totalFramesInspected": 96,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "잃",
+      "strokesCount": 8,
+      "totalFramesInspected": 67,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "읊",
+      "strokesCount": 9,
+      "totalFramesInspected": 82,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "훑",
+      "strokesCount": 11,
+      "totalFramesInspected": 100,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "싫",
+      "strokesCount": 9,
+      "totalFramesInspected": 81,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "깎",
+      "strokesCount": 6,
+      "totalFramesInspected": 50,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "꺾",
+      "strokesCount": 6,
+      "totalFramesInspected": 51,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "낚",
+      "strokesCount": 5,
+      "totalFramesInspected": 41,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "섞",
+      "strokesCount": 6,
+      "totalFramesInspected": 54,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "묶",
+      "strokesCount": 7,
+      "totalFramesInspected": 64,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "볶",
+      "strokesCount": 8,
+      "totalFramesInspected": 79,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "있",
+      "strokesCount": 6,
+      "totalFramesInspected": 52,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "없",
+      "strokesCount": 9,
+      "totalFramesInspected": 82,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "었",
+      "strokesCount": 7,
+      "totalFramesInspected": 64,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "됐",
+      "strokesCount": 11,
+      "totalFramesInspected": 100,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "봤",
+      "strokesCount": 12,
+      "totalFramesInspected": 109,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "걻",
+      "strokesCount": 10,
+      "totalFramesInspected": 87,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "겳",
+      "strokesCount": 11,
+      "totalFramesInspected": 99,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "긻",
+      "strokesCount": 9,
+      "totalFramesInspected": 77,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "붸",
+      "strokesCount": 9,
+      "totalFramesInspected": 81,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "봬",
+      "strokesCount": 9,
+      "totalFramesInspected": 80,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뵘",
+      "strokesCount": 10,
+      "totalFramesInspected": 91,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "늭",
+      "strokesCount": 4,
+      "totalFramesInspected": 32,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "읙",
+      "strokesCount": 4,
+      "totalFramesInspected": 32,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "홰",
+      "strokesCount": 8,
+      "totalFramesInspected": 74,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "횃",
+      "strokesCount": 10,
+      "totalFramesInspected": 98,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "횡",
+      "strokesCount": 7,
+      "totalFramesInspected": 61,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뮨",
+      "strokesCount": 7,
+      "totalFramesInspected": 60,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "팧",
+      "strokesCount": 9,
+      "totalFramesInspected": 90,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뾂",
+      "strokesCount": 19,
+      "totalFramesInspected": 199,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "팎",
+      "strokesCount": 8,
+      "totalFramesInspected": 80,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "훚",
+      "strokesCount": 8,
+      "totalFramesInspected": 72,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "멲",
+      "strokesCount": 8,
+      "totalFramesInspected": 72,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쑲",
+      "strokesCount": 13,
+      "totalFramesInspected": 125,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "됁",
+      "strokesCount": 11,
+      "totalFramesInspected": 100,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "닁",
+      "strokesCount": 4,
+      "totalFramesInspected": 32,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "밆",
+      "strokesCount": 11,
+      "totalFramesInspected": 97,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "앀",
+      "strokesCount": 7,
+      "totalFramesInspected": 59,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뎩",
+      "strokesCount": 7,
+      "totalFramesInspected": 75,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "막",
+      "strokesCount": 6,
+      "totalFramesInspected": 56,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "홄",
+      "strokesCount": 10,
+      "totalFramesInspected": 92,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "섃",
+      "strokesCount": 9,
+      "totalFramesInspected": 81,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뫘",
+      "strokesCount": 11,
+      "totalFramesInspected": 99,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "샶",
+      "strokesCount": 11,
+      "totalFramesInspected": 104,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "밧",
+      "strokesCount": 8,
+      "totalFramesInspected": 74,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "젝",
+      "strokesCount": 7,
+      "totalFramesInspected": 64,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "랎",
+      "strokesCount": 11,
+      "totalFramesInspected": 104,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "췵",
+      "strokesCount": 13,
+      "totalFramesInspected": 124,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쨒",
+      "strokesCount": 13,
+      "totalFramesInspected": 139,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "헗",
+      "strokesCount": 11,
+      "totalFramesInspected": 99,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "퓄",
+      "strokesCount": 13,
+      "totalFramesInspected": 121,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뷨",
+      "strokesCount": 11,
+      "totalFramesInspected": 98,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "퀅",
+      "strokesCount": 10,
+      "totalFramesInspected": 90,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "젩",
+      "strokesCount": 12,
+      "totalFramesInspected": 115,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "숰",
+      "strokesCount": 6,
+      "totalFramesInspected": 54,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "웾",
+      "strokesCount": 9,
+      "totalFramesInspected": 79,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "굄",
+      "strokesCount": 7,
+      "totalFramesInspected": 62,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "딲",
+      "strokesCount": 8,
+      "totalFramesInspected": 69,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "솑",
+      "strokesCount": 8,
+      "totalFramesInspected": 77,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뚨",
+      "strokesCount": 11,
+      "totalFramesInspected": 103,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "젹",
+      "strokesCount": 7,
+      "totalFramesInspected": 63,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뜛",
+      "strokesCount": 13,
+      "totalFramesInspected": 123,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뾀",
+      "strokesCount": 16,
+      "totalFramesInspected": 170,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쫤",
+      "strokesCount": 15,
+      "totalFramesInspected": 142,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쾗",
+      "strokesCount": 14,
+      "totalFramesInspected": 129,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "꽠",
+      "strokesCount": 8,
+      "totalFramesInspected": 68,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "옅",
+      "strokesCount": 7,
+      "totalFramesInspected": 60,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "섪",
+      "strokesCount": 11,
+      "totalFramesInspected": 101,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "넥",
+      "strokesCount": 5,
+      "totalFramesInspected": 40,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "룖",
+      "strokesCount": 12,
+      "totalFramesInspected": 120,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "궍",
+      "strokesCount": 9,
+      "totalFramesInspected": 81,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "뷃",
+      "strokesCount": 16,
+      "totalFramesInspected": 147,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쁊",
+      "strokesCount": 18,
+      "totalFramesInspected": 174,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "퍽",
+      "strokesCount": 7,
+      "totalFramesInspected": 64,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "믪",
+      "strokesCount": 12,
+      "totalFramesInspected": 107,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "믳",
+      "strokesCount": 9,
+      "totalFramesInspected": 85,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쮃",
+      "strokesCount": 14,
+      "totalFramesInspected": 137,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "쌃",
+      "strokesCount": 13,
+      "totalFramesInspected": 129,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    },
+    {
+      "ch": "풀",
+      "strokesCount": 9,
+      "totalFramesInspected": 86,
+      "cutoffsCount": 0,
+      "bleedEventsCount": 0,
+      "maxBledPixelsInAnyStep": 0
+    }
+  ]
+}
