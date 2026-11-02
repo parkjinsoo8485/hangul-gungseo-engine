@@ -176,24 +176,12 @@
         };
     };
 
-    const CHO_STANDALONE = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    /**
+     * 단독 자음/모음(info.single)은 음절 조각(Cho_T1/Cho_T2/Jung_T1 등)이 아닌,
+     * index.html의 JAMO_DB에 정밀하게 중앙 정렬·비례 설계된 전용 단독 자모 골격을 사용하도록 null 반환.
+     */
     WH.buildSingleEntry = function (info, ci) {
-        if (!WH.ready() || !WH.enabled) return null;
-        const ch = info.single;
-        let id = null;
-        if (CHO_STANDALONE.includes(ch)) {
-            id = 'Cho_T2_' + ch;
-        } else if (info.single) {
-            id = 'Jung_T1_' + ch;
-            if (!WH.data.parts[id]) id = 'Jung_T2_' + ch;
-        }
-        if (!id || !WH.data.parts[id]) return null;
-        const pn = WH.partNorm(id);
-        if (!pn) return null;
-        return {
-            ci, norm: pn.norm, wbox: pn.wbox, box: [15, 15, 70, 70], pScale: 1.0,
-            part: 'single', subPart: 'single', vType: 'H', hasJong: false, jongChar: '', whId: id
-        };
+        return null;
     };
 
     /** 한 음절 → 엔진 jamoEntries (창고에 없으면 null 반환 → 호출부가 기존 방식으로 대체) */
