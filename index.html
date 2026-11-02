@@ -2188,6 +2188,7 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
         const Wc = maxX - minX;
         const yTopHalf = Math.round(minY + Hc * 0.45);
         const isDoubleV = ['ㅙ', 'ㅞ', 'ㅐ', 'ㅒ', 'ㅔ', 'ㅖ'].includes(info.jung);
+        const isDoubleStem = (info.jung === 'ㅙ' || info.jung === 'ㅞ');
 
         let stemX = Math.round(minX + Wc * 0.75);
         if (isDoubleV) {
@@ -2216,6 +2217,7 @@ function computeDynamicJamoBounds(img, ci, count, R, info, vType, hasJong) {
                 if (sum > maxCol2) { maxCol2 = sum; pCol2 = x; }
             }
             b.stemX_C2 = pCol2;
+            b.stem2X_C = pCol2;
         } else {
             const stemCols = [];
             let maxStemCol = 0;
