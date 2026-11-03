@@ -8,7 +8,7 @@ window.HANGUL_150_WAREHOUSE = {
     "totalCount": 153,
     "calibrationVersion": "4.0-perfect-12-oclock-circle",
     "lastCalibratedAt": "2026-10-30T00:25:22.335Z",
-    "lastUpdated": "2026-11-03T03:24:06.176Z"
+    "lastUpdated": "2026-11-03T03:24:30.874Z"
   },
   "parts": {
     "Cho_T1_ㄱ": {
