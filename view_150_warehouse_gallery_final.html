@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <title>궁서체 153개 자소 '중심선 수집기 & 에디터' (Gungsuh Median Studio)</title>
@@ -10,7 +11,13 @@
       font-family: 'GungsuhFont';
       src: url('assets/fonts/Gungsuh.ttf') format('truetype');
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
       background: #090d16;
@@ -20,6 +27,7 @@
       height: 100vh;
       overflow: hidden;
     }
+
     header {
       background: #0f172a;
       border-bottom: 1px solid #1e293b;
@@ -28,6 +36,7 @@
       align-items: center;
       justify-content: space-between;
     }
+
     header h1 {
       font-size: 16px;
       color: #38bdf8;
@@ -36,16 +45,19 @@
       gap: 10px;
       font-family: 'GungsuhFont', serif;
     }
+
     .header-actions {
       display: flex;
       gap: 10px;
       align-items: center;
     }
+
     .main-layout {
       display: flex;
       flex: 1;
       overflow: hidden;
     }
+
     /* 1. 좌측 153개 부품 탐색기 */
     .sidebar {
       width: 260px;
@@ -56,6 +68,7 @@
       flex-direction: column;
       overflow: hidden;
     }
+
     .filter-tabs {
       display: flex;
       background: #1e293b;
@@ -63,6 +76,7 @@
       gap: 4px;
       border-bottom: 1px solid #334155;
     }
+
     .tab-btn {
       flex: 1;
       padding: 7px 2px;
@@ -76,10 +90,12 @@
       text-align: center;
       transition: all 0.2s;
     }
+
     .tab-btn.active {
       background: #0284c7;
       color: white;
     }
+
     .parts-grid-scroll {
       flex: 1;
       overflow-y: auto;
@@ -89,6 +105,7 @@
       gap: 5px;
       align-content: start;
     }
+
     .part-item {
       background: #1e293b;
       border: 1px solid #334155;
@@ -101,16 +118,19 @@
       position: relative;
       transition: all 0.15s;
     }
+
     .part-item:hover {
       background: #2563eb;
       border-color: #38bdf8;
       transform: translateY(-2px);
     }
+
     .part-item.active {
       background: #0284c7;
       border-color: #38bdf8;
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
     }
+
     .part-item.modified::after {
       content: '';
       position: absolute;
@@ -121,17 +141,20 @@
       background: #10b981;
       border-radius: 50%;
     }
+
     .part-char {
       font-size: 20px;
       font-weight: bold;
       color: #f8fafc;
       font-family: 'GungsuhFont', "Gungsuh", "Batang", serif;
     }
+
     .part-label {
       font-size: 9px;
       color: #94a3b8;
       margin-top: 2px;
     }
+
     /* 2. 중앙 & 우측: 중심선 인터랙티브 에디터 */
     .content-area {
       flex: 1;
@@ -143,6 +166,7 @@
       align-items: flex-start;
       justify-content: flex-start;
     }
+
     .panel {
       background: #1e293b;
       border: 1px solid #334155;
@@ -151,17 +175,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
       flex-shrink: 0;
     }
+
     .editor-panel {
       width: 480px;
       flex-shrink: 0;
     }
+
     .preview-panel {
       width: 400px;
       flex-shrink: 0;
     }
+
     .panel-title {
       font-size: 14px;
       font-weight: 600;
@@ -172,6 +199,7 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .canvas-box {
       width: 440px;
       height: 440px;
@@ -180,24 +208,29 @@
       border-radius: 10px;
       position: relative;
       overflow: hidden;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
       user-select: none;
     }
+
     svg.interactive-svg {
       width: 100%;
       height: 100%;
       cursor: crosshair;
     }
+
     .point-handle {
       cursor: grab;
       transition: r 0.12s;
     }
+
     .point-handle:hover {
       r: 24;
     }
+
     .point-handle:active {
       cursor: grabbing;
     }
+
     .hanzi-box {
       width: 340px;
       height: 340px;
@@ -206,6 +239,7 @@
       box-shadow: inset 0 0 0 1px #cbd5e1;
       position: relative;
     }
+
     .btn-row {
       display: flex;
       flex-wrap: wrap;
@@ -214,6 +248,7 @@
       width: 100%;
       justify-content: center;
     }
+
     button.btn {
       padding: 7px 12px;
       font-size: 12px;
@@ -225,15 +260,43 @@
       border-radius: 6px;
       transition: all 0.2s;
     }
-    button.btn:hover { background: #1d4ed8; }
-    button.btn.green { background: #059669; }
-    button.btn.green:hover { background: #047857; }
-    button.btn.gray { background: #475569; }
-    button.btn.gray:hover { background: #334155; }
-    button.btn.purple { background: #7c3aed; }
-    button.btn.purple:hover { background: #6d28d9; }
-    button.btn.amber { background: #d97706; }
-    button.btn.amber:hover { background: #b45309; }
+
+    button.btn:hover {
+      background: #1d4ed8;
+    }
+
+    button.btn.green {
+      background: #059669;
+    }
+
+    button.btn.green:hover {
+      background: #047857;
+    }
+
+    button.btn.gray {
+      background: #475569;
+    }
+
+    button.btn.gray:hover {
+      background: #334155;
+    }
+
+    button.btn.purple {
+      background: #7c3aed;
+    }
+
+    button.btn.purple:hover {
+      background: #6d28d9;
+    }
+
+    button.btn.amber {
+      background: #d97706;
+    }
+
+    button.btn.amber:hover {
+      background: #b45309;
+    }
+
     .stroke-selector {
       display: flex;
       gap: 4px;
@@ -242,6 +305,7 @@
       overflow-x: auto;
       padding-bottom: 2px;
     }
+
     .stroke-tab {
       padding: 4px 10px;
       font-size: 11px;
@@ -252,11 +316,13 @@
       cursor: pointer;
       white-space: nowrap;
     }
+
     .stroke-tab.active {
       background: #2563eb;
       color: white;
       border-color: #38bdf8;
     }
+
     .point-controls {
       display: flex;
       align-items: center;
@@ -269,11 +335,13 @@
       padding: 6px 10px;
       flex-wrap: wrap;
     }
+
     .point-controls .pc-label {
       font-size: 11px;
       color: #64748b;
       flex-shrink: 0;
     }
+
     .point-controls .pc-count {
       font-size: 12px;
       font-weight: 700;
@@ -282,6 +350,7 @@
       text-align: center;
       flex-shrink: 0;
     }
+
     .pc-btn {
       padding: 3px 10px;
       font-size: 12px;
@@ -292,18 +361,61 @@
       transition: all 0.15s;
       flex-shrink: 0;
     }
-    .pc-btn.add  { background: #059669; color: white; }
-    .pc-btn.add:hover  { background: #047857; }
-    .pc-btn.del  { background: #dc2626; color: white; }
-    .pc-btn.del:hover  { background: #b91c1c; }
-    .pc-btn.move-up { background: #0284c7; color: white; }
-    .pc-btn.move-up:hover { background: #0369a1; }
-    .pc-btn.move-down { background: #4f46e5; color: white; }
-    .pc-btn.move-down:hover { background: #4338ca; }
-    .pc-btn.reverse { background: #0d9488; color: white; }
-    .pc-btn.reverse:hover { background: #0f766e; }
-    .pc-btn.del-stroke { background: #7c3aed; color: white; }
-    .pc-btn.del-stroke:hover { background: #6d28d9; }
+
+    .pc-btn.add {
+      background: #059669;
+      color: white;
+    }
+
+    .pc-btn.add:hover {
+      background: #047857;
+    }
+
+    .pc-btn.del {
+      background: #dc2626;
+      color: white;
+    }
+
+    .pc-btn.del:hover {
+      background: #b91c1c;
+    }
+
+    .pc-btn.move-up {
+      background: #0284c7;
+      color: white;
+    }
+
+    .pc-btn.move-up:hover {
+      background: #0369a1;
+    }
+
+    .pc-btn.move-down {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .pc-btn.move-down:hover {
+      background: #4338ca;
+    }
+
+    .pc-btn.reverse {
+      background: #0d9488;
+      color: white;
+    }
+
+    .pc-btn.reverse:hover {
+      background: #0f766e;
+    }
+
+    .pc-btn.del-stroke {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .pc-btn.del-stroke:hover {
+      background: #6d28d9;
+    }
+
     .live-save-badge {
       font-size: 11px;
       font-weight: 700;
@@ -317,16 +429,44 @@
       align-items: center;
       gap: 4px;
     }
-    .live-save-badge.success { background: #064e3b; color: #6ee7b7; border-color: #10b981; }
-    .live-save-badge.saving { background: #1e1b4b; color: #a5b4fc; border-color: #6366f1; }
-    .live-save-badge.local { background: #451a03; color: #fdba74; border-color: #f97316; }
-    .live-save-badge.error { background: #450a0a; color: #fca5a5; border-color: #ef4444; }
-    .pc-divider { width: 1px; height: 18px; background: #334155; flex-shrink: 0; }
+
+    .live-save-badge.success {
+      background: #064e3b;
+      color: #6ee7b7;
+      border-color: #10b981;
+    }
+
+    .live-save-badge.saving {
+      background: #1e1b4b;
+      color: #a5b4fc;
+      border-color: #6366f1;
+    }
+
+    .live-save-badge.local {
+      background: #451a03;
+      color: #fdba74;
+      border-color: #f97316;
+    }
+
+    .live-save-badge.error {
+      background: #450a0a;
+      color: #fca5a5;
+      border-color: #ef4444;
+    }
+
+    .pc-divider {
+      width: 1px;
+      height: 18px;
+      background: #334155;
+      flex-shrink: 0;
+    }
+
     .pc-nudge-group {
       display: inline-flex;
       align-items: center;
       gap: 3px;
     }
+
     .pc-coord-input {
       width: 52px;
       padding: 2px 4px;
@@ -339,11 +479,13 @@
       border-radius: 4px;
       text-align: right;
     }
+
     .pc-coord-input:focus {
       outline: none;
       border-color: #38bdf8;
       box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
     }
+
     .pc-nudge-btn {
       width: 22px;
       height: 22px;
@@ -360,11 +502,13 @@
       justify-content: center;
       transition: all 0.15s;
     }
+
     .pc-nudge-btn:hover {
       background: #0284c7;
       color: white;
       border-color: #38bdf8;
     }
+
     .status-bar {
       width: 100%;
       background: #0f172a;
@@ -379,6 +523,7 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .tip-text {
       font-size: 11px;
       color: #94a3b8;
@@ -386,6 +531,7 @@
       line-height: 1.4;
       width: 100%;
     }
+
     .badge-status {
       font-size: 11px;
       padding: 3px 8px;
@@ -396,16 +542,19 @@
       gap: 5px;
       font-family: sans-serif;
     }
+
     .badge-status.connected {
       background: rgba(16, 185, 129, 0.15);
       color: #34d399;
       border: 1px solid rgba(16, 185, 129, 0.3);
     }
+
     .badge-status.disconnected {
       background: rgba(245, 158, 11, 0.15);
       color: #fbbf24;
       border: 1px solid rgba(245, 158, 11, 0.3);
     }
+
     #toast-container {
       position: fixed;
       bottom: 24px;
@@ -416,6 +565,7 @@
       z-index: 99999;
       pointer-events: none;
     }
+
     .toast {
       padding: 10px 16px;
       border-radius: 8px;
@@ -423,7 +573,7 @@
       color: #f1f5f9;
       font-size: 12px;
       font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       border: 1px solid #334155;
       display: flex;
       align-items: center;
@@ -433,13 +583,29 @@
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: auto;
     }
+
     .toast.show {
       opacity: 1;
       transform: translateY(0);
     }
-    .toast.success { border-color: #059669; background: #064e3b; color: #a7f3d0; }
-    .toast.warning { border-color: #d97706; background: #78350f; color: #fde68a; }
-    .toast.info { border-color: #0284c7; background: #0c4a6e; color: #bae6fd; }
+
+    .toast.success {
+      border-color: #059669;
+      background: #064e3b;
+      color: #a7f3d0;
+    }
+
+    .toast.warning {
+      border-color: #d97706;
+      background: #78350f;
+      color: #fde68a;
+    }
+
+    .toast.info {
+      border-color: #0284c7;
+      background: #0c4a6e;
+      color: #bae6fd;
+    }
 
     /* ─── 획순 진행 및 획 두께 컨트롤 패널 ─────────────────────── */
     .stroke-progress-panel {
@@ -452,14 +618,16 @@
       border: 1px solid #1e3a5f;
       border-radius: 8px;
       padding: 10px 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
+
     .sp-row {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .sp-label {
       font-size: 12px;
       font-weight: 700;
@@ -469,15 +637,18 @@
       gap: 6px;
       flex-shrink: 0;
     }
+
     .sp-label strong {
       color: #38bdf8;
     }
+
     .sp-steps {
       display: flex;
       gap: 4px;
       align-items: center;
       flex-wrap: wrap;
     }
+
     .sp-step-btn {
       padding: 3px 9px;
       font-size: 11px;
@@ -489,16 +660,19 @@
       cursor: pointer;
       transition: all 0.15s;
     }
+
     .sp-step-btn:hover {
       border-color: #38bdf8;
       color: white;
     }
+
     .sp-step-btn.active {
       background: #0284c7;
       color: white;
       border-color: #38bdf8;
       box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
     }
+
     .sp-slider-wrap {
       display: flex;
       align-items: center;
@@ -506,6 +680,7 @@
       flex-grow: 1;
       max-width: 260px;
     }
+
     .sp-slider {
       flex-grow: 1;
       height: 6px;
@@ -515,6 +690,7 @@
       -webkit-appearance: none;
       cursor: pointer;
     }
+
     .sp-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 16px;
@@ -525,6 +701,7 @@
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
       border: 2px solid white;
     }
+
     .sp-slider-val {
       font-size: 12px;
       font-weight: 700;
@@ -533,6 +710,7 @@
       min-width: 38px;
       text-align: right;
     }
+
     .sp-preset-btn {
       padding: 2px 7px;
       font-size: 10px;
@@ -544,10 +722,12 @@
       cursor: pointer;
       transition: all 0.15s;
     }
+
     .sp-preset-btn:hover {
       border-color: #38bdf8;
       color: white;
     }
+
     .sp-mode-group {
       display: inline-flex;
       border: 1px solid #334155;
@@ -555,6 +735,7 @@
       overflow: hidden;
       background: #0f172a;
     }
+
     .sp-mode-btn {
       padding: 2px 7px;
       font-size: 11px;
@@ -565,17 +746,20 @@
       cursor: pointer;
       transition: all 0.15s;
     }
+
     .sp-mode-btn.active {
       background: #0284c7;
       color: #ffffff;
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
     }
+
     .sp-pills-wrap {
       display: flex;
       gap: 5px;
       align-items: center;
       flex-wrap: wrap;
     }
+
     .sp-pill {
       display: inline-flex;
       align-items: center;
@@ -591,16 +775,19 @@
       cursor: pointer;
       transition: all 0.15s;
     }
+
     .sp-pill:hover {
       border-color: #38bdf8;
       color: #ffffff;
     }
+
     .sp-pill.active {
       border-color: #38bdf8;
       background: #0369a1;
       color: #ffffff;
       box-shadow: 0 0 6px rgba(56, 189, 248, 0.5);
     }
+
     .sp-toggle-label {
       display: inline-flex;
       align-items: center;
@@ -610,13 +797,14 @@
       cursor: pointer;
       user-select: none;
     }
+
     .sp-toggle-label input {
       accent-color: #38bdf8;
       cursor: pointer;
     }
-
   </style>
 </head>
+
 <body>
 
   <header>
@@ -625,8 +813,11 @@
       <span id="server-status-badge" class="badge-status disconnected">🟠 브라우저 로컬 저장</span>
     </h1>
     <div class="header-actions">
-      <button class="btn green" onclick="saveAllToDisk()" title="수정된 모든 자소 데이터를 hangul_150_parts_warehouse.json 및 .js 파일에 즉시 영구 저장합니다.">💾 디스크 파일에 영구 동기화</button>
-      <button class="btn" style="background:#0284c7; color:white; font-weight:bold;" onclick="autoOptimizeAllPartsBleeding()" title="153개 전체 자소를 기하학적으로 일괄 분석하여 획이 겹치거나 번지는 것을 100% 자동 최적화하고 파일에 영구 저장합니다.">⚡ 153개 전체 번짐 일괄 자동 최적화</button>
+      <button class="btn green" onclick="saveAllToDisk()"
+        title="수정된 모든 자소 데이터를 hangul_150_parts_warehouse.json 및 .js 파일에 즉시 영구 저장합니다.">💾 디스크 파일에 영구 동기화</button>
+      <button class="btn" style="background:#0284c7; color:white; font-weight:bold;"
+        onclick="autoOptimizeAllPartsBleeding()"
+        title="153개 전체 자소를 기하학적으로 일괄 분석하여 획이 겹치거나 번지는 것을 100% 자동 최적화하고 파일에 영구 저장합니다.">⚡ 153개 전체 번짐 일괄 자동 최적화</button>
       <button class="btn purple" onclick="resetAllToCalibrated()">🔄 1차 보정값으로 전체 새로고침</button>
       <button class="btn amber" onclick="resetToInitial()">현재 자소 초기화</button>
       <button class="btn gray" onclick="downloadAllCollectedJson()">📥 전체 JSON 다운로드</button>
@@ -654,7 +845,9 @@
           <span>궁서체 외곽선 + 중심선(Medians) 편집기</span>
           <div style="display:flex; align-items:center; gap:6px;">
             <button class="pc-btn" onclick="prevPart()" title="이전 자소로 이동 (단축키: [ )">◀ 이전</button>
-            <span id="part-progress-badge" style="font-size:12px; font-weight:bold; color:#f59e0b; font-family:monospace; background:#0f172a; padding:2px 8px; border-radius:6px; border:1px solid #334155;">1 / 153</span>
+            <span id="part-progress-badge"
+              style="font-size:12px; font-weight:bold; color:#f59e0b; font-family:monospace; background:#0f172a; padding:2px 8px; border-radius:6px; border:1px solid #334155;">1
+              / 153</span>
             <button class="pc-btn" onclick="nextPart()" title="다음 자소로 이동 (단축키: ] )">다음 ▶</button>
             <span id="current-part-badge" style="font-size:12px; color:#38bdf8; font-family:monospace;">Cho_T1_ㄱ</span>
           </div>
@@ -669,30 +862,43 @@
           <span class="pc-label">점 조작:</span>
           <span class="pc-count" id="pc-count-display">-</span>
           <button class="pc-btn add" onclick="addPointToCurrentStroke()" title="현재 활성 획의 끝에 점 추가">＋ 점 추가</button>
-          <button class="pc-btn del" onclick="removeLastPointFromCurrentStroke()" title="현재 활성 획의 마지막 점 제거 (최소 2개 유지)">－ 점 제거</button>
-          <button class="pc-btn" style="background:#0284c7; color:white; font-weight:bold;" onclick="sortCurrentStrokePoints()" title="꼬여있는 점들을 획 진행 방향 순서대로 1->2->3->... 순서로 자동 정렬합니다.">📐 획순 점 자동 정렬</button>
-          <button class="pc-btn" style="background:#059669; color:white; font-weight:bold;" onclick="alignCircleTo12OClockUI()" title="원형 획(ㅇ, ㅎ 등)의 시작점을 최상단 정북 12시 방향에 맞추고 반시계 방향 28점으로 완벽 정렬합니다.">⏰ ㅇ/ㅎ 12시 정북 시작 정렬</button>
+          <button class="pc-btn del" onclick="removeLastPointFromCurrentStroke()" title="현재 활성 획의 마지막 점 제거 (최소 2개 유지)">－
+            점 제거</button>
+          <button class="pc-btn" style="background:#0284c7; color:white; font-weight:bold;"
+            onclick="sortCurrentStrokePoints()" title="꼬여있는 점들을 획 진행 방향 순서대로 1->2->3->... 순서로 자동 정렬합니다.">📐 획순 점 자동
+            정렬</button>
+          <button class="pc-btn" style="background:#059669; color:white; font-weight:bold;"
+            onclick="alignCircleTo12OClockUI()" title="원형 획(ㅇ, ㅎ 등)의 시작점을 최상단 정북 12시 방향에 맞추고 반시계 방향 28점으로 완벽 정렬합니다.">⏰
+            ㅇ/ㅎ 12시 정북 시작 정렬</button>
           <div class="pc-divider"></div>
           <span class="pc-label">✏️ 획순/방향 교정:</span>
-          <button class="pc-btn move-up" onclick="moveCurrentStrokeEarlier()" title="현재 획의 순서를 이전으로 이동 (예: 2획을 1획으로)">⬆️ 획순 앞으로</button>
-          <button class="pc-btn move-down" onclick="moveCurrentStrokeLater()" title="현재 획의 순서를 다음으로 이동 (예: 1획을 2획으로)">⬇️ 획순 뒤로</button>
-          <button class="pc-btn reverse" onclick="reverseCurrentStrokeDirection()" title="현재 획의 시작점과 끝점 진행 방향을 반전 (역방향 획 교정)">🔄 획 방향 반전</button>
+          <button class="pc-btn move-up" onclick="moveCurrentStrokeEarlier()" title="현재 획의 순서를 이전으로 이동 (예: 2획을 1획으로)">⬆️
+            획순 앞으로</button>
+          <button class="pc-btn move-down" onclick="moveCurrentStrokeLater()" title="현재 획의 순서를 다음으로 이동 (예: 1획을 2획으로)">⬇️
+            획순 뒤로</button>
+          <button class="pc-btn reverse" onclick="reverseCurrentStrokeDirection()"
+            title="현재 획의 시작점과 끝점 진행 방향을 반전 (역방향 획 교정)">🔄 획 방향 반전</button>
           <div class="pc-divider"></div>
-          <button class="pc-btn del-stroke" onclick="deleteCurrentStroke()" title="현재 선택된 획 전체를 삭제합니다 (최소 1획 유지)">🗑 현재 획 삭제</button>
+          <button class="pc-btn del-stroke" onclick="deleteCurrentStroke()" title="현재 선택된 획 전체를 삭제합니다 (최소 1획 유지)">🗑 현재
+            획 삭제</button>
           <div class="pc-divider"></div>
           <span class="pc-label">🎯 제어점 미세조정:</span>
-          <span id="selected-pt-label" style="font-size:11px; color:#38bdf8; font-weight:bold; min-width:65px;">1획 1번점</span>
+          <span id="selected-pt-label" style="font-size:11px; color:#38bdf8; font-weight:bold; min-width:65px;">1획
+            1번점</span>
           <div class="pc-nudge-group">
             <span style="font-size:11px; color:#94a3b8;">X:</span>
-            <input type="number" id="pt-coord-x" class="pc-coord-input" step="1" oninput="onManualCoordChange()" title="X 좌표 직접 입력 (1px 단위)">
+            <input type="number" id="pt-coord-x" class="pc-coord-input" step="1" oninput="onManualCoordChange()"
+              title="X 좌표 직접 입력 (1px 단위)">
             <span style="font-size:11px; color:#94a3b8;">Y:</span>
-            <input type="number" id="pt-coord-y" class="pc-coord-input" step="1" oninput="onManualCoordChange()" title="Y 좌표 직접 입력 (1px 단위)">
+            <input type="number" id="pt-coord-y" class="pc-coord-input" step="1" oninput="onManualCoordChange()"
+              title="Y 좌표 직접 입력 (1px 단위)">
             <button class="pc-nudge-btn" onclick="nudgeActivePoint(-1, 0)" title="좌로 1px 이동 (단축키: ←)">◀</button>
             <button class="pc-nudge-btn" onclick="nudgeActivePoint(0, 1)" title="위로 1px 이동 (단축키: ↑)">▲</button>
             <button class="pc-nudge-btn" onclick="nudgeActivePoint(0, -1)" title="아래로 1px 이동 (단축키: ↓)">▼</button>
             <button class="pc-nudge-btn" onclick="nudgeActivePoint(1, 0)" title="우로 1px 이동 (단축키: →)">▶</button>
           </div>
-          <span style="font-size:10px; color:#64748b; margin-left:2px;" title="제어점을 클릭한 후 키보드 방향키(↑↓←→)로 1px씩, Shift+방향키로 5px씩 미세조정할 수 있습니다.">⌨️ 방향키 1px</span>
+          <span style="font-size:10px; color:#64748b; margin-left:2px;"
+            title="제어점을 클릭한 후 키보드 방향키(↑↓←→)로 1px씩, Shift+방향키로 5px씩 미세조정할 수 있습니다.">⌨️ 방향키 1px</span>
         </div>
 
         <!-- 획순 진행 및 획 두께 조절 컨트롤러 -->
@@ -701,7 +907,8 @@
           <div class="sp-row">
             <span class="sp-label">✏️ <strong>획순 진행</strong>:</span>
             <div class="sp-steps" id="sp-step-buttons"></div>
-            <button class="sp-step-btn" id="sp-btn-play" style="background:#0284c7; color:white; border-color:#38bdf8;" onclick="playStrokeProgressAnim()">▶ 순차 획순 재생</button>
+            <button class="sp-step-btn" id="sp-btn-play" style="background:#0284c7; color:white; border-color:#38bdf8;"
+              onclick="playStrokeProgressAnim()">▶ 순차 획순 재생</button>
             <button class="sp-step-btn" onclick="resetStrokeProgress()" title="1획 상태로 되돌리기">⏮ 처음</button>
           </div>
 
@@ -709,22 +916,41 @@
           <div class="sp-row">
             <span class="sp-label">📏 <strong id="stroke-width-target-label">획 두께 (1획)</strong>:</span>
             <div class="sp-mode-group">
-              <button class="sp-mode-btn active" id="sp-mode-stroke" onclick="setStrokeWidthMode('stroke')" title="현재 활성화된 획의 두께만 조절합니다.">선택 획</button>
-              <button class="sp-mode-btn" id="sp-mode-all" onclick="setStrokeWidthMode('all')" title="이 자소의 모든 획 두께를 일괄 조절합니다.">전체 획</button>
+              <button class="sp-mode-btn active" id="sp-mode-stroke" onclick="setStrokeWidthMode('stroke')"
+                title="현재 활성화된 획의 두께만 조절합니다.">선택 획</button>
+              <button class="sp-mode-btn" id="sp-mode-all" onclick="setStrokeWidthMode('all')"
+                title="이 자소의 모든 획 두께를 일괄 조절합니다.">전체 획</button>
             </div>
             <div class="sp-slider-wrap">
-              <input type="range" class="sp-slider" id="stroke-width-slider" min="10" max="80" value="34" oninput="onStrokeWidthSlider(this.value)">
+              <input type="range" class="sp-slider" id="stroke-width-slider" min="10" max="80" value="34"
+                oninput="onStrokeWidthSlider(this.value)">
               <span class="sp-slider-val" id="stroke-width-val">34px</span>
             </div>
             <button class="sp-preset-btn" onclick="applyStrokeWidthPreset(16)">극세(16)</button>
-            <button class="sp-preset-btn" onclick="applyStrokeWidthPreset(22)" style="color:#38bdf8; font-weight:700;">가늘게(22)</button>
+            <button class="sp-preset-btn" onclick="applyStrokeWidthPreset(22)"
+              style="color:#38bdf8; font-weight:700;">가늘게(22)</button>
             <button class="sp-preset-btn" onclick="applyStrokeWidthPreset(34)">기본(34)</button>
             <button class="sp-preset-btn" onclick="applyStrokeWidthPreset(46)">두껍게(46)</button>
-            <button class="sp-preset-btn" style="background:#b91c1c; color:#fecaca; border-color:#ef4444; font-weight:bold;" onclick="separateJunctionsUI()" title="중심선들이 만나는 지점(T자/L자/교차점)에서 다음 획이 그려질 때 겹치지 않도록 선을 안전하게 분리하고 다듬습니다.">✂️ 만나는 지점 선 분리</button>
-            <button class="sp-preset-btn" style="background:#701a75; color:#f0abfc; border-color:#d946ef; font-weight:bold;" onclick="preventStrokeBleedingMode()" title="획이 겹치는 부위에서 다른 획으로 색이 번지지 않도록 Voronoi 영역 격리 및 정밀 두께를 즉시 최적화합니다.">🛡️ 획 번짐 방지 정밀 모드</button>
-            <button class="sp-preset-btn" style="background:#0c4a6e; color:#7dd3fc; border-color:#0284c7; font-weight:bold;" onclick="optimizeForDoubleJongsung()" title="받침이 2개 있는 겹받침의 획 겹침/번짐을 방지하는 정밀 22px 모드로 즉시 최적화합니다.">🎯 겹받침 정밀(22px)</button>
-            <button class="sp-preset-btn" style="background:#1e1b4b; color:#a5b4fc; border-color:#6366f1; font-weight:bold;" onclick="autoFitStrokeWidthsToFontUI()" title="바탕 궁서체 외곽선의 실제 물리적 두께를 기하학적으로 측정하여 각 획의 굵기를 글씨체에 맞게 100% 자동 설정합니다.">🪄 글씨체 맞춤 자동 굵기</button>
-            <button class="sp-preset-btn" style="background:#064e3b; color:#6ee7b7; border-color:#10b981; font-weight:bold;" onclick="fillOutlineFully()" title="궁서체 외곽선 형태 그대로 내부가 100% 빈틈없이 가득 채워지도록 중심선 굵기와 외곽선 마스크 클립을 일괄 적용합니다.">🎨 외곽선 100% 꽉 채우기</button>
+            <button class="sp-preset-btn"
+              style="background:#b91c1c; color:#fecaca; border-color:#ef4444; font-weight:bold;"
+              onclick="separateJunctionsUI()"
+              title="중심선들이 만나는 지점(T자/L자/교차점)에서 다음 획이 그려질 때 겹치지 않도록 선을 안전하게 분리하고 다듬습니다.">✂️ 만나는 지점 선 분리</button>
+            <button class="sp-preset-btn"
+              style="background:#701a75; color:#f0abfc; border-color:#d946ef; font-weight:bold;"
+              onclick="preventStrokeBleedingMode()"
+              title="획이 겹치는 부위에서 다른 획으로 색이 번지지 않도록 Voronoi 영역 격리 및 정밀 두께를 즉시 최적화합니다.">🛡️ 획 번짐 방지 정밀 모드</button>
+            <button class="sp-preset-btn"
+              style="background:#0c4a6e; color:#7dd3fc; border-color:#0284c7; font-weight:bold;"
+              onclick="optimizeForDoubleJongsung()" title="받침이 2개 있는 겹받침의 획 겹침/번짐을 방지하는 정밀 22px 모드로 즉시 최적화합니다.">🎯 겹받침
+              정밀(22px)</button>
+            <button class="sp-preset-btn"
+              style="background:#1e1b4b; color:#a5b4fc; border-color:#6366f1; font-weight:bold;"
+              onclick="autoFitStrokeWidthsToFontUI()"
+              title="바탕 궁서체 외곽선의 실제 물리적 두께를 기하학적으로 측정하여 각 획의 굵기를 글씨체에 맞게 100% 자동 설정합니다.">🪄 글씨체 맞춤 자동 굵기</button>
+            <button class="sp-preset-btn"
+              style="background:#064e3b; color:#6ee7b7; border-color:#10b981; font-weight:bold;"
+              onclick="fillOutlineFully()"
+              title="궁서체 외곽선 형태 그대로 내부가 100% 빈틈없이 가득 채워지도록 중심선 굵기와 외곽선 마스크 클립을 일괄 적용합니다.">🎨 외곽선 100% 꽉 채우기</button>
           </div>
 
           <!-- 2-1행: 각 획별 두께 모니터링 알약(Pills) 바 -->
@@ -738,14 +964,19 @@
             <span class="sp-label">🛡️ <strong>번짐 억제/마스크 미세조정</strong>:</span>
             <span style="font-size:11px; color:#cbd5e1;">마스크 여유폭(브러시 크기):</span>
             <div class="sp-slider-wrap" style="width:140px; max-width:140px;">
-              <input type="range" class="sp-slider" id="mask-brush-slider" min="1.0" max="2.0" step="0.05" value="1.35" oninput="onMaskBrushSlider(this.value)">
+              <input type="range" class="sp-slider" id="mask-brush-slider" min="1.0" max="2.0" step="0.05" value="1.35"
+                oninput="onMaskBrushSlider(this.value)">
               <span class="sp-slider-val" id="mask-brush-val" style="width:42px;">1.35x</span>
             </div>
             <button class="sp-preset-btn" onclick="setMaskBrushPreset(1.15)">초밀착(1.15x)</button>
-            <button class="sp-preset-btn" onclick="setMaskBrushPreset(1.35)" style="color:#38bdf8; font-weight:700;">기본(1.35x)</button>
+            <button class="sp-preset-btn" onclick="setMaskBrushPreset(1.35)"
+              style="color:#38bdf8; font-weight:700;">기본(1.35x)</button>
             <button class="sp-preset-btn" onclick="setMaskBrushPreset(1.6)">여유(1.6x)</button>
             <div class="pc-divider" style="height:14px; margin:0 4px;"></div>
-            <button class="sp-preset-btn" style="background:#0f766e; color:#5eead4; border-color:#14b8a6; font-weight:bold;" onclick="isolateTwinStrokesUI()" title="쌍자음(ㅉ, ㅃ, ㄲ, ㄸ, ㅆ) 및 겹받침의 좌우 독립 부품을 획별 서브패스로 완벽 분리하여 인접 획 번짐을 100% 차단합니다.">✂️ 쌍자음 획 완벽 분리</button>
+            <button class="sp-preset-btn"
+              style="background:#0f766e; color:#5eead4; border-color:#14b8a6; font-weight:bold;"
+              onclick="isolateTwinStrokesUI()"
+              title="쌍자음(ㅉ, ㅃ, ㄲ, ㄸ, ㅆ) 및 겹받침의 좌우 독립 부품을 획별 서브패스로 완벽 분리하여 인접 획 번짐을 100% 차단합니다.">✂️ 쌍자음 획 완벽 분리</button>
           </div>
 
           <!-- 3행: 표시 레이어 토글 -->
@@ -780,7 +1011,8 @@
             <!-- 1024 격자 가이드 -->
             <line x1="0" y1="512" x2="1024" y2="512" stroke="#1e293b" stroke-dasharray="6 6" />
             <line x1="512" y1="0" x2="512" y2="1024" stroke="#1e293b" stroke-dasharray="6 6" />
-            <rect id="editor-bbox-rect" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6 6" opacity="0.4" />
+            <rect id="editor-bbox-rect" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6 6"
+              opacity="0.4" />
 
             <!-- HanziWriter 좌표계: scale(1, -1) translate(0, -900) -->
             <g id="hanzi-coord-group" transform="scale(1, -1) translate(0, -900)">
@@ -811,7 +1043,7 @@
         </div>
 
         <div class="tip-text">
-          💡 <strong>조작법:</strong> 
+          💡 <strong>조작법:</strong>
           • <strong>마우스 드래그</strong>: 중심선 제어점 이동 (실시간 궤적 반영)<br>
           • <strong>더블클릭</strong>: 새로운 제어점 추가 / <strong>우클릭</strong>: 제어점 삭제<br>
           • <span style="color:#f87171;">🔴 빨간 점</span> = 외곽선 이탈! → <strong>🎯 중심 자동 정렬</strong> 버튼으로 수정하세요.
@@ -824,13 +1056,19 @@
 
         <div class="btn-row">
           <button class="btn green" onclick="saveCurrentPart()">💾 이 자소 저장</button>
-          <button class="btn" style="background:#0d9488; color:#ffffff; font-weight:bold;" onclick="autoOptimizeCurrentPartBleeding()" title="현재 자소의 접합부 분리, 획별 서브패스 매핑, 안전 두께를 100% 자동 최적화하여 획 번짐을 완벽 차단합니다.">🛡️ 번짐 자동 완화</button>
+          <button class="btn" style="background:#0d9488; color:#ffffff; font-weight:bold;"
+            onclick="autoOptimizeCurrentPartBleeding()"
+            title="현재 자소의 접합부 분리, 획별 서브패스 매핑, 안전 두께를 100% 자동 최적화하여 획 번짐을 완벽 차단합니다.">🛡️ 번짐 자동 완화</button>
           <button class="btn purple" onclick="toggleGungsuhFill()">외곽선 채우기 토글</button>
           <button class="btn gray" onclick="addStrokeToCurrent()">+ 새 획 추가</button>
-          <button class="btn" style="background:#b91c1c; color:#ffffff;" onclick="separateJunctionsUI()" title="중심선들이 만나는 지점(T자/L자/교차점)에서 다음 획이 그려질 때 겹치지 않도록 선을 안전하게 분리하고 다듬습니다.">✂️ 만나는 지점 선 분리</button>
-          <button class="btn" style="background:#4f46e5; color:#ffffff;" onclick="autoFitStrokeWidthsToFontUI()" title="궁서체 원본 외곽선의 실제 물리적 두께를 기하학적으로 정밀 측정하여 각 획의 굵기를 글씨체에 맞게 100% 자동 설정합니다.">🪄 글씨체 두께 자동 맞춤</button>
-          <button class="btn amber" onclick="autoAlignMedianToCenter()" title="각 획의 중심선 제어점을 외곽선 내부 중앙 골격으로 자동 스냅합니다.">🎯 중심 자동 정렬</button>
-          <button class="btn" style="background:#0891b2;" onclick="autoAlignCurrentStroke()" title="현재 선택 획만 중심 보정">🎯 현재 획만 정렬</button>
+          <button class="btn" style="background:#b91c1c; color:#ffffff;" onclick="separateJunctionsUI()"
+            title="중심선들이 만나는 지점(T자/L자/교차점)에서 다음 획이 그려질 때 겹치지 않도록 선을 안전하게 분리하고 다듬습니다.">✂️ 만나는 지점 선 분리</button>
+          <button class="btn" style="background:#4f46e5; color:#ffffff;" onclick="autoFitStrokeWidthsToFontUI()"
+            title="궁서체 원본 외곽선의 실제 물리적 두께를 기하학적으로 정밀 측정하여 각 획의 굵기를 글씨체에 맞게 100% 자동 설정합니다.">🪄 글씨체 두께 자동 맞춤</button>
+          <button class="btn amber" onclick="autoAlignMedianToCenter()"
+            title="각 획의 중심선 제어점을 외곽선 내부 중앙 골격으로 자동 스냅합니다.">🎯 중심 자동 정렬</button>
+          <button class="btn" style="background:#0891b2;" onclick="autoAlignCurrentStroke()" title="현재 선택 획만 중심 보정">🎯
+            현재 획만 정렬</button>
         </div>
       </div>
 
@@ -843,23 +1081,30 @@
         <div class="hanzi-box" id="hanzi-preview-box"></div>
 
         <!-- 재생 속도 조절 UI -->
-        <div style="display:flex; align-items:center; justify-content:center; gap:5px; margin-top:10px; width:100%; flex-wrap:wrap;">
+        <div
+          style="display:flex; align-items:center; justify-content:center; gap:5px; margin-top:10px; width:100%; flex-wrap:wrap;">
           <span style="font-size:11px; color:#94a3b8;">🐢 드로잉 속도:</span>
-          <button class="sp-preset-btn" id="speed-btn-superslow" onclick="setAnimSpeed(0.15, 1000, this)">초저속(0.15x)</button>
-          <button class="sp-preset-btn" id="speed-btn-slow" style="color:#ef4444; font-weight:bold; background:#2a1215; border-color:#ef4444;" onclick="setAnimSpeed(0.25, 800, this)">아주 느리게(0.25x)</button>
+          <button class="sp-preset-btn" id="speed-btn-superslow"
+            onclick="setAnimSpeed(0.15, 1000, this)">초저속(0.15x)</button>
+          <button class="sp-preset-btn" id="speed-btn-slow"
+            style="color:#ef4444; font-weight:bold; background:#2a1215; border-color:#ef4444;"
+            onclick="setAnimSpeed(0.25, 800, this)">아주 느리게(0.25x)</button>
           <button class="sp-preset-btn" id="speed-btn-normal" onclick="setAnimSpeed(0.5, 500, this)">느리게(0.5x)</button>
           <button class="sp-preset-btn" id="speed-btn-medium" onclick="setAnimSpeed(1.0, 300, this)">보통(1.0x)</button>
         </div>
 
         <div class="btn-row" style="margin-top:10px;">
-          <button class="btn" id="btn-play-red-anim" style="background:#dc2626; color:white; font-weight:bold; cursor:pointer; transition:all 0.2s;" onclick="playPreviewAnim()">▶ 붉은 획 애니메이션 재생</button>
+          <button class="btn" id="btn-play-red-anim"
+            style="background:#dc2626; color:white; font-weight:bold; cursor:pointer; transition:all 0.2s;"
+            onclick="playPreviewAnim()">▶ 붉은 획 애니메이션 재생</button>
           <button class="btn purple" onclick="toggleShowAllStrokes()">전체 획 표시/숨기기</button>
           <button class="btn green" onclick="startPreviewQuiz()">쓰기 퀴즈 테스트</button>
         </div>
 
         <div class="info-box" style="margin-top:14px; width:100%; font-size:12px; line-height:1.6;">
           <div>선택 부품: <span class="val" id="info-part-id" style="color:#38bdf8;">Cho_T1_ㄱ</span></div>
-          <div>폰트 서체: <span class="val" style="color:#f59e0b; font-family:'GungsuhFont',serif;">궁서체 (Gungsuh.ttf)</span></div>
+          <div>폰트 서체: <span class="val" style="color:#f59e0b; font-family:'GungsuhFont',serif;">궁서체 (Gungsuh.ttf)</span>
+          </div>
           <div>총 획수: <span class="val" id="info-stroke-count">1획</span></div>
           <div>현재 획 점 수: <span class="val" id="info-point-count">5개 점</span></div>
         </div>
@@ -869,7 +1114,7 @@
 
   <script>
     const originalWarehouse = (window.HANGUL_150_WAREHOUSE && window.HANGUL_150_WAREHOUSE.parts) || {};
-    
+
     // LocalStorage에서 이전에 수집/편집한 데이터 불러오기 (최신 보정 버전 시 자동 동기화)
     let customDb = {};
     const CURRENT_VERSION = (window.HANGUL_150_WAREHOUSE && window.HANGUL_150_WAREHOUSE.meta && window.HANGUL_150_WAREHOUSE.meta.calibrationVersion) || "4.0-perfect-12-oclock-circle";
@@ -935,7 +1180,7 @@
     // 겹받침 여부 판별 (받침 2개 글자: ㄳ, ㄵ, ㄶ, ㄺ, ㄻ, ㄼ, ㄽ, ㄾ, ㄿ, ㅀ, ㅄ 등)
     function isDoubleJongsungPart(partData) {
       if (!partData) return false;
-      const doubleJongs = ['ㄳ','ㄵ','ㄶ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅄ'];
+      const doubleJongs = ['ㄳ', 'ㄵ', 'ㄶ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅄ'];
       if (partData.role === 'jong') {
         if (doubleJongs.includes(partData.char)) return true;
         if (partData.char && partData.char.length > 1) return true;
@@ -946,10 +1191,10 @@
 
     // 점 (px, py)에서 선분 (x1, y1)-(x2, y2)까지의 최단 거리
     function distPointToSegment(px, py, x1, y1, x2, y2) {
-      const l2 = (x2 - x1)**2 + (y2 - y1)**2;
+      const l2 = (x2 - x1) ** 2 + (y2 - y1) ** 2;
       if (l2 === 0) return Math.hypot(px - x1, py - y1);
-      const t = Math.max(0, Math.min(1, ((px - x1)*(x2 - x1) + (py - y1)*(y2 - y1)) / l2));
-      return Math.hypot(px - (x1 + t*(x2 - x1)), py - (y1 + t*(y2 - y1)));
+      const t = Math.max(0, Math.min(1, ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / l2));
+      return Math.hypot(px - (x1 + t * (x2 - x1)), py - (y1 + t * (y2 - y1)));
     }
 
     /**
@@ -965,7 +1210,7 @@
       const edges = [];
       polygons.forEach(p => {
         for (let i = 0; i < p.length - 1; i++) {
-          edges.push([p[i][0], p[i][1], p[i+1][0], p[i+1][1]]);
+          edges.push([p[i][0], p[i][1], p[i + 1][0], p[i + 1][1]]);
         }
       });
       if (edges.length === 0) return 30;
@@ -989,7 +1234,7 @@
       const medianR = midSlice[Math.floor(midSlice.length / 2)] || radii[Math.floor(radii.length / 2)] || 15;
 
       const isDouble = (role === 'jong') && (
-        ['ㄳ','ㄵ','ㄶ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅄ'].includes(char) || (char && char.length > 1)
+        ['ㄳ', 'ㄵ', 'ㄶ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅄ'].includes(char) || (char && char.length > 1)
       );
 
       let w;
@@ -1065,7 +1310,7 @@
       } else {
         currentPartData.strokeWidths = computed;
         currentStrokeWidth = computed[activeStrokeIdx] || computed[0];
-        const detailStr = computed.map((w, i) => `${i+1}획:${w}px`).join(' ');
+        const detailStr = computed.map((w, i) => `${i + 1}획:${w}px`).join(' ');
         showToast(`[${selectedPartId}] 전체 획이 바탕 글씨체에 맞게 자동 맞춤되었습니다! (${detailStr})`, 'success');
       }
 
@@ -1706,7 +1951,7 @@
       renderEditor(false);
       updateHanziPreview();
       saveCurrentPart(true);
-      document.getElementById('editor-status').firstElementChild.innerText = 
+      document.getElementById('editor-status').firstElementChild.innerText =
         `${activeStrokeIdx + 1}획 ${activePointIdx + 1}번점 미세조정: [${stroke[activePointIdx][0]}, ${stroke[activePointIdx][1]}]`;
     }
 
@@ -2031,7 +2276,7 @@
           dragRafId = null;
           if (draggingPoint) {
             renderEditor(true); // fastMode: 브라우저 멈춤 방지
-            document.getElementById('editor-status').firstElementChild.innerText = 
+            document.getElementById('editor-status').firstElementChild.innerText =
               `${draggingPoint.strokeIdx + 1}획 ${draggingPoint.pointIdx + 1}번 점 이동 중: [${hanziX}, ${hanziY}]`;
           }
         });
@@ -2080,7 +2325,7 @@
         let bestSegIdx = stroke.length - 1;
         let minD = Infinity;
         for (let i = 0; i < stroke.length - 1; i++) {
-          const d = distPointToSegment(hanziX, hanziY, stroke[i][0], stroke[i][1], stroke[i+1][0], stroke[i+1][1]);
+          const d = distPointToSegment(hanziX, hanziY, stroke[i][0], stroke[i][1], stroke[i + 1][0], stroke[i + 1][1]);
           if (d < minD) {
             minD = d;
             bestSegIdx = i;
@@ -2197,15 +2442,15 @@
       return null;
     }
 
-        function ptToSegmentDistSq(px, py, x1, y1, x2, y2) {
+    function ptToSegmentDistSq(px, py, x1, y1, x2, y2) {
       const dx = x2 - x1, dy = y2 - y1;
       const l2 = dx * dx + dy * dy;
-      if (l2 < 1e-6) return { distSq: (px - x1)**2 + (py - y1)**2, proj: [x1, y1] };
+      if (l2 < 1e-6) return { distSq: (px - x1) ** 2 + (py - y1) ** 2, proj: [x1, y1] };
       let t = ((px - x1) * dx + (py - y1) * dy) / l2;
       t = Math.max(0, Math.min(1, t));
       const projX = x1 + t * dx;
       const projY = y1 + t * dy;
-      return { distSq: (px - projX)**2 + (py - projY)**2, proj: [projX, projY] };
+      return { distSq: (px - projX) ** 2 + (py - projY) ** 2, proj: [projX, projY] };
     }
 
     function closestPointOnStroke(px, py, stroke) {
@@ -2221,7 +2466,7 @@
       return { dist: Math.sqrt(minDistSq), pt: bestProj };
     }
 
-            function findClosestPairBetweenStrokes(strokeA, strokeB) {
+    function findClosestPairBetweenStrokes(strokeA, strokeB) {
       let minDist = Infinity;
       let bestA = strokeA[0], bestB = strokeB[0];
       for (let i = 0; i < strokeA.length; i++) {
@@ -2631,33 +2876,33 @@
           } else if (cmd === 'L' || cmd === 'l') {
             for (let i = 0; i + 1 < args.length; i += 2) {
               cx = cmd === 'L' ? args[i] : cx + args[i];
-              cy = cmd === 'L' ? args[i+1] : cy + args[i+1];
+              cy = cmd === 'L' ? args[i + 1] : cy + args[i + 1];
               poly.push([cx, cy]);
             }
           } else if (cmd === 'Q' || cmd === 'q') {
             for (let i = 0; i + 3 < args.length; i += 4) {
-              const x1 = cmd === 'Q' ? args[i]   : cx + args[i];
-              const y1 = cmd === 'Q' ? args[i+1] : cy + args[i+1];
-              const x2 = cmd === 'Q' ? args[i+2] : cx + args[i+2];
-              const y2 = cmd === 'Q' ? args[i+3] : cy + args[i+3];
+              const x1 = cmd === 'Q' ? args[i] : cx + args[i];
+              const y1 = cmd === 'Q' ? args[i + 1] : cy + args[i + 1];
+              const x2 = cmd === 'Q' ? args[i + 2] : cx + args[i + 2];
+              const y2 = cmd === 'Q' ? args[i + 3] : cy + args[i + 3];
               for (let t = 0.1; t <= 1.0; t += 0.1) {
-                const bx = (1-t)*(1-t)*cx + 2*(1-t)*t*x1 + t*t*x2;
-                const by = (1-t)*(1-t)*cy + 2*(1-t)*t*y1 + t*t*y2;
+                const bx = (1 - t) * (1 - t) * cx + 2 * (1 - t) * t * x1 + t * t * x2;
+                const by = (1 - t) * (1 - t) * cy + 2 * (1 - t) * t * y1 + t * t * y2;
                 poly.push([bx, by]);
               }
               cx = x2; cy = y2;
             }
           } else if (cmd === 'C' || cmd === 'c') {
             for (let i = 0; i + 5 < args.length; i += 6) {
-              const x1 = cmd === 'C' ? args[i]   : cx + args[i];
-              const y1 = cmd === 'C' ? args[i+1] : cy + args[i+1];
-              const x2 = cmd === 'C' ? args[i+2] : cx + args[i+2];
-              const y2 = cmd === 'C' ? args[i+3] : cy + args[i+3];
-              const x3 = cmd === 'C' ? args[i+4] : cx + args[i+4];
-              const y3 = cmd === 'C' ? args[i+5] : cy + args[i+5];
+              const x1 = cmd === 'C' ? args[i] : cx + args[i];
+              const y1 = cmd === 'C' ? args[i + 1] : cy + args[i + 1];
+              const x2 = cmd === 'C' ? args[i + 2] : cx + args[i + 2];
+              const y2 = cmd === 'C' ? args[i + 3] : cy + args[i + 3];
+              const x3 = cmd === 'C' ? args[i + 4] : cx + args[i + 4];
+              const y3 = cmd === 'C' ? args[i + 5] : cy + args[i + 5];
               for (let t = 0.1; t <= 1.0; t += 0.1) {
-                const bx = Math.pow(1-t,3)*cx + 3*Math.pow(1-t,2)*t*x1 + 3*(1-t)*t*t*x2 + Math.pow(t,3)*x3;
-                const by = Math.pow(1-t,3)*cy + 3*Math.pow(1-t,2)*t*y1 + 3*(1-t)*t*t*y2 + Math.pow(t,3)*y3;
+                const bx = Math.pow(1 - t, 3) * cx + 3 * Math.pow(1 - t, 2) * t * x1 + 3 * (1 - t) * t * t * x2 + Math.pow(t, 3) * x3;
+                const by = Math.pow(1 - t, 3) * cy + 3 * Math.pow(1 - t, 2) * t * y1 + 3 * (1 - t) * t * t * y2 + Math.pow(t, 3) * y3;
                 poly.push([bx, by]);
               }
               cx = x3; cy = y3;
@@ -2729,8 +2974,8 @@
         // 격자 샘플링 (16x16)
         const stepX = (maxX - minX) / 16;
         const stepY = (maxY - minY) / 16;
-        for (let gx = minX + stepX/2; gx <= maxX; gx += stepX) {
-          for (let gy = minY + stepY/2; gy <= maxY; gy += stepY) {
+        for (let gx = minX + stepX / 2; gx <= maxX; gx += stepX) {
+          for (let gy = minY + stepY / 2; gy <= maxY; gy += stepY) {
             if (pointInPolygon(gx, gy, poly)) {
               const d = Math.hypot(gx - px, gy - py);
               if (d < bestDist) {
@@ -2770,11 +3015,11 @@
           // 현재 점에서 경로 방향 계산
           let dirX, dirY;
           if (idx < median.length - 1) {
-            dirX = median[idx+1][0] - px;
-            dirY = median[idx+1][1] - py;
+            dirX = median[idx + 1][0] - px;
+            dirY = median[idx + 1][1] - py;
           } else {
-            dirX = px - median[idx-1][0];
-            dirY = py - median[idx-1][1];
+            dirX = px - median[idx - 1][0];
+            dirY = py - median[idx - 1][1];
           }
           const len = Math.hypot(dirX, dirY) || 1;
           dirX /= len; dirY /= len;
@@ -2918,9 +3163,9 @@
         for (let j = 0; j < subInfos.length; j++) {
           if (i === j) continue;
           if (subInfos[i].minX >= subInfos[j].minX - 1 &&
-              subInfos[i].maxX <= subInfos[j].maxX + 1 &&
-              subInfos[i].minY >= subInfos[j].minY - 1 &&
-              subInfos[i].maxY <= subInfos[j].maxY + 1) {
+            subInfos[i].maxX <= subInfos[j].maxX + 1 &&
+            subInfos[i].minY >= subInfos[j].minY - 1 &&
+            subInfos[i].maxY <= subInfos[j].maxY + 1) {
             isInner[i] = true;
             break;
           }
@@ -2932,10 +3177,10 @@
           let compPath = subInfos[i].subpath;
           for (let j = 0; j < subInfos.length; j++) {
             if (isInner[j] &&
-                subInfos[j].minX >= subInfos[i].minX - 1 &&
-                subInfos[j].maxX <= subInfos[i].maxX + 1 &&
-                subInfos[j].minY >= subInfos[i].minY - 1 &&
-                subInfos[j].maxY <= subInfos[i].maxY + 1) {
+              subInfos[j].minX >= subInfos[i].minX - 1 &&
+              subInfos[j].maxX <= subInfos[i].maxX + 1 &&
+              subInfos[j].minY >= subInfos[i].minY - 1 &&
+              subInfos[j].maxY <= subInfos[i].maxY + 1) {
               compPath += ' ' + subInfos[j].subpath;
             }
           }
@@ -2994,7 +3239,7 @@
       showToast(`[${selectedPartId}] 좌/우 독립 자소 획 서브패스 완벽 분리 적용 완료!`, 'success');
     }
 
-       // HanziWriter의 각 획별 실제 드로잉 패스를 개별 Voronoi 클립패스로 감싸 획 간 번짐 100% 원천 차단
+    // HanziWriter의 각 획별 실제 드로잉 패스를 개별 Voronoi 클립패스로 감싸 획 간 번짐 100% 원천 차단
     let hwMutationObserver = null;
 
     function applyHanziChainedVoronoi() {
@@ -3083,7 +3328,7 @@
 
       const outline = currentPartData.gungsuhOutline || (currentPartData.strokes && currentPartData.strokes[0]);
       let strokesPayload = [];
-      const hasDistinctStrokes = currentPartData.strokes && 
+      const hasDistinctStrokes = currentPartData.strokes &&
         currentPartData.strokes.length === currentPartData.medians.length &&
         currentPartData.strokes.some((s, idx) => s !== currentPartData.strokes[0]);
 
@@ -3120,7 +3365,7 @@
         strokeAnimationSpeed: animSpeedMultiplier,
         delayBetweenStrokes: animStrokeDelay,
         strokeFadeDuration: 0,
-        charDataLoader: function(char, onComplete) {
+        charDataLoader: function (char, onComplete) {
           onComplete(payload);
           setTimeout(() => {
             ensureMasterGungsuhOutline();
@@ -3140,7 +3385,7 @@
       }, 200);
     }
 
-        let isPreviewAnimating = false;
+    let isPreviewAnimating = false;
 
     async function playPreviewAnim() {
       if (!previewWriter || !currentPartData) return;
@@ -3295,30 +3540,30 @@
           data: currentPartData
         })
       })
-      .then(res => res.json())
-      .then(res => {
-        if (res.success) {
-          const syncCount = res.savedFiles ? res.savedFiles.length : 4;
-          if (!isSilent) showToast(`[${selectedPartId}] 파일 영구 동기화 완료! (${syncCount}개 파일 반영)`, 'success');
-          if (liveBadge) {
-            liveBadge.className = 'live-save-badge success';
-            liveBadge.innerText = `🟢 파일 저장됨 (${timeStr})`;
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            const syncCount = res.savedFiles ? res.savedFiles.length : 4;
+            if (!isSilent) showToast(`[${selectedPartId}] 파일 영구 동기화 완료! (${syncCount}개 파일 반영)`, 'success');
+            if (liveBadge) {
+              liveBadge.className = 'live-save-badge success';
+              liveBadge.innerText = `🟢 파일 저장됨 (${timeStr})`;
+            }
+            checkServerStatus();
+          } else {
+            if (liveBadge) {
+              liveBadge.className = 'live-save-badge error';
+              liveBadge.innerText = `❌ 저장 실패: ${res.error}`;
+            }
           }
-          checkServerStatus();
-        } else {
+        })
+        .catch(err => {
+          if (!isSilent) showToast(`[${selectedPartId}] 브라우저에 임시 저장됨 (서버 오프라인)`, 'info');
           if (liveBadge) {
-            liveBadge.className = 'live-save-badge error';
-            liveBadge.innerText = `❌ 저장 실패: ${res.error}`;
+            liveBadge.className = 'live-save-badge local';
+            liveBadge.innerText = `🟠 브라우저 로컬 저장 (${timeStr})`;
           }
-        }
-      })
-      .catch(err => {
-        if (!isSilent) showToast(`[${selectedPartId}] 브라우저에 임시 저장됨 (서버 오프라인)`, 'info');
-        if (liveBadge) {
-          liveBadge.className = 'live-save-badge local';
-          liveBadge.innerText = `🟠 브라우저 로컬 저장 (${timeStr})`;
-        }
-      });
+        });
     }
 
     function saveAllToDisk() {
@@ -3350,24 +3595,24 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ warehouse: exportData })
       })
-      .then(res => res.json())
-      .then(res => {
-        if (res.success) {
-          const syncCount = res.savedFiles ? res.savedFiles.length : 4;
-          showToast(`전체 ${res.count}개 자소 데이터가 ${syncCount}개 파일에 완벽하게 영구 동기화되었습니다!`, 'success');
-          if (liveBadge) {
-            liveBadge.className = 'live-save-badge success';
-            liveBadge.innerText = `🟢 전체 영구 저장 완료 (${new Date().toLocaleTimeString('ko-KR')})`;
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            const syncCount = res.savedFiles ? res.savedFiles.length : 4;
+            showToast(`전체 ${res.count}개 자소 데이터가 ${syncCount}개 파일에 완벽하게 영구 동기화되었습니다!`, 'success');
+            if (liveBadge) {
+              liveBadge.className = 'live-save-badge success';
+              liveBadge.innerText = `🟢 전체 영구 저장 완료 (${new Date().toLocaleTimeString('ko-KR')})`;
+            }
+          } else {
+            showToast(`저장 실패: ${res.error}`, 'warning');
           }
-        } else {
-          showToast(`저장 실패: ${res.error}`, 'warning');
-        }
-      })
-      .catch(err => {
-        console.error("Save all error:", err);
-        showToast("서버와 통신할 수 없어 전체 JSON 다운로드로 안내합니다.", "warning");
-        alert("서버(http://localhost:8080)와 통신할 수 없습니다.\n\n터미널에서 'server.js'가 켜져 있는지 확인해주세요.\n(브라우저 캐시에는 안전하게 저장되어 있으며, '전체 JSON 다운로드' 버튼으로도 파일 저장이 가능합니다.)");
-      });
+        })
+        .catch(err => {
+          console.error("Save all error:", err);
+          showToast("서버와 통신할 수 없어 전체 JSON 다운로드로 안내합니다.", "warning");
+          alert("서버(http://localhost:8080)와 통신할 수 없습니다.\n\n터미널에서 'server.js'가 켜져 있는지 확인해주세요.\n(브라우저 캐시에는 안전하게 저장되어 있으며, '전체 JSON 다운로드' 버튼으로도 파일 저장이 가능합니다.)");
+        });
     }
 
     function copyCurrentJson() {
@@ -3419,7 +3664,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `hangul_150_warehouse_collected_${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `hangul_150_warehouse_collected_${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
       showToast("전체 데이터셋 JSON 파일이 다운로드되었습니다.", 'success');
@@ -3579,7 +3824,7 @@
 
       const outline = currentPartData.gungsuhOutline || (currentPartData.strokes && currentPartData.strokes[0]);
       const subpaths = outline ? outline.match(/M[\s\S]*?(?=M|$)/g) : null;
-      
+
       let cx, cy, rx, ry;
       if (subpaths && subpaths.length >= 2) {
         // 내부 구멍과 외부 윤곽으로부터 정확한 기하 계산
@@ -3770,4 +4015,5 @@
     });
   </script>
 </body>
+
 </html>
