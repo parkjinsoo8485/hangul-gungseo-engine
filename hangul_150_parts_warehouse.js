@@ -8,7 +8,7 @@ window.HANGUL_150_WAREHOUSE = {
     "totalCount": 153,
     "calibrationVersion": "4.0-perfect-12-oclock-circle",
     "lastCalibratedAt": "2026-10-30T00:25:22.335Z",
-    "lastUpdated": "2026-11-03T03:23:28.292Z"
+    "lastUpdated": "2026-11-03T03:24:06.176Z"
   },
   "parts": {
     "Cho_T1_ㄱ": {
@@ -12832,11 +12832,11 @@ window.HANGUL_150_WAREHOUSE = {
           ],
           [
             456,
-            262
+            304
           ],
           [
-            452,
-            240
+            456,
+            262
           ]
         ],
         [
@@ -12855,24 +12855,20 @@ window.HANGUL_150_WAREHOUSE = {
         ],
         [
           [
-            391,
-            200
+            388,
+            170
           ],
           [
-            390,
-            165
-          ],
-          [
-            400,
-            140
-          ],
-          [
-            440,
-            130
-          ],
-          [
-            484,
+            388,
             135
+          ],
+          [
+            423,
+            112
+          ],
+          [
+            470,
+            131
           ]
         ],
         [
@@ -12891,8 +12887,8 @@ window.HANGUL_150_WAREHOUSE = {
         ],
         [
           [
-            528,
-            248
+            505,
+            245
           ],
           [
             611,
