@@ -330,8 +330,8 @@
     </div>
 </div>
 
-<script src="warehouse_centerlines.js?v=20261102_0855"></script>
-<script src="warehouse_bridge.js?v=20261102_0855"></script>
+<script src="warehouse_centerlines.js?v=20261102_1425"></script>
+<script src="warehouse_bridge.js?v=20261102_1425"></script>
 <script>
 class RenderHarness {
     constructor() {
@@ -4242,7 +4242,7 @@ const Engine = {
                         stemXList.sort((a, b) => a - b);
                         const firstStemX = stemXList.length > 0 ? stemXList[0] : ((jb && (jb.stemX_C || jb.stemX_V)) ? (jb.stemX_C || jb.stemX_V) * 100 / R : (splitX + 12));
                         const isChoBottomH = (meta.part === 'cho' && isLastH && (meta.vType === 'V') && last[1] > 35 && ['ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅌ', 'ㅍ'].some(c => (meta.whId || '').includes(c)));
-                        const maxSteps = isChoBottomH ? 22.0 : 13.0;
+                        const maxSteps = isChoBottomH ? Math.max(28.0, Math.ceil(firstStemX - last[0]) + 3) : 13.0;
                         let curEy = last[1];
                         for (let step = 1.0; step <= maxSteps; step += 1.0) {
                             const ex = last[0] + tx * step;
@@ -4577,7 +4577,10 @@ const Engine = {
                                 if (ly < jb.jongY1 - 3 || isUnderUStem) dist += 1e7;
                             }
                         } else if (jb.vType === 'V') {
-                            const isChoConnBottom = ['ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅌ', 'ㅍ'].some(c => (mk.whId || (metaK[0] && metaK[0].whId) || '').includes(c)) && ly >= (jb.choY1 + (jb.choY2 - jb.choY1) * 0.45);
+                            const choMeta = metaK.find(m => m && m.part === 'cho');
+                            const choWhId = choMeta ? (choMeta.whId || '') : '';
+                            const choHasConn = ['ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅌ', 'ㅍ'].some(c => choWhId.includes(c));
+                            const isChoConnBottom = choHasConn && ly >= (jb.choY1 + (jb.choY2 - jb.choY1) * 0.45);
                             if (mk.part === 'cho') {
                                 const maxChoX = isChoConnBottom ? (jb.stemX_V ? jb.stemX_V - 2 : jb.splitX + 45) : (jb.splitX + 3);
                                 const allowBottom = !jb.hasJong && ly > (jb.choY1 + (jb.choY2 - jb.choY1) * 0.55);
@@ -4587,7 +4590,6 @@ const Engine = {
                                 }
                                 if (jb.hasJong && ly > jb.choY2 + 3) dist += 1e7;
                             } else if (mk.part === 'jung') {
-                                const choHasConn = ['ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅌ', 'ㅍ'].some(c => (metaK[0] && metaK[0].whId || '').includes(c));
                                 if (choHasConn && isChoConnBottom && lx < (jb.stemX_V ? jb.stemX_V - 3 : jb.splitX + 35)) {
                                     dist += 1e7; // 중성이 초성 ㄴ/ㄷ/ㄸ/ㄹ/ㅌ/ㅍ의 하단 가로 주간선을 침범하는 것을 차단
                                 }

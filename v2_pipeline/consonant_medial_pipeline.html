@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>한글 자음 메디얼 액시스 & 보로노이 분할 파이프라인 뷰어</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #070b14;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 25px;
+      color: #38bdf8;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    header p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    .pipeline-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 12px;
+      background: #0369a1;
+      color: #e0f2fe;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Tab bar */
+    .tab-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tab-btn {
+      background: #131d31;
+      color: #94a3b8;
+      border: 1.5px solid #223049;
+      font-size: 20px;
+      font-weight: bold;
+      width: 54px;
+      height: 50px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45);
+    }
+
+    /* Main Grid */
+    .grid {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1060px;
+      width: 100%;
+    }
+    .card {
+      background: #0d1527;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      flex: 1;
+      min-width: 380px;
+      max-width: 480px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-pill {
+      font-size: 11.5px;
+      background: #0f766e;
+      color: #5eead4;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    /* SVG wrapper */
+    .svg-wrap {
+      background: #04060c;
+      border: 1px solid #1a263d;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    svg {
+      display: block;
+    }
+
+    /* Action bar */
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 9px 16px;
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 13.5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .btn:hover {
+      background: #0369a1;
+    }
+    .btn-secondary {
+      background: #223049;
+      color: #cbd5e1;
+    }
+    .btn-secondary:hover {
+      background: #334155;
+    }
+
+    /* JSON Specs card */
+    .json-card {
+      max-width: 1060px;
+      width: 100%;
+      margin-top: 24px;
+      background: #0d1527;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .json-header {
+      font-size: 13.5px;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    pre {
+      background: #04060c;
+      border: 1px solid #1a263d;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+      max-height: 220px;
+      overflow-y: auto;
+      font-family: "Consolas", monospace;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="background: linear-gradient(135deg, #0284c7, #0d9488); border: 2px solid #38bdf8; border-radius: 14px; padding: 16px 24px; margin-bottom: 24px; max-width: 1060px; width: 100%; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4); text-align: left;">
+    <div>
+      <div style="font-size: 17px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+        🧱 어려운 "외곽선 가위질" 중단! 153개 부품 '레고 블록' 스튜디오 전환 완료!
+      </div>
+      <div style="font-size: 13px; color: #e0f2fe; margin-top: 5px; line-height: 1.4;">
+        복잡한 외곽선 가위질 오류를 끝내고, 이미 획별로 완벽 분리된 153개 공인 부품을 레고처럼 조립해 무결점 획순 애니메이션 및 실시간 중심선 미세 보정을 지원합니다.
+      </div>
+    </div>
+    <a href="/hangul_lego_studio.html" style="background: #ffffff; color: #0284c7; padding: 12px 20px; border-radius: 10px; font-weight: 800; text-decoration: none; font-size: 14px; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,0,0,0.25); transition: transform 0.15s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      레고 스튜디오 열기 ➔
+    </a>
+  </div>
+
+  <header>
+    <h1>한글 자음 메디얼 액시스 & 보로노이 분할 파이프라인</h1>
+    <p>batang.ttc(궁서체) 글리프 외곽선 2D 거리장 릿지 자동 추출 + 교차부 보로노이 다각형 분할</p>
+    <div class="pipeline-badge">수학적 결정론적 자동 생성 (사람의 수동 좌표 0%)</div>
+  </header>
+
+  <!-- Character selection tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="selectChar('ㄱ')">ㄱ</button>
+    <button class="tab-btn" onclick="selectChar('ㄴ')">ㄴ</button>
+    <button class="tab-btn" onclick="selectChar('ㄷ')">ㄷ</button>
+    <button class="tab-btn" onclick="selectChar('ㄹ')">ㄹ</button>
+    <button class="tab-btn" onclick="selectChar('ㅁ')">ㅁ</button>
+    <button class="tab-btn" onclick="selectChar('ㅂ')">ㅂ</button>
+    <button class="tab-btn" onclick="selectChar('ㅅ')">ㅅ</button>
+    <button class="tab-btn" onclick="selectChar('ㅇ')">ㅇ</button>
+    <button class="tab-btn" onclick="selectChar('ㅈ')">ㅈ</button>
+    <button class="tab-btn" onclick="selectChar('ㅊ')">ㅊ</button>
+    <button class="tab-btn" onclick="selectChar('ㅋ')">ㅋ</button>
+    <button class="tab-btn" onclick="selectChar('ㅌ')">ㅌ</button>
+    <button class="tab-btn" onclick="selectChar('ㅍ')">ㅍ</button>
+    <button class="tab-btn" onclick="selectChar('ㅎ')">ㅎ</button>
+  </div>
+
+  <div class="grid">
+    <!-- Left Card: Mathematical Skeleton + Voronoi Walls -->
+    <div class="card">
+      <div class="card-title">
+        <span>1. 외곽선 + 자동 추출 메디얼 액시스 & 보로노이 벽</span>
+        <span class="badge-pill" id="stroke-count-badge">1 획</span>
+      </div>
+      <div class="svg-wrap">
+        <svg id="svg-skeleton" width="400" height="400" viewBox="120 80 750 620">
+          <g transform="translate(0, 750) scale(1, -1)">
+            <!-- Glyph outline -->
+            <path id="skel-base-outline" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.7" />
+            <!-- Voronoi boundaries -->
+            <g id="skel-voronoi-group"></g>
+            <!-- Centerline strokes -->
+            <g id="skel-strokes-group"></g>
+          </g>
+        </svg>
+      </div>
+      <div style="margin-top: 12px; font-size: 12px; color: #94a3b8;">
+        ①..ⓝ 시작점 | 점선: 수학적 보로노이 분할벽 | 실선: 최대 내접원 메디얼 릿지
+      </div>
+    </div>
+
+    <!-- Right Card: 순차 획순 클리핑 애니메이션 -->
+    <div class="card">
+      <div class="card-title">
+        <span>2. 보로노이 클립 기반 순차 획순 먹물 애니메이션</span>
+        <span class="badge-pill" style="background:#854d0e; color:#fde047;">Voronoi ClipPath</span>
+      </div>
+      <div class="svg-wrap">
+        <svg id="svg-anim" width="400" height="400" viewBox="120 80 750 620">
+          <defs id="anim-defs">
+            <clipPath id="glyph-clip">
+              <path id="clip-path-elem" />
+            </clipPath>
+          </defs>
+          <g transform="translate(0, 750) scale(1, -1)">
+            <!-- Background outline guide -->
+            <path id="anim-bg-outline" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
+            <!-- Animated strokes clipped inside outline -->
+            <g clip-path="url(#glyph-clip)" id="anim-strokes-group"></g>
+          </g>
+        </svg>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="playCurrentAnimation()">애니메이션 다시 재생</button>
+        <button class="btn btn-secondary" onclick="stepNextStroke()">한 획씩 보기</button>
+        <button class="btn btn-secondary" id="btn-toggle-voronoi" onclick="toggleVoronoi()">보로노이 분할벽 토글</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard JSON Dataset Preview -->
+  <div class="json-card">
+    <div class="json-header">자동 추출된 자음 메디얼 스켈레톤 및 보로노이 분할 규격 (JSON)</div>
+    <pre id="json-viewer"></pre>
+  </div>
+
+  <script src="consonant_dataset.js?v=20261103_1022"></script>
+  <script>
+    let currentChar = 'ㄱ';
+    let currentAnimIndex = 0;
+    let animTimers = [];
+    let showVoronoi = true;
+
+    function selectChar(ch) {
+      currentChar = ch;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === ch);
+      });
+      renderChar(ch);
+      playCurrentAnimation();
+    }
+
+    function toggleVoronoi() {
+      showVoronoi = !showVoronoi;
+      document.getElementById('skel-voronoi-group').style.display = showVoronoi ? 'block' : 'none';
+    }
+
+    function renderChar(ch) {
+      const data = CONSONANT_MEDIAL_DATASET[ch];
+      if (!data) return;
+
+      // Update JSON viewer
+      document.getElementById('json-viewer').textContent = JSON.stringify(data, null, 2);
+      document.getElementById('stroke-count-badge').textContent = `${data.strokes.length} 획`;
+
+      // 1. Render Left Skeleton
+      document.getElementById('skel-base-outline').setAttribute('d', data.outline);
+      const skelGroup = document.getElementById('skel-strokes-group');
+      const voronoiGroup = document.getElementById('skel-voronoi-group');
+      skelGroup.innerHTML = '';
+      voronoiGroup.innerHTML = '';
+
+      const strokeColors = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'];
+
+      // Render Voronoi split polygons
+      data.strokes.forEach((st, idx) => {
+        if (st.voronoiPolygon && data.strokes.length > 1) {
+          const vPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          vPath.setAttribute('d', st.voronoiPolygon);
+          vPath.setAttribute('fill', strokeColors[idx % strokeColors.length]);
+          vPath.setAttribute('fill-opacity', '0.07');
+          vPath.setAttribute('stroke', strokeColors[idx % strokeColors.length]);
+          vPath.setAttribute('stroke-width', '1.5');
+          vPath.setAttribute('stroke-dasharray', '5 4');
+          voronoiGroup.appendChild(vPath);
+        }
+      });
+
+      // Render Skeleton centerlines
+      data.strokes.forEach((st, idx) => {
+        const color = strokeColors[idx % strokeColors.length];
+        const ptsStr = st.samplePoints.map(p => `${p[0]},${p[1]}`).join(' ');
+
+        // Centerline polyline
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        poly.setAttribute('points', ptsStr);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', color);
+        poly.setAttribute('stroke-width', '5');
+        poly.setAttribute('stroke-linecap', 'round');
+        poly.setAttribute('stroke-linejoin', 'round');
+        skelGroup.appendChild(poly);
+
+        // Centerline points with radii preview
+        st.samplePoints.forEach((pt, pIdx) => {
+          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('cx', pt[0]);
+          dot.setAttribute('cy', pt[1]);
+          dot.setAttribute('r', '3');
+          dot.setAttribute('fill', color);
+          skelGroup.appendChild(dot);
+        });
+
+        // Start point badge
+        const startPt = st.samplePoints[0];
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', startPt[0]);
+        circle.setAttribute('cy', startPt[1]);
+        circle.setAttribute('r', '15');
+        circle.setAttribute('fill', '#ffffff');
+        circle.setAttribute('stroke', color);
+        circle.setAttribute('stroke-width', '3');
+        skelGroup.appendChild(circle);
+
+        // Badge text
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', startPt[0]);
+        text.setAttribute('y', -startPt[1] + 4);
+        text.setAttribute('transform', 'scale(1, -1)');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '12');
+        text.setAttribute('font-weight', 'bold');
+        text.setAttribute('fill', '#0f172a');
+        text.textContent = idx + 1;
+        skelGroup.appendChild(text);
+      });
+
+      // 2. Setup Right Animation Mask
+      document.getElementById('clip-path-elem').setAttribute('d', data.outline);
+      document.getElementById('anim-bg-outline').setAttribute('d', data.outline);
+
+      const animGroup = document.getElementById('anim-strokes-group');
+      animGroup.innerHTML = '';
+
+      const defs = document.getElementById('anim-defs');
+      document.querySelectorAll('.voronoi-clip-elem').forEach(el => el.remove());
+
+      data.strokes.forEach((st, idx) => {
+        // Voronoi split clipPath
+        if (st.voronoiPolygon) {
+          const cp = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+          cp.setAttribute('id', `voronoi-clip-${idx}`);
+          cp.setAttribute('class', 'voronoi-clip-elem');
+          const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          p.setAttribute('d', st.voronoiPolygon);
+          cp.appendChild(p);
+          defs.appendChild(cp);
+        }
+
+        const strokeWrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        if (st.voronoiPolygon && data.strokes.length > 1) {
+          strokeWrap.setAttribute('clip-path', `url(#voronoi-clip-${idx})`);
+        }
+
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        const ptsStr = st.samplePoints.map(p => `${p[0]},${p[1]}`).join(' ');
+        poly.setAttribute('id', `anim-brush-${idx}`);
+        poly.setAttribute('points', ptsStr);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', '#e11d48');
+        poly.setAttribute('stroke-width', st.clipWidth || 150);
+        poly.setAttribute('stroke-linecap', 'round');
+        poly.setAttribute('stroke-linejoin', 'round');
+
+        strokeWrap.appendChild(poly);
+        animGroup.appendChild(strokeWrap);
+
+        const totalLen = poly.getTotalLength();
+        poly.style.strokeDasharray = totalLen;
+        poly.style.strokeDashoffset = totalLen;
+      });
+    }
+
+    function playCurrentAnimation() {
+      animTimers.forEach(t => clearTimeout(t));
+      animTimers = [];
+
+      const data = CONSONANT_MEDIAL_DATASET[currentChar];
+      if (!data) return;
+
+      data.strokes.forEach((_, idx) => {
+        const brush = document.getElementById(`anim-brush-${idx}`);
+        if (brush) {
+          const totalLen = brush.getTotalLength();
+          brush.style.transition = 'none';
+          brush.style.strokeDashoffset = totalLen;
+        }
+      });
+
+      let delay = 100;
+      data.strokes.forEach((_, idx) => {
+        const timer = setTimeout(() => {
+          const brush = document.getElementById(`anim-brush-${idx}`);
+          if (brush) {
+            brush.style.transition = 'stroke-dashoffset 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
+            brush.style.strokeDashoffset = '0';
+          }
+        }, delay);
+        animTimers.push(timer);
+        delay += 750;
+      });
+    }
+
+    function stepNextStroke() {
+      const data = CONSONANT_MEDIAL_DATASET[currentChar];
+      if (!data) return;
+      if (currentAnimIndex >= data.strokes.length) currentAnimIndex = 0;
+
+      const brush = document.getElementById(`anim-brush-${currentAnimIndex}`);
+      if (brush) {
+        brush.style.transition = 'stroke-dashoffset 0.6s ease-out';
+        brush.style.strokeDashoffset = '0';
+      }
+      currentAnimIndex++;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderChar('ㄱ');
+      setTimeout(playCurrentAnimation, 300);
+    });
+  </script>
+</body>
+</html>

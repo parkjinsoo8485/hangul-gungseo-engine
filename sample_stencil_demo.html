@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한글 자음 획순 스텐실 마스크 데모</title>
+<style>
+    body {
+        margin: 0;
+        padding: 24px 16px;
+        background: #f4efe6;
+        font-family: 'Malgun Gothic', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #2c2520;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    h1 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        color: #1a1614;
+    }
+    p.desc {
+        margin: 0 0 20px;
+        font-size: 14px;
+        color: #665b52;
+        text-align: center;
+        max-width: 520px;
+        line-height: 1.5;
+    }
+    .card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        border: 1px solid #e2d9cb;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        max-width: 480px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .jamo-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        max-width: 420px;
+    }
+    .jamo-btn {
+        width: 42px;
+        height: 42px;
+        border: 1.5px solid #d5cbba;
+        background: #fbf9f5;
+        border-radius: 8px;
+        font-size: 20px;
+        font-family: 'Gungsuh', '궁서', serif;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        color: #332d27;
+    }
+    .jamo-btn:hover {
+        background: #ede6d9;
+        border-color: #8b2635;
+    }
+    .jamo-btn.active {
+        background: #8b2635;
+        color: #ffffff;
+        border-color: #8b2635;
+        box-shadow: 0 3px 8px rgba(139,38,53,0.3);
+    }
+    .canvas-container {
+        position: relative;
+        width: 360px;
+        height: 360px;
+        background: #fffdf9;
+        background-image: radial-gradient(rgba(215, 204, 184, 0.3) 1px, transparent 0);
+        background-size: 20px 20px;
+        border: 2px solid #332d27;
+        border-radius: 12px;
+        overflow: hidden;
+        touch-action: none;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.03);
+        cursor: crosshair;
+    }
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 360px;
+        height: 360px;
+        display: block;
+    }
+    .grid-svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+    .controls {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+    .btn {
+        flex: 1;
+        padding: 12px 14px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14.5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .btn-primary {
+        background: #8b2635;
+        color: #fff;
+    }
+    .btn-primary:hover {
+        background: #6e1c29;
+    }
+    .btn-secondary {
+        background: #332d27;
+        color: #fff;
+    }
+    .btn-secondary:hover {
+        background: #1f1b17;
+    }
+    .btn-outline {
+        background: #fff;
+        color: #332d27;
+        border: 1.5px solid #d5cbba;
+    }
+    .btn-outline:hover {
+        background: #f4efe6;
+    }
+    .status-badge {
+        font-size: 13.5px;
+        font-weight: bold;
+        padding: 6px 14px;
+        border-radius: 20px;
+        background: #eee8dc;
+        color: #4a4036;
+        min-height: 20px;
+        text-align: center;
+    }
+    .status-badge.success {
+        background: #e6f4ea;
+        color: #137333;
+    }
+</style>
+</head>
+<body>
+
+<h1>🖌️ 한글 자음 획순 스텐실 마스크</h1>
+<p class="desc">
+    글자를 가위로 자르지 않고, <strong>진짜 궁서체 폰트를 그대로 둔 채</strong> 획순 길을 따라 붓으로 문질러서 먹물을 드러내는 혁신적인 방식의 데모입니다.
+</p>
+
+<div class="card">
+    <!-- 자음 선택 버튼들 -->
+    <div class="jamo-selector" id="jamo-selector"></div>
+
+    <!-- 캔버스 영역 -->
+    <div class="canvas-container" id="canvas-wrap">
+        <!-- 격자 안내선 -->
+        <svg class="grid-svg">
+            <line x1="180" y1="0" x2="180" y2="360" stroke="#e0d7c7" stroke-dasharray="4,4" stroke-width="1.5" />
+            <line x1="0" y1="180" x2="360" y2="180" stroke="#e0d7c7" stroke-dasharray="4,4" stroke-width="1.5" />
+        </svg>
+        <!-- 배경 폰트 (흐린 가이드) -->
+        <canvas id="bg-canvas" width="360" height="360"></canvas>
+        <!-- 마스킹으로 칠해지는 진짜 먹물 캔버스 -->
+        <canvas id="ink-canvas" width="360" height="360"></canvas>
+        <!-- 획순 가이드 및 번호 표시 캔버스 -->
+        <canvas id="guide-canvas" width="360" height="360"></canvas>
+    </div>
+
+    <!-- 상태 알림 -->
+    <div class="status-badge" id="status-badge">자음을 고르고 '자동 시범 쓰기'를 눌러보세요!</div>
+
+    <!-- 컨트롤 버튼 -->
+    <div class="controls">
+        <button class="btn btn-primary" id="btn-play">▶ 자동 시범 쓰기</button>
+        <button class="btn btn-secondary" id="btn-quiz">✍️ 직접 따라 쓰기</button>
+        <button class="btn btn-outline" id="btn-reset" style="flex: 0 0 70px;">다시</button>
+    </div>
+</div>
+
+<script>
+// 자음별 획순 뼈대 정의 (자음의 Bounding Box 내부 기준 0~100 상대 좌표)
+const JAMO_DATA = {
+    'ㄱ': {
+        name: '기역 (1획)',
+        strokes: [
+            [[6, 8], [94, 8], [94, 94]]
+        ]
+    },
+    'ㄴ': {
+        name: '니은 (1획)',
+        strokes: [
+            [[8, 6], [8, 92], [94, 92]]
+        ]
+    },
+    'ㄷ': {
+        name: '디귿 (2획)',
+        strokes: [
+            [[6, 8], [94, 8]],
+            [[10, 10], [10, 92], [94, 92]]
+        ]
+    },
+    'ㄹ': {
+        name: '리을 (3획)',
+        strokes: [
+            [[6, 8], [94, 8], [94, 48]],
+            [[6, 48], [94, 48]],
+            [[10, 48], [10, 92], [94, 92]]
+        ]
+    },
+    'ㅁ': {
+        name: '미음 (3획)',
+        strokes: [
+            [[8, 6], [8, 94]],
+            [[6, 8], [94, 8], [94, 94]],
+            [[6, 92], [94, 92]]
+        ]
+    },
+    'ㅂ': {
+        name: '비읍 (4획)',
+        strokes: [
+            [[14, 6], [14, 94]],
+            [[86, 6], [86, 94]],
+            [[14, 52], [86, 52]],
+            [[14, 92], [86, 92]]
+        ]
+    },
+    'ㅅ': {
+        name: '시옷 (2획)',
+        strokes: [
+            [[50, 6], [8, 94]],
+            [[46, 48], [92, 94]]
+        ]
+    },
+    'ㅇ': {
+        name: '이응 (1획, 반시계)',
+        strokes: [
+            [[50, 4], [12, 28], [6, 50], [12, 74], [50, 96], [88, 74], [94, 50], [88, 28], [50, 4]]
+        ]
+    },
+    'ㅈ': {
+        name: '지읒 (3획)',
+        strokes: [
+            [[6, 8], [94, 8]],
+            [[50, 8], [10, 94]],
+            [[46, 50], [90, 94]]
+        ]
+    },
+    'ㅊ': {
+        name: '치읓 (4획)',
+        strokes: [
+            [[34, 4], [66, 4]],
+            [[6, 24], [94, 24]],
+            [[50, 24], [10, 94]],
+            [[46, 56], [90, 94]]
+        ]
+    },
+    'ㅋ': {
+        name: '키읔 (2획)',
+        strokes: [
+            [[6, 8], [94, 8], [94, 94]],
+            [[6, 50], [92, 50]]
+        ]
+    },
+    'ㅌ': {
+        name: '티읕 (3획)',
+        strokes: [
+            [[6, 8], [94, 8]],
+            [[10, 50], [90, 50]],
+            [[10, 10], [10, 92], [94, 92]]
+        ]
+    },
+    'ㅍ': {
+        name: '피읖 (4획)',
+        strokes: [
+            [[4, 8], [96, 8]],
+            [[30, 8], [30, 92]],
+            [[70, 8], [70, 92]],
+            [[4, 92], [96, 92]]
+        ]
+    },
+    'ㅎ': {
+        name: '히읗 (3획)',
+        strokes: [
+            [[34, 4], [66, 4]],
+            [[6, 24], [94, 24]],
+            [[50, 42], [20, 56], [12, 70], [20, 86], [50, 96], [80, 86], [88, 70], [80, 56], [50, 42]]
+        ]
+    }
+};
+
+let currentJamo = 'ㄹ';
+let isAnimating = false;
+let isQuizMode = false;
+let currentStrokeIdx = 0;
+let userDrawing = false;
+let userPoints = [];
+let animRafId = null;
+let animTimerId = null;
+let currentBBox = null;
+
+// DOM 요소
+const bgCanvas = document.getElementById('bg-canvas');
+const inkCanvas = document.getElementById('ink-canvas');
+const guideCanvas = document.getElementById('guide-canvas');
+const bgCtx = bgCanvas.getContext('2d');
+const inkCtx = inkCanvas.getContext('2d');
+const guideCtx = guideCanvas.getContext('2d');
+
+const finishedCanvas = document.createElement('canvas');
+finishedCanvas.width = 360;
+finishedCanvas.height = 360;
+const finishedCtx = finishedCanvas.getContext('2d');
+
+const maskCanvas = document.createElement('canvas');
+maskCanvas.width = 360;
+maskCanvas.height = 360;
+const maskCtx = maskCanvas.getContext('2d');
+
+const statusBadge = document.getElementById('status-badge');
+const btnPlay = document.getElementById('btn-play');
+const btnQuiz = document.getElementById('btn-quiz');
+const btnReset = document.getElementById('btn-reset');
+const jamoSelector = document.getElementById('jamo-selector');
+
+// 1. 자음 선택기 버튼 생성
+Object.keys(JAMO_DATA).forEach(char => {
+    const btn = document.createElement('button');
+    btn.className = 'jamo-btn' + (char === currentJamo ? ' active' : '');
+    btn.textContent = char;
+    btn.onclick = () => selectJamo(char);
+    jamoSelector.appendChild(btn);
+});
+
+// 폰트 크기 및 렌더 위치 (360x360 캔버스 정중앙에 시원하게 260px)
+const FONT_SIZE = 260;
+const FONT_X = 180;
+const FONT_Y = 180;
+const FONT_SPEC = `bold ${FONT_SIZE}px 'Gungsuh', '궁서', serif`;
+
+// 글리프의 실제 잉크 Bounding Box 자동 측정 함수
+function computeGlyphBBox(char) {
+    const c = document.createElement('canvas');
+    c.width = 360; c.height = 360;
+    const ctx = c.getContext('2d');
+    ctx.font = FONT_SPEC;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#000';
+    ctx.fillText(char, FONT_X, FONT_Y);
+    const d = ctx.getImageData(0, 0, 360, 360).data;
+    let minX = 360, maxX = 0, minY = 360, maxY = 0;
+    for (let y = 0; y < 360; y++) {
+        for (let x = 0; x < 360; x++) {
+            if (d[(y * 360 + x) * 4 + 3] > 30) {
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+        }
+    }
+    // 안전 마진
+    return {
+        minX, maxX, minY, maxY,
+        width: Math.max(10, maxX - minX),
+        height: Math.max(10, maxY - minY)
+    };
+}
+
+// 상대 좌표 [u, v] (0~100)를 실제 글리프 픽셀 좌표로 변환
+function toCanvasCoord(point) {
+    if (!currentBBox) currentBBox = computeGlyphBBox(currentJamo);
+    const u = point[0] / 100;
+    const v = point[1] / 100;
+    return {
+        x: currentBBox.minX + u * currentBBox.width,
+        y: currentBBox.minY + v * currentBBox.height
+    };
+}
+
+function selectJamo(char) {
+    stopCurrentAnimation();
+    currentJamo = char;
+    currentBBox = computeGlyphBBox(char);
+
+    document.querySelectorAll('.jamo-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent === char);
+    });
+    resetCanvas();
+    drawBackgroundFont();
+    drawGuideNumbers();
+    statusBadge.className = 'status-badge';
+    statusBadge.textContent = `${JAMO_DATA[char].name} 준비 완료!`;
+}
+
+// 2. 배경 폰트 그리기 (흐린 가이드)
+function drawBackgroundFont() {
+    bgCtx.clearRect(0, 0, 360, 360);
+    bgCtx.save();
+    bgCtx.font = FONT_SPEC;
+    bgCtx.textAlign = 'center';
+    bgCtx.textBaseline = 'middle';
+    bgCtx.fillStyle = '#e8dfd1';
+    bgCtx.fillText(currentJamo, FONT_X, FONT_Y);
+    bgCtx.restore();
+}
+
+// 3. 획순 번호 배지 그리기
+function drawGuideNumbers() {
+    guideCtx.clearRect(0, 0, 360, 360);
+    const data = JAMO_DATA[currentJamo];
+    if (!data) return;
+
+    data.strokes.forEach((stroke, idx) => {
+        const startPt = toCanvasCoord(stroke[0]);
+
+        guideCtx.save();
+        guideCtx.beginPath();
+        guideCtx.arc(startPt.x, startPt.y, 13, 0, Math.PI * 2);
+        guideCtx.fillStyle = (isQuizMode && idx === currentStrokeIdx) ? '#d93025' : '#8b2635';
+        guideCtx.fill();
+        guideCtx.strokeStyle = '#ffffff';
+        guideCtx.lineWidth = 2.5;
+        guideCtx.stroke();
+
+        guideCtx.fillStyle = '#ffffff';
+        guideCtx.font = 'bold 12.5px sans-serif';
+        guideCtx.textAlign = 'center';
+        guideCtx.textBaseline = 'middle';
+        guideCtx.fillText(idx + 1, startPt.x, startPt.y);
+        guideCtx.restore();
+    });
+}
+
+function stopCurrentAnimation() {
+    if (animRafId) cancelAnimationFrame(animRafId);
+    if (animTimerId) clearTimeout(animTimerId);
+    animRafId = null;
+    animTimerId = null;
+    isAnimating = false;
+}
+
+// 4. 캔버스 초기화
+function resetCanvas() {
+    stopCurrentAnimation();
+    currentStrokeIdx = 0;
+    userPoints = [];
+    userDrawing = false;
+    inkCtx.clearRect(0, 0, 360, 360);
+    finishedCtx.clearRect(0, 0, 360, 360);
+    maskCtx.clearRect(0, 0, 360, 360);
+    guideCtx.clearRect(0, 0, 360, 360);
+}
+
+// ============================================================
+// 🌟 혁신: 스텐실 마스킹으로 진짜 먹물 칠하기
+// ============================================================
+function renderCurrentStrokeWithMask(brushPoints, brushRadius = 34) {
+    if (!brushPoints || brushPoints.length === 0) return;
+
+    // 1단계: 붓 궤적 그리기
+    maskCtx.clearRect(0, 0, 360, 360);
+    maskCtx.save();
+    maskCtx.lineCap = 'round';
+    maskCtx.lineJoin = 'round';
+    maskCtx.lineWidth = brushRadius * 2;
+    maskCtx.strokeStyle = '#000000';
+    maskCtx.fillStyle = '#000000';
+
+    if (brushPoints.length === 1) {
+        maskCtx.beginPath();
+        maskCtx.arc(brushPoints[0].x, brushPoints[0].y, brushRadius, 0, Math.PI * 2);
+        maskCtx.fill();
+    } else {
+        maskCtx.beginPath();
+        maskCtx.moveTo(brushPoints[0].x, brushPoints[0].y);
+        for (let i = 1; i < brushPoints.length; i++) {
+            maskCtx.lineTo(brushPoints[i].x, brushPoints[i].y);
+        }
+        maskCtx.stroke();
+    }
+    maskCtx.restore();
+
+    // 2단계: 'source-in' 합성으로 글자의 원래 모양 그대로 먹물 칠하기
+    maskCtx.save();
+    maskCtx.globalCompositeOperation = 'source-in';
+    maskCtx.font = FONT_SPEC;
+    maskCtx.textAlign = 'center';
+    maskCtx.textBaseline = 'middle';
+    maskCtx.fillStyle = '#181412';
+    maskCtx.fillText(currentJamo, FONT_X, FONT_Y);
+    maskCtx.restore();
+
+    // 3단계: 완성된 이전 획들 위에 덮어쓰기
+    inkCtx.clearRect(0, 0, 360, 360);
+    inkCtx.drawImage(finishedCanvas, 0, 0);
+    inkCtx.drawImage(maskCanvas, 0, 0);
+}
+
+function commitCurrentStrokeToFinished() {
+    finishedCtx.drawImage(maskCanvas, 0, 0);
+    inkCtx.clearRect(0, 0, 360, 360);
+    inkCtx.drawImage(finishedCanvas, 0, 0);
+    maskCtx.clearRect(0, 0, 360, 360);
+}
+
+// 5. 자동 시범 쓰기 애니메이션
+btnPlay.onclick = () => {
+    stopCurrentAnimation();
+    resetCanvas();
+    drawBackgroundFont();
+    
+    isAnimating = true;
+    isQuizMode = false;
+    statusBadge.className = 'status-badge';
+    statusBadge.textContent = '붓글씨 시범 쓰기 중...';
+
+    const strokes = JAMO_DATA[currentJamo].strokes;
+    let sIdx = 0;
+
+    function playNextStroke() {
+        if (!isAnimating) return;
+        if (sIdx >= strokes.length) {
+            isAnimating = false;
+            statusBadge.className = 'status-badge success';
+            statusBadge.textContent = '🎉 시범 쓰기 완료! 참 잘했어요!';
+            drawGuideNumbers();
+            return;
+        }
+
+        // 뼈대 포인트를 실제 픽셀 좌표로 변환
+        const rawPts = strokes[sIdx].map(p => toCanvasCoord(p));
+        
+        // 촘촘하게 점들 보간
+        const densePts = [];
+        for (let i = 0; i < rawPts.length - 1; i++) {
+            const p1 = rawPts[i];
+            const p2 = rawPts[i + 1];
+            const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+            const steps = Math.max(8, Math.floor(dist / 3.0));
+            for (let s = 0; s <= steps; s++) {
+                const t = s / steps;
+                densePts.push({
+                    x: p1.x + (p2.x - p1.x) * t,
+                    y: p1.y + (p2.y - p1.y) * t
+                });
+            }
+        }
+
+        let step = 0;
+        const totalSteps = densePts.length;
+
+        function animateFrame() {
+            if (!isAnimating) return;
+
+            const speed = Math.max(1, Math.floor(totalSteps / 22));
+            step = Math.min(totalSteps, step + speed);
+
+            const currentSubPath = densePts.slice(0, step);
+            if (currentSubPath.length > 0) {
+                renderCurrentStrokeWithMask(currentSubPath, 34);
+            }
+
+            if (step < totalSteps) {
+                animRafId = requestAnimationFrame(animateFrame);
+            } else {
+                commitCurrentStrokeToFinished();
+                sIdx++;
+                animTimerId = setTimeout(playNextStroke, 180);
+            }
+        }
+
+        animRafId = requestAnimationFrame(animateFrame);
+    }
+
+    playNextStroke();
+};
+
+// 6. 직접 따라 쓰기 모드
+btnQuiz.onclick = () => {
+    stopCurrentAnimation();
+    resetCanvas();
+    drawBackgroundFont();
+    isQuizMode = true;
+    currentStrokeIdx = 0;
+    drawGuideNumbers();
+    statusBadge.className = 'status-badge';
+    statusBadge.textContent = '①번 번호부터 순서대로 손가락으로 문질러보세요!';
+};
+
+btnReset.onclick = () => {
+    selectJamo(currentJamo);
+};
+
+// 마우스 / 터치 인터랙션
+const wrap = document.getElementById('canvas-wrap');
+
+function getPos(e) {
+    const rect = wrap.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+    };
+}
+
+wrap.addEventListener('pointerdown', (e) => {
+    if (!isQuizMode || isAnimating) return;
+    e.preventDefault();
+    try { wrap.setPointerCapture(e.pointerId); } catch(err) {}
+
+    const pos = getPos(e);
+    const targetStroke = JAMO_DATA[currentJamo].strokes[currentStrokeIdx];
+    const targetStart = toCanvasCoord(targetStroke[0]);
+    const distToStart = Math.hypot(pos.x - targetStart.x, pos.y - targetStart.y);
+
+    if (distToStart > 45) {
+        statusBadge.className = 'status-badge';
+        statusBadge.textContent = `⚠️ 깜빡! 지금은 ${currentStrokeIdx + 1}번 획(빨간 번호)부터 시작해야 해요!`;
+        userDrawing = false;
+        return;
+    }
+
+    userDrawing = true;
+    userPoints = [pos];
+    renderCurrentStrokeWithMask(userPoints, 34);
+});
+
+wrap.addEventListener('pointermove', (e) => {
+    if (!userDrawing || !isQuizMode) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    userPoints.push(pos);
+    renderCurrentStrokeWithMask(userPoints, 34);
+});
+
+wrap.addEventListener('pointerup', (e) => {
+    if (!userDrawing || !isQuizMode) return;
+    try { wrap.releasePointerCapture(e.pointerId); } catch(err) {}
+    userDrawing = false;
+
+    const targetStroke = JAMO_DATA[currentJamo].strokes[currentStrokeIdx];
+    const targetEnd = toCanvasCoord(targetStroke[targetStroke.length - 1]);
+    const lastPoint = userPoints[userPoints.length - 1] || { x: 0, y: 0 };
+    const distToEnd = Math.hypot(lastPoint.x - targetEnd.x, lastPoint.y - targetEnd.y);
+
+    if (distToEnd < 60 && userPoints.length >= 2) {
+        commitCurrentStrokeToFinished();
+        currentStrokeIdx++;
+        const totalStrokes = JAMO_DATA[currentJamo].strokes.length;
+
+        if (currentStrokeIdx >= totalStrokes) {
+            statusBadge.className = 'status-badge success';
+            statusBadge.textContent = '🌟 대단해요! 글자를 멋지게 완성했어요!';
+            guideCtx.clearRect(0, 0, 360, 360);
+        } else {
+            statusBadge.className = 'status-badge';
+            statusBadge.textContent = `딩동댕! 이제 다음 ${currentStrokeIdx + 1}번 획을 써보세요!`;
+            drawGuideNumbers();
+        }
+    } else {
+        statusBadge.className = 'status-badge';
+        statusBadge.textContent = '끝까지 쓱~ 더 길게 문질러주세요!';
+        inkCtx.clearRect(0, 0, 360, 360);
+        inkCtx.drawImage(finishedCanvas, 0, 0);
+    }
+    userPoints = [];
+});
+
+// 시작
+if (document.fonts) {
+    document.fonts.ready.then(() => {
+        selectJamo('ㄹ');
+    });
+} else {
+    selectJamo('ㄹ');
+}
+</script>
+
+</body>
+</html>

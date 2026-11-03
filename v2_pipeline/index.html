@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>한글 획순 표준 아키텍처 뷰어 (v2_pipeline)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #090d16;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 24px;
+      color: #38bdf8;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    header p {
+      font-size: 13.5px;
+      color: #94a3b8;
+    }
+
+    /* Tab bar */
+    .tab-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1.5px solid #334155;
+      font-size: 20px;
+      font-weight: bold;
+      width: 58px;
+      height: 52px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+    }
+
+    /* Main Grid */
+    .grid {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1060px;
+      width: 100%;
+    }
+    .card {
+      background: #131d31;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      flex: 1;
+      min-width: 380px;
+      max-width: 460px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-pill {
+      font-size: 11px;
+      background: #0f766e;
+      color: #5eead4;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    /* Canvas SVG wrapper */
+    .svg-wrap {
+      background: #060911;
+      border: 1px solid #223049;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    svg {
+      display: block;
+    }
+
+    /* Action bar */
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+    }
+    .btn {
+      padding: 9px 18px;
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 13.5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .btn:hover {
+      background: #0369a1;
+    }
+    .btn-secondary {
+      background: #334155;
+      color: #e2e8f0;
+    }
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    /* JSON Specs card */
+    .json-card {
+      max-width: 1060px;
+      width: 100%;
+      margin-top: 24px;
+      background: #0d1527;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .json-header {
+      font-size: 13px;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    pre {
+      background: #070b14;
+      border: 1px solid #1a263d;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 11.5px;
+      color: #94a3b8;
+      max-height: 220px;
+      overflow-y: auto;
+      font-family: "Consolas", monospace;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>한글 획순 표준 아키텍처 뷰어</h1>
+    <p>표준 자모 기반 파라메트릭 스켈레톤 (Stroke Graph) & SVG &lt;clipPath&gt; 순차 렌더링</p>
+  </header>
+
+  <!-- Character selection tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="selectChar('가')">가</button>
+    <button class="tab-btn" onclick="selectChar('나')">나</button>
+    <button class="tab-btn" onclick="selectChar('다')">다</button>
+    <button class="tab-btn" onclick="selectChar('라')">라</button>
+    <button class="tab-btn" onclick="selectChar('마')">마</button>
+    <button class="tab-btn" onclick="selectChar('바')">바</button>
+    <button class="tab-btn" onclick="selectChar('사')">사</button>
+    <button class="tab-btn" onclick="selectChar('아')">아</button>
+  </div>
+
+  <div class="grid">
+    <!-- Left Card: Skeleton & Direction Vectors -->
+    <div class="card">
+      <div class="card-title">
+        <span>1. 폰트 윤곽선 + 획순 스켈레톤 그래프</span>
+        <span class="badge-pill" id="stroke-count-badge">3 획</span>
+      </div>
+      <div class="svg-wrap">
+        <svg id="svg-skeleton" width="380" height="380" viewBox="0 -150 1100 1100">
+          <g transform="translate(0, 750) scale(1, -1)">
+            <path id="skel-base-outline" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.6" />
+            <g id="skel-strokes-group"></g>
+          </g>
+        </svg>
+      </div>
+      <div style="margin-top: 12px; font-size: 12px; color: #94a3b8;">
+        ①..ⓝ 획 시작점 배지 | 적색선: 방향 제어선 (Sample Points)
+      </div>
+    </div>
+
+    <!-- Right Card: 순차 획순 클리핑 애니메이션 -->
+    <div class="card">
+      <div class="card-title">
+        <span>2. 실시간 순차 획순 먹물 애니메이션</span>
+        <span class="badge-pill" style="background:#854d0e; color:#fde047;">ClipPath 마스크</span>
+      </div>
+      <div class="svg-wrap">
+        <svg id="svg-anim" width="380" height="380" viewBox="0 -150 1100 1100">
+          <defs>
+            <clipPath id="glyph-clip">
+              <path id="clip-path-elem" />
+            </clipPath>
+          </defs>
+          <g transform="translate(0, 750) scale(1, -1)">
+            <!-- Background faint guide outline -->
+            <path id="anim-bg-outline" fill="#131c2d" stroke="#223049" stroke-width="1.5" />
+            <!-- Animated strokes clipped inside outline -->
+            <g clip-path="url(#glyph-clip)" id="anim-strokes-group"></g>
+          </g>
+        </svg>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="playCurrentAnimation()">애니메이션 다시 재생</button>
+        <button class="btn btn-secondary" onclick="stepNextStroke()">한 획씩 보기</button>
+        <button class="btn btn-secondary" id="btn-toggle-clip" onclick="toggleClipPath()">클립박스 해제 (디버그)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard JSON Dataset Preview -->
+  <div class="json-card">
+    <div class="json-header">표준 JSON 데이터셋 규격 (Stroke Graph Metadata)</div>
+    <pre id="json-viewer"></pre>
+  </div>
+
+  <script src="hangul_stroke_dataset.js?v=20261103_1000"></script>
+  <script>
+    let currentChar = '가';
+    let currentAnimIndex = 0;
+    let animTimers = [];
+
+    function selectChar(ch) {
+      currentChar = ch;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim() === ch);
+      });
+      renderChar(ch);
+      playCurrentAnimation();
+    }
+
+    function renderChar(ch) {
+      const data = HANGUL_STROKE_DATASET[ch];
+      if (!data) return;
+
+      // Update JSON viewer
+      document.getElementById('json-viewer').textContent = JSON.stringify(data, null, 2);
+      document.getElementById('stroke-count-badge').textContent = `${data.strokes.length} 획`;
+
+      // 1. Render Left Skeleton
+      document.getElementById('skel-base-outline').setAttribute('d', data.outline);
+      const skelGroup = document.getElementById('skel-strokes-group');
+      skelGroup.innerHTML = '';
+
+      const strokeColors = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'];
+
+      data.strokes.forEach((st, idx) => {
+        const color = strokeColors[idx % strokeColors.length];
+        const ptsStr = st.samplePoints.map(p => `${p[0]},${p[1]}`).join(' ');
+
+        // Skeleton line
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        poly.setAttribute('points', ptsStr);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', color);
+        poly.setAttribute('stroke-width', '5');
+        poly.setAttribute('stroke-linecap', 'round');
+        poly.setAttribute('stroke-linejoin', 'round');
+        skelGroup.appendChild(poly);
+
+        // Start point badge
+        const startPt = st.samplePoints[0];
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', startPt[0]);
+        circle.setAttribute('cy', startPt[1]);
+        circle.setAttribute('r', '14');
+        circle.setAttribute('fill', '#ffffff');
+        circle.setAttribute('stroke', color);
+        circle.setAttribute('stroke-width', '3');
+        skelGroup.appendChild(circle);
+
+        // Badge text (Need to flip Y back because of g transform scale(1, -1))
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', startPt[0]);
+        text.setAttribute('y', -startPt[1] + 4);
+        text.setAttribute('transform', 'scale(1, -1)');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '12');
+        text.setAttribute('font-weight', 'bold');
+        text.setAttribute('fill', '#0f172a');
+        text.textContent = idx + 1;
+        skelGroup.appendChild(text);
+      });
+
+      // 2. Setup Right Animation Mask
+      document.getElementById('clip-path-elem').setAttribute('d', data.outline);
+      document.getElementById('anim-bg-outline').setAttribute('d', data.outline);
+
+      const animGroup = document.getElementById('anim-strokes-group');
+      animGroup.innerHTML = '';
+
+      // Also setup defs for each stroke's clipBox
+      const defs = document.querySelector('#svg-anim defs');
+      // remove old stroke clips
+      document.querySelectorAll('.stroke-clip-box').forEach(el => el.remove());
+
+      data.strokes.forEach((st, idx) => {
+        // Create a unique clipPath for this stroke's boundary box
+        if (st.clipBox) {
+          const cp = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+          cp.setAttribute('id', `stroke-clip-${idx}`);
+          cp.setAttribute('class', 'stroke-clip-box');
+          const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          r.setAttribute('x', st.clipBox.x);
+          r.setAttribute('y', st.clipBox.y);
+          r.setAttribute('width', st.clipBox.w);
+          r.setAttribute('height', st.clipBox.h);
+          cp.appendChild(r);
+          defs.appendChild(cp);
+        }
+
+        // Subgroup with clip-path to this stroke's box
+        const strokeWrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        if (st.clipBox && clipEnabled) {
+          strokeWrap.setAttribute('clip-path', `url(#stroke-clip-${idx})`);
+        }
+
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        const ptsStr = st.samplePoints.map(p => `${p[0]},${p[1]}`).join(' ');
+        poly.setAttribute('id', `anim-brush-${idx}`);
+        poly.setAttribute('points', ptsStr);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', '#e11d48');
+        poly.setAttribute('stroke-width', st.clipWidth || 120);
+        poly.setAttribute('stroke-linecap', 'round');
+        poly.setAttribute('stroke-linejoin', 'round');
+        
+        strokeWrap.appendChild(poly);
+        animGroup.appendChild(strokeWrap);
+
+        const totalLen = poly.getTotalLength();
+        poly.style.strokeDasharray = totalLen;
+        poly.style.strokeDashoffset = totalLen;
+      });
+    }
+
+    function playCurrentAnimation() {
+      animTimers.forEach(t => clearTimeout(t));
+      animTimers = [];
+
+      const data = HANGUL_STROKE_DATASET[currentChar];
+      if (!data) return;
+
+      // Reset all strokes to hidden
+      data.strokes.forEach((_, idx) => {
+        const brush = document.getElementById(`anim-brush-${idx}`);
+        if (brush) {
+          const totalLen = brush.getTotalLength();
+          brush.style.transition = 'none';
+          brush.style.strokeDashoffset = totalLen;
+        }
+      });
+
+      // Chain animate sequential strokes
+      let delay = 100;
+      data.strokes.forEach((_, idx) => {
+        const timer = setTimeout(() => {
+          const brush = document.getElementById(`anim-brush-${idx}`);
+          if (brush) {
+            brush.style.transition = 'stroke-dashoffset 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
+            brush.style.strokeDashoffset = '0';
+          }
+        }, delay);
+        animTimers.push(timer);
+        delay += 750; // next stroke starts after 750ms
+      });
+    }
+
+    let clipEnabled = true;
+    function toggleClipPath() {
+      clipEnabled = !clipEnabled;
+      const btn = document.getElementById('btn-toggle-clip');
+      btn.textContent = clipEnabled ? '클립박스 해제 (디버그)' : '클립박스 켜기 (정상)';
+      renderChar(currentChar);
+      playCurrentAnimation();
+    }
+
+    function stepNextStroke() {
+      // Step-by-step controller
+      const data = HANGUL_STROKE_DATASET[currentChar];
+      if (!data) return;
+      if (currentAnimIndex >= data.strokes.length) currentAnimIndex = 0;
+
+      const brush = document.getElementById(`anim-brush-${currentAnimIndex}`);
+      if (brush) {
+        brush.style.transition = 'stroke-dashoffset 0.6s ease-out';
+        brush.style.strokeDashoffset = '0';
+      }
+      currentAnimIndex++;
+    }
+
+    // Auto initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderChar('가');
+      setTimeout(playCurrentAnimation, 300);
+    });
+  </script>
+</body>
+</html>

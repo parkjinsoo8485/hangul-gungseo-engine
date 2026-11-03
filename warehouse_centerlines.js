@@ -1,5 +1,11 @@
-window.HANGUL_WH_CENTERLINES = {
-  "version": "3.4-perfect-points-alignment",
+/**
+ * Hangul Gungsuh 153 Parts Centerlines & Stroke Widths Database
+ * Version: 3.9-standard-stroke-order-unified
+ * Updated: 2026-11-02T05:18:20.740Z
+ */
+(function(root) {
+  const data = {
+  "version": "3.9-standard-stroke-order-unified",
   "updatedAt": "2026-10-16T15:05:00.000Z",
   "parts": {
     "Cho_T1_ㄱ": {
@@ -8152,63 +8158,63 @@ window.HANGUL_WH_CENTERLINES = {
       "m": [
         [
           [
-            380,
-            305
+            385,
+            303
+          ],
+          [
+            512,
+            295
+          ],
+          [
+            602,
+            295
+          ],
+          [
+            604,
+            225
+          ]
+        ],
+        [
+          [
+            398,
+            208
           ],
           [
             510,
-            300
+            215
           ],
           [
             615,
-            297
-          ],
-          [
-            595,
-            220
+            222
           ]
         ],
         [
           [
-            385,
-            215
+            451,
+            205
           ],
           [
-            510,
-            215
+            452,
+            155
           ],
           [
-            625,
-            220
-          ]
-        ],
-        [
-          [
-            355,
-            695
+            458,
+            112
           ],
           [
-            355,
-            630
+            546,
+            108
           ],
           [
-            360,
-            575
-          ],
-          [
-            540,
-            572
-          ],
-          [
-            680,
-            588
+            630,
+            122
           ]
         ]
       ],
       "w": [
-        30,
         28,
-        30
+        26,
+        28
       ]
     },
     "Jong_T1_ㄺ": {
@@ -12107,3 +12113,8 @@ window.HANGUL_WH_CENTERLINES = {
     }
   }
 };
+  root.HANGUL_WH_CENTERLINES = data;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = data;
+  }
+})(typeof window !== 'undefined' ? window : globalThis);

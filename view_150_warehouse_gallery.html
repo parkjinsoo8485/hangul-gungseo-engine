@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>궁서체 153개 자소 '중심선 수집기 & 에디터' (Gungsuh Median Studio)</title>
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
-  <script src="hangul_150_parts_warehouse.js"></script>
+  <script src="hangul_150_parts_warehouse_final.js?v=20261103_final"></script>
   <style>
     @font-face {
       font-family: 'GungsuhFont';
@@ -671,7 +671,7 @@
           <button class="pc-btn add" onclick="addPointToCurrentStroke()" title="현재 활성 획의 끝에 점 추가">＋ 점 추가</button>
           <button class="pc-btn del" onclick="removeLastPointFromCurrentStroke()" title="현재 활성 획의 마지막 점 제거 (최소 2개 유지)">－ 점 제거</button>
           <button class="pc-btn" style="background:#0284c7; color:white; font-weight:bold;" onclick="sortCurrentStrokePoints()" title="꼬여있는 점들을 획 진행 방향 순서대로 1->2->3->... 순서로 자동 정렬합니다.">📐 획순 점 자동 정렬</button>
-          <button class="pc-btn" style="background:#4338ca; color:white; font-weight:bold;" onclick="sortAllStrokesPoints()" title="이 자소의 모든 획 점들을 획순에 맞게 일괄 정렬합니다.">📐 전체 획순 정렬</button>
+          <button class="pc-btn" style="background:#059669; color:white; font-weight:bold;" onclick="alignCircleTo12OClockUI()" title="원형 획(ㅇ, ㅎ 등)의 시작점을 최상단 정북 12시 방향에 맞추고 반시계 방향 28점으로 완벽 정렬합니다.">⏰ ㅇ/ㅎ 12시 정북 시작 정렬</button>
           <div class="pc-divider"></div>
           <span class="pc-label">✏️ 획순/방향 교정:</span>
           <button class="pc-btn move-up" onclick="moveCurrentStrokeEarlier()" title="현재 획의 순서를 이전으로 이동 (예: 2획을 1획으로)">⬆️ 획순 앞으로</button>
@@ -872,7 +872,7 @@
     
     // LocalStorage에서 이전에 수집/편집한 데이터 불러오기 (최신 보정 버전 시 자동 동기화)
     let customDb = {};
-    const CURRENT_VERSION = (window.HANGUL_150_WAREHOUSE && window.HANGUL_150_WAREHOUSE.meta && window.HANGUL_150_WAREHOUSE.meta.calibrationVersion) || "3.0-perfect-realtime-sync";
+    const CURRENT_VERSION = (window.HANGUL_150_WAREHOUSE && window.HANGUL_150_WAREHOUSE.meta && window.HANGUL_150_WAREHOUSE.meta.calibrationVersion) || "4.0-perfect-12-oclock-circle";
     const lastSavedVer = localStorage.getItem('hangul_warehouse_version');
     if (lastSavedVer !== CURRENT_VERSION) {
       localStorage.removeItem('hangul_150_custom_medians');
@@ -3231,10 +3231,10 @@
       }, 2400);
     }
 
-    // 서버 연결 기준 URL 자동 감지 (file:/// 로 열거나 다른 포트로 열어도 http://localhost:8000 서버와 통신)
-    const API_BASE = (window.location.protocol === 'http:' || window.location.protocol === 'https:') && window.location.port === '8000'
+    // 서버 연결 기준 URL 자동 감지 (HTTP 접속 시 상대경로 '', file:/// 접속 시 http://localhost:8080)
+    const API_BASE = (window.location.protocol === 'http:' || window.location.protocol === 'https:')
       ? ''
-      : 'http://localhost:8000';
+      : 'http://localhost:8080';
 
     // 서버 연결 상태 확인
     let isServerConnected = false;
@@ -3247,8 +3247,8 @@
             const badge = document.getElementById('server-status-badge');
             if (badge) {
               badge.className = 'badge-status connected';
-              badge.innerHTML = '🟢 파일 실시간 동기화 켜짐 (포트 8000 연결됨)';
-              badge.title = '조정된 중심선이 test/ 및 루트의 hangul_150_parts_warehouse.json / .js 파일에 즉시 영구 저장됩니다.';
+              badge.innerHTML = `🟢 파일 실시간 동기화 켜짐 (포트 ${d.port || 8080} 연결됨)`;
+              badge.title = '조정된 중심선이 hangul_150_parts_warehouse.json / .js 파일에 즉시 영구 저장됩니다.';
             }
           }
         })
@@ -3258,7 +3258,7 @@
           if (badge) {
             badge.className = 'badge-status disconnected';
             badge.innerHTML = '🟠 브라우저 로컬 저장 (서버 오프라인)';
-            badge.title = '포트 8000 서버와 연결되지 않았습니다. warehouse_server.py 실행 여부를 확인해주세요.';
+            badge.title = '포트 8080 서버와 연결되지 않았습니다. server.js 실행 여부를 확인해주세요.';
           }
           const liveBadge = document.getElementById('live-save-badge');
           if (liveBadge && !liveBadge.classList.contains('saving')) {
@@ -3366,7 +3366,7 @@
       .catch(err => {
         console.error("Save all error:", err);
         showToast("서버와 통신할 수 없어 전체 JSON 다운로드로 안내합니다.", "warning");
-        alert("서버(http://localhost:8000)와 통신할 수 없습니다.\n\n터미널에서 'warehouse_server.py'가 켜져 있는지 확인해주세요.\n(브라우저 캐시에는 안전하게 저장되어 있으며, '전체 JSON 다운로드' 버튼으로도 파일 저장이 가능합니다.)");
+        alert("서버(http://localhost:8080)와 통신할 수 없습니다.\n\n터미널에서 'server.js'가 켜져 있는지 확인해주세요.\n(브라우저 캐시에는 안전하게 저장되어 있으며, '전체 JSON 다운로드' 버튼으로도 파일 저장이 가능합니다.)");
       });
     }
 
@@ -3566,6 +3566,75 @@
       updateHanziPreview();
       saveCurrentPart(true);
       showToast(`이 자소의 모든 획(${totalSorted}개 획) 점들이 획순에 맞게 자동 정렬되었습니다!`, "success");
+    }
+
+    // ─── ㅇ/ㅎ 원형 획의 시작점을 정확한 정북 12시 방향(topY)으로 정렬 & 반시계 방향 28분할 재구성 ──
+    function alignCircleTo12OClockUI() {
+      if (!currentPartData || !currentPartData.medians) return;
+      const stroke = currentPartData.medians[activeStrokeIdx];
+      if (!stroke || stroke.length < 3) {
+        showToast("원형 획을 선택해주세요.", "warning");
+        return;
+      }
+
+      const outline = currentPartData.gungsuhOutline || (currentPartData.strokes && currentPartData.strokes[0]);
+      const subpaths = outline ? outline.match(/M[\s\S]*?(?=M|$)/g) : null;
+      
+      let cx, cy, rx, ry;
+      if (subpaths && subpaths.length >= 2) {
+        // 내부 구멍과 외부 윤곽으로부터 정확한 기하 계산
+        const boxes = subpaths.map(sp => {
+          const nums = sp.match(/[-+]?\d*\.?\d+/g).map(Number);
+          let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+          for (let j = 0; j < nums.length; j += 2) {
+            const x = nums[j], y = nums[j + 1];
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+          return { minX, maxX, minY, maxY };
+        }).sort((a, b) => ((a.maxX - a.minX) * (a.maxY - a.minY)) - ((b.maxX - b.minX) * (b.maxY - b.minY)));
+
+        const inner = boxes[0], outer = boxes[1];
+        const topY = Math.round((inner.maxY + outer.maxY) / 2);
+        const botY = Math.round((inner.minY + outer.minY) / 2);
+        const leftX = Math.round((inner.minX + outer.minX) / 2);
+        const rightX = Math.round((inner.maxX + outer.maxX) / 2);
+
+        cx = Math.round((leftX + rightX) / 2);
+        cy = Math.round((topY + botY) / 2);
+        rx = (rightX - leftX) / 2;
+        ry = (topY - botY) / 2;
+      } else {
+        let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+        stroke.forEach(([x, y]) => {
+          if (x < minX) minX = x; if (x > maxX) maxX = x;
+          if (y < minY) minY = y; if (y > maxY) maxY = y;
+        });
+        cx = Math.round((minX + maxX) / 2);
+        cy = Math.round((minY + maxY) / 2);
+        rx = (maxX - minX) / 2;
+        ry = (maxY - minY) / 2;
+      }
+
+      // 12시 정북 (theta = PI/2) 시작, 반시계 방향 28분할
+      const nPoints = 28;
+      const newPoints = [];
+      for (let i = 0; i <= nPoints; i++) {
+        const theta = (Math.PI / 2) + (i / nPoints) * (2 * Math.PI);
+        const x = Math.round(cx + rx * Math.cos(theta));
+        const y = Math.round(cy + ry * Math.sin(theta));
+        newPoints.push([x, y]);
+      }
+
+      currentPartData.medians[activeStrokeIdx] = newPoints;
+      activePointIdx = 0;
+      updateActivePointUI();
+      renderEditor();
+      updateHanziPreview();
+      saveCurrentPart(true);
+      showToast(`[${selectedPartId}] ${activeStrokeIdx + 1}번째 획이 정북 12시 [${newPoints[0]}] 시작 반시계 방향으로 정렬되었습니다!`, "success");
     }
 
     // ─── 현재 활성 획 전체 삭제 (최소 1획 유지) ─────────────────────────
