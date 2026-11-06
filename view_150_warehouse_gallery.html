@@ -2713,16 +2713,16 @@
         }
       }
 
-      // 2. 다획 자소 접합부(T자/L자) 분리 (★ 사용자의 수동 중심선을 보호하기 위해 중심선 좌표 변경은 생략하고 외곽선/두께 최적화만 진행)
-      /*
-      if (partData.medians.length > 1 && !isCenterlineLocked) {
+      // 2. 다획 자소 접합부(T자/L자) 분리
+      if (partData.medians.length > 1) {
+        // ★ 사용자의 수동 중심선을 보호하기 위해 중심선 좌표 변경은 건너뜁니다 (외곽선 및 두께 최적화만 적용)
+        /*
         const sepRes = separateJunctionMedians(partData.medians, 16);
         if (sepRes.modifiedCount > 0) {
           partData.medians = sepRes.medians;
           modified = true;
         }
-      }
-      */
+        */
 
         // 3. 인접 획 최소 거리 기반 안전 두께(strokeWidths) 계산
         ensureStrokeWidths(partData);
