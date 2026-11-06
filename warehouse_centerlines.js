@@ -1,13 +1,13 @@
 /**
- * Hangul Gungsuh 153 Parts Centerlines & Stroke Widths Database
+ * Hangul Gungsuh 153 Parts Centerlines and Stroke Widths Database
  * Version: 4.1-user-curated-lock
- * Updated: 2026-11-06T05:20:03.251Z
+ * Updated: 2026-11-06T05:27:14Z
  */
 (function (global) {
   'use strict';
   global.HANGUL_WH_CENTERLINES = {
   "version": "4.1-user-curated-lock",
-  "updatedAt": "2026-11-06T05:20:03.251Z",
+  "updatedAt": "2026-11-06T05:27:14Z",
   "parts": {
     "Cho_T1_ㄱ": {
       "c": "ㄱ",
@@ -8560,8 +8560,8 @@
             306
           ],
           [
-            567,
-            207
+            566,
+            264
           ],
           [
             570,
@@ -8570,38 +8570,38 @@
         ],
         [
           [
-            577,
-            285
+            596,
+            292
           ],
           [
-            617,
-            304
+            643,
+            297
           ],
           [
-            658,
-            282
+            669,
+            294
           ],
           [
             668,
             206
           ],
           [
-            658,
-            144
+            676,
+            154
           ]
         ],
         [
           [
-            585,
-            128
+            603,
+            119
           ],
           [
             635,
             128
           ],
           [
-            692,
-            129
+            655,
+            119
           ]
         ]
       ],

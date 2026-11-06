@@ -1,10 +1,17 @@
-window.HANGUL_150_WAREHOUSE = {
+/**
+ * hangul_150_parts_warehouse.js
+ * 
+ * 한글 153개 자소 '궁서체 부품 창고' (1차 정밀 중심선 일치 데이터베이스)
+ */
+(function (global) {
+  'use strict';
+  global.HANGUL_150_WAREHOUSE = {
   "meta": {
     "title": "Hangul 153-Parts Gungsuh Warehouse",
     "font": "Gungsuh.ttf",
     "canvasSize": 1024,
-    "updatedAt": "2026-11-06T05:10:38.953Z",
-    "modifiedCount": 92,
+    "updatedAt": "2026-11-06T05:27:14.185Z",
+    "modifiedCount": 1,
     "totalCount": 153
   },
   "parts": {
@@ -10703,8 +10710,8 @@ window.HANGUL_150_WAREHOUSE = {
             306
           ],
           [
-            567,
-            207
+            566,
+            264
           ],
           [
             570,
@@ -10713,38 +10720,38 @@ window.HANGUL_150_WAREHOUSE = {
         ],
         [
           [
-            577,
-            285
+            596,
+            292
           ],
           [
-            617,
-            304
+            643,
+            297
           ],
           [
-            658,
-            282
+            669,
+            294
           ],
           [
             668,
             206
           ],
           [
-            658,
-            144
+            676,
+            154
           ]
         ],
         [
           [
-            585,
-            128
+            603,
+            119
           ],
           [
             635,
             128
           ],
           [
-            692,
-            129
+            655,
+            119
           ]
         ]
       ],
@@ -14634,3 +14641,4 @@ window.HANGUL_150_WAREHOUSE = {
     }
   }
 };
+})(typeof window !== 'undefined' ? window : global);
