@@ -471,7 +471,7 @@
             busy = true;
             try {
                 const txt = await (await fetch(url + '?t=' + Date.now(), { cache: 'no-store' })).text();
-                const m = txt.match(/window\.HANGUL_WH_CENTERLINES\s*=\s*([\s\S]*?);\s*$/);
+                const m = txt.match(/(?:window|global)\.HANGUL_WH_CENTERLINES\s*=\s*({[\s\S]*?});/);
                 if (m) {
                     const d = JSON.parse(m[1]);
                     const fp = JSON.stringify(d.parts).length + ':' + (d.updatedAt || '');
