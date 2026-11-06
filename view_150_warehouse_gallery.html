@@ -1329,14 +1329,7 @@
         if (orig && orig.strokes && orig.strokes.length > 0) {
           custom.strokes = orig.strokes;
         }
-        // Cho_T1_ㅉ 이전 왜곡 데이터 자동 보정 (4획의 Y가 500 미만으로 떨어진 이전 왜곡값일 경우 최신 보정값 적용)
-        if (id === 'Cho_T1_ㅉ' && custom.medians && custom.medians[3] && custom.medians[3][2] && custom.medians[3][2][1] < 500) {
-          if (orig && orig.medians) {
-            custom.medians = JSON.parse(JSON.stringify(orig.medians));
-            customDb[id] = custom;
-            localStorage.setItem('hangul_150_custom_medians', JSON.stringify(customDb));
-          }
-        }
+        // (자소 자동 덮어쓰기 로직 제거됨 - 사용자의 수동 수정을 100% 보존)
         return custom;
       }
       return orig;
@@ -1971,7 +1964,16 @@
       saveCurrentPart(true);
     }
 
-    // 키보드 방향키 제어점 1px 정밀 이동 (Shift 누르면 5px)
+    // 키보드 방향키 제어점 정밀 이동 (Alt/Ctrl 조합 또는 캔버스 호버 시에만 동작하여 무단 자동 수정 원천 차단)
+    let isMouseOverCanvas = false;
+    window.addEventListener('DOMContentLoaded', () => {
+      const edSvg = document.getElementById('editor-svg');
+      if (edSvg) {
+        edSvg.addEventListener('mouseenter', () => { isMouseOverCanvas = true; });
+        edSvg.addEventListener('mouseleave', () => { isMouseOverCanvas = false; });
+      }
+    });
+
     window.addEventListener('keydown', (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
         if (e.key === 'Enter') document.activeElement.blur();
@@ -1991,22 +1993,16 @@
       const stroke = currentPartData.medians[activeStrokeIdx];
       if (!stroke || !stroke[activePointIdx]) return;
 
-      const step = e.shiftKey ? 5 : 1;
-      let handled = false;
-      if (e.key === 'ArrowLeft') {
-        nudgeActivePoint(-step, 0);
-        handled = true;
-      } else if (e.key === 'ArrowRight') {
-        nudgeActivePoint(step, 0);
-        handled = true;
-      } else if (e.key === 'ArrowUp') {
-        nudgeActivePoint(0, step); // HanziWriter 좌표계: Y 증가는 화면 위쪽
-        handled = true;
-      } else if (e.key === 'ArrowDown') {
-        nudgeActivePoint(0, -step); // HanziWriter 좌표계: Y 감소는 화면 아래쪽
-        handled = true;
-      }
-      if (handled) {
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+        // ★ 스크롤이나 탐색 중 무단 제어점 이동/자동 저장을 방지하기 위해 Alt/Ctrl 키 또는 캔버스 위에서만 반응
+        if (!e.altKey && !e.ctrlKey && !isMouseOverCanvas) {
+          return;
+        }
+        const step = e.shiftKey ? 5 : 1;
+        if (e.key === 'ArrowLeft') nudgeActivePoint(-step, 0);
+        else if (e.key === 'ArrowRight') nudgeActivePoint(step, 0);
+        else if (e.key === 'ArrowUp') nudgeActivePoint(0, step);
+        else if (e.key === 'ArrowDown') nudgeActivePoint(0, -step);
         e.preventDefault();
       }
     });
