@@ -813,6 +813,7 @@
       <span id="server-status-badge" class="badge-status disconnected">🟠 브라우저 로컬 저장</span>
     </h1>
     <div class="header-actions">
+      <button id="btn-lock-toggle" class="btn" style="background:#15803d; color:white; font-weight:bold;" onclick="toggleCenterlineLock()" title="중심선 자동 변경을 원천 차단합니다. 수동 드래그로만 편집 가능합니다.">🔒 중심선 보호 ON</button>
       <button class="btn green" onclick="saveAllToDisk()"
         title="수정된 모든 자소 데이터를 hangul_150_parts_warehouse.json 및 .js 파일에 즉시 영구 저장합니다.">💾 디스크 파일에 영구 동기화</button>
       <button class="btn" style="background:#0284c7; color:white; font-weight:bold;"
@@ -1117,7 +1118,26 @@
 
     // LocalStorage에서 이전에 수집/편집한 데이터 불러오기 (최신 보정 버전 시 자동 동기화)
     let customDb = {};
-    const CURRENT_VERSION = (window.HANGUL_150_WAREHOUSE && window.HANGUL_150_WAREHOUSE.meta && window.HANGUL_150_WAREHOUSE.meta.calibrationVersion) || "4.0-perfect-12-oclock-circle";
+    let isCenterlineLocked = true; // 기본값: 중심선 보호 활성화 (자동/무단 변형 원천 차단)
+
+    function toggleCenterlineLock() {
+      isCenterlineLocked = !isCenterlineLocked;
+      const btn = document.getElementById('btn-lock-toggle');
+      if (btn) {
+        if (isCenterlineLocked) {
+          btn.style.background = '#15803d';
+          btn.style.color = '#ffffff';
+          btn.innerText = '🔒 중심선 보호 ON';
+          showToast('🔒 중심선 보호 모드가 활성화되었습니다. (자동 변형 차단됨)', 'success');
+        } else {
+          btn.style.background = '#b91c1c';
+          btn.style.color = '#ffffff';
+          btn.innerText = '🔓 중심선 보호 OFF';
+          showToast('⚠️ 중심선 보호 모드가 해제되었습니다. 자동 최적화 기능이 허용됩니다.', 'warning');
+        }
+      }
+    }
+    const CURRENT_VERSION = (window.HANGUL_150_WAREHOUSE && window.HANGUL_150_WAREHOUSE.meta && window.HANGUL_150_WAREHOUSE.meta.calibrationVersion) || "4.1-user-curated-lock";
     const lastSavedVer = localStorage.getItem('hangul_warehouse_version');
     if (lastSavedVer !== CURRENT_VERSION) {
       localStorage.removeItem('hangul_150_custom_medians');
@@ -2646,6 +2666,13 @@
      * UI 버튼: 만나는 지점 선 분리 실행
      */
     function separateJunctionsUI() {
+      if (isCenterlineLocked) {
+        showToast("🔒 중심선 보호 모드가 켜져 있어 중심선이 자동 변형되지 않습니다. (상단 보호 버튼을 눌러 해제 후 실행)", "warning");
+        return;
+      }
+      if (!confirm("⚠️ 주의: 만나는 지점 선 분리를 실행하면 수동으로 맞춘 중심선 끝점이 이동(변형)될 수 있습니다.\n정말 실행하시겠습니까?")) {
+        return;
+      }
       if (!currentPartData || currentPartData.medians.length <= 1) {
         showToast("단일 획 자소는 만나는 지점이 없습니다.", "info");
         return;
@@ -2686,13 +2713,16 @@
         }
       }
 
-      // 2. 다획 자소 접합부(T자/L자) 분리
-      if (partData.medians.length > 1) {
+      // 2. 다획 자소 접합부(T자/L자) 분리 (★ 사용자의 수동 중심선을 보호하기 위해 중심선 좌표 변경은 생략하고 외곽선/두께 최적화만 진행)
+      /*
+      if (partData.medians.length > 1 && !isCenterlineLocked) {
         const sepRes = separateJunctionMedians(partData.medians, 16);
         if (sepRes.modifiedCount > 0) {
           partData.medians = sepRes.medians;
           modified = true;
         }
+      }
+      */
 
         // 3. 인접 획 최소 거리 기반 안전 두께(strokeWidths) 계산
         ensureStrokeWidths(partData);
@@ -3066,6 +3096,13 @@
      */
     function autoAlignMedianToCenter() {
       if (!currentPartData) return;
+      if (isCenterlineLocked) {
+        showToast("🔒 중심선 보호 모드가 켜져 있어 중심선이 자동 변형되지 않습니다.", "warning");
+        return;
+      }
+      if (!confirm("⚠️ 주의: 중심 자동 정렬을 실행하면 현재 자소의 모든 수동 수정 중심선이 외곽선 계산값으로 덮어씌워집니다.\n정말 실행하시겠습니까?")) {
+        return;
+      }
       const outline = currentPartData.gungsuhOutline || (currentPartData.strokes && currentPartData.strokes[0]);
       const subpaths = outline ? outline.match(/M[\s\S]*?(?=M|$)/g) : null;
 
@@ -3103,6 +3140,13 @@
      */
     function autoAlignCurrentStroke() {
       if (!currentPartData) return;
+      if (isCenterlineLocked) {
+        showToast("🔒 중심선 보호 모드가 켜져 있어 중심선이 자동 변형되지 않습니다.", "warning");
+        return;
+      }
+      if (!confirm("⚠️ 주의: 현재 획의 수동 수정 중심선이 외곽선 계산값으로 덮어씌워집니다.\n정말 실행하시겠습니까?")) {
+        return;
+      }
       const outline = currentPartData.gungsuhOutline || (currentPartData.strokes && currentPartData.strokes[0]);
       const subpaths = outline ? outline.match(/M[\s\S]*?(?=M|$)/g) : null;
 
@@ -3619,6 +3663,10 @@
     }
 
     function resetToInitial() {
+      if (isCenterlineLocked) {
+        showToast("🔒 중심선 보호 모드가 켜져 있어 자소 초기화가 차단되었습니다.", "warning");
+        return;
+      }
       if (confirm(`[${selectedPartId}]를 1차 보정 초기값으로 되돌리시겠습니까?`)) {
         delete customDb[selectedPartId];
         localStorage.setItem('hangul_150_custom_medians', JSON.stringify(customDb));
@@ -3629,6 +3677,10 @@
     }
 
     function resetAllToCalibrated() {
+      if (isCenterlineLocked) {
+        showToast("🔒 중심선 보호 모드가 켜져 있어 전체 초기화가 차단되었습니다.", "warning");
+        return;
+      }
       if (confirm("이전에 브라우저에 임시 저장된 캐시를 지우고, 새로 보정된 1차 정밀 일치 데이터로 전체 새로고침하시겠습니까?")) {
         localStorage.removeItem('hangul_150_custom_medians');
         customDb = {};

@@ -25,7 +25,7 @@ allTargets.forEach(tp => {
 
 // Centerlines database generator for procedural vector engine
 const centerlinesData = {
-  version: rawData.meta.calibrationVersion || '4.0-perfect-12-oclock-circle',
+  version: rawData.meta.calibrationVersion || '4.1-user-curated-lock',
   updatedAt: new Date().toISOString(),
   parts: {}
 };
@@ -49,12 +49,23 @@ const centerlinesJs = `/**
  * Version: ${centerlinesData.version}
  * Updated: ${centerlinesData.updatedAt}
  */
-window.HANGUL_WH_CENTERLINES = ${JSON.stringify(centerlinesData, null, 2)};
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = window.HANGUL_WH_CENTERLINES;
-}
+(function (global) {
+  'use strict';
+  global.HANGUL_WH_CENTERLINES = ${JSON.stringify(centerlinesData, null, 2)};
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = global.HANGUL_WH_CENTERLINES;
+  }
+})(typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
 `;
 
 fs.writeFileSync('warehouse_centerlines.js', centerlinesJs, 'utf8');
 
+// 백업 파일 생성 (사용자의 소중한 수정 데이터 영구 보존)
+const backupDir = 'C:/project/한글획순/backups';
+if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir, { recursive: true });
+const backupPath = `${backupDir}/hangul_150_parts_warehouse_${Date.now()}.json`;
+fs.writeFileSync(backupPath, jsonStr, 'utf8');
+fs.writeFileSync(`${backupDir}/hangul_150_parts_warehouse_latest_backup.json`, jsonStr, 'utf8');
+
 console.log(`Successfully synchronized all warehouse files and warehouse_centerlines.js! (Version: ${centerlinesData.version})`);
+console.log(`Backup saved to ${backupPath}`);

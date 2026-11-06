@@ -21,3 +21,6 @@ tools/__pycache__/
 node_modules/
 .vscode/
 .idea/
+
+# Timestamped backups (keep latest_backup)
+backups/hangul_150_parts_warehouse_[0-9]*.json
